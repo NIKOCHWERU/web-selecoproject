@@ -1,0 +1,2941 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SELECO | Sedana Legal Consultant — Strategic Legal Counsel</title>
+  <meta name="description" content="SELECO (Sedana Legal Consultant) memberikan pendampingan hukum strategis, perancangan kontrak bisnis, ketenagakerjaan, kepatuhan regulasi, dan penyelesaian sengketa di Indonesia.">
+  <meta name="keywords" content="legal consultant Indonesia, corporate legal consultant, business legal consultant, corporate law, contract review, employment law, legal compliance, legal due diligence, dispute resolution, legal retainer, business licensing">
+  <meta name="author" content="SELECO — Sedana Legal Consultant">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://seleco.id/">
+  <meta name="theme-color" content="#071426">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://seleco.id/">
+  <meta property="og:title" content="SELECO | Sedana Legal Consultant">
+  <meta property="og:description" content="Pendampingan Hukum Strategis untuk Keputusan yang Penting.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1200&q=80">
+
+  <!-- Fonts & Icons CDN -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LegalService",
+    "name": "SELECO — Sedana Legal Consultant",
+    "alternateName": "SELECO",
+    "description": "Firma konsultan hukum profesional di bidang hukum korporasi, perancangan kontrak, ketenagakerjaan, perizinan usaha, dan penyelesaian sengketa bisnis.",
+    "url": "https://seleco.id",
+    "telephone": "+6281200000000",
+    "email": "consult@seleco.id",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Jakarta",
+      "addressCountry": "ID"
+    },
+    "openingHours": "Mo-Fr 09:00-17:00",
+    "priceRange": "$$$$"
+  }
+  </script>
+
+  <style>
+    /* ==========================================================================
+       QUIET LUXURY & GRID-BASED DESIGN SYSTEM — SELECO
+       ========================================================================== */
+    :root {
+      --bg-main: #FFFFFF;
+      --bg-offwhite: #F8F7F2;
+      --bg-subtle: #F1F3F7;
+
+      --navy-deep: #071426;
+      --navy-royal: #0D223F;
+      --navy-dark: #030B17;
+
+      --gold-accent: #C9A227;
+      --gold-soft: rgba(201, 162, 39, 0.12);
+
+      --text-dark: #071426;
+      --text-body: #2C3E50;
+      --text-muted: #596775;
+      --text-light: #FFFFFF;
+      --text-light-muted: #CBD5E1;
+
+      --border-light: rgba(7, 20, 38, 0.12);
+      --border-navy: rgba(255, 255, 255, 0.15);
+      --border-gold: rgba(201, 162, 39, 0.30);
+      --border-gold-strong: #C9A227;
+
+      --radius-sm: 2px;
+      --radius-md: 4px;
+
+      --container-max: 1200px;
+      --header-height: 80px;
+
+      --transition-fast: 0.25s ease;
+      --transition-normal: 0.4s ease;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body.modal-open { overflow: hidden; }
+
+    :focus-visible {
+      outline: 2px solid var(--gold-accent);
+      outline-offset: 3px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+      color: inherit;
+      background: none;
+      border: none;
+    }
+    button { cursor: pointer; }
+    img, svg { display: block; max-width: 100%; height: auto; }
+
+    ::selection {
+      background-color: var(--gold-accent);
+      color: var(--navy-deep);
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-offwhite); }
+    ::-webkit-scrollbar-thumb {
+      background: var(--navy-deep);
+      border: 1px solid var(--border-gold);
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+    @media (max-width: 600px) {
+      .container { padding-left: 1.25rem; padding-right: 1.25rem; }
+    }
+
+    .section-padding {
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+    @media (max-width: 768px) {
+      .section-padding { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+    }
+
+    /* Typography */
+    .text-gold { color: var(--gold-accent); }
+    .text-navy { color: var(--navy-deep); }
+    .text-muted { color: var(--text-muted); }
+
+    .micro-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.3rem 0.8rem;
+      background: var(--gold-soft);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-sm);
+      color: var(--gold-accent);
+      font-size: 0.725rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .micro-badge.badge-light {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: var(--text-light);
+    }
+
+    .section-header { margin-bottom: 2.75rem; }
+    .section-header.text-center { text-align: center; }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.18;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.3px;
+    }
+    .section-title.dark-bg { color: var(--text-light); }
+
+    .section-subtitle {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      font-weight: 400;
+      line-height: 1.6;
+    }
+    .section-subtitle.dark-bg { color: var(--text-light-muted); }
+    .section-header.text-center .section-subtitle {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .gold-divider {
+      width: 45px;
+      height: 2px;
+      background: var(--gold-accent);
+      margin-top: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .text-center .gold-divider { margin-left: auto; margin-right: auto; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      padding: 0.75rem 1.65rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .btn-gold {
+      background-color: var(--gold-accent);
+      color: var(--navy-deep);
+      border: 1px solid var(--gold-accent);
+    }
+    .btn-gold:hover {
+      background-color: #D4AF37;
+      border-color: #D4AF37;
+      color: var(--navy-deep);
+    }
+
+    .btn-primary {
+      background-color: var(--navy-deep);
+      color: var(--text-light);
+      border: 1px solid var(--navy-deep);
+    }
+    .btn-primary:hover {
+      background-color: var(--navy-royal);
+      border-color: var(--navy-royal);
+    }
+
+    .btn-outline-hero {
+      background: rgba(7, 20, 38, 0.4);
+      backdrop-filter: blur(4px);
+      color: var(--text-light);
+      border: 1px solid var(--border-gold);
+    }
+    .btn-outline-hero:hover {
+      border-color: var(--gold-accent);
+      color: var(--gold-accent);
+      background: rgba(201, 162, 39, 0.12);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--navy-deep);
+      border: 1px solid var(--border-light);
+    }
+    .btn-outline:hover {
+      border-color: var(--navy-deep);
+      background: var(--navy-deep);
+      color: var(--text-light);
+    }
+
+    .btn-sm { padding: 0.5rem 1.15rem; font-size: 0.75rem; }
+
+    /* Grid Layout Utilities */
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+
+    @media (max-width: 1024px) {
+      .grid-3 { grid-template-columns: repeat(2, 1fr); }
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; gap: 1.5rem; }
+    }
+
+    /* Scroll Reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--header-height);
+      z-index: 1000;
+      transition: all var(--transition-fast);
+      background: rgba(7, 20, 38, 0.94);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .navbar.scrolled {
+      background: var(--navy-dark);
+      border-bottom: 1px solid var(--border-gold);
+    }
+
+    .navbar-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .logo-brand {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: var(--text-light);
+      line-height: 1;
+    }
+    .logo-title span { color: var(--gold-accent); }
+
+    .logo-subtitle {
+      font-size: 0.575rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--gold-accent);
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.85);
+      position: relative;
+      padding: 0.4rem 0;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--gold-accent);
+      transition: width var(--transition-fast);
+    }
+
+    .nav-link:hover, .nav-link.active { color: var(--gold-accent); }
+    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+    .mobile-toggle {
+      display: none;
+      background: transparent;
+      color: var(--text-light);
+      font-size: 1.4rem;
+      padding: 0.5rem;
+    }
+
+    @media (max-width: 1080px) {
+      .nav-menu { display: none; }
+      .mobile-toggle { display: block; }
+      .nav-actions .btn-consult { display: none; }
+    }
+
+    /* Mobile Drawer */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 320px;
+      max-width: 85vw;
+      height: 100vh;
+      background: var(--navy-dark);
+      border-left: 1px solid var(--border-gold);
+      z-index: 1100;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: right var(--transition-normal);
+      color: var(--text-light);
+    }
+    .mobile-menu.active { right: 0; }
+
+    .mobile-menu-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-navy);
+    }
+    .mobile-menu-close { color: var(--text-light); font-size: 1.5rem; }
+
+    .mobile-nav-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+    .mobile-nav-link { font-size: 1.05rem; font-weight: 500; color: var(--text-light-muted); }
+    .mobile-nav-link.active, .mobile-nav-link:hover { color: var(--gold-accent); }
+
+    .mobile-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 20, 38, 0.85);
+      z-index: 1050;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition-normal);
+    }
+    .mobile-overlay.active { opacity: 1; pointer-events: auto; }
+
+    /* ==========================================================================
+       HERO SECTION (HERO BG: DEWI KEADILAN / STATUE OF JUSTICE)
+       ========================================================================== */
+    .hero {
+      position: relative;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      padding-top: calc(var(--header-height) + 2.5rem);
+      padding-bottom: 4rem;
+      background-color: var(--navy-deep);
+      overflow: hidden;
+      color: var(--text-light);
+    }
+
+    /* Hero Background Photo: Dewi Keadilan / Statue of Justice */
+    .hero-bg-photo {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center 25%;
+      filter: brightness(0.28) contrast(1.15);
+      z-index: 1;
+    }
+
+    .hero-bg-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(7, 20, 38, 0.94) 0%, rgba(3, 10, 20, 0.88) 100%);
+      z-index: 2;
+    }
+
+    .hero-container {
+      position: relative;
+      z-index: 3;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    @media (max-width: 992px) {
+      .hero-container { grid-template-columns: 1fr; text-align: center; }
+      .hero-cta-group, .hero-pills { justify-content: center; }
+      .gold-divider-hero { margin-left: auto; margin-right: auto; }
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(2.4rem, 4.2vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+      letter-spacing: -0.5px;
+    }
+
+    .hero-description {
+      font-size: 1rem;
+      color: var(--text-light-muted);
+      margin-bottom: 2rem;
+      font-weight: 300;
+      line-height: 1.65;
+      max-width: 560px;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      align-items: center;
+    }
+
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border-navy);
+    }
+
+    .hero-pill {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-light);
+      background: rgba(13, 34, 63, 0.8);
+      border: 1px solid var(--border-gold);
+      padding: 0.3rem 0.75rem;
+      border-radius: var(--radius-sm);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .hero-pill i { color: var(--gold-accent); font-size: 0.7rem; }
+
+    .hero-formal-box {
+      background: rgba(13, 34, 63, 0.8);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-gold);
+      padding: 2.25rem 2rem;
+      border-radius: var(--radius-sm);
+      position: relative;
+      color: var(--text-light);
+    }
+
+    .hero-formal-seal {
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--gold-accent);
+      background: rgba(201, 162, 39, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold-accent);
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-quote-tag {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      color: var(--text-light);
+      line-height: 1.35;
+      margin-bottom: 1rem;
+    }
+
+    .hero-quote-sub {
+      font-size: 0.825rem;
+      color: var(--text-light-muted);
+      border-top: 1px solid var(--border-navy);
+      padding-top: 0.85rem;
+      line-height: 1.55;
+    }
+
+    /* Stats */
+    .stats-section {
+      background: var(--bg-main);
+      border-bottom: 1px solid var(--border-light);
+      padding: 2.5rem 0;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      text-align: center;
+    }
+    @media (max-width: 768px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1.75rem 1rem; }
+    }
+
+    .stat-item { padding: 0.5rem; position: relative; }
+    .stat-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 20%;
+      height: 60%;
+      width: 1px;
+      background: var(--border-light);
+    }
+    @media (max-width: 768px) { .stat-item:not(:last-child)::after { display: none; } }
+
+    .stat-number {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+      font-weight: 700;
+      color: var(--navy-deep);
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+
+    .stat-label {
+      font-size: 0.775rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .stats-disclaimer {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.725rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* ==========================================================================
+       ABOUT SELECO (LEGAL PHOTO COLLAGE GRID)
+       ========================================================================== */
+    .about-section {
+      background-color: var(--bg-main);
+      color: var(--text-body);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+    @media (max-width: 992px) { .about-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+    .about-gallery-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 1rem;
+      position: relative;
+    }
+
+    .about-img-main {
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 1px solid var(--border-gold-strong);
+      height: 380px;
+    }
+    .about-img-main img { width: 100%; height: 100%; object-fit: cover; }
+
+    .about-img-sub {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .about-img-sub-item {
+      height: 182px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+    }
+    .about-img-sub-item img { width: 100%; height: 100%; object-fit: cover; }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 600px) { .values-grid { grid-template-columns: 1fr; } }
+
+    .value-card {
+      background: var(--bg-offwhite);
+      border: 1px solid var(--border-light);
+      border-left: 3px solid var(--gold-accent);
+      padding: 1rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .value-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--navy-deep);
+      margin-bottom: 0.25rem;
+    }
+    .value-desc { font-size: 0.8rem; color: var(--text-body); line-height: 1.45; }
+
+    /* ==========================================================================
+       PRACTICE AREAS (RE-STRUCTURED INTO A 4-COLUMN LEGAL PHOTO CARD GRID)
+       ========================================================================== */
+    .practice-section {
+      background-color: var(--bg-offwhite);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .practice-card {
+      background: var(--bg-main);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      transition: border-color var(--transition-fast);
+    }
+    .practice-card:hover { border-color: var(--gold-accent); }
+
+    .practice-card-img {
+      position: relative;
+      height: 160px;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .practice-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-normal);
+    }
+    .practice-card:hover .practice-card-img img { transform: scale(1.05); }
+
+    .practice-card-badge {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.75rem;
+      background: var(--navy-deep);
+      color: var(--gold-accent);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-gold);
+    }
+
+    .practice-card-body {
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .practice-card-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--navy-deep);
+      margin-bottom: 0.4rem;
+      line-height: 1.3;
+    }
+
+    .practice-card-desc {
+      font-size: 0.825rem;
+      color: var(--text-body);
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+
+    .practice-card-link {
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--navy-deep);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-top: 1px solid var(--border-light);
+      padding-top: 0.75rem;
+    }
+    .practice-card-link i { color: var(--gold-accent); transition: transform var(--transition-fast); }
+    .practice-card:hover .practice-card-link i { transform: translateX(4px); }
+
+    /* ==========================================================================
+       CORPORATE LEGAL RETAINER (GRID FEATURE CARDS)
+       ========================================================================== */
+    .retainer-section {
+      background-color: var(--bg-main);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .retainer-box {
+      background: var(--navy-deep);
+      border: 1px solid var(--border-gold-strong);
+      border-radius: var(--radius-sm);
+      padding: 3rem 2.5rem;
+      color: var(--text-light);
+    }
+    @media (max-width: 768px) { .retainer-box { padding: 2rem 1.25rem; } }
+
+    .retainer-top-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2.5rem;
+      align-items: center;
+      margin-bottom: 2.25rem;
+    }
+    @media (max-width: 992px) { .retainer-top-grid { grid-template-columns: 1fr; gap: 1.5rem; } }
+
+    .retainer-photo-wrap {
+      height: 220px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 1px solid var(--border-gold);
+    }
+    .retainer-photo-wrap img { width: 100%; height: 100%; object-fit: cover; }
+
+    .retainer-services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2.25rem;
+    }
+    @media (max-width: 992px) { .retainer-services-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .retainer-services-grid { grid-template-columns: 1fr; } }
+
+    .retainer-service-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--navy-royal);
+      border: 1px solid var(--border-navy);
+      padding: 0.85rem 1rem;
+      border-radius: var(--radius-sm);
+    }
+    .retainer-service-item:hover { border-color: var(--gold-accent); }
+
+    .retainer-service-icon { color: var(--gold-accent); font-size: 0.95rem; flex-shrink: 0; }
+    .retainer-service-text { font-size: 0.825rem; font-weight: 600; color: var(--text-light); }
+
+    .retainer-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-navy);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    /* ==========================================================================
+       WHY CHOOSE SELECO & OUR APPROACH (GRID LAYOUTS)
+       ========================================================================== */
+    .why-section {
+      background-color: var(--bg-offwhite);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .why-card {
+      background: var(--bg-main);
+      border: 1px solid var(--border-light);
+      border-left: 3px solid var(--gold-accent);
+      padding: 1.5rem 1.25rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .why-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 0.35rem;
+    }
+    .why-desc { font-size: 0.825rem; color: var(--text-body); line-height: 1.5; }
+
+    /* Timeline Process Grid */
+    .process-section {
+      background-color: var(--bg-main);
+      color: var(--text-dark);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+    @media (max-width: 992px) { .timeline-grid { grid-template-columns: 1fr; gap: 1rem; } }
+
+    .timeline-step {
+      background: var(--bg-offwhite);
+      border: 1px solid var(--border-light);
+      border-top: 3px solid var(--navy-deep);
+      padding: 1.25rem 1rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .step-number {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--navy-deep);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .step-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 0.35rem;
+    }
+    .step-desc { font-size: 0.8rem; color: var(--text-body); line-height: 1.45; }
+
+    /* ==========================================================================
+       ATTORNEYS & LEGAL TEAM
+       ========================================================================== */
+    .team-section {
+      background-color: var(--bg-offwhite);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .team-card {
+      background: var(--bg-main);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+    .team-card:hover { border-color: var(--gold-accent); }
+
+    .team-portrait-wrap {
+      position: relative;
+      height: 290px;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .team-portrait-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .team-info { padding: 1.25rem; }
+
+    .team-name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 0.15rem;
+    }
+
+    .team-role {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--gold-accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.75rem;
+    }
+
+    .team-focus {
+      font-size: 0.8rem;
+      color: var(--text-body);
+      line-height: 1.45;
+      padding-top: 0.65rem;
+      border-top: 1px solid var(--border-light);
+      margin-bottom: 0.85rem;
+    }
+
+    .team-social {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--navy-deep);
+      font-weight: 600;
+      font-size: 0.775rem;
+    }
+    .team-social:hover { color: var(--gold-accent); }
+
+    /* ==========================================================================
+       INDUSTRIES WE SERVE
+       ========================================================================== */
+    .industries-section {
+      background-color: var(--bg-main);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .industries-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+    }
+    @media (max-width: 1024px) { .industries-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 600px) { .industries-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .industry-card {
+      background: var(--bg-offwhite);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 0.75rem;
+      text-align: center;
+      transition: border-color var(--transition-fast);
+    }
+    .industry-card:hover { border-color: var(--navy-deep); background: var(--bg-subtle); }
+
+    .industry-icon {
+      font-size: 1.4rem;
+      color: var(--navy-deep);
+      margin-bottom: 0.5rem;
+    }
+
+    .industry-name { font-size: 0.825rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.2rem; }
+    .industry-subdesc { font-size: 0.725rem; color: var(--text-muted); line-height: 1.35; }
+
+    /* ==========================================================================
+       FEATURED INSIGHTS / ARTICLES
+       ========================================================================== */
+    .insights-section {
+      background-color: var(--bg-offwhite);
+      color: var(--text-dark);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .article-card {
+      background: var(--bg-main);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+      transition: border-color var(--transition-fast);
+    }
+    .article-card:hover { border-color: var(--navy-deep); }
+
+    .article-thumb-wrap {
+      position: relative;
+      height: 180px;
+      overflow: hidden;
+    }
+    .article-thumb-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .article-body-preview {
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .article-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.725rem;
+      color: var(--text-muted);
+      margin-bottom: 0.65rem;
+    }
+
+    .article-category {
+      font-weight: 700;
+      color: var(--navy-deep);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      background: rgba(7, 20, 38, 0.06);
+      padding: 0.15rem 0.45rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .article-card-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+
+    .article-excerpt {
+      font-size: 0.8rem;
+      color: var(--text-body);
+      line-height: 1.5;
+      margin-bottom: 1rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .article-btn-read {
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.775rem;
+      font-weight: 700;
+      color: var(--navy-deep);
+      border-top: 1px solid var(--border-light);
+      padding-top: 0.75rem;
+    }
+    .article-btn-read i { color: var(--gold-accent); transition: transform var(--transition-fast); }
+    .article-card:hover .article-btn-read i { transform: translateX(4px); }
+
+    /* Resources */
+    .resources-section {
+      background-color: var(--bg-main);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .resource-card {
+      background: var(--bg-offwhite);
+      border: 1px solid var(--border-light);
+      padding: 1.5rem 1.25rem;
+      border-radius: var(--radius-sm);
+      text-align: center;
+    }
+
+    .resource-icon { font-size: 1.8rem; color: var(--navy-deep); margin-bottom: 0.65rem; }
+    .resource-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 0.5rem;
+    }
+    .resource-desc { font-size: 0.8rem; color: var(--text-body); margin-bottom: 1.15rem; line-height: 1.5; }
+
+    /* Testimonials */
+    .testimonials-section { background-color: var(--bg-offwhite); }
+    .testimonial-card {
+      background: var(--bg-main);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      padding: 1.75rem 1.35rem;
+    }
+    .testimonial-text { font-size: 0.875rem; font-style: italic; color: var(--text-dark); line-height: 1.6; margin-bottom: 1rem; }
+    .testimonial-author { font-size: 0.8rem; font-weight: 700; color: var(--navy-deep); border-top: 1px solid var(--border-light); padding-top: 0.75rem; }
+
+    /* FAQ */
+    .faq-section {
+      background-color: var(--bg-main);
+      color: var(--text-dark);
+      border-bottom: 1px solid var(--border-light);
+    }
+    .faq-accordion { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; }
+    
+    .faq-item {
+      border-bottom: 1px solid var(--border-light);
+      background: transparent;
+    }
+    .faq-item:first-child { border-top: 1px solid var(--border-light); }
+
+    .faq-button {
+      width: 100%;
+      padding: 1.15rem 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-align: left;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      gap: 1.25rem;
+    }
+    .faq-num { color: var(--gold-accent); margin-right: 0.65rem; }
+
+    .faq-icon { color: var(--navy-deep); font-size: 0.95rem; transition: transform var(--transition-fast); }
+    .faq-item.active .faq-icon { transform: rotate(45deg); color: var(--gold-accent); }
+    
+    .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.35s ease-out, padding 0.35s ease-out; padding: 0 0.5rem; }
+    .faq-item.active .faq-content { padding: 0 0.5rem 1.15rem 0.5rem; }
+    .faq-answer { font-size: 0.875rem; color: var(--text-body); line-height: 1.6; }
+
+    /* CTA Banner & Contact */
+    .cta-banner-section {
+      background: var(--navy-deep);
+      color: var(--text-light);
+      border-top: 1px solid var(--border-gold);
+      border-bottom: 1px solid var(--border-gold);
+    }
+    .cta-banner-box { text-align: center; max-width: 780px; margin: 0 auto; }
+
+    .contact-section { background-color: var(--bg-offwhite); }
+    .contact-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 3rem; }
+    @media (max-width: 992px) { .contact-grid { grid-template-columns: 1fr; gap: 2rem; } }
+
+    .contact-info-box {
+      background: var(--navy-deep);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-sm);
+      padding: 2.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: var(--text-light);
+    }
+
+    .contact-info-list { display: flex; flex-direction: column; gap: 1.25rem; margin: 1.5rem 0; }
+    .contact-info-item { display: flex; align-items: flex-start; gap: 1rem; }
+    .contact-info-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(201, 162, 39, 0.12);
+      border: 1px solid var(--border-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold-accent);
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
+    .contact-info-text h5 { font-size: 0.775rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold-accent); margin-bottom: 0.15rem; }
+    .contact-info-text p, .contact-info-text a { font-size: 0.875rem; color: var(--text-light); }
+
+    .map-box {
+      position: relative;
+      height: 140px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 1px solid var(--border-navy);
+    }
+    .map-box img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.4); }
+    .map-box-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .contact-form-box {
+      background: var(--bg-main);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      padding: 2.25rem;
+    }
+    .form-group { margin-bottom: 1.15rem; }
+    .form-label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-dark); margin-bottom: 0.35rem; }
+    .form-control {
+      width: 100%;
+      background: var(--bg-offwhite);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 0.85rem;
+      color: var(--text-dark);
+      font-size: 0.85rem;
+    }
+    .form-control:focus { border-color: var(--navy-deep); outline: none; background: var(--bg-main); }
+    .form-control select option { background: var(--bg-main); color: var(--text-dark); }
+    textarea.form-control { resize: vertical; min-height: 100px; }
+    .form-checkbox { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+    .form-checkbox input { margin-top: 0.15rem; accent-color: var(--navy-deep); }
+
+    .wa-float {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #25D366;
+      color: #FFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      z-index: 990;
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 84px;
+      right: 24px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--navy-deep);
+      border: 1px solid var(--border-gold);
+      color: var(--gold-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      z-index: 990;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition-fast);
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+    .back-to-top:hover { background: var(--gold-accent); color: var(--navy-deep); }
+
+    /* Footer */
+    .footer {
+      background-color: #040E1B;
+      border-top: 1px solid var(--border-gold);
+      padding-top: 4rem;
+      padding-bottom: 2rem;
+      color: var(--text-light-muted);
+      font-size: 0.825rem;
+    }
+    .footer-grid { display: grid; grid-template-columns: 1.2fr 0.8fr 0.8fr 1fr; gap: 2.5rem; margin-bottom: 3rem; }
+    @media (max-width: 992px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; } }
+    @media (max-width: 600px) { .footer-grid { grid-template-columns: 1fr; gap: 1.75rem; } }
+
+    .footer-col-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.15rem; font-weight: 600; color: var(--text-light); margin-bottom: 1rem; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+    .footer-links a:hover { color: var(--gold-accent); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      padding-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.775rem;
+    }
+
+    /* Modals */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 20, 38, 0.85);
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition-normal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .modal-backdrop.active { opacity: 1; pointer-events: auto; }
+
+    .modal-container {
+      background: var(--bg-main);
+      border: 1px solid var(--border-gold-strong);
+      border-radius: var(--radius-sm);
+      width: 100%;
+      max-width: 780px;
+      max-height: 88vh;
+      overflow-y: auto;
+      position: relative;
+      color: var(--text-body);
+    }
+
+    .modal-header {
+      position: sticky;
+      top: 0;
+      background: var(--navy-deep);
+      border-bottom: 1px solid var(--border-gold);
+      padding: 1.15rem 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 10;
+    }
+    .modal-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.25rem; font-weight: 600; color: var(--text-light); }
+    .modal-close-btn { color: var(--text-light-muted); font-size: 1.4rem; }
+    .modal-close-btn:hover { color: var(--gold-accent); }
+
+    .modal-body { padding: 2.25rem 1.75rem; line-height: 1.75; }
+    .article-modal-meta { display: flex; gap: 1rem; font-size: 0.8rem; color: var(--gold-accent); margin-bottom: 1.25rem; text-transform: uppercase; font-weight: 600; }
+    .article-modal-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(1.7rem, 3vw, 2.3rem); color: var(--text-dark); line-height: 1.25; margin-bottom: 1.25rem; }
+    .article-content h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.5rem; color: var(--navy-deep); margin-top: 1.75rem; margin-bottom: 0.85rem; }
+    .article-content h3 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.25rem; color: var(--text-dark); margin-top: 1.35rem; margin-bottom: 0.65rem; }
+    .article-content p { margin-bottom: 1.15rem; color: var(--text-body); font-size: 0.95rem; line-height: 1.75; }
+    .article-content ul, .article-content ol { margin-bottom: 1.35rem; padding-left: 1.35rem; color: var(--text-body); }
+    .article-content blockquote { border-left: 3px solid var(--navy-deep); padding: 0.85rem 1.15rem; margin: 1.35rem 0; font-style: italic; color: var(--text-dark); background: var(--bg-offwhite); }
+
+    .article-disclaimer-box {
+      margin-top: 2.25rem;
+      padding: 1.15rem;
+      background: var(--bg-offwhite);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      font-size: 0.775rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .toast-notification {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--navy-deep);
+      border: 1px solid var(--gold-accent);
+      color: var(--text-light);
+      padding: 0.85rem 1.75rem;
+      border-radius: var(--radius-sm);
+      z-index: 3000;
+      opacity: 0;
+      transition: all var(--transition-normal);
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .toast-notification.active { transform: translateX(-50%) translateY(0); opacity: 1; }
+    .toast-notification i { color: var(--gold-accent); font-size: 1.15rem; }
+  </style>
+</head>
+
+<body>
+
+  <!-- ==========================================================================
+       NAVBAR
+       ========================================================================== -->
+  <header class="navbar" id="navbar">
+    <div class="container navbar-container">
+      <a href="#hero" class="logo-brand" aria-label="SELECO Home">
+        <div class="logo-title">SELECO <span>.</span></div>
+        <div class="logo-subtitle">SEDANA LEGAL CONSULTANT</div>
+      </a>
+
+      <nav aria-label="Primary Navigation">
+        <ul class="nav-menu">
+          <li><a href="#hero" class="nav-link active">Home</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#practice" class="nav-link">Practice Areas</a></li>
+          <li><a href="#retainer" class="nav-link">Legal Retainer</a></li>
+          <li><a href="#approach" class="nav-link">Approach</a></li>
+          <li><a href="#attorneys" class="nav-link">Team</a></li>
+          <li><a href="#insights" class="nav-link">Insights</a></li>
+          <li><a href="#faq" class="nav-link">FAQ</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="#contact" class="btn btn-gold btn-sm btn-consult">Jadwalkan Konsultasi</a>
+        <button class="mobile-toggle" id="mobile-toggle" aria-label="Open navigation menu" aria-expanded="false">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-overlay" id="mobile-overlay"></div>
+  <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile Navigation">
+    <div class="mobile-menu-header">
+      <div class="logo-title">SELECO <span>.</span></div>
+      <button class="mobile-menu-close" id="mobile-close" aria-label="Close menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <ul class="mobile-nav-links">
+      <li><a href="#hero" class="mobile-nav-link">Home</a></li>
+      <li><a href="#about" class="mobile-nav-link">Tentang SELECO</a></li>
+      <li><a href="#practice" class="mobile-nav-link">Practice Areas</a></li>
+      <li><a href="#retainer" class="mobile-nav-link">Corporate Retainer</a></li>
+      <li><a href="#approach" class="mobile-nav-link">Metodologi Kerja</a></li>
+      <li><a href="#attorneys" class="mobile-nav-link">Tim Konsultan</a></li>
+      <li><a href="#insights" class="mobile-nav-link">Legal Insights</a></li>
+      <li><a href="#faq" class="mobile-nav-link">FAQ</a></li>
+      <li><a href="#contact" class="mobile-nav-link">Kontak Kami</a></li>
+    </ul>
+    <div style="margin-top: auto; padding-top: 2rem;">
+      <a href="#contact" class="btn btn-gold" style="width: 100%;">Jadwalkan Konsultasi</a>
+    </div>
+  </aside>
+
+  <main>
+    <!-- ==========================================================================
+         HERO SECTION (BG: DEWI KEADILAN / STATUE OF JUSTICE)
+         ========================================================================== -->
+    <section class="hero" id="hero">
+      <div class="hero-bg-photo"></div>
+      <div class="hero-bg-overlay"></div>
+
+      <div class="container hero-container">
+        <div class="hero-content reveal">
+          <div class="micro-badge badge-light">
+            <i class="fa-solid fa-scale-balanced"></i> ADVOKAT & KONSULTAN HUKUM KORPORASI
+          </div>
+          <h1 class="hero-title">
+            Pendampingan Hukum Strategis untuk <span class="text-gold">Keputusan Penting.</span>
+          </h1>
+          <div class="gold-divider gold-divider-hero"></div>
+          <p class="hero-description">
+            SELECO membantu perusahaan, organisasi, dan perorangan memahami persoalan hukum, mengelola risiko, serta menentukan langkah yang tepat.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#contact" class="btn btn-gold">
+              <i class="fa-regular fa-calendar-check"></i> Jadwalkan Konsultasi
+            </a>
+            <a href="#practice" class="btn btn-outline-hero">
+              Lihat Layanan Kami <i class="fa-solid fa-arrow-right-long"></i>
+            </a>
+          </div>
+
+          <div class="hero-pills">
+            <span class="hero-pill"><i class="fa-solid fa-circle-check"></i> Corporate Advisory</span>
+            <span class="hero-pill"><i class="fa-solid fa-circle-check"></i> Contract Review</span>
+            <span class="hero-pill"><i class="fa-solid fa-circle-check"></i> Employment & HR</span>
+            <span class="hero-pill"><i class="fa-solid fa-circle-check"></i> Dispute Management</span>
+          </div>
+        </div>
+
+        <div class="hero-formal-box reveal" style="transition-delay: 0.2s;">
+          <div class="hero-formal-seal">
+            <i class="fa-solid fa-scale-balanced"></i>
+          </div>
+          <p class="hero-quote-tag">
+            “Integrity. Strategy. Legal Excellence.”
+          </p>
+          <p class="hero-quote-sub">
+            Mitra konsultan hukum tepercaya yang berfokus pada kepastian hukum dan mitigasi risiko komersial.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         STATISTICS STRIP
+         ========================================================================== -->
+    <section class="stats-section" id="stats">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-number" data-target="10">0</div>
+            <div class="stat-label">Tahun Pengalaman</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-target="150">0</div>
+            <div class="stat-label">Perkara & Kontrak</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-target="50">0</div>
+            <div class="stat-label">Klien Korporasi</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-target="98">0</div>
+            <div class="stat-label">Kepuasan Klien %</div>
+          </div>
+        </div>
+        <p class="stats-disclaimer">*Ikhtisar rekapitulasi pendampingan hukum firma SELECO.</p>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         ABOUT SELECO (LEGAL PHOTO COLLAGE GRID)
+         ========================================================================== -->
+    <section class="about-section section-padding" id="about">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-gallery-grid reveal">
+            <div class="about-img-main">
+              <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80" alt="Dewi Keadilan & Kitab Hukum">
+            </div>
+            <div class="about-img-sub">
+              <div class="about-img-sub-item">
+                <img src="https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=600&q=80" alt="Document Review Contract">
+              </div>
+              <div class="about-img-sub-item">
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80" alt="Corporate Boardroom SELECO">
+              </div>
+            </div>
+          </div>
+
+          <div class="about-content reveal" style="transition-delay: 0.15s;">
+            <div class="micro-badge">TENTANG SELECO</div>
+            <h2 class="section-title">Hukum yang Dipahami dalam Konteks Bisnis.</h2>
+            <div class="gold-divider"></div>
+            <p style="color: var(--text-body); margin-bottom: 1rem; font-size: 0.95rem;">
+              Persoalan hukum memengaruhi keputusan bisnis, hubungan kerja, dan operasional Anda. <strong>SELECO</strong> memberikan pendampingan yang menghubungkan analisis hukum dengan kebutuhan praktis secara terukur.
+            </p>
+
+            <div class="values-grid">
+              <div class="value-card">
+                <div class="value-title">Integritas</div>
+                <div class="value-desc">Kerahasiaan penuh dan etika profesi tinggi.</div>
+              </div>
+              <div class="value-card">
+                <div class="value-title">Strategis</div>
+                <div class="value-desc">Diselaraskan dengan kepentingan bisnis.</div>
+              </div>
+              <div class="value-card">
+                <div class="value-title">Praktis</div>
+                <div class="value-desc">Rekomendasi langkah kerja yang jelas.</div>
+              </div>
+              <div class="value-card">
+                <div class="value-title">Kerahasiaan</div>
+                <div class="value-desc">Penanganan data klien secara aman.</div>
+              </div>
+            </div>
+
+            <a href="#approach" class="btn btn-outline btn-sm">
+              Metodologi Kerja <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         PRACTICE AREAS (RE-STRUCTURED INTO A 4-COLUMN LEGAL PHOTO CARD GRID)
+         ========================================================================== -->
+    <section class="practice-section section-padding" id="practice">
+      <div class="container">
+        <div class="section-header text-center reveal">
+          <div class="micro-badge">BIDANG KEAHLIAN HUKUM</div>
+          <h2 class="section-title">Bidang Layanan Utama</h2>
+          <div class="gold-divider"></div>
+          <p class="section-subtitle">
+            Cakupan keahlian hukum terstruktur untuk mendukung kepatuhan regulasi dan memitigasi risiko bisnis Anda.
+          </p>
+        </div>
+
+        <div class="grid-4 reveal">
+          <!-- Card 01 -->
+          <div class="practice-card">
+            <div class="practice-card-img">
+              <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=500&q=80" alt="Hukum Korporasi">
+              <span class="practice-card-badge">01</span>
+            </div>
+            <div class="practice-card-body">
+              <h3 class="practice-card-title">Hukum Korporasi & Komersial</h3>
+              <p class="practice-card-desc">Pendampingan struktur perseroan, RUPS, tata kelola (GCG), serta transaksi bisnis.</p>
+              <a href="#contact" onclick="selectServiceInForm('Corporate & Commercial')" class="practice-card-link">Konsultasikan <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <!-- Card 02 -->
+          <div class="practice-card">
+            <div class="practice-card-img">
+              <img src="https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=500&q=80" alt="Penyusunan Kontrak">
+              <span class="practice-card-badge">02</span>
+            </div>
+            <div class="practice-card-body">
+              <h3 class="practice-card-title">Penyusunan & Review Kontrak</h3>
+              <p class="practice-card-desc">Penyusunan dan negosiasi perjanjian bisnis dengan fokus pada pembatasan risiko.</p>
+              <a href="#contact" onclick="selectServiceInForm('Contract Review')" class="practice-card-link">Konsultasikan <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <!-- Card 03 -->
+          <div class="practice-card">
+            <div class="practice-card-img">
+              <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=500&q=80" alt="Ketenagakerjaan HR">
+              <span class="practice-card-badge">03</span>
+            </div>
+            <div class="practice-card-body">
+              <h3 class="practice-card-title">Ketenagakerjaan & HR</h3>
+              <p class="practice-card-desc">Penyusunan PKWT/PKWTT, Peraturan Perusahaan (PP), dan prosedur PHK patuh regulasi.</p>
+              <a href="#contact" onclick="selectServiceInForm('Employment & HR')" class="practice-card-link">Konsultasikan <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <!-- Card 04 -->
+          <div class="practice-card">
+            <div class="practice-card-img">
+              <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=500&q=80" alt="Penyelesaian Sengketa">
+              <span class="practice-card-badge">04</span>
+            </div>
+            <div class="practice-card-body">
+              <h3 class="practice-card-title">Penyelesaian Sengketa Bisnis</h3>
+              <p class="practice-card-desc">Pengelolaan perselisihan komersial melalui negosiasi, mediasi, dan somasi.</p>
+              <a href="#contact" onclick="selectServiceInForm('Dispute Resolution')" class="practice-card-link">Konsultasikan <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <!-- Card 05 -->
+          <div class="practice-card">
+            <div class="practice-card-img">
+              <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=500&q=80" alt="Kepatuhan Hukum">
+              <span class="practice-card-badge">05</span>
+            </div>
+            <div class="practice-card-body">
+              <h3 class="practice-card-title">Kepatuhan Hukum (Compliance)</h3>
+              <p class="practice-card-desc">Audit kepatuhan regulasi sektoral dan evaluasi SOP legal internal secara periodik.</p>
+              <a href="#contact" onclick="selectServiceInForm('Legal Compliance')" class="practice-card-link">Konsultasikan <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <!-- Card 06 -->
+          <div class="practice-card">
+            <div class="practice-card-img">
+              <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=500&q=80" alt="Perizinan Usaha OSS">
+              <span class="practice-card-badge">06</span>
+            </div>
+            <div class="practice-card-body">
+              <h3 class="practice-card-title">Perizinan Usaha & OSS</h3>
+              <p class="practice-card-desc">Pendampingan perizinan berusaha berbasis risiko melalui NIB OSS RBA dan instansi.</p>
+              <a href="#contact" onclick="selectServiceInForm('Business Licensing')" class="practice-card-link">Konsultasikan <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <!-- Card 07 -->
+          <div class="practice-card">
+            <div class="practice-card-img">
+              <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=500&q=80" alt="Legal Due Diligence">
+              <span class="practice-card-badge">07</span>
+            </div>
+            <div class="practice-card-body">
+              <h3 class="practice-card-title">Legal Due Diligence</h3>
+              <p class="practice-card-desc">Pemeriksaan terstruktur terhadap dokumen, kontrak, perizinan, dan aset perusahaan.</p>
+              <a href="#contact" onclick="selectServiceInForm('Legal Due Diligence')" class="practice-card-link">Konsultasikan <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <!-- Card 08 -->
+          <div class="practice-card">
+            <div class="practice-card-img">
+              <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=500&q=80" alt="HAKI Merek">
+              <span class="practice-card-badge">08</span>
+            </div>
+            <div class="practice-card-body">
+              <h3 class="practice-card-title">Hak Kekayaan Intelektual (HAKI)</h3>
+              <p class="practice-card-desc">Perlindungan, pendaftaran, dan penyusunan lisensi komersial Merek & Hak Cipta.</p>
+              <a href="#contact" onclick="selectServiceInForm('Intellectual Property')" class="practice-card-link">Konsultasikan <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         CORPORATE LEGAL RETAINER (GRID FEATURE CARDS)
+         ========================================================================== -->
+    <section class="retainer-section section-padding" id="retainer">
+      <div class="container">
+        <div class="retainer-box reveal">
+          <div class="retainer-top-grid">
+            <div>
+              <div class="micro-badge" style="background: rgba(201, 162, 39, 0.2); color: var(--gold-accent);">RETAINER KORPORASI</div>
+              <h2 class="section-title dark-bg">Departemen Hukum Eksternal Bisnis Anda.</h2>
+              <div class="gold-divider"></div>
+              <p class="section-subtitle dark-bg">
+                Akses pendampingan hukum berkelanjutan sesuai kebutuhan operasional perusahaan—mulai dari konsultasi, kontrak, HR, hingga mitigasi risiko.
+              </p>
+            </div>
+            <div class="retainer-photo-wrap">
+              <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" alt="Corporate Legal Advisory SELECO">
+            </div>
+          </div>
+
+          <div class="retainer-services-grid">
+            <div class="retainer-service-item">
+              <i class="fa-solid fa-circle-check retainer-service-icon"></i>
+              <span class="retainer-service-text">Konsultasi Hukum Harian</span>
+            </div>
+            <div class="retainer-service-item">
+              <i class="fa-solid fa-circle-check retainer-service-icon"></i>
+              <span class="retainer-service-text">Review & Draf Kontrak Rutin</span>
+            </div>
+            <div class="retainer-service-item">
+              <i class="fa-solid fa-circle-check retainer-service-icon"></i>
+              <span class="retainer-service-text">Advis Hukum Ketenagakerjaan & HR</span>
+            </div>
+            <div class="retainer-service-item">
+              <i class="fa-solid fa-circle-check retainer-service-icon"></i>
+              <span class="retainer-service-text">Penyusunan Somasi & Teguran</span>
+            </div>
+            <div class="retainer-service-item">
+              <i class="fa-solid fa-circle-check retainer-service-icon"></i>
+              <span class="retainer-service-text">Pemantauan Kepatuhan OSS</span>
+            </div>
+            <div class="retainer-service-item">
+              <i class="fa-solid fa-circle-check retainer-service-icon"></i>
+              <span class="retainer-service-text">Evaluasi Risiko Transaksi</span>
+            </div>
+          </div>
+
+          <div class="retainer-cta">
+            <div>
+              <h4 style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.3rem; color: var(--text-light);">Perkuat Perlindungan Legalitas Perusahaan</h4>
+              <p style="font-size: 0.825rem; color: var(--text-light-muted);">Konsultan hukum profesional siap mendampingi operasional Anda.</p>
+            </div>
+            <a href="#contact" onclick="selectServiceInForm('Legal Retainer')" class="btn btn-gold">
+              <i class="fa-regular fa-handshake"></i> Diskusikan Retainer
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         WHY CHOOSE SELECO & OUR APPROACH (GRID LAYOUTS)
+         ========================================================================== -->
+    <section class="why-section section-padding" id="why-us">
+      <div class="container">
+        <div class="section-header text-center reveal">
+          <div class="micro-badge">NILAI UTAMA</div>
+          <h2 class="section-title">Mengapa Memilih SELECO</h2>
+          <div class="gold-divider"></div>
+          <p class="section-subtitle">
+            Prinsip kerja profesional yang menggabungkan akurasi hukum dan pemahaman operasional bisnis.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="why-card reveal">
+            <h3 class="why-title">Berorientasi Komersial</h3>
+            <p class="why-desc">Saran hukum mempertimbangkan implikasi komersial dari setiap keputusan bisnis.</p>
+          </div>
+
+          <div class="why-card reveal" style="transition-delay: 0.1s;">
+            <h3 class="why-title">Respon Cepat</h3>
+            <p class="why-desc">Panduan hukum jelas dan tepat waktu saat keputusan penting harus segera diambil.</p>
+          </div>
+
+          <div class="why-card reveal" style="transition-delay: 0.2s;">
+            <h3 class="why-title">Pendekatan Preventif</h3>
+            <p class="why-desc">Fokus mengidentifikasi risiko hukum sejak dini sebelum menjadi sengketa.</p>
+          </div>
+
+          <div class="why-card reveal">
+            <h3 class="why-title">Solusi Praktis</h3>
+            <p class="why-desc">Masalah hukum rumit diterjemahkan menjadi panduan langkah kerja yang aplikatif.</p>
+          </div>
+
+          <div class="why-card reveal" style="transition-delay: 0.1s;">
+            <h3 class="why-title">Kerahasiaan Terjamin</h3>
+            <p class="why-desc">Informasi bisnis klien ditangani dengan standar kerahasiaan profesi yang ketat.</p>
+          </div>
+
+          <div class="why-card reveal" style="transition-delay: 0.2s;">
+            <h3 class="why-title">Kemitraan Jangka Panjang</h3>
+            <p class="why-desc">Menjadi mitra konsultan strategis yang tumbuh bersama bisnis Anda.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline Process -->
+    <section class="process-section section-padding" id="approach">
+      <div class="container">
+        <div class="section-header text-center reveal">
+          <div class="micro-badge">PROSES KERJA</div>
+          <h2 class="section-title">Metodologi Kerja Terstruktur</h2>
+          <div class="gold-divider"></div>
+          <p class="section-subtitle">
+            Tahapan analisis terstruktur untuk menghasilkan solusi hukum yang tepat dan terukur.
+          </p>
+        </div>
+
+        <div class="timeline-grid">
+          <div class="timeline-step reveal">
+            <div class="step-number">01</div>
+            <h3 class="step-title">MEMAHAMI</h3>
+            <p class="step-desc">Memahami latar belakang, dokumen, dan tujuan bisnis klien.</p>
+          </div>
+
+          <div class="timeline-step reveal" style="transition-delay: 0.1s;">
+            <div class="step-number">02</div>
+            <h3 class="step-title">MENGANALISIS</h3>
+            <p class="step-desc">Mengidentifikasi aturan hukum, kewajiban, serta opsi risiko.</p>
+          </div>
+
+          <div class="timeline-step reveal" style="transition-delay: 0.2s;">
+            <div class="step-number">03</div>
+            <h3 class="step-title">MENYUSUN STRATEGI</h3>
+            <p class="step-desc">Menyusun strategi praktis yang sejalan dengan tujuan komersial.</p>
+          </div>
+
+          <div class="timeline-step reveal" style="transition-delay: 0.3s;">
+            <div class="step-number">04</div>
+            <h3 class="step-title">MELAKSANAKAN</h3>
+            <p class="step-desc">Mendampingi eksekusi dokumen, negosiasi, atau advis hukum.</p>
+          </div>
+
+          <div class="timeline-step reveal" style="transition-delay: 0.4s;">
+            <div class="step-number">05</div>
+            <h3 class="step-title">MEMANTAU</h3>
+            <p class="step-desc">Pemantauan berkala terhadap perkembangan aturan hukum terbaru.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         ATTORNEYS & LEGAL TEAM
+         ========================================================================== -->
+    <section class="team-section section-padding" id="attorneys">
+      <div class="container">
+        <div class="section-header text-center reveal">
+          <div class="micro-badge">TIM KONSULTAN</div>
+          <h2 class="section-title">Profil Konsultan Hukum</h2>
+          <div class="gold-divider"></div>
+          <p class="section-subtitle">
+            Tenaga profesional berpengalaman di bidang hukum bisnis dengan integritas tinggi.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="team-card reveal">
+            <div class="team-portrait-wrap">
+              <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80" alt="Sedana Pratama - Managing Partner">
+            </div>
+            <div class="team-info">
+              <h3 class="team-name">Sedana Pratama</h3>
+              <div class="team-role">Managing Partner</div>
+              <div class="team-focus">
+                Hukum Korporasi · Transaksi Komersial · Manajemen Risiko Hukum
+              </div>
+              <a href="#" class="team-social" aria-label="LinkedIn profile Sedana Pratama">
+                <i class="fa-brands fa-linkedin"></i> Profil LinkedIn
+              </a>
+            </div>
+          </div>
+
+          <div class="team-card reveal" style="transition-delay: 0.15s;">
+            <div class="team-portrait-wrap">
+              <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80" alt="Aurelia Mahendra - Senior Legal Consultant">
+            </div>
+            <div class="team-info">
+              <h3 class="team-name">Aurelia Mahendra</h3>
+              <div class="team-role">Senior Legal Consultant</div>
+              <div class="team-focus">
+                Hukum Ketenagakerjaan · Kepatuhan Regulasi · Corporate Governance
+              </div>
+              <a href="#" class="team-social" aria-label="LinkedIn profile Aurelia Mahendra">
+                <i class="fa-brands fa-linkedin"></i> Profil LinkedIn
+              </a>
+            </div>
+          </div>
+
+          <div class="team-card reveal" style="transition-delay: 0.3s;">
+            <div class="team-portrait-wrap">
+              <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80" alt="Raka Adinata - Legal Consultant">
+            </div>
+            <div class="team-info">
+              <h3 class="team-name">Raka Adinata</h3>
+              <div class="team-role">Legal Consultant</div>
+              <div class="team-focus">
+                Perancangan Kontrak · Perizinan OSS RBA · Legal Due Diligence
+              </div>
+              <a href="#" class="team-social" aria-label="LinkedIn profile Raka Adinata">
+                <i class="fa-brands fa-linkedin"></i> Profil LinkedIn
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         INDUSTRIES WE SERVE
+         ========================================================================== -->
+    <section class="industries-section section-padding" id="industries">
+      <div class="container">
+        <div class="section-header text-center reveal">
+          <div class="micro-badge">SEKTOR INDUSTRI</div>
+          <h2 class="section-title">Sektor Bisnis Yang Kami Dampingi</h2>
+          <div class="gold-divider"></div>
+        </div>
+
+        <div class="industries-grid">
+          <div class="industry-card reveal">
+            <div class="industry-icon"><i class="fa-solid fa-microchip"></i></div>
+            <div class="industry-name">Teknologi & Digital</div>
+            <div class="industry-subdesc">Kontrak & IP</div>
+          </div>
+          <div class="industry-card reveal" style="transition-delay: 0.05s;">
+            <div class="industry-icon"><i class="fa-solid fa-store"></i></div>
+            <div class="industry-name">Ritel & Distribusi</div>
+            <div class="industry-subdesc">Kontrak Distribusi</div>
+          </div>
+          <div class="industry-card reveal" style="transition-delay: 0.1s;">
+            <div class="industry-icon"><i class="fa-solid fa-utensils"></i></div>
+            <div class="industry-name">Kuliner & F&B</div>
+            <div class="industry-subdesc">Franchise & Izin</div>
+          </div>
+          <div class="industry-card reveal" style="transition-delay: 0.15s;">
+            <div class="industry-icon"><i class="fa-solid fa-industry"></i></div>
+            <div class="industry-name">Manufaktur</div>
+            <div class="industry-subdesc">Labor & Pasokan</div>
+          </div>
+          <div class="industry-card reveal" style="transition-delay: 0.2s;">
+            <div class="industry-icon"><i class="fa-solid fa-building"></i></div>
+            <div class="industry-name">Properti</div>
+            <div class="industry-subdesc">Lahan & Konstruksi</div>
+          </div>
+          <div class="industry-card reveal" style="transition-delay: 0.25s;">
+            <div class="industry-icon"><i class="fa-solid fa-user-tie"></i></div>
+            <div class="industry-name">Jasa Profesional</div>
+            <div class="industry-subdesc">Kerangka Risiko</div>
+          </div>
+          <div class="industry-card reveal" style="transition-delay: 0.3s;">
+            <div class="industry-icon"><i class="fa-solid fa-truck-fast"></i></div>
+            <div class="industry-name">Logistik</div>
+            <div class="industry-subdesc">Pengangkutan</div>
+          </div>
+          <div class="industry-card reveal" style="transition-delay: 0.35s;">
+            <div class="industry-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+            <div class="industry-name">Kesehatan</div>
+            <div class="industry-subdesc">Kepatuhan Izin</div>
+          </div>
+          <div class="industry-card reveal" style="transition-delay: 0.4s;">
+            <div class="industry-icon"><i class="fa-solid fa-hotel"></i></div>
+            <div class="industry-name">Hospitaliti</div>
+            <div class="industry-subdesc">Manajemen Hotel</div>
+          </div>
+          <div class="industry-card reveal" style="transition-delay: 0.45s;">
+            <div class="industry-icon"><i class="fa-solid fa-chart-line"></i></div>
+            <div class="industry-name">UMKM & Scaling</div>
+            <div class="industry-subdesc">Struktur Korporasi</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         FEATURED INSIGHTS / ARTICLES
+         ========================================================================== -->
+    <section class="insights-section section-padding" id="insights">
+      <div class="container">
+        <div class="section-header text-center reveal">
+          <div class="micro-badge">PUBLIKASI EDITORIAL</div>
+          <h2 class="section-title">LEGAL INSIGHTS</h2>
+          <div class="gold-divider"></div>
+          <p class="section-subtitle">
+            Perspektif hukum praktis untuk pengambilan keputusan yang lebih terukur.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="article-card reveal">
+            <div class="article-thumb-wrap">
+              <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" alt="Legal Due Diligence">
+            </div>
+            <div class="article-body-preview">
+              <div class="article-meta-row">
+                <span class="article-category">Corporate Law</span>
+                <span>5 min read</span>
+              </div>
+              <h3 class="article-card-title">Memahami Pentingnya Legal Due Diligence Sebelum Transaksi Bisnis</h3>
+              <p class="article-excerpt">
+                Pemeriksaan hukum komprehensif untuk mengidentifikasi risiko tersembunyi sebelum akuisisi atau investasi.
+              </p>
+              <button class="article-btn-read" onclick="openArticle(1)">
+                Baca Artikel <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </article>
+
+          <article class="article-card reveal" style="transition-delay: 0.1s;">
+            <div class="article-thumb-wrap">
+              <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=600&q=80" alt="Employment PHK">
+            </div>
+            <div class="article-body-preview">
+              <div class="article-meta-row">
+                <span class="article-category">Employment Law</span>
+                <span>6 min read</span>
+              </div>
+              <h3 class="article-card-title">Hal yang Perlu Diperhatikan Sebelum Melakukan PHK Karyawan</h3>
+              <p class="article-excerpt">
+                Aspek legalitas, tata cara SP, serta prosedur Bipartit untuk efisiensi ketenagakerjaan patuh regulasi.
+              </p>
+              <button class="article-btn-read" onclick="openArticle(2)">
+                Baca Artikel <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </article>
+
+          <article class="article-card reveal" style="transition-delay: 0.2s;">
+            <div class="article-thumb-wrap">
+              <img src="https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=600&q=80" alt="Contracts">
+            </div>
+            <div class="article-body-preview">
+              <div class="article-meta-row">
+                <span class="article-category">Contracts</span>
+                <span>4 min read</span>
+              </div>
+              <h3 class="article-card-title">7 Klausul Kunci yang Wajib Diperhatikan dalam Perjanjian Bisnis</h3>
+              <p class="article-excerpt">
+                Kontrak sebagai instrumen perlindungan hak dan pembatasan kewajiban sebelum penandatanganan resmi.
+              </p>
+              <button class="article-btn-read" onclick="openArticle(3)">
+                Baca Artikel <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </article>
+
+          <article class="article-card reveal">
+            <div class="article-thumb-wrap">
+              <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80" alt="Corporate Governance">
+            </div>
+            <div class="article-body-preview">
+              <div class="article-meta-row">
+                <span class="article-category">Governance</span>
+                <span>5 min read</span>
+              </div>
+              <h3 class="article-card-title">Mengapa Corporate Governance Penting bagi Perusahaan Bertumbuh?</h3>
+              <p class="article-excerpt">
+                Penerapan Good Corporate Governance (GCG) untuk meningkatkan akuntabilitas dan kepercayaan investor.
+              </p>
+              <button class="article-btn-read" onclick="openArticle(4)">
+                Baca Artikel <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </article>
+
+          <article class="article-card reveal" style="transition-delay: 0.1s;">
+            <div class="article-thumb-wrap">
+              <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80" alt="Legal Risk Management">
+            </div>
+            <div class="article-body-preview">
+              <div class="article-meta-row">
+                <span class="article-category">Legal Risk</span>
+                <span>5 min read</span>
+              </div>
+              <h3 class="article-card-title">Legal Risk Management: Mencegah Masalah Hukum Sebelum Menjadi Sengketa</h3>
+              <p class="article-excerpt">
+                Mitigasi risiko hukum secara preventif melalui audit kontrak dan penyusunan SOP legal internal.
+              </p>
+              <button class="article-btn-read" onclick="openArticle(5)">
+                Baca Artikel <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </article>
+
+          <article class="article-card reveal" style="transition-delay: 0.2s;">
+            <div class="article-thumb-wrap">
+              <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80" alt="Legal Retainer">
+            </div>
+            <div class="article-body-preview">
+              <div class="article-meta-row">
+                <span class="article-category">Business</span>
+                <span>4 min read</span>
+              </div>
+              <h3 class="article-card-title">Kapan Perusahaan Membutuhkan Jasa Legal Retainer Eksternal?</h3>
+              <p class="article-excerpt">
+                Perbandingan komparatif efisiensi antara tim legal internal dan jasa corporate legal retainer eksternal.
+              </p>
+              <button class="article-btn-read" onclick="openArticle(6)">
+                Baca Artikel <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         LEGAL RESOURCES & TESTIMONIALS
+         ========================================================================== -->
+    <section class="resources-section section-padding">
+      <div class="container">
+        <div class="section-header text-center reveal">
+          <div class="micro-badge">TINJAUAN CEPAT</div>
+          <h2 class="section-title">Legal Resources & Health Checks</h2>
+          <div class="gold-divider"></div>
+        </div>
+
+        <div class="grid-3">
+          <div class="resource-card reveal">
+            <div class="resource-icon"><i class="fa-solid fa-file-shield"></i></div>
+            <h3 class="resource-title">Contract Health Check</h3>
+            <p class="resource-desc">Evaluasi potensi risiko klausul denda dan ketidakseimbangan hak kontrak.</p>
+            <a href="#contact" onclick="selectServiceInForm('Contract Review')" class="btn btn-outline btn-sm">Minta Peninjauan</a>
+          </div>
+
+          <div class="resource-card reveal" style="transition-delay: 0.1s;">
+            <div class="resource-icon"><i class="fa-solid fa-list-check"></i></div>
+            <h3 class="resource-title">Corporate Compliance Check</h3>
+            <p class="resource-desc">Identifikasi kelengkapan dokumen legalitas dan perizinan OSS RBA perusahaan.</p>
+            <a href="#contact" onclick="selectServiceInForm('Legal Due Diligence')" class="btn btn-outline btn-sm">Cek Kepatuhan</a>
+          </div>
+
+          <div class="resource-card reveal" style="transition-delay: 0.2s;">
+            <div class="resource-icon"><i class="fa-solid fa-users-gear"></i></div>
+            <h3 class="resource-title">Employment Legal Review</h3>
+            <p class="resource-desc">Tinjau ulang draf PKWT/PKWTT dan Peraturan Perusahaan (PP) secara mendalam.</p>
+            <a href="#contact" onclick="selectServiceInForm('Employment & HR')" class="btn btn-outline btn-sm">Konsultasikan HR</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section section-padding">
+      <div class="container">
+        <div class="section-header text-center reveal">
+          <div class="micro-badge">REPUTASI TERPERCAYA</div>
+          <h2 class="section-title">Testimoni Mitra Korporasi</h2>
+          <div class="gold-divider"></div>
+        </div>
+
+        <div class="grid-3">
+          <div class="testimonial-card reveal">
+            <p class="testimonial-text">
+              “SELECO memberikan rekomendasi hukum yang sangat praktis dan jelas. Membantu tim manajemen kami mengambil keputusan ekspansi secara aman.”
+            </p>
+            <div class="testimonial-author">
+              — Direktur Utama, Perusahaan Distribusi
+            </div>
+          </div>
+
+          <div class="testimonial-card reveal" style="transition-delay: 0.15s;">
+            <p class="testimonial-text">
+              “Tim konsultan sangat responsif. Pendampingan legal retainer mereka untuk isu HR dan ketenagakerjaan sangat berharga bagi perusahaan.”
+            </p>
+            <div class="testimonial-author">
+              — HR Manager, Perusahaan Manufaktur
+            </div>
+          </div>
+
+          <div class="testimonial-card reveal" style="transition-delay: 0.3s;">
+            <p class="testimonial-text">
+              “Ketelitian analisis kontrak dari SELECO membantu kami menghindari risiko kerugian finansial yang signifikan saat restrukturisasi.”
+            </p>
+            <div class="testimonial-author">
+              — Founder & CEO, Perusahaan Teknologi
+            </div>
+          </div>
+        </div>
+
+        <p class="stats-disclaimer">*Ringkasan ikhtisar tanggapan representatif klien profil firma.</p>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         FAQ SECTION
+         ========================================================================== -->
+    <section class="faq-section section-padding" id="faq">
+      <div class="container">
+        <div class="section-header text-center reveal">
+          <div class="micro-badge">PERTANYAAN UMUM</div>
+          <h2 class="section-title">Frequently Asked Questions</h2>
+          <div class="gold-divider"></div>
+        </div>
+
+        <div class="faq-accordion reveal">
+          <div class="faq-item">
+            <button class="faq-button" aria-expanded="false">
+              <span><span class="faq-num">01</span> Apa saja layanan yang disediakan oleh SELECO?</span>
+              <i class="fa-solid fa-plus faq-icon"></i>
+            </button>
+            <div class="faq-content">
+              <div class="faq-answer">
+                SELECO menyediakan konsultasi Hukum Korporasi & Komersial, Review Kontrak, Ketenagakerjaan & HR, Penyelesaian Sengketa Bisnis, Compliance, Perizinan OSS RBA, Legal Due Diligence, dan HAKI.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-button" aria-expanded="false">
+              <span><span class="faq-num">02</span> Apakah tersedia layanan corporate legal retainer?</span>
+              <i class="fa-solid fa-plus faq-icon"></i>
+            </button>
+            <div class="faq-content">
+              <div class="faq-answer">
+                Ya. Layanan Retainer berfungsi sebagai Departemen Hukum Eksternal untuk pendampingan harian, review kontrak, advis HR, dan pemantauan kepatuhan perizinan secara terprediksi.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-button" aria-expanded="false">
+              <span><span class="faq-num">03</span> Apakah konsultasi dapat dilakukan secara online?</span>
+              <i class="fa-solid fa-plus faq-icon"></i>
+            </button>
+            <div class="faq-content">
+              <div class="faq-answer">
+                Ya. Konsultasi awal dapat dilakukan secara langsung di kantor kami maupun melalui media online seperti Zoom atau Google Meet.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-button" aria-expanded="false">
+              <span><span class="faq-num">04</span> Bagaimana prosedur komunikasi awal dan kerahasiaan data?</span>
+              <i class="fa-solid fa-plus faq-icon"></i>
+            </button>
+            <div class="faq-content">
+              <div class="faq-answer">
+                Setiap informasi yang Anda sampaikan diperlakukan secara profesional dan rahasia. Pengiriman formulir awal tidak otomatis menciptakan hubungan advokat-klien formal sebelum disepakati secara tertulis.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         CTA BANNER & CONTACT SECTION
+         ========================================================================== -->
+    <section class="cta-banner-section section-padding" id="cta-banner">
+      <div class="container">
+        <div class="cta-banner-box reveal">
+          <div class="micro-badge" style="background: rgba(201, 162, 39, 0.2); color: var(--gold-accent);">KONSULTASI HUKUM</div>
+          <h2 class="section-title dark-bg">
+            Memerlukan Pendampingan Hukum?
+          </h2>
+          <div class="gold-divider" style="margin-left: auto; margin-right: auto;"></div>
+          <p class="section-subtitle dark-bg" style="margin-left: auto; margin-right: auto; margin-bottom: 2rem;">
+            Diskusikan kebutuhan Anda bersama SELECO untuk mendapatkan rekomendasi langkah yang terukur.
+          </p>
+          <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="#contact" class="btn btn-gold">Jadwalkan Konsultasi</a>
+            <a href="#contact" class="btn btn-outline-hero">Hubungi Tim Kami</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section section-padding" id="contact">
+      <div class="container">
+        <div class="section-header text-center reveal">
+          <div class="micro-badge">HUBUNGI KAMI</div>
+          <h2 class="section-title">Mari Diskusikan Kebutuhan Hukum Anda.</h2>
+          <div class="gold-divider"></div>
+          <p class="section-subtitle">
+            Sampaikan secara singkat kebutuhan hukum Anda. Tim kami akan merespon untuk langkah komunikasi selanjutnya.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-info-box reveal">
+            <div>
+              <h3 style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.5rem; color: var(--text-light); margin-bottom: 0.35rem;">
+                Sedana Legal Consultant
+              </h3>
+              <p style="font-size: 0.85rem; color: var(--text-light-muted); line-height: 1.5; margin-bottom: 1.25rem;">
+                Strategic Legal Counsel for Business & Individuals in Indonesia.
+              </p>
+
+              <div class="contact-info-list">
+                <div class="contact-info-item">
+                  <div class="contact-info-icon"><i class="fa-solid fa-location-dot"></i></div>
+                  <div class="contact-info-text">
+                    <h5>Alamat Kantor</h5>
+                    <p>Jakarta, Indonesia</p>
+                  </div>
+                </div>
+
+                <div class="contact-info-item">
+                  <div class="contact-info-icon"><i class="fa-solid fa-envelope"></i></div>
+                  <div class="contact-info-text">
+                    <h5>Email Resmi</h5>
+                    <p><a href="mailto:consult@seleco.id">consult@seleco.id</a></p>
+                  </div>
+                </div>
+
+                <div class="contact-info-item">
+                  <div class="contact-info-icon"><i class="fa-solid fa-phone"></i></div>
+                  <div class="contact-info-text">
+                    <h5>Telepon / WhatsApp</h5>
+                    <p><a href="tel:+6281200000000">+62 812-0000-0000</a></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Visual Office Card Frame -->
+            <div class="map-box">
+              <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=600&q=80" alt="SELECO Jakarta Office">
+              <div class="map-box-overlay">
+                <h4 style="font-family: 'Cormorant Garamond', Georgia, serif; color: var(--text-light); font-size: 1.1rem;">SELECO HQ — Jakarta</h4>
+                <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn btn-outline-hero btn-sm" style="font-size: 0.7rem; padding: 0.3rem 0.7rem; margin-top: 0.35rem;">
+                  Lihat Lokasi <i class="fa-solid fa-up-right-from-square"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form-box reveal" style="transition-delay: 0.15s;">
+            <form id="contactForm" onsubmit="handleFormSubmit(event)">
+              <div class="grid-2" style="gap: 1rem;">
+                <div class="form-group">
+                  <label for="fullName" class="form-label">Nama Lengkap *</label>
+                  <input type="text" id="fullName" class="form-control" placeholder="Budi Santoso" required>
+                </div>
+                <div class="form-group">
+                  <label for="company" class="form-label">Nama Perusahaan / Organisasi</label>
+                  <input type="text" id="company" class="form-control" placeholder="PT Maju Bersama">
+                </div>
+              </div>
+
+              <div class="grid-2" style="gap: 1rem;">
+                <div class="form-group">
+                  <label for="email" class="form-label">Alamat Email *</label>
+                  <input type="email" id="email" class="form-control" placeholder="nama@perusahaan.com" required>
+                </div>
+                <div class="form-group">
+                  <label for="phone" class="form-label">Nomor Telepon / WhatsApp *</label>
+                  <input type="tel" id="phone" class="form-control" placeholder="+62 812 XXXX XXXX" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="legalService" class="form-label">Kategori Layanan Hukum *</label>
+                <select id="legalService" class="form-control" required>
+                  <option value="" disabled selected>Pilih kategori keahlian hukum...</option>
+                  <option value="Corporate & Commercial">Hukum Korporasi & Komersial</option>
+                  <option value="Contract Review">Penyusunan & Review Kontrak</option>
+                  <option value="Employment & HR">Ketenagakerjaan & HR</option>
+                  <option value="Legal Retainer">Corporate Legal Retainer</option>
+                  <option value="Dispute Resolution">Penyelesaian Sengketa Bisnis</option>
+                  <option value="Business Licensing">Perizinan Usaha & OSS</option>
+                  <option value="Legal Due Diligence">Legal Due Diligence</option>
+                  <option value="Intellectual Property">Hak Kekayaan Intelektual (HAKI)</option>
+                  <option value="Other">Lainnya</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="message" class="form-label">Deskripsi Singkat Kebutuhan Hukum *</label>
+                <textarea id="message" class="form-control" placeholder="Jelaskan konteks singkat kebutuhan hukum Anda..." required></textarea>
+              </div>
+
+              <div class="form-checkbox">
+                <input type="checkbox" id="disclaimerCheck" required>
+                <label for="disclaimerCheck">
+                  Pengiriman formulir ini tidak secara otomatis membentuk hubungan advokat-klien formal.
+                </label>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width: 100%;">
+                <i class="fa-regular fa-paper-plane"></i> Kirim Formulir Konsultasi
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="#hero" class="logo-brand" style="margin-bottom: 0.85rem;">
+            <div class="logo-title" style="color: var(--text-light);">SELECO <span style="color: var(--gold-accent);">.</span></div>
+            <div class="logo-subtitle" style="color: var(--gold-accent);">SEDANA LEGAL CONSULTANT</div>
+          </a>
+          <p style="font-size: 0.825rem; color: var(--text-light-muted); line-height: 1.5; margin-bottom: 1.25rem;">
+            Strategic legal counsel for businesses, organizations, and individuals in Indonesia.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Practice Areas</h4>
+          <ul class="footer-links">
+            <li><a href="#practice">Hukum Korporasi</a></li>
+            <li><a href="#practice">Penyusunan Kontrak</a></li>
+            <li><a href="#practice">Ketenagakerjaan & HR</a></li>
+            <li><a href="#retainer">Legal Retainer Korporasi</a></li>
+            <li><a href="#practice">Penyelesaian Sengketa</a></li>
+            <li><a href="#practice">Kepatuhan Hukum</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Profil Firma</h4>
+          <ul class="footer-links">
+            <li><a href="#about">Tentang SELECO</a></li>
+            <li><a href="#approach">Metodologi Kerja</a></li>
+            <li><a href="#attorneys">Tim Konsultan</a></li>
+            <li><a href="#insights">Legal Insights</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#contact">Kontak Kami</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Kantor & Kontak</h4>
+          <p style="margin-bottom: 0.4rem; color: var(--text-light); font-weight: 500;">Jakarta, Indonesia</p>
+          <p style="margin-bottom: 0.4rem;">Email: <a href="mailto:consult@seleco.id" style="color: var(--gold-accent);">consult@seleco.id</a></p>
+          <p style="margin-bottom: 0.85rem;">Telepon: +62 812-0000-0000</p>
+          <p style="font-size: 0.775rem; color: var(--text-light-muted);">Senin – Jumat | 09:00 – 17:00 WIB</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; <span id="year">2026</span> <strong>SELECO — Sedana Legal Consultant</strong>. Hak Cipta Dilindungi.
+        </div>
+        <div style="display: flex; gap: 1.25rem;">
+          <a href="#" onclick="openLegalModal('privacy'); return false;" style="color: var(--text-light-muted);">Privacy Policy</a>
+          <a href="#" onclick="openLegalModal('disclaimer'); return false;" style="color: var(--text-light-muted);">Disclaimer</a>
+          <a href="#" onclick="openLegalModal('terms'); return false;" style="color: var(--text-light-muted);">Terms of Use</a>
+        </div>
+      </div>
+      <p style="font-size: 0.725rem; color: var(--text-light-muted); margin-top: 0.85rem; text-align: center;">
+        *Informasi yang dipublikasikan pada situs web ini disediakan untuk tujuan informasi umum dan tidak dimaksudkan sebagai nasihat hukum formal.
+      </p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp & Back to Top -->
+  <a href="https://wa.me/6281200000000?text=Halo%20SELECO,%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20hukum." target="_blank" rel="noopener noreferrer" class="wa-float" aria-label="Contact via WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <!-- Article Drawer Modal -->
+  <div class="modal-backdrop" id="articleModal" role="dialog" aria-modal="true" aria-labelledby="articleModalTitle">
+    <div class="modal-container">
+      <div class="modal-header">
+        <span class="micro-badge" style="margin-bottom: 0; background: rgba(255,255,255,0.1); color: var(--gold-accent);">SELECO INSIGHTS</span>
+        <button class="modal-close-btn" onclick="closeArticleModal()" aria-label="Close article modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="article-modal-meta" id="artMeta"></div>
+        <h1 class="article-modal-title" id="artTitle">Article Title</h1>
+        <div class="gold-divider"></div>
+        <div class="article-content" id="artBody"></div>
+        <div class="article-disclaimer-box">
+          “Informasi dalam artikel ini disediakan untuk tujuan umum dan tidak dimaksudkan sebagai nasihat hukum untuk keadaan tertentu. Peraturan perundang-undangan dapat berubah dan penerapannya bergantung pada fakta serta keadaan masing-masing perkara.”
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Legal Modal -->
+  <div class="modal-backdrop" id="legalModal" role="dialog" aria-modal="true" aria-labelledby="legalModalTitle">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title" id="legalModalTitle">Dokumen Hukum</h3>
+        <button class="modal-close-btn" onclick="closeLegalModal()" aria-label="Close legal modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body article-content" id="legalModalBody"></div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast-notification" id="toast">
+    <i class="fa-solid fa-circle-check"></i>
+    <span id="toastMessage">Pesan Anda berhasil dikirim. Tim SELECO akan segera menghubungi Anda.</span>
+  </div>
+
+  <!-- ==========================================================================
+       JAVASCRIPT CODE
+       ========================================================================== -->
+  <script>
+    const articlesData = {
+      1: {
+        category: "Corporate Law",
+        date: "02 September 2026",
+        readTime: "5 min read",
+        title: "Memahami Pentingnya Legal Due Diligence Sebelum Melakukan Transaksi Bisnis",
+        body: `
+          <p>Dalam dunia korporasi modern, transaksi strategis seperti akuisisi saham, penggabungan usaha (merger), investasi modal ventura, maupun usaha patungan (joint venture) membawa peluang pertumbuhan bisnis yang sangat besar. Namun, di balik peluang tersebut terdapat potensi risiko hukum tersembunyi yang dapat merugikan investor atau perusahaan pembeli jika tidak diidentifikasi sejak awal.</p>
+          <h2>Apa Itu Legal Due Diligence?</h2>
+          <p><strong>Legal Due Diligence (LDD)</strong> atau Uji Kelayakan dari Segi Hukum adalah proses pemeriksaan dan analisis secara menyeluruh dan komprehensif terhadap dokumen-dokumen hukum, status legalitas, serta tingkat kepatuhan suatu badan usaha terhadap peraturan perundang-undangan yang berlaku.</p>
+          <h2>Komponen Utama yang Diperiksa dalam LDD</h2>
+          <ul>
+            <li><strong>Legalitas Pendirian & Korporasi:</strong> Anggaran Dasar, Akta Pendirian, pengesahan Kemenkumham, struktur pemegang saham, serta susunan Direksi dan Dewan Komisaris.</li>
+            <li><strong>Perizinan & Kepatuhan Regulasi:</strong> NIB (Nomor Induk Berusaha), izin usaha sektoral, Sistem OSS, kepatuhan tata ruang, dan izin lingkungan (AMDAL/UKL-UPL).</li>
+            <li><strong>Perjanjian & Kontrak Komersial:</strong> Evaluasi terhadap seluruh perjanjian signifikan dengan pihak ketiga, klausul <em>change of control</em>, klausul eksklusivitas, dan batas kewajiban finansial.</li>
+            <li><strong>Kepemilikan Aset & Properti:</strong> Bukti kepemilikan aset tetap (Sertifikat Tanah, BPKB), status jaminan atau agunan pada bank (hak tanggungan/fusia).</li>
+            <li><strong>Ketenagakerjaan & HR:</strong> Perjanjian Kerja (PKWT/PKWTT), Peraturan Perusahaan, kewajiban BPJS Ketenagakerjaan & Kesehatan, serta potensi sengketa hubungan industrial.</li>
+            <li><strong>Sengketa & Perkara Hukum:</strong> Pemeriksaan apakah perusahaan sedang terlibat atau berpotensi terlibat dalam perkara perdata, pidana, atau arbitrase.</li>
+          </ul>
+          <blockquote>"Legal Due Diligence bukan sekadar pemenuhan administratif, melainkan investasi perlindungan nilai bagi investor dan manajemen."</blockquote>
+          <h2>Manfaat Strategis Bagi Perusahaan</h2>
+          <p>Melakukan LDD memberikan kepastian nilai transaksi (valuation accuracy), membebaskan pembeli dari kewajiban tersembunyi (hidden liabilities), serta memberikan posisi tawar yang lebih kuat dalam negosiasi pembuatan <em>Share Purchase Agreement (SPA)</em>.</p>
+          <div style="margin-top:2.5rem; padding:1.5rem; background:var(--bg-offwhite); border:1px solid var(--border-light); border-radius:2px;">
+            <h4 style="font-family:'Cormorant Garamond',serif; font-size:1.3rem; color:var(--navy-deep); margin-bottom:0.5rem;">Memerlukan Pendampingan Hukum Terkait LDD?</h4>
+            <p style="font-size:0.875rem; color:var(--text-body); margin-bottom:1rem;">Diskusikan kebutuhan perusahaan Anda bersama tim konsultan hukum SELECO.</p>
+            <a href="#contact" onclick="closeArticleModal()" class="btn btn-gold btn-sm">Jadwalkan Konsultasi</a>
+          </div>
+        `
+      },
+      2: {
+        category: "Employment Law",
+        date: "28 Agustus 2026",
+        readTime: "6 min read",
+        title: "Hal yang Perlu Diperhatikan Perusahaan Sebelum Melakukan Pemutusan Hubungan Kerja",
+        body: `
+          <p>Pemutusan Hubungan Kerja (PHK) merupakan langkah sensitif yang sering kali tidak terhindarkan dalam efisiensi bisnis, restrukturisasi, atau penanganan pelanggaran disiplin kerja. Di Indonesia, regulasi ketenagakerjaan mengatur prosedur PHK secara ketat guna melindungi hak pekerja sekaligus memberikan kepastian hukum bagi pengusaha.</p>
+          <h2>1. Landasan Hukum dan Prosedur Patuh Regulasi</h2>
+          <p>Pasca berlakunya regulasi terbaru ketenagakerjaan, perusahaan wajib memastikan bahwa alasan PHK memenuhi ketentuan hukum resmi. Setiap tahapan mulai dari penyampaian Maksud PHK, masa tanggapan pekerja, hingga perundingan Bipartit wajib didokumentasikan secara tertulis.</p>
+          <h2>2. Pentingnya Dokumentasi Pelanggaran & Surat Peringatan (SP)</h2>
+          <p>Jika PHK disebabkan oleh pelanggaran disiplin, perusahaan harus dapat membuktikan keberadaan Surat Peringatan Pertama, Kedua, dan Ketiga (SP 1, SP 2, SP 3) yang sah dan sesuai dengan Peraturan Perusahaan (PP) atau Perjanjian Kerja Bersama (PKB).</p>
+          <h2>3. Pemenuhan Hak-Hak Pekerja</h2>
+          <ul>
+            <li>Uang Pesangon (UP)</li>
+            <li>Uang Penghargaan Masa Kerja (UPMK)</li>
+            <li>Uang Penggantian Hak (UPH) seperti sisa cuti tahunan dan ongkos pemulangan</li>
+            <li>Uang Kompensasi bagi pekerja dengan status PKWT</li>
+          </ul>
+          <div style="margin-top:2.5rem; padding:1.5rem; background:var(--bg-offwhite); border:1px solid var(--border-light); border-radius:2px;">
+            <h4 style="font-family:'Cormorant Garamond',serif; font-size:1.3rem; color:var(--navy-deep); margin-bottom:0.5rem;">Memerlukan Pendampingan Hukum Ketenagakerjaan?</h4>
+            <p style="font-size:0.875rem; color:var(--text-body); margin-bottom:1rem;">Diskusikan kebutuhan perusahaan Anda bersama tim konsultan hukum SELECO.</p>
+            <a href="#contact" onclick="closeArticleModal()" class="btn btn-gold btn-sm">Jadwalkan Konsultasi</a>
+          </div>
+        `
+      },
+      3: {
+        category: "Contracts",
+        date: "15 Agustus 2026",
+        readTime: "4 min read",
+        title: "7 Klausul Penting yang Perlu Diperhatikan dalam Perjanjian Bisnis",
+        body: `
+          <p>Sebuah kontrak bisnis yang dirancang dengan baik adalah benteng pertahanan utama perusahaan saat terjadi kesalahpahaman atau perbedaan penafsiran di kemudian hari. Berikut adalah 7 klausul kunci yang wajib dicermati secara cermat:</p>
+          <h2>1. Identitas Para Pihak (Legal Capacity)</h2>
+          <p>Memastikan bahwa pihak yang menandatangani kontrak memiliki wewenang hukum yang sah (misalnya Direktur Utama sesuai Akta Anggaran Dasar).</p>
+          <h2>2. Ruang Lingkup Pekerjaan & Hak/Kewajiban (Scope of Work)</h2>
+          <p>Menjelaskan secara eksplisit barang, jasa, atau hasil kerja (deliverables) yang wajib diserahterimakan.</p>
+          <h2>3. Ketentuan Pembayaran & Pajak</h2>
+          <p>Mengatur skema pembayaran, denda keterlambatan, serta alokasi PPN/PPh.</p>
+          <h2>4. Kerahasiaan Informasi (NDA) & Pengakhiran Kontrak</h2>
+          <p>Perlindungan terhadap rahasia dagang dan klausul pengakhiran karena wanprestasi atau Force Majeure.</p>
+          <div style="margin-top:2.5rem; padding:1.5rem; background:var(--bg-offwhite); border:1px solid var(--border-light); border-radius:2px;">
+            <h4 style="font-family:'Cormorant Garamond',serif; font-size:1.3rem; color:var(--navy-deep); margin-bottom:0.5rem;">Memerlukan Peninjauan Kontrak Bisnis?</h4>
+            <p style="font-size:0.875rem; color:var(--text-body); margin-bottom:1rem;">Diskusikan kebutuhan perusahaan Anda bersama tim konsultan hukum SELECO.</p>
+            <a href="#contact" onclick="closeArticleModal()" class="btn btn-gold btn-sm">Jadwalkan Konsultasi</a>
+          </div>
+        `
+      },
+      4: {
+        category: "Governance",
+        date: "04 Agustus 2026",
+        readTime: "5 min read",
+        title: "Mengapa Corporate Governance Penting bagi Perusahaan yang Sedang Bertumbuh?",
+        body: `
+          <p>Penerapan Good Corporate Governance (GCG) menjadi fondasi utama dalam meningkatkan kepercayaan investor, kepatuhan regulasi, dan akuntabilitas manajemen dalam skala bisnis berlanjut.</p>
+          <h2>Prinsip Utama Tata Kelola Korporasi</h2>
+          <ul>
+            <li>Transparansi (Transparency)</li>
+            <li>Akuntabilitas (Accountability)</li>
+            <li>Responsibilitas (Responsibility)</li>
+            <li>Independensi (Independency)</li>
+            <li>Kewajaran (Fairness)</li>
+          </ul>
+          <div style="margin-top:2.5rem; padding:1.5rem; background:var(--bg-offwhite); border:1px solid var(--border-light); border-radius:2px;">
+            <h4 style="font-family:'Cormorant Garamond',serif; font-size:1.3rem; color:var(--navy-deep); margin-bottom:0.5rem;">Memerlukan Pendampingan Corporate Governance?</h4>
+            <p style="font-size:0.875rem; color:var(--text-body); margin-bottom:1rem;">Diskusikan kebutuhan perusahaan Anda bersama tim konsultan hukum SELECO.</p>
+            <a href="#contact" onclick="closeArticleModal()" class="btn btn-gold btn-sm">Jadwalkan Konsultasi</a>
+          </div>
+        `
+      },
+      5: {
+        category: "Legal Risk",
+        date: "20 Juli 2026",
+        readTime: "5 min read",
+        title: "Legal Risk Management: Mencegah Masalah Hukum Sebelum Menjadi Sengketa",
+        body: `
+          <p>Manajemen Risiko Hukum adalah pendekatan sistematis untuk mengidentifikasi, menilai, memitigasi, dan memantau potensi risiko yang dapat mengakibatkan kerugian finansial atau sanksi hukum bagi perusahaan.</p>
+          <h2>Langkah Praktis Implementasi</h2>
+          <ol>
+            <li>Audit Kontrak Secara Berkala</li>
+            <li>Pemetaan Regulasi Terbaru & OSS RBA</li>
+            <li>Standard Operasional Prosedur (SOP) Legal Internal</li>
+          </ol>
+          <div style="margin-top:2.5rem; padding:1.5rem; background:var(--bg-offwhite); border:1px solid var(--border-light); border-radius:2px;">
+            <h4 style="font-family:'Cormorant Garamond',serif; font-size:1.3rem; color:var(--navy-deep); margin-bottom:0.5rem;">Memerlukan Audit Risiko Hukum Preventif?</h4>
+            <p style="font-size:0.875rem; color:var(--text-body); margin-bottom:1rem;">Diskusikan kebutuhan perusahaan Anda bersama tim konsultan hukum SELECO.</p>
+            <a href="#contact" onclick="closeArticleModal()" class="btn btn-gold btn-sm">Jadwalkan Konsultasi</a>
+          </div>
+        `
+      },
+      6: {
+        category: "Business",
+        date: "05 Juli 2026",
+        readTime: "4 min read",
+        title: "Kapan Perusahaan Membutuhkan Legal Retainer?",
+        body: `
+          <p>Layanan Corporate Legal Retainer dari SELECO menawarkan efisiensi biaya, akses ke tim ahli multidisiplin, dan respon peninjauan dokumen harian secara profesional.</p>
+          <div style="margin-top:2.5rem; padding:1.5rem; background:var(--bg-offwhite); border:1px solid var(--border-light); border-radius:2px;">
+            <h4 style="font-family:'Cormorant Garamond',serif; font-size:1.3rem; color:var(--navy-deep); margin-bottom:0.5rem;">Memerlukan Layanan Legal Retainer Eksternal?</h4>
+            <p style="font-size:0.875rem; color:var(--text-body); margin-bottom:1rem;">Diskusikan kebutuhan perusahaan Anda bersama tim konsultan hukum SELECO.</p>
+            <a href="#contact" onclick="closeArticleModal()" class="btn btn-gold btn-sm">Jadwalkan Konsultasi</a>
+          </div>
+        `
+      }
+    };
+
+    function openArticle(id) {
+      const art = articlesData[id];
+      if (!art) return;
+
+      document.getElementById('artMeta').innerHTML = `
+        <span><i class="fa-regular fa-folder"></i> ${art.category}</span>
+        <span>•</span>
+        <span><i class="fa-regular fa-clock"></i> ${art.readTime}</span>
+        <span>•</span>
+        <span><i class="fa-regular fa-calendar"></i> ${art.date}</span>
+      `;
+      document.getElementById('artTitle').textContent = art.title;
+      document.getElementById('artBody').innerHTML = art.body;
+
+      const modal = document.getElementById('articleModal');
+      modal.classList.add('active');
+      document.body.classList.add('modal-open');
+    }
+
+    function closeArticleModal() {
+      const modal = document.getElementById('articleModal');
+      modal.classList.remove('active');
+      document.body.classList.remove('modal-open');
+    }
+
+    const legalDocs = {
+      privacy: {
+        title: "Privacy Policy",
+        body: `
+          <h2>Privacy Policy</h2>
+          <p>SELECO (Sedana Legal Consultant) berkomitmen untuk melindungi privasi dan kerahasiaan informasi pribadi yang Anda berikan melalui situs web kami.</p>
+          <h3>1. Pengumpulan Informasi</h3>
+          <p>Kami mengumpulkan informasi yang Anda berikan secara sukarela saat mengisi formulir konsultasi.</p>
+          <h3>2. Kerahasiaan & Keamanan Data</h3>
+          <p>Informasi Anda tidak akan dijual atau dibagikan kepada pihak ketiga tanpa persetujuan Anda.</p>
+        `
+      },
+      disclaimer: {
+        title: "Legal Disclaimer",
+        body: `
+          <h2>Sanggahan Hukum (Disclaimer)</h2>
+          <p>Informasi yang dipublikasikan pada situs web ini disediakan untuk tujuan informasi umum dan tidak dimaksudkan sebagai nasihat hukum formal. Peraturan perundang-undangan dapat berubah dari waktu ke waktu.</p>
+        `
+      },
+      terms: {
+        title: "Terms of Use",
+        body: `
+          <h2>Syarat & Ketentuan Penggunaan</h2>
+          <p>Materi dan identitas merek pada situs web ini dilindungi di bawah hukum hak kekayaan intelektual yang berlaku.</p>
+        `
+      }
+    };
+
+    function openLegalModal(docType) {
+      const doc = legalDocs[docType];
+      if (!doc) return;
+      document.getElementById('legalModalTitle').textContent = doc.title;
+      document.getElementById('legalModalBody').innerHTML = doc.body;
+      document.getElementById('legalModal').classList.add('active');
+      document.body.classList.add('modal-open');
+    }
+
+    function closeLegalModal() {
+      document.getElementById('legalModal').classList.remove('active');
+      document.body.classList.remove('modal-open');
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeArticleModal();
+        closeLegalModal();
+        closeMobileMenu();
+      }
+    });
+
+    document.getElementById('articleModal').addEventListener('click', (e) => {
+      if (e.target.id === 'articleModal') closeArticleModal();
+    });
+    document.getElementById('legalModal').addEventListener('click', (e) => {
+      if (e.target.id === 'legalModal') closeLegalModal();
+    });
+
+    // Sticky Navbar & ScrollSpy
+    const navbar = document.getElementById('navbar');
+    const backToTopBtn = document.getElementById('backToTop');
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 40) navbar.classList.add('scrolled');
+      else navbar.classList.remove('scrolled');
+
+      if (window.scrollY > 500) backToTopBtn.classList.add('visible');
+      else backToTopBtn.classList.remove('visible');
+
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 120;
+        if (window.scrollY >= sectionTop && window.scrollY < sectionTop + section.offsetHeight) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
+      });
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Mobile Drawer
+    const mobileToggle = document.getElementById('mobile-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileOverlay = document.getElementById('mobile-overlay');
+    const mobileClose = document.getElementById('mobile-close');
+
+    function openMobileMenu() {
+      mobileMenu.classList.add('active');
+      mobileOverlay.classList.add('active');
+      mobileToggle.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('modal-open');
+    }
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('active');
+      mobileOverlay.classList.remove('active');
+      mobileToggle.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('modal-open');
+    }
+
+    mobileToggle.addEventListener('click', openMobileMenu);
+    mobileClose.addEventListener('click', closeMobileMenu);
+    mobileOverlay.addEventListener('click', closeMobileMenu);
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
+
+    // Reveal animations
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // Stats counter
+    let statsAnimated = false;
+    const statsSection = document.getElementById('stats');
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !statsAnimated) {
+          statsAnimated = true;
+          animateCounters();
+        }
+      });
+    }, { threshold: 0.3 });
+
+    if (statsSection) statsObserver.observe(statsSection);
+
+    function animateCounters() {
+      document.querySelectorAll('.stat-number').forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-target'));
+        const duration = 1800;
+        const stepTime = 20;
+        const totalSteps = duration / stepTime;
+        const increment = target / totalSteps;
+        let current = 0;
+
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            counter.textContent = target + (target === 98 ? '%' : '+');
+            clearInterval(timer);
+          } else {
+            counter.textContent = Math.ceil(current) + (target === 98 ? '%' : '+');
+          }
+        }, stepTime);
+      });
+    }
+
+    // FAQ Accordion
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      const button = item.querySelector('.faq-button');
+      button.addEventListener('click', () => {
+        const isOpen = item.classList.contains('active');
+        faqItems.forEach(i => {
+          i.classList.remove('active');
+          i.querySelector('.faq-button').setAttribute('aria-expanded', 'false');
+          i.querySelector('.faq-content').style.maxHeight = null;
+        });
+        if (!isOpen) {
+          item.classList.add('active');
+          button.setAttribute('aria-expanded', 'true');
+          const content = item.querySelector('.faq-content');
+          content.style.maxHeight = content.scrollHeight + "px";
+        }
+      });
+    });
+
+    function selectServiceInForm(serviceValue) {
+      const select = document.getElementById('legalService');
+      if (select) select.value = serviceValue;
+    }
+
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('fullName').value;
+      if (!name) return;
+      showToast(`Pesan Anda berhasil dikirim, ${name}. Tim SELECO akan segera menghubungi Anda.`);
+      document.getElementById('contactForm').reset();
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMessage').textContent = message;
+      toast.classList.add('active');
+      setTimeout(() => toast.classList.remove('active'), 5000);
+    }
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  roundcubemail:
+    image: roundcube/roundcubemail:latest
+    container_name: roundcube
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    environment:
+      - ROUNDCUBEMAIL_DEFAULT_HOST=tls://mail.selecoproject.com
+      - ROUNDCUBEMAIL_DEFAULT_PORT=143
+      - ROUNDCUBEMAIL_SMTP_SERVER=tls://mail.selecoproject.com
+      - ROUNDCUBEMAIL_SMTP_PORT=587
+      - ROUNDCUBEMAIL_UPLOAD_MAX_FILESIZE=50M
+    volumes:
+      - roundcube_data:/var/www/html
+      - roundcube_db:/var/www/db
+
+volumes:
+  roundcube_data:
+  roundcube_db:

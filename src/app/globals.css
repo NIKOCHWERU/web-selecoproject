@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: #C9A227;
+    color: #071426;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #F8F7F2; }
+  ::-webkit-scrollbar-thumb {
+    background: #071426;
+    border: 1px solid rgba(201, 162, 39, 0.3);
+  }
+}
+
+@layer components {
+  /* Cormorant Garamond for all editorial headings */
+  .font-serif-title {
+    font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  }
+
+  /* Corporate crisp 1px border utility */
+  .border-corporate {
+    border-color: rgba(7, 20, 38, 0.12);
+  }
+
+  /* Gold subtle border */
+  .border-gold-subtle {
+    border-color: rgba(201, 162, 39, 0.3);
+  }
+
+  /* Navy glass header background */
+  .header-glass {
+    background: rgba(7, 20, 38, 0.94);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* Gold soft background tint */
+  .bg-gold-soft {
+    background-color: rgba(201, 162, 39, 0.12);
+  }
+
+  /* Divide color corporate */
+  .divide-corporate > * + * {
+    border-color: rgba(7, 20, 38, 0.12);
+  }
+}
