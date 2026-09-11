@@ -121,8 +121,8 @@ export default function ContactSection() {
             {/* Office Photo */}
             <div className="mt-8 relative h-40 rounded overflow-hidden border border-gold-accent/30">
               <img
-                src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=600&q=80"
-                alt="SELECO Office Jakarta"
+                src="https://images.unsplash.com/photo-1575505586569-646b2ca898fc?auto=format&fit=crop&w=600&q=80"
+                alt="Kantor Hukum SELECO Jakarta"
                 className="w-full h-full object-cover brightness-50"
               />
               <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">

@@ -13,7 +13,7 @@ const insights = [
     excerpt: 'Pemeriksaan hukum komprehensif untuk mengidentifikasi risiko tersembunyi sebelum akuisisi, investasi, atau joint venture.',
     category: 'Corporate Law',
     readTime: '5 min',
-    img: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80',
+    img: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ const insights = [
     excerpt: 'Aspek legalitas SP, tata cara perundingan Bipartit, dan prosedur PHK yang patuh regulasi ketenagakerjaan Indonesia.',
     category: 'Employment Law',
     readTime: '6 min',
-    img: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80',
+    img: 'https://images.unsplash.com/photo-1589994965851-a8f479c573a9?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 3,
@@ -29,7 +29,7 @@ const insights = [
     excerpt: 'Kontrak sebagai instrumen perlindungan hak dan pembatasan kewajiban—sebelum penandatanganan resmi dilakukan.',
     category: 'Contracts',
     readTime: '4 min',
-    img: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80',
+    img: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 4,
@@ -37,7 +37,7 @@ const insights = [
     excerpt: 'Penerapan GCG untuk meningkatkan akuntabilitas, transparansi, dan kepercayaan investor secara berkelanjutan.',
     category: 'Governance',
     readTime: '5 min',
-    img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80',
+    img: 'https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 5,
@@ -45,7 +45,7 @@ const insights = [
     excerpt: 'Mitigasi risiko hukum secara preventif melalui audit kontrak periodik dan penyusunan SOP legal internal.',
     category: 'Legal Risk',
     readTime: '5 min',
-    img: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80',
+    img: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 6,
@@ -53,7 +53,7 @@ const insights = [
     excerpt: 'Perbandingan efisiensi tim legal internal vs. retainer eksternal untuk perusahaan yang sedang bertumbuh.',
     category: 'Business',
     readTime: '4 min',
-    img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80',
+    img: 'https://images.unsplash.com/photo-1575505586569-646b2ca898fc?auto=format&fit=crop&w=800&q=80',
   },
 ];
 

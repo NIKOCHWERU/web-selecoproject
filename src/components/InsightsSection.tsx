@@ -11,7 +11,7 @@ const articles = [
     readTime: '5 min',
     title: 'Memahami Pentingnya Legal Due Diligence Sebelum Transaksi Bisnis',
     excerpt: 'Pemeriksaan hukum komprehensif untuk mengidentifikasi risiko tersembunyi sebelum akuisisi, investasi, atau joint venture.',
-    img: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80',
+    img: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=600&q=80',
   },
   {
     id: 2,
@@ -19,7 +19,7 @@ const articles = [
     readTime: '6 min',
     title: 'Hal yang Perlu Diperhatikan Sebelum Melakukan PHK Karyawan',
     excerpt: 'Aspek legalitas SP, tata cara perundingan Bipartit, dan prosedur PHK yang patuh regulasi ketenagakerjaan Indonesia.',
-    img: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=600&q=80',
+    img: 'https://images.unsplash.com/photo-1589994965851-a8f479c573a9?auto=format&fit=crop&w=600&q=80',
   },
   {
     id: 3,
@@ -27,7 +27,7 @@ const articles = [
     readTime: '4 min',
     title: '7 Klausul Penting yang Wajib Ada dalam Perjanjian Bisnis',
     excerpt: 'Kontrak sebagai instrumen perlindungan hak dan pembatasan kewajiban—sebelum penandatanganan resmi dilakukan.',
-    img: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=600&q=80',
+    img: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=600&q=80',
   },
   {
     id: 4,
@@ -35,7 +35,7 @@ const articles = [
     readTime: '5 min',
     title: 'Mengapa Corporate Governance Penting bagi Perusahaan Bertumbuh?',
     excerpt: 'Penerapan GCG untuk meningkatkan akuntabilitas, transparansi, dan kepercayaan investor secara berkelanjutan.',
-    img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80',
+    img: 'https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=600&q=80',
   },
   {
     id: 5,
@@ -43,7 +43,7 @@ const articles = [
     readTime: '5 min',
     title: 'Legal Risk Management: Mencegah Masalah Hukum Sebelum Menjadi Sengketa',
     excerpt: 'Mitigasi risiko hukum secara preventif melalui audit kontrak periodik dan penyusunan SOP legal internal.',
-    img: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80',
+    img: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=600&q=80',
   },
   {
     id: 6,
@@ -51,7 +51,7 @@ const articles = [
     readTime: '4 min',
     title: 'Kapan Perusahaan Membutuhkan Corporate Legal Retainer Eksternal?',
     excerpt: 'Perbandingan efisiensi tim legal internal vs. retainer eksternal untuk perusahaan yang sedang bertumbuh.',
-    img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80',
+    img: 'https://images.unsplash.com/photo-1575505586569-646b2ca898fc?auto=format&fit=crop&w=600&q=80',
   },
 ];
 

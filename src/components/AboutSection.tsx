@@ -44,21 +44,21 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
             <div className="col-span-2 h-56 rounded overflow-hidden border border-gold-accent">
               <img
                 src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=900&q=80"
-                alt="Lady Justice & Law Books"
+                alt="Patung Dewi Keadilan - Lady Justice"
                 className="w-full h-full object-cover"
               />
             </div>
             <div className="h-40 rounded overflow-hidden border border-corporate">
               <img
-                src="https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=500&q=80"
-                alt="Contract Document Review"
+                src="https://images.unsplash.com/photo-1589994965851-a8f479c573a9?auto=format&fit=crop&w=600&q=80"
+                alt="Palu Sidang Hukum & Buku Undang-Undang"
                 className="w-full h-full object-cover"
               />
             </div>
             <div className="h-40 rounded overflow-hidden border border-corporate">
               <img
-                src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=500&q=80"
-                alt="Corporate Boardroom"
+                src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=600&q=80"
+                alt="Penandatanganan Kontrak & Dokumen Legal"
                 className="w-full h-full object-cover"
               />
             </div>

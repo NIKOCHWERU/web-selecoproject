@@ -74,8 +74,8 @@ export default function RetainerSection() {
             <div className="lg:col-span-5">
               <div className="relative rounded overflow-hidden border border-gold-accent/40 shadow-2xl h-80 lg:h-96">
                 <img
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"
-                  alt="Corporate Legal Counsel Consultation"
+                  src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=800&q=80"
+                  alt="Ruang Konsultasi Hukum Firma SELECO"
                   className="w-full h-full object-cover filter brightness-[0.85]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-dark via-transparent to-transparent" />
