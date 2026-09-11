@@ -144,8 +144,8 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-gold-accent shrink-0" />
-                <a href="tel:+6281200000000" className="hover:text-gold-accent transition-colors">
-                  +62 812-0000-0000
+                <a href="tel:+6282211020022" className="hover:text-gold-accent transition-colors">
+                  +62 822-1102-0022
                 </a>
               </div>
               <div className="pt-2 text-white/50">
@@ -172,17 +172,6 @@ export default function Footer() {
           *Informasi yang dipublikasikan pada situs web ini disediakan untuk tujuan informasi umum dan tidak dimaksudkan sebagai nasihat hukum formal sebelum disepakati perjanjian kerja tertulis.
         </p>
       </div>
-
-      {/* Floating WhatsApp CTA */}
-      <a
-        href="https://wa.me/6281200000000?text=Halo%20SELECO,%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20hukum."
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-lg hover:scale-110 transition-transform z-40"
-        aria-label="Contact via WhatsApp"
-      >
-        <MessageCircle className="w-6 h-6 fill-current" />
-      </a>
 
       {/* Back to Top */}
       {showTopBtn && (
