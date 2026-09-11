@@ -94,32 +94,32 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2.5">
               <li>
-                <Link href="/#about" className="hover:text-gold-accent transition-colors">
+                <Link href="/tentang" className="hover:text-gold-accent transition-colors">
                   Tentang SELECO
                 </Link>
               </li>
               <li>
-                <Link href="/#retainer" className="hover:text-gold-accent transition-colors">
+                <Link href="/tentang#retainer" className="hover:text-gold-accent transition-colors">
                   Corporate Legal Retainer
                 </Link>
               </li>
               <li>
-                <Link href="/#approach" className="hover:text-gold-accent transition-colors">
+                <Link href="/tentang" className="hover:text-gold-accent transition-colors">
                   Metodologi Kerja
                 </Link>
               </li>
               <li>
-                <Link href="/#attorneys" className="hover:text-gold-accent transition-colors">
+                <Link href="/tentang#attorneys" className="hover:text-gold-accent transition-colors">
                   Tim Advokat & Konsultan
                 </Link>
               </li>
               <li>
-                <Link href="/#insights" className="hover:text-gold-accent transition-colors">
+                <Link href="/insight" className="hover:text-gold-accent transition-colors">
                   Legal Insights & Berita
                 </Link>
               </li>
               <li>
-                <Link href="/#contact" className="hover:text-gold-accent transition-colors">
+                <Link href="/kontak" className="hover:text-gold-accent transition-colors">
                   Hubungi Tim Kami
                 </Link>
               </li>

@@ -47,13 +47,13 @@ export default function Hero() {
             <div className="flex flex-wrap gap-4 pt-2">
               <Link
                 href="/layanan"
-                className="px-6 py-3.5 bg-gold-accent text-white font-bold text-xs uppercase tracking-wider rounded hover:bg-gold-bright transition-all shadow-lg flex items-center gap-2"
+                className="px-6 py-3.5 bg-gold-accent text-navy-dark font-bold text-xs uppercase tracking-wider rounded hover:bg-gold-bright transition-all shadow-lg flex items-center gap-2"
               >
                 <Scale className="w-4 h-4" />
                 Cari 445+ Layanan & Perizinan
               </Link>
               <Link
-                href="/#contact"
+                href="/kontak"
                 className="px-6 py-3.5 bg-navy-royal/80 border border-gold-accent/40 text-white font-bold text-xs uppercase tracking-wider rounded hover:border-gold-accent hover:text-gold-accent transition-all flex items-center gap-2"
               >
                 <Calendar className="w-4 h-4" />

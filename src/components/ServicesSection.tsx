@@ -92,7 +92,7 @@ export default function ServicesSection() {
           </div>
           <Link
             href="/layanan"
-            className="px-6 py-3.5 bg-gold-accent text-white font-bold text-xs uppercase tracking-wider rounded hover:bg-gold-bright transition-all whitespace-nowrap flex items-center gap-2"
+            className="px-6 py-3.5 bg-gold-accent text-navy-dark font-bold text-xs uppercase tracking-wider rounded hover:bg-gold-bright transition-all whitespace-nowrap flex items-center gap-2"
           >
             <Search className="w-4 h-4" />
             Buka Direktori Lengkap 445+ Layanan

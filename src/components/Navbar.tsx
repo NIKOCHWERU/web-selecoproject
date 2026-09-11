@@ -25,10 +25,10 @@ export default function Navbar() {
 
   const navLinks = [
     { name: 'Beranda', href: '/' },
-    { name: 'Tentang Kami', href: '/#about' },
+    { name: 'Tentang Kami', href: '/tentang' },
     { name: 'Layanan', href: '/layanan' },
     { name: 'Insight', href: '/insight' },
-    { name: 'Kontak', href: '/#contact' },
+    { name: 'Kontak', href: '/kontak' },
   ];
 
   return (
@@ -80,7 +80,7 @@ export default function Navbar() {
           {/* CTA Actions */}
           <div className="hidden lg:flex items-center space-x-4">
             <Link
-              href="/#contact"
+              href="/kontak"
               className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-white bg-gold-accent rounded hover:bg-gold-bright transition-all shadow-md flex items-center gap-1.5"
             >
               <Calendar className="w-3.5 h-3.5" />
@@ -160,7 +160,7 @@ export default function Navbar() {
                   Direktori 445+ Layanan
                 </Link>
                 <Link
-                  href="/#contact"
+                  href="/kontak"
                   onClick={() => setMobileOpen(false)}
                   className="w-full py-3 text-xs font-bold uppercase tracking-wider text-center text-white bg-gold-accent rounded flex items-center justify-center gap-2 hover:bg-gold-bright"
                 >

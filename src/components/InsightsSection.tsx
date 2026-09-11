@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
@@ -102,12 +103,21 @@ export default function InsightsSection() {
                 <p className="text-xs text-white/70 leading-relaxed line-clamp-2 mb-4 flex-grow">
                   {article.excerpt}
                 </p>
-                <button className="inline-flex items-center gap-1.5 text-xs font-bold text-white border-t border-corporate pt-3 hover:text-gold-accent transition-colors group-hover:text-gold-accent">
+                <Link href="/insight" className="inline-flex items-center gap-1.5 text-xs font-bold text-gold-accent border-t border-corporate pt-3 hover:text-gold-bright transition-colors group-hover:text-gold-bright">
                   Baca Insight <span className="group-hover:translate-x-1 transition-transform inline-block">→</span>
-                </button>
+                </Link>
               </div>
             </motion.article>
           ))}
+        </div>
+
+        <div className="mt-12 text-center">
+          <Link
+            href="/insight"
+            className="inline-flex items-center gap-2 px-6 py-3 border border-gold-accent/40 rounded text-gold-accent hover:bg-gold-accent hover:text-navy-dark transition-all text-xs font-bold uppercase tracking-wider"
+          >
+            Lihat Semua Publikasi Insight →
+          </Link>
         </div>
 
       </div>

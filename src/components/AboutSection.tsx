@@ -1,9 +1,10 @@
 'use client';
 
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ShieldCheck, TrendingUp, Lightbulb, Lock } from 'lucide-react';
 
-export default function AboutSection() {
+export default function AboutSection({ showMoreLink = false }: { showMoreLink?: boolean }) {
   const values = [
     {
       icon: <ShieldCheck className="w-5 h-5 text-gold-accent" />,
@@ -104,6 +105,17 @@ export default function AboutSection() {
                 </div>
               ))}
             </div>
+
+            {showMoreLink && (
+              <div className="pt-2">
+                <Link
+                  href="/tentang"
+                  className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-gold-accent hover:text-gold-bright transition-colors"
+                >
+                  Pelajari Profil Firma & Tim Kami →
+                </Link>
+              </div>
+            )}
           </motion.div>
 
         </div>
