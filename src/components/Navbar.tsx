@@ -24,12 +24,10 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '/' },
+    { name: 'Beranda', href: '/' },
     { name: 'Tentang Kami', href: '/#about' },
-    { name: 'Daftar Layanan (445+)', href: '/layanan' },
-    { name: 'Legal Retainer', href: '/#retainer' },
-    { name: 'Tim Advokat', href: '/#attorneys' },
-    { name: 'Legal Insights', href: '/#insights' },
+    { name: 'Layanan', href: '/layanan' },
+    { name: 'Insight', href: '/insight' },
     { name: 'Kontak', href: '/#contact' },
   ];
 
@@ -81,13 +79,6 @@ export default function Navbar() {
 
           {/* CTA Actions */}
           <div className="hidden lg:flex items-center space-x-4">
-            <Link
-              href="/layanan"
-              className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-white border border-gold-accent/40 rounded hover:border-gold-accent hover:text-gold-accent transition-all flex items-center gap-1.5"
-            >
-              <Scale className="w-3.5 h-3.5 text-gold-accent" />
-              Direktori 445+ Layanan
-            </Link>
             <Link
               href="/#contact"
               className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-white bg-gold-accent rounded hover:bg-gold-bright transition-all shadow-md flex items-center gap-1.5"
