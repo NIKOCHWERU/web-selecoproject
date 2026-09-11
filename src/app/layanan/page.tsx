@@ -66,7 +66,7 @@ export default function LayananPage() {
   const currentCatData = SERVICE_CATEGORIES.find(c => c.id === activeCat);
 
   return (
-    <div className="min-h-screen bg-offwhite">
+    <div className="min-h-screen bg-navy-dark">
       
       {/* Page Hero Banner */}
       <div className="bg-navy-deep border-b border-gold-accent/40 py-16">
@@ -117,12 +117,12 @@ export default function LayananPage() {
                     onClick={() => { setActiveCat(cat.id); setSearchQuery(''); }}
                     className={`w-full flex items-start justify-between gap-2 px-4 py-3 text-left transition-all text-xs ${
                       activeCat === cat.id
-                        ? 'bg-gold-soft border-l-2 border-gold-accent text-navy-deep font-bold'
-                        : 'text-navy-deep/70 hover:bg-offwhite hover:text-navy-deep'
+                        ? 'bg-gold-soft border-l-2 border-gold-accent text-white font-bold'
+                        : 'text-white/70 hover:bg-navy-dark hover:text-white'
                     }`}
                   >
                     <span className="leading-snug font-semibold">{cat.name}</span>
-                    <span className={`shrink-0 text-[10px] font-bold px-1.5 py-0.5 rounded ${activeCat === cat.id ? 'bg-gold-accent text-navy-deep' : 'bg-navy-deep/8 text-navy-deep/60'}`} style={activeCat !== cat.id ? {background:'rgba(7,20,38,0.07)'} : undefined}>
+                    <span className={`shrink-0 text-[10px] font-bold px-1.5 py-0.5 rounded ${activeCat === cat.id ? 'bg-gold-accent text-white' : 'bg-navy-deep/8 text-white/60'}`} style={activeCat !== cat.id ? {background:'rgba(7,20,38,0.07)'} : undefined}>
                       {cat.count}
                     </span>
                   </button>
@@ -137,31 +137,31 @@ export default function LayananPage() {
             {/* Search & View Controls */}
             <div className="bg-white border border-corporate rounded p-4 mb-6 flex flex-col sm:flex-row gap-3 items-start sm:items-center">
               <div className="relative flex-1 w-full">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-navy-deep/40" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
                   placeholder="Cari layanan, perizinan, atau perkara hukum..."
-                  className="w-full pl-9 pr-9 py-2.5 text-sm bg-offwhite border border-corporate rounded focus:outline-none focus:border-navy-deep text-navy-deep"
+                  className="w-full pl-9 pr-9 py-2.5 text-sm bg-navy-dark border border-corporate rounded focus:outline-none focus:border-navy-deep text-white"
                 />
                 {searchQuery && (
                   <button onClick={() => setSearchQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2">
-                    <X className="w-4 h-4 text-navy-deep/40 hover:text-navy-deep" />
+                    <X className="w-4 h-4 text-white/40 hover:text-white" />
                   </button>
                 )}
               </div>
               <div className="flex items-center gap-2 shrink-0">
                 <button
                   onClick={() => setViewMode('grid')}
-                  className={`p-2 rounded border transition-all ${viewMode === 'grid' ? 'bg-navy-deep text-white border-navy-deep' : 'border-corporate text-navy-deep/60 hover:border-navy-deep'}`}
+                  className={`p-2 rounded border transition-all ${viewMode === 'grid' ? 'bg-navy-deep text-white border-navy-deep' : 'border-corporate text-white/60 hover:border-navy-deep'}`}
                   title="Grid view"
                 >
                   <Grid className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => setViewMode('list')}
-                  className={`p-2 rounded border transition-all ${viewMode === 'list' ? 'bg-navy-deep text-white border-navy-deep' : 'border-corporate text-navy-deep/60 hover:border-navy-deep'}`}
+                  className={`p-2 rounded border transition-all ${viewMode === 'list' ? 'bg-navy-deep text-white border-navy-deep' : 'border-corporate text-white/60 hover:border-navy-deep'}`}
                   title="List view"
                 >
                   <List className="w-4 h-4" />
@@ -172,8 +172,8 @@ export default function LayananPage() {
             {/* Category Title & Description */}
             {currentCatData && (
               <div className="mb-6 p-5 bg-white border border-corporate border-l-4 border-l-gold-accent rounded">
-                <h2 className="font-serif-title text-xl font-bold text-navy-deep mb-1">{currentCatData.name}</h2>
-                <p className="text-xs text-navy-deep/70">{currentCatData.description}</p>
+                <h2 className="font-serif-title text-xl font-bold text-white mb-1">{currentCatData.name}</h2>
+                <p className="text-xs text-white/70">{currentCatData.description}</p>
                 <p className="text-xs text-gold-accent font-bold mt-2">
                   Menampilkan {filtered.length} dari {currentCatData.count} layanan
                   {searchQuery && ` — cocok dengan "${searchQuery}"`}
@@ -182,13 +182,13 @@ export default function LayananPage() {
             )}
 
             {/* Results Count */}
-            <p className="text-xs text-navy-deep/60 mb-4 font-semibold">
+            <p className="text-xs text-white/60 mb-4 font-semibold">
               {filtered.length} Layanan Ditemukan
             </p>
 
             {/* Items — Grid Mode */}
             {filtered.length === 0 && (
-              <div className="text-center py-20 text-navy-deep/50">
+              <div className="text-center py-20 text-white/50">
                 <Search className="w-10 h-10 mx-auto mb-3 opacity-40" />
                 <p className="font-serif-title text-xl font-bold mb-1">Tidak Ada Hasil</p>
                 <p className="text-sm">Coba kata kunci lain atau pilih kategori berbeda.</p>
@@ -221,16 +221,16 @@ export default function LayananPage() {
                           }`}>
                             {item.type === 'hukum' ? 'Hukum' : 'Perizinan'}
                           </span>
-                          <span className="text-[10px] text-navy-deep/40 font-semibold shrink-0">#{item.id}</span>
+                          <span className="text-[10px] text-white/40 font-semibold shrink-0">#{item.id}</span>
                         </div>
-                        <h3 className="text-sm font-bold text-navy-deep leading-snug mb-1 group-hover:text-gold-accent transition-colors">
+                        <h3 className="text-sm font-bold text-white leading-snug mb-1 group-hover:text-gold-accent transition-colors">
                           {item.title}
                         </h3>
-                        <p className="text-[10px] text-navy-deep/50 font-semibold">{item.category}</p>
+                        <p className="text-[10px] text-white/50 font-semibold">{item.category}</p>
                       </div>
                       <Link
                         href="/#contact"
-                        className="mt-3 text-xs font-bold text-navy-deep/60 border-t border-corporate pt-2.5 flex items-center gap-1 hover:text-gold-accent transition-colors group-hover:text-gold-accent"
+                        className="mt-3 text-xs font-bold text-white/60 border-t border-corporate pt-2.5 flex items-center gap-1 hover:text-gold-accent transition-colors group-hover:text-gold-accent"
                       >
                         Konsultasikan <ChevronRight className="w-3 h-3" />
                       </Link>
@@ -251,16 +251,16 @@ export default function LayananPage() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.2, delay: Math.min(idx * 0.01, 0.2) }}
-                      className="flex items-start gap-4 px-4 py-3.5 hover:bg-offwhite transition-all group"
+                      className="flex items-start gap-4 px-4 py-3.5 hover:bg-navy-dark transition-all group"
                     >
-                      <span className="text-xs text-navy-deep/30 font-bold w-7 shrink-0 pt-0.5">
+                      <span className="text-xs text-white/30 font-bold w-7 shrink-0 pt-0.5">
                         {String(item.id).padStart(3, '0')}
                       </span>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-semibold text-navy-deep group-hover:text-gold-accent transition-colors leading-snug">
+                        <p className="text-sm font-semibold text-white group-hover:text-gold-accent transition-colors leading-snug">
                           {item.title}
                         </p>
-                        <p className="text-[10px] text-navy-deep/50 mt-0.5">{item.category}</p>
+                        <p className="text-[10px] text-white/50 mt-0.5">{item.category}</p>
                       </div>
                       <div className="flex items-center gap-2 shrink-0">
                         <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${
@@ -270,7 +270,7 @@ export default function LayananPage() {
                         }`}>
                           {item.type === 'hukum' ? 'Hukum' : 'Izin'}
                         </span>
-                        <Link href="/#contact" className="text-[10px] font-bold text-navy-deep/50 hover:text-gold-accent transition-colors whitespace-nowrap">
+                        <Link href="/#contact" className="text-[10px] font-bold text-white/50 hover:text-gold-accent transition-colors whitespace-nowrap">
                           Konsultasi →
                         </Link>
                       </div>
@@ -289,7 +289,7 @@ export default function LayananPage() {
                 </div>
                 <Link
                   href="/#contact"
-                  className="px-5 py-3 bg-gold-accent text-navy-deep font-bold text-xs uppercase tracking-wider rounded hover:bg-gold-bright transition-all whitespace-nowrap flex items-center gap-2"
+                  className="px-5 py-3 bg-gold-accent text-white font-bold text-xs uppercase tracking-wider rounded hover:bg-gold-bright transition-all whitespace-nowrap flex items-center gap-2"
                 >
                   <Scale className="w-4 h-4" /> Hubungi Kami
                 </Link>

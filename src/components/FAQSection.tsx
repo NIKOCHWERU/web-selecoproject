@@ -31,7 +31,7 @@ export default function FAQSection() {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="py-20 bg-offwhite border-b border-corporate">
+    <section id="faq" className="py-20 bg-navy-dark border-b border-corporate">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div className="text-center mb-14">
@@ -49,7 +49,7 @@ export default function FAQSection() {
             <div key={idx}>
               <button
                 onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
-                className="w-full flex items-start justify-between gap-4 px-6 py-5 text-left hover:bg-offwhite transition-colors"
+                className="w-full flex items-start justify-between gap-4 px-6 py-5 text-left hover:bg-navy-surface transition-colors"
                 aria-expanded={openIdx === idx}
               >
                 <div className="flex items-start gap-3">

@@ -26,7 +26,7 @@ const attorneys = [
 
 export default function TeamSection() {
   return (
-    <section id="attorneys" className="py-20 bg-offwhite border-b border-corporate">
+    <section id="attorneys" className="py-20 bg-navy-dark border-b border-corporate">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="text-center max-w-2xl mx-auto mb-14">

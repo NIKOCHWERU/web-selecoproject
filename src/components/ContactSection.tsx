@@ -10,8 +10,22 @@ export default function ContactSection() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const form = formRef.current;
+    if (!form) return;
+
+    const nama = (form.querySelector('[name="nama"]') as HTMLInputElement)?.value || '';
+    const perusahaan = (form.querySelector('[name="perusahaan"]') as HTMLInputElement)?.value || '';
+    const email = (form.querySelector('[name="email"]') as HTMLInputElement)?.value || '';
+    const telepon = (form.querySelector('[name="telepon"]') as HTMLInputElement)?.value || '';
+    const layanan = (form.querySelector('[name="layanan"]') as HTMLSelectElement)?.value || '';
+    const deskripsi = (form.querySelector('[name="deskripsi"]') as HTMLTextAreaElement)?.value || '';
+
+    const message = `*Formulir Konsultasi SELECO*%0A%0A*Nama:* ${encodeURIComponent(nama)}%0A*Perusahaan:* ${encodeURIComponent(perusahaan)}%0A*Email:* ${encodeURIComponent(email)}%0A*Telepon:* ${encodeURIComponent(telepon)}%0A*Layanan:* ${encodeURIComponent(layanan)}%0A*Deskripsi:*%0A${encodeURIComponent(deskripsi)}`;
+
+    window.open(`https://wa.me/6282211020022?text=${message}`, '_blank');
+
     setSubmitted(true);
-    formRef.current?.reset();
+    form.reset();
     setTimeout(() => setSubmitted(false), 6000);
   };
 
@@ -96,8 +110,8 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <p className="text-[10px] text-gold-accent font-bold uppercase tracking-widest">Telepon / WhatsApp</p>
-                    <a href="tel:+6281200000000" className="text-sm text-white/90 hover:text-gold-accent transition-colors">
-                      +62 812-0000-0000
+                    <a href="tel:+6282211020022" className="text-sm text-white/90 hover:text-gold-accent transition-colors">
+                      +62 822-1102-0022
                     </a>
                   </div>
                 </div>
@@ -143,17 +157,19 @@ export default function ContactSection() {
                     <label className="block text-xs font-semibold text-white mb-1.5">Nama Lengkap *</label>
                     <input
                       type="text"
+                      name="nama"
                       required
                       placeholder="Budi Santoso"
-                      className="w-full px-3 py-2.5 text-sm bg-offwhite border border-corporate rounded focus:outline-none focus:border-navy-deep text-white"
+                      className="w-full px-3 py-2.5 text-sm bg-navy-dark border border-corporate rounded focus:outline-none focus:border-navy-deep text-white"
                     />
                   </div>
                   <div>
                     <label className="block text-xs font-semibold text-white mb-1.5">Nama Perusahaan</label>
                     <input
                       type="text"
+                      name="perusahaan"
                       placeholder="PT Maju Bersama"
-                      className="w-full px-3 py-2.5 text-sm bg-offwhite border border-corporate rounded focus:outline-none focus:border-navy-deep text-white"
+                      className="w-full px-3 py-2.5 text-sm bg-navy-dark border border-corporate rounded focus:outline-none focus:border-navy-deep text-white"
                     />
                   </div>
                 </div>
@@ -163,18 +179,20 @@ export default function ContactSection() {
                     <label className="block text-xs font-semibold text-white mb-1.5">Alamat Email *</label>
                     <input
                       type="email"
+                      name="email"
                       required
                       placeholder="nama@perusahaan.com"
-                      className="w-full px-3 py-2.5 text-sm bg-offwhite border border-corporate rounded focus:outline-none focus:border-navy-deep text-white"
+                      className="w-full px-3 py-2.5 text-sm bg-navy-dark border border-corporate rounded focus:outline-none focus:border-navy-deep text-white"
                     />
                   </div>
                   <div>
                     <label className="block text-xs font-semibold text-white mb-1.5">Telepon / WhatsApp *</label>
                     <input
                       type="tel"
+                      name="telepon"
                       required
                       placeholder="+62 812 XXXX XXXX"
-                      className="w-full px-3 py-2.5 text-sm bg-offwhite border border-corporate rounded focus:outline-none focus:border-navy-deep text-white"
+                      className="w-full px-3 py-2.5 text-sm bg-navy-dark border border-corporate rounded focus:outline-none focus:border-navy-deep text-white"
                     />
                   </div>
                 </div>
@@ -182,9 +200,10 @@ export default function ContactSection() {
                 <div>
                   <label className="block text-xs font-semibold text-white mb-1.5">Kategori Layanan Hukum *</label>
                   <select
+                    name="layanan"
                     required
                     defaultValue=""
-                    className="w-full px-3 py-2.5 text-sm bg-offwhite border border-corporate rounded focus:outline-none focus:border-navy-deep text-white"
+                    className="w-full px-3 py-2.5 text-sm bg-navy-dark border border-corporate rounded focus:outline-none focus:border-navy-deep text-white"
                   >
                     <option value="" disabled>Pilih kategori layanan...</option>
                     {serviceOptions.map(opt => (
@@ -196,10 +215,11 @@ export default function ContactSection() {
                 <div>
                   <label className="block text-xs font-semibold text-white mb-1.5">Deskripsi Singkat Kebutuhan Hukum *</label>
                   <textarea
+                    name="deskripsi"
                     required
                     rows={4}
                     placeholder="Jelaskan secara singkat konteks atau kebutuhan hukum Anda..."
-                    className="w-full px-3 py-2.5 text-sm bg-offwhite border border-corporate rounded focus:outline-none focus:border-navy-deep text-white resize-none"
+                    className="w-full px-3 py-2.5 text-sm bg-navy-dark border border-corporate rounded focus:outline-none focus:border-navy-deep text-white resize-none"
                   />
                 </div>
 
@@ -212,9 +232,9 @@ export default function ContactSection() {
 
                 <button
                   type="submit"
-                  className="w-full py-3 bg-navy-deep text-white font-bold text-xs uppercase tracking-wider rounded hover:bg-navy-royal transition-all flex items-center justify-center gap-2"
+                  className="w-full py-3 bg-gold-accent text-navy-dark font-bold text-xs uppercase tracking-wider rounded hover:bg-gold-bright transition-all flex items-center justify-center gap-2"
                 >
-                  <Send className="w-4 h-4" /> Kirim Formulir Konsultasi
+                  <Send className="w-4 h-4" /> Kirim via WhatsApp
                 </button>
               </form>
             )}

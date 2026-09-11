@@ -24,7 +24,7 @@ export default function ServicesSection() {
   const categories = SERVICE_CATEGORIES.filter(c => c.id !== 'all');
 
   return (
-    <section id="practice" className="py-20 bg-offwhite border-b border-corporate">
+    <section id="practice" className="py-20 bg-navy-dark border-b border-corporate">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}

@@ -94,7 +94,7 @@ export default function AboutSection() {
               {values.map((v, i) => (
                 <div
                   key={i}
-                  className="p-4 bg-offwhite border-l-2 border-gold-accent border border-corporate rounded"
+                  className="p-4 bg-navy-dark border-l-2 border-gold-accent border border-corporate rounded"
                 >
                   <div className="flex items-center gap-2 mb-1.5">
                     {v.icon}
