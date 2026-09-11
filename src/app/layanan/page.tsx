@@ -66,33 +66,33 @@ export default function LayananPage() {
   const currentCatData = SERVICE_CATEGORIES.find(c => c.id === activeCat);
 
   return (
-    <div className="min-h-screen bg-navy-dark">
+    <div className="min-h-screen bg-slate-50">
       
       {/* Page Hero Banner */}
-      <div className="bg-navy-deep border-b border-gold-accent/40 py-16">
+      <div className="bg-white border-b border-gray-200/80 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-2 text-xs text-white/50 mb-4">
+          <div className="flex items-center gap-2 text-xs text-slate-400 mb-4">
             <Link href="/" className="hover:text-gold-accent transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-gold-accent">Direktori Layanan</span>
+            <span className="text-gold-accent font-semibold">Direktori Layanan</span>
           </div>
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-gold-soft border border-gold-accent/40 rounded text-gold-accent text-xs font-bold uppercase tracking-widest mb-3">
-                <Scale className="w-3.5 h-3.5" /> DIREKTORI PELAYANAN HUKUM & LEGALITAS
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-50 border border-amber-200/80 rounded-full text-amber-800 text-xs font-bold uppercase tracking-widest mb-3">
+                <Scale className="w-3.5 h-3.5" /> DIREKTORI PELAYANAN HUKUM &amp; LEGALITAS
               </div>
-              <h1 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
+              <h1 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
                 445+ Layanan Hukum &amp; Perizinan Usaha
               </h1>
-              <div className="w-14 h-[2px] bg-gold-accent mt-3 mb-3" />
-              <p className="text-sm text-white/70 max-w-2xl">
-                Direktori komprehensif mencakup <strong className="text-white">34 Perkara Hukum</strong> (Litigasi & Non-Litigasi) dan <strong className="text-white">411 Perizinan OSS RBA</strong> yang ditangani SELECO secara profesional.
+              <div className="w-16 h-[3px] bg-gold-accent mt-3 mb-4 rounded-full" />
+              <p className="text-base text-slate-600 max-w-2xl leading-relaxed">
+                Direktori komprehensif mencakup <strong className="text-slate-900 font-semibold">34 Perkara Hukum</strong> (Litigasi &amp; Non-Litigasi) dan <strong className="text-slate-900 font-semibold">411 Perizinan OSS RBA</strong> yang ditangani SELECO secara profesional.
               </p>
             </div>
             <div className="flex flex-col gap-2 text-center shrink-0">
-              <div className="bg-navy-royal border border-gold-accent/30 rounded px-6 py-3">
-                <p className="font-serif-title text-3xl font-bold text-gold-accent">445+</p>
-                <p className="text-[10px] text-white/60 uppercase tracking-widest font-semibold">Total Layanan</p>
+              <div className="bg-slate-50 border border-gray-200 rounded-2xl px-8 py-4 shadow-sm">
+                <p className="font-serif-title text-4xl font-bold text-gold-accent">445+</p>
+                <p className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold mt-1">Total Layanan</p>
               </div>
             </div>
           </div>
@@ -282,16 +282,16 @@ export default function LayananPage() {
 
             {/* CTA Banner */}
             {filtered.length > 0 && (
-              <div className="mt-10 p-6 bg-navy-deep border border-gold-accent/40 rounded flex flex-col sm:flex-row items-center justify-between gap-4 text-white">
+              <div className="mt-12 p-8 bg-slate-900 border border-amber-400/30 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-6 text-white shadow-xl">
                 <div>
-                  <h3 className="font-serif-title text-xl font-bold">Tidak menemukan yang Anda cari?</h3>
-                  <p className="text-xs text-white/70 mt-1">Tim SELECO siap mendiskusikan kebutuhan hukum spesifik Anda.</p>
+                  <h3 className="font-serif-title text-2xl font-bold text-white">Tidak menemukan yang Anda cari?</h3>
+                  <p className="text-xs text-slate-300 mt-1">Tim SELECO siap mendiskusikan kebutuhan hukum spesifik Anda.</p>
                 </div>
                 <Link
-                  href="/#contact"
-                  className="px-5 py-3 bg-gold-accent text-white font-bold text-xs uppercase tracking-wider rounded hover:bg-gold-bright transition-all whitespace-nowrap flex items-center gap-2"
+                  href="/kontak"
+                  className="px-7 py-3.5 bg-gradient-to-r from-gold-accent to-gold-bright text-slate-950 font-bold text-xs uppercase tracking-wider rounded-lg hover:brightness-110 transition-all whitespace-nowrap flex items-center gap-2 shadow-md"
                 >
-                  <Scale className="w-4 h-4" /> Hubungi Kami
+                  <Scale className="w-4 h-4 text-slate-950" /> Hubungi Kami
                 </Link>
               </div>
             )}

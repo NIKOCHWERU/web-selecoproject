@@ -26,18 +26,18 @@ const attorneys = [
 
 export default function TeamSection() {
   return (
-    <section id="attorneys" className="py-20 bg-navy-dark border-b border-corporate">
+    <section id="attorneys" className="py-20 lg:py-28 bg-slate-50 border-b border-gray-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-gold-soft border border-gold-accent/30 rounded text-gold-accent text-xs font-bold uppercase tracking-widest mb-3">
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-50 border border-amber-200/80 rounded-full text-amber-800 text-xs font-bold uppercase tracking-widest mb-4">
             TIM KONSULTAN HUKUM
           </div>
-          <h2 className="font-serif-title text-3xl sm:text-4xl font-bold text-white">
-            Profil Advokat & Konsultan
+          <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
+            Profil Advokat &amp; Konsultan
           </h2>
-          <div className="w-12 h-[2px] bg-gold-accent mx-auto my-3" />
-          <p className="text-sm text-white/70">
+          <div className="w-16 h-[3px] bg-gold-accent mx-auto my-4 rounded-full" />
+          <p className="text-base text-slate-600 font-normal">
             Tenaga profesional hukum berpengalaman dengan integritas tinggi dan fokus pada solusi strategis bisnis.
           </p>
         </div>
@@ -49,25 +49,26 @@ export default function TeamSection() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="bg-navy-royal border border-corporate rounded overflow-hidden hover:border-gold-accent transition-all group"
+              transition={{ duration: 0.4, delay: idx * 0.1 }}
+              className="bg-white border border-gray-200/90 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:border-gold-accent transition-all duration-300 group"
             >
-              <div className="h-72 overflow-hidden border-b border-corporate">
+              <div className="h-80 overflow-hidden border-b border-gray-100 bg-slate-100">
                 <img
                   src={atty.img}
                   alt={atty.name}
                   className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
-              <div className="p-5">
-                <h3 className="font-serif-title text-xl font-bold text-white">{atty.name}</h3>
-                <p className="text-xs font-bold text-gold-accent uppercase tracking-widest mt-0.5 mb-3">{atty.role}</p>
-                <p className="text-xs text-white/70 border-t border-corporate pt-3 leading-relaxed">{atty.focus}</p>
+              <div className="p-6">
+                <h3 className="font-serif-title text-2xl font-bold text-slate-900 mb-1">{atty.name}</h3>
+                <p className="text-xs font-bold text-amber-800 uppercase tracking-widest mb-4">{atty.role}</p>
+                <p className="text-xs text-slate-600 border-t border-gray-100 pt-4 leading-relaxed font-normal">{atty.focus}</p>
                 <a
                   href="#"
-                  className="mt-3 inline-flex items-center gap-1.5 text-xs text-white hover:text-gold-accent font-semibold transition-colors"
+                  className="mt-4 inline-flex items-center gap-2 text-xs text-slate-800 hover:text-gold-accent font-semibold transition-colors"
                 >
-                  <Linkedin className="w-3.5 h-3.5" /> Profil LinkedIn
+                  <Linkedin className="w-4 h-4 text-gold-accent" />
+                  <span>Profil LinkedIn</span>
                 </a>
               </div>
             </motion.div>

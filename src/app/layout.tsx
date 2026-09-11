@@ -33,10 +33,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id">
-      <body className="bg-navy-dark text-white antialiased min-h-screen flex flex-col justify-between">
+    <html lang="id" className="scroll-smooth">
+      <body className="bg-white text-slate-900 antialiased min-h-screen flex flex-col justify-between selection:bg-gold-accent selection:text-navy-deep">
         <Navbar />
-        <main className="flex-grow pt-20">{children}</main>
+        <main className="flex-grow">{children}</main>
         <FloatingWA />
         <Footer />
       </body>

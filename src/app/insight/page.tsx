@@ -1,5 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
+import Link from 'next/link';
+import { ChevronRight, ArrowRight, BookOpen } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Insight & Updates | SELECO',
@@ -59,57 +61,73 @@ const insights = [
 
 export default function InsightPage() {
   return (
-    <div className="min-h-screen bg-navy-dark">
-      <div className="container mx-auto px-4 py-24">
-        <div className="mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-gold-soft border border-gold-accent/30 rounded text-gold-accent text-xs font-bold uppercase tracking-widest mb-4">
-            PUBLIKASI EDITORIAL
+    <div className="min-h-screen bg-slate-50">
+      {/* Page Hero Banner */}
+      <div className="bg-white border-b border-gray-200/80 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-2 text-xs text-slate-400 mb-4">
+            <Link href="/" className="hover:text-gold-accent transition-colors">Home</Link>
+            <ChevronRight className="w-3 h-3" />
+            <span className="text-gold-accent font-semibold">Insight</span>
           </div>
-          <h1 className="font-serif-title text-4xl sm:text-5xl font-bold text-white mb-4">
-            Insight & Updates
-          </h1>
-          <div className="w-16 h-[2px] bg-gold-accent mb-6"></div>
-          <p className="text-white/70 max-w-2xl text-lg leading-relaxed">
-            Perspektif hukum praktis dari tim konsultan SELECO untuk pengambilan keputusan bisnis yang lebih terukur.
-          </p>
+          <div>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-50 border border-amber-200/80 rounded-full text-amber-800 text-xs font-bold uppercase tracking-widest mb-3">
+              <BookOpen className="w-3.5 h-3.5" /> PUBLIKASI EDITORIAL
+            </div>
+            <h1 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
+              Insight &amp; Analisis Hukum Bisnis
+            </h1>
+            <div className="w-16 h-[3px] bg-gold-accent mt-3 mb-4 rounded-full" />
+            <p className="text-base text-slate-600 max-w-2xl leading-relaxed">
+              Perspektif hukum praktis dari tim konsultan SELECO untuk pengambilan keputusan bisnis yang lebih terukur dan aman dari risiko regulasi.
+            </p>
+          </div>
         </div>
+      </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Main Content Grid */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {insights.map((item) => (
             <article
               key={item.id}
-              className="group rounded-lg overflow-hidden border border-white/10 hover:border-gold-accent/40 transition-all duration-300"
+              className="group rounded-2xl overflow-hidden bg-white border border-gray-200/90 hover:border-gold-accent shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
             >
-              {/* Full Thumbnail */}
-              <div className="relative h-52 overflow-hidden">
-                <img
-                  src={item.img}
-                  alt={item.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy-dark via-navy-dark/40 to-transparent" />
-                <div className="absolute top-3 left-3 flex items-center gap-2">
-                  <span className="bg-gold-accent text-navy-dark font-bold px-2.5 py-1 rounded text-[10px] uppercase tracking-wider">
-                    {item.category}
-                  </span>
+              <div>
+                {/* Full Thumbnail */}
+                <div className="relative h-56 overflow-hidden">
+                  <img
+                    src={item.img}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-4 left-4">
+                    <span className="bg-amber-50/95 backdrop-blur-sm text-amber-900 border border-amber-200/80 font-bold px-3 py-1 rounded-full text-[10px] uppercase tracking-wider shadow-sm">
+                      {item.category}
+                    </span>
+                  </div>
+                  <div className="absolute bottom-4 right-4">
+                    <span className="text-white text-xs bg-slate-950/70 backdrop-blur-sm px-2.5 py-1 rounded-md font-medium">
+                      {item.readTime} read
+                    </span>
+                  </div>
                 </div>
-                <div className="absolute bottom-3 right-3">
-                  <span className="text-white/80 text-xs bg-navy-dark/70 px-2 py-1 rounded">
-                    {item.readTime} read
-                  </span>
+
+                {/* Content */}
+                <div className="p-6">
+                  <h3 className="font-serif-title text-xl font-bold text-slate-900 leading-snug mb-3 group-hover:text-gold-accent transition-colors">
+                    {item.title}
+                  </h3>
+                  <p className="text-slate-600 text-sm leading-relaxed font-normal">
+                    {item.excerpt}
+                  </p>
                 </div>
               </div>
 
-              {/* Content */}
-              <div className="p-5 bg-navy-royal">
-                <h3 className="font-serif-title text-lg font-bold text-white leading-snug mb-2 group-hover:text-gold-accent transition-colors">
-                  {item.title}
-                </h3>
-                <p className="text-white/60 text-sm leading-relaxed mb-4">
-                  {item.excerpt}
-                </p>
-                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-gold-accent uppercase tracking-wider group-hover:underline">
-                  Baca Insight <span className="group-hover:translate-x-1 transition-transform inline-block">&rarr;</span>
+              <div className="px-6 pb-6 pt-0">
+                <span className="inline-flex items-center gap-2 text-xs font-bold text-slate-900 uppercase tracking-wider group-hover:text-gold-accent transition-colors border-t border-gray-100 pt-4 w-full">
+                  <span>Baca Insight Lengkap</span>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </span>
               </div>
             </article>

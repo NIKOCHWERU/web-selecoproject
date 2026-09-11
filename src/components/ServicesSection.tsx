@@ -24,54 +24,54 @@ export default function ServicesSection() {
   const categories = SERVICE_CATEGORIES.filter(c => c.id !== 'all');
 
   return (
-    <section id="practice" className="py-20 bg-navy-dark border-b border-corporate">
+    <section id="practice" className="py-20 lg:py-28 bg-slate-50 border-b border-gray-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-gold-soft border border-gold-accent/30 rounded text-gold-accent text-xs font-bold uppercase tracking-widest mb-3">
-            CAKUPAN KEAHLIAN HUKUM & PERIZINAN
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-50 border border-amber-200/80 rounded-full text-amber-800 text-xs font-bold uppercase tracking-widest mb-4">
+            CAKUPAN KEAHLIAN HUKUM &amp; PERIZINAN
           </div>
-          <h2 className="font-serif-title text-3xl sm:text-4xl font-bold text-white">
-            445+ Pelayanan Hukum & Perizinan Usaha
+          <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
+            445+ Pelayanan Hukum &amp; Perizinan Usaha
           </h2>
-          <div className="w-12 h-[2px] bg-gold-accent mx-auto my-3" />
-          <p className="text-sm sm:text-base text-white/70">
-            Direktori komprehensif mencakup 34 Perkara Hukum (Litigasi & Non-Litigasi) serta 411 jenis Perizinan & Legalitas OSS RBA di Indonesia.
+          <div className="w-16 h-[3px] bg-gold-accent mx-auto my-4 rounded-full" />
+          <p className="text-base text-slate-600 leading-relaxed font-normal">
+            Direktori komprehensif mencakup 34 Perkara Hukum (Litigasi &amp; Non-Litigasi) serta 411 jenis Perizinan &amp; Legalitas OSS RBA di Indonesia.
           </p>
         </div>
 
         {/* Categories Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {categories.map((cat, idx) => (
             <motion.div
               key={cat.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.05 }}
-              className="bg-navy-royal border border-corporate rounded p-6 flex flex-col justify-between hover:border-gold-accent transition-all hover:shadow-subtle group"
+              transition={{ duration: 0.4, delay: idx * 0.04 }}
+              className="bg-white border border-gray-200/80 rounded-2xl p-7 flex flex-col justify-between hover:border-gold-accent hover:shadow-xl transition-all duration-300 group"
             >
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 rounded bg-navy-deep/5 border border-navy-deep/10 flex items-center justify-center group-hover:bg-navy-deep group-hover:text-gold-accent transition-all">
+                <div className="flex items-center justify-between mb-5">
+                  <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200/60 flex items-center justify-center group-hover:scale-110 group-hover:bg-amber-100 transition-all">
                     {getIcon(cat.iconName)}
                   </div>
-                  <span className="text-xs font-bold text-white/80 bg-gold-soft border border-gold-accent/40 px-2.5 py-1 rounded">
+                  <span className="text-xs font-bold text-amber-800 bg-amber-50 border border-amber-200/70 px-3 py-1 rounded-full">
                     {cat.count} Items
                   </span>
                 </div>
-                <h3 className="font-serif-title text-xl font-bold text-white mb-2 group-hover:text-gold-accent transition-colors">
+                <h3 className="font-serif-title text-xl font-bold text-slate-900 mb-2.5 group-hover:text-gold-accent transition-colors">
                   {cat.name}
                 </h3>
-                <p className="text-xs text-white/70 leading-relaxed mb-6">
+                <p className="text-xs text-slate-600 leading-relaxed mb-6 font-normal">
                   {cat.description}
                 </p>
               </div>
 
               <Link
                 href={`/layanan?cat=${cat.id}`}
-                className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white group-hover:text-gold-accent border-t border-corporate pt-4 transition-all"
+                className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-800 group-hover:text-gold-accent border-t border-gray-100 pt-4 transition-colors"
               >
                 <span>Lihat Seluruh {cat.count} Layanan</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -81,21 +81,22 @@ export default function ServicesSection() {
         </div>
 
         {/* Directory Banner Link */}
-        <div className="bg-navy-deep text-white border border-gold-accent/40 rounded p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
-          <div className="space-y-2 text-center md:text-left">
-            <h3 className="font-serif-title text-2xl font-bold text-white">
+        <div className="bg-slate-900 text-white rounded-2xl p-8 lg:p-10 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl border border-gold-accent/40 relative overflow-hidden">
+          <div className="space-y-2 text-center md:text-left z-10">
+            <span className="text-amber-300 text-xs font-bold uppercase tracking-widest block">DIREKTORI LENGKAP</span>
+            <h3 className="font-serif-title text-2xl lg:text-3xl font-bold text-white">
               Membutuhkan Perizinan Khusus atau Perkara Hukum Tertentu?
             </h3>
-            <p className="text-xs text-white/70">
+            <p className="text-xs sm:text-sm text-slate-300 max-w-xl">
               Gunakan pencarian interaktif kami untuk menemukan 411 jenis perizinan dan 34 perkara hukum secara spesifik.
             </p>
           </div>
           <Link
             href="/layanan"
-            className="px-6 py-3.5 bg-gold-accent text-navy-dark font-bold text-xs uppercase tracking-wider rounded hover:bg-gold-bright transition-all whitespace-nowrap flex items-center gap-2"
+            className="px-7 py-4 bg-gradient-to-r from-gold-accent to-gold-bright text-slate-950 font-bold text-xs uppercase tracking-wider rounded-lg hover:brightness-110 transition-all whitespace-nowrap flex items-center gap-2.5 shadow-lg shrink-0 z-10"
           >
-            <Search className="w-4 h-4" />
-            Buka Direktori Lengkap 445+ Layanan
+            <Search className="w-4 h-4 text-slate-950" />
+            <span>Buka Direktori Lengkap 445+ Layanan</span>
           </Link>
         </div>
 

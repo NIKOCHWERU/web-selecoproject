@@ -1,9 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { ShieldCheck, CheckCircle2, Handshake, Building, Clock, FileText } from 'lucide-react';
+import { ShieldCheck, CheckCircle2, Handshake } from 'lucide-react';
 
 export default function RetainerSection() {
   const retainerServices = [
@@ -16,75 +15,76 @@ export default function RetainerSection() {
   ];
 
   return (
-    <section id="retainer" className="py-20 bg-navy-royal border-b border-corporate">
+    <section id="retainer" className="py-20 lg:py-28 bg-white border-b border-gray-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="bg-navy-deep text-white border border-gold-accent/40 rounded p-8 sm:p-12 shadow-2xl relative overflow-hidden">
+        <div className="bg-slate-900 text-white rounded-3xl p-8 sm:p-14 shadow-2xl border border-amber-400/30 relative overflow-hidden">
           {/* Subtle Background Accent */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-gold-accent/5 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-gold-accent/10 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
             
             {/* Left Content */}
-            <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-gold-soft border border-gold-accent/40 rounded text-gold-accent text-xs font-bold uppercase tracking-widest">
-                <ShieldCheck className="w-4 h-4 text-gold-accent" /> RETAINER KORPORASI
+            <div className="lg:col-span-7 space-y-7">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-400/10 border border-amber-400/30 rounded-full text-amber-300 text-xs font-bold uppercase tracking-widest backdrop-blur-md">
+                <ShieldCheck className="w-4 h-4 text-amber-300" />
+                <span>RETAINER KORPORASI</span>
               </div>
 
-              <h2 className="font-serif-title text-3xl sm:text-4xl font-bold text-white leading-tight">
+              <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
                 Departemen Hukum Eksternal Bisnis Anda.
               </h2>
 
-              <div className="w-12 h-[2px] bg-gold-accent" />
+              <div className="w-16 h-[3px] bg-gradient-to-r from-gold-accent to-gold-bright rounded-full" />
 
-              <p className="text-sm text-white/80 leading-relaxed font-light">
-                Akses pendampingan hukum berkelanjutan sesuai kebutuhan operasional perusahaan—mulai dari konsultasi harian, perancangan kontrak, HR, perizinan OSS RBA, hingga mitigasi sengketa bisnis.
+              <p className="text-base text-slate-300 leading-relaxed font-normal">
+                Akses pendampingan hukum berkelanjutan sesuai kebutuhan operasional perusahaan—mulai dari konsultasi harian, perancangan kontrak, HR, perizinan OSS RBA, hingga mitigasi sengketa bisnis tanpa beban tetap.
               </p>
 
               {/* Grid 6 Services */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
                 {retainerServices.map((service, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center gap-2.5 bg-navy-royal/90 border border-white/10 p-3 rounded hover:border-gold-accent/50 transition-all"
+                    className="flex items-center gap-3 bg-white/5 border border-white/10 p-3.5 rounded-xl hover:border-amber-400/50 hover:bg-white/10 transition-all duration-300"
                   >
-                    <CheckCircle2 className="w-4 h-4 text-gold-accent shrink-0" />
-                    <span className="text-xs font-semibold text-white/90">{service}</span>
+                    <CheckCircle2 className="w-4 h-4 text-amber-300 shrink-0" />
+                    <span className="text-xs font-semibold text-white/95">{service}</span>
                   </div>
                 ))}
               </div>
 
               {/* Retainer CTA */}
-              <div className="pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
+              <div className="pt-6 border-t border-white/15 flex flex-wrap items-center justify-between gap-6">
                 <div>
-                  <h4 className="font-serif-title text-lg font-bold text-white">Perkuat Perlindungan Legalitas Perusahaan</h4>
-                  <p className="text-xs text-white/60">Konsultan hukum profesional siap mendampingi operasional Anda.</p>
+                  <h4 className="font-serif-title text-xl font-bold text-white">Perkuat Perlindungan Legalitas Perusahaan</h4>
+                  <p className="text-xs text-slate-400 mt-0.5">Konsultan hukum profesional siap mendampingi operasional Anda.</p>
                 </div>
                 <Link
-                  href="/#contact"
-                  className="px-6 py-3 bg-gold-accent text-white font-bold text-xs uppercase tracking-wider rounded hover:bg-gold-bright transition-all shadow-md flex items-center gap-2"
+                  href="/kontak"
+                  className="px-7 py-3.5 bg-gradient-to-r from-gold-accent to-gold-bright text-slate-950 font-bold text-xs uppercase tracking-wider rounded-lg hover:brightness-110 transition-all shadow-md flex items-center gap-2"
                 >
                   <Handshake className="w-4 h-4" />
-                  Diskusikan Layanan Retainer
+                  <span>Diskusikan Layanan Retainer</span>
                 </Link>
               </div>
             </div>
 
             {/* Right Photo Frame */}
             <div className="lg:col-span-5">
-              <div className="relative rounded overflow-hidden border border-gold-accent/40 shadow-2xl h-80 lg:h-96">
+              <div className="relative rounded-2xl overflow-hidden border border-amber-400/40 shadow-2xl h-80 lg:h-[420px]">
                 <img
                   src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=800&q=80"
                   alt="Ruang Konsultasi Hukum Firma SELECO"
                   className="w-full h-full object-cover filter brightness-[0.85]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy-dark via-transparent to-transparent" />
-                <div className="absolute bottom-4 left-4 right-4 p-4 bg-navy-dark/90 backdrop-blur-md border border-gold-accent/30 rounded text-center">
-                  <span className="font-serif-title text-base font-bold text-white block">
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent" />
+                <div className="absolute bottom-5 left-5 right-5 p-5 bg-slate-900/90 backdrop-blur-md border border-amber-400/30 rounded-xl text-center">
+                  <span className="font-serif-title text-lg font-bold text-white block">
                     SELECO External Legal Team
                   </span>
-                  <span className="text-[10px] text-gold-accent font-semibold uppercase tracking-widest">
-                    Efisiensi Operational & Total Compliance
+                  <span className="text-[10px] text-amber-300 font-semibold uppercase tracking-widest mt-1 block">
+                    Efisiensi Operasional &amp; Total Compliance
                   </span>
                 </div>
               </div>

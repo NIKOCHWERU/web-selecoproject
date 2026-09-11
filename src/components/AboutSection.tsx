@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ShieldCheck, TrendingUp, Lightbulb, Lock } from 'lucide-react';
+import { ShieldCheck, TrendingUp, Lightbulb, Lock, ArrowRight } from 'lucide-react';
 
 export default function AboutSection({ showMoreLink = false }: { showMoreLink?: boolean }) {
   const values = [
@@ -29,65 +29,65 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
   ];
 
   return (
-    <section id="about" className="py-20 bg-navy-royal border-b border-corporate">
+    <section id="about" className="py-20 lg:py-28 bg-white border-b border-gray-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
-          {/* Photo Collage */}
+          {/* Photo Collage - Left Column */}
           <motion.div
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="grid grid-cols-2 gap-3"
+            className="lg:col-span-6 grid grid-cols-2 gap-4"
           >
-            <div className="col-span-2 h-56 rounded overflow-hidden border border-gold-accent">
+            <div className="col-span-2 h-64 sm:h-72 rounded-2xl overflow-hidden border border-gray-200 shadow-md">
               <img
                 src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=900&q=80"
                 alt="Patung Dewi Keadilan - Lady Justice"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
               />
             </div>
-            <div className="h-40 rounded overflow-hidden border border-corporate">
+            <div className="h-44 sm:h-48 rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
               <img
                 src="https://images.unsplash.com/photo-1589994965851-a8f479c573a9?auto=format&fit=crop&w=600&q=80"
                 alt="Palu Sidang Hukum & Buku Undang-Undang"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
               />
             </div>
-            <div className="h-40 rounded overflow-hidden border border-corporate">
+            <div className="h-44 sm:h-48 rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
               <img
                 src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=600&q=80"
                 alt="Penandatanganan Kontrak & Dokumen Legal"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
               />
             </div>
           </motion.div>
 
-          {/* Content */}
+          {/* Content - Right Column */}
           <motion.div
             initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="space-y-6"
+            className="lg:col-span-6 space-y-6"
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-gold-soft border border-gold-accent/30 rounded text-gold-accent text-xs font-bold uppercase tracking-widest">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-50 border border-amber-200/80 rounded-full text-amber-800 text-xs font-bold uppercase tracking-widest">
               TENTANG SELECO
             </div>
 
-            <h2 className="font-serif-title text-3xl sm:text-4xl font-bold text-white leading-tight">
+            <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
               Hukum yang Dipahami dalam Konteks Bisnis.
             </h2>
 
-            <div className="w-12 h-[2px] bg-gold-accent" />
+            <div className="w-16 h-[3px] bg-gold-accent rounded-full" />
 
-            <p className="text-sm text-white/80 leading-relaxed">
-              Persoalan hukum memengaruhi setiap keputusan bisnis, hubungan kerja, dan operasional perusahaan Anda. <strong>SELECO — Sedana Legal Consultant</strong> hadir sebagai mitra yang menghubungkan analisis hukum mendalam dengan kebutuhan praktis secara terstruktur, terukur, dan transparan.
+            <p className="text-base text-slate-600 leading-relaxed font-normal">
+              Persoalan hukum memengaruhi setiap keputusan bisnis, hubungan kerja, dan operasional perusahaan Anda. <strong className="text-slate-900 font-semibold">SELECO — Sedana Legal Consultant</strong> hadir sebagai mitra yang menghubungkan analisis hukum mendalam dengan kebutuhan praktis secara terstruktur, terukur, dan transparan.
             </p>
 
-            <p className="text-sm text-white/70 leading-relaxed">
-              Kami mencakup 34 perkara hukum litigasi & non-litigasi, serta mengelola pengurusan lebih dari 411 jenis perizinan usaha dan legalitas OSS RBA di seluruh wilayah Indonesia.
+            <p className="text-sm text-slate-600 leading-relaxed font-normal">
+              Kami mencakup 34 perkara hukum litigasi &amp; non-litigasi, serta mengelola pengurusan lebih dari 411 jenis perizinan usaha dan legalitas OSS RBA di seluruh wilayah Indonesia.
             </p>
 
             {/* Values Grid */}
@@ -95,24 +95,27 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
               {values.map((v, i) => (
                 <div
                   key={i}
-                  className="p-4 bg-navy-dark border-l-2 border-gold-accent border border-corporate rounded"
+                  className="p-5 bg-slate-50 border border-gray-200/80 rounded-xl hover:border-gold-accent/70 hover:bg-white hover:shadow-md transition-all duration-300 group"
                 >
-                  <div className="flex items-center gap-2 mb-1.5">
-                    {v.icon}
-                    <span className="font-serif-title text-base font-bold text-white">{v.title}</span>
+                  <div className="flex items-center gap-2.5 mb-2">
+                    <div className="w-8 h-8 rounded-lg bg-amber-100/60 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      {v.icon}
+                    </div>
+                    <span className="font-serif-title text-base font-bold text-slate-900">{v.title}</span>
                   </div>
-                  <p className="text-xs text-white/70 leading-relaxed">{v.desc}</p>
+                  <p className="text-xs text-slate-600 leading-relaxed">{v.desc}</p>
                 </div>
               ))}
             </div>
 
             {showMoreLink && (
-              <div className="pt-2">
+              <div className="pt-3">
                 <Link
                   href="/tentang"
-                  className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-gold-accent hover:text-gold-bright transition-colors"
+                  className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-800 hover:text-gold-accent transition-colors group"
                 >
-                  Pelajari Profil Firma & Tim Kami →
+                  <span>Pelajari Profil Firma &amp; Tim Kami</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
             )}

@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { ChevronRight, Scale } from 'lucide-react';
+import { ChevronRight, Scale, ArrowRight } from 'lucide-react';
 import AboutSection from '@/components/AboutSection';
 import TeamSection from '@/components/TeamSection';
 import RetainerSection from '@/components/RetainerSection';
@@ -12,24 +12,24 @@ export const metadata: Metadata = {
 
 export default function TentangPage() {
   return (
-    <div className="min-h-screen bg-navy-dark">
+    <div className="min-h-screen bg-white">
       {/* Page Hero Banner */}
-      <div className="bg-navy-deep border-b border-gold-accent/40 py-16">
+      <div className="bg-slate-50 border-b border-gray-200/80 py-16 lg:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-2 text-xs text-white/50 mb-4">
+          <div className="flex items-center gap-2 text-xs text-slate-400 mb-4">
             <Link href="/" className="hover:text-gold-accent transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-gold-accent">Tentang Kami</span>
+            <span className="text-gold-accent font-semibold">Tentang Kami</span>
           </div>
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-gold-soft border border-gold-accent/40 rounded text-gold-accent text-xs font-bold uppercase tracking-widest mb-3">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-50 border border-amber-200/80 rounded-full text-amber-800 text-xs font-bold uppercase tracking-widest mb-3">
               <Scale className="w-3.5 h-3.5" /> PROFIL KONSULTAN HUKUM SELECO
             </div>
-            <h1 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
+            <h1 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
               Dedikasi pada Integritas &amp; Keunggulan Strategis
             </h1>
-            <div className="w-14 h-[2px] bg-gold-accent mt-3 mb-3" />
-            <p className="text-sm text-white/70 max-w-2xl leading-relaxed">
+            <div className="w-16 h-[3px] bg-gold-accent mt-3 mb-4 rounded-full" />
+            <p className="text-base text-slate-600 max-w-2xl leading-relaxed font-normal">
               Mengenal lebih dekat visi, standar profesional, dan tim penasihat hukum di balik SELECO (Sedana Legal Consultant) yang siap melindungi pertumbuhan bisnis Anda di Indonesia.
             </p>
           </div>
@@ -42,19 +42,20 @@ export default function TentangPage() {
       <RetainerSection />
 
       {/* CTA Footer Banner */}
-      <div className="py-16 bg-navy-deep border-t border-gold-accent/30 text-center">
+      <div className="py-20 bg-slate-50 border-t border-gray-200/80 text-center">
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="font-serif-title text-2xl sm:text-3xl font-bold text-white mb-3">
+          <h2 className="font-serif-title text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3">
             Siap Berdiskusi Mengenai Kebutuhan Hukum Anda?
           </h2>
-          <p className="text-sm text-white/70 mb-6">
+          <p className="text-base text-slate-600 mb-8 font-normal">
             Jadwalkan konsultasi awal dengan tim advokat kami secara tatap muka ataupun virtual.
           </p>
           <Link
             href="/kontak"
-            className="inline-flex items-center gap-2 px-6 py-3.5 bg-gold-accent text-navy-dark font-bold text-xs uppercase tracking-wider rounded hover:bg-gold-bright transition-all shadow-lg"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-gold-accent to-gold-bright text-slate-950 font-bold text-xs uppercase tracking-wider rounded-lg hover:brightness-110 transition-all shadow-md"
           >
-            Hubungi Tim Kami Sekarang →
+            <span>Hubungi Tim Kami Sekarang</span>
+            <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </div>

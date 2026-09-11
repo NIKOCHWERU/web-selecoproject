@@ -31,40 +31,40 @@ export default function FAQSection() {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="py-20 bg-navy-dark border-b border-corporate">
+    <section id="faq" className="py-20 lg:py-28 bg-slate-50 border-b border-gray-200/80">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div className="text-center mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-gold-soft border border-gold-accent/30 rounded text-gold-accent text-xs font-bold uppercase tracking-widest mb-3">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-50 border border-amber-200/80 rounded-full text-amber-800 text-xs font-bold uppercase tracking-widest mb-4">
             PERTANYAAN UMUM
           </div>
-          <h2 className="font-serif-title text-3xl sm:text-4xl font-bold text-white">
+          <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
             Frequently Asked Questions
           </h2>
-          <div className="w-12 h-[2px] bg-gold-accent mx-auto my-3" />
+          <div className="w-16 h-[3px] bg-gold-accent mx-auto my-4 rounded-full" />
         </div>
 
-        <div className="divide-y divide-corporate border border-corporate rounded bg-navy-royal overflow-hidden">
+        <div className="divide-y divide-gray-200/80 border border-gray-200/90 rounded-2xl bg-white overflow-hidden shadow-sm">
           {faqs.map((faq, idx) => (
             <div key={idx}>
               <button
                 onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
-                className="w-full flex items-start justify-between gap-4 px-6 py-5 text-left hover:bg-navy-surface transition-colors"
+                className="w-full flex items-start justify-between gap-4 px-6 sm:px-8 py-5 text-left hover:bg-slate-50/70 transition-colors"
                 aria-expanded={openIdx === idx}
               >
-                <div className="flex items-start gap-3">
-                  <span className="font-serif-title text-lg font-bold text-gold-accent shrink-0">
+                <div className="flex items-start gap-4">
+                  <span className="font-serif-title text-xl font-bold text-gold-accent shrink-0">
                     0{idx + 1}
                   </span>
-                  <span className="font-serif-title text-lg font-bold text-white leading-snug">
+                  <span className="font-serif-title text-lg sm:text-xl font-bold text-slate-900 leading-snug">
                     {faq.q}
                   </span>
                 </div>
-                <span className="shrink-0 mt-0.5 text-white">
+                <span className="shrink-0 mt-1 text-slate-400">
                   {openIdx === idx ? (
-                    <Minus className="w-4 h-4 text-gold-accent" />
+                    <Minus className="w-5 h-5 text-gold-accent" />
                   ) : (
-                    <Plus className="w-4 h-4" />
+                    <Plus className="w-5 h-5" />
                   )}
                 </span>
               </button>
@@ -77,9 +77,9 @@ export default function FAQSection() {
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3, ease: 'easeInOut' }}
-                    className="overflow-hidden"
+                    className="overflow-hidden bg-slate-50/50"
                   >
-                    <p className="px-6 pb-5 text-sm text-white/80 leading-relaxed border-t border-corporate pt-3">
+                    <p className="px-6 sm:px-8 pb-6 text-sm text-slate-600 leading-relaxed border-t border-gray-100 pt-4">
                       {faq.a}
                     </p>
                   </motion.div>
