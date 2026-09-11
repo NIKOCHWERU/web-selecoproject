@@ -66,9 +66,6 @@
   - **Jam Kerja:** `Jam Kerja: Senin – Jumat | 09:00 – 17:00 WIB`
 - **Bottom Bar:**
   - **Copyright:** `© 2026 SELECO — Sedana Legal Consultant. Hak Cipta Dilindungi Undang-Undang.`
-  - **Tautan Hukum:** `Privacy Policy` • `Legal Disclaimer` • `Terms of Use`
-  - **Catatan Penafian (Disclaimer):**  
-    *"*Informasi yang dipublikasikan pada situs web ini disediakan untuk tujuan informasi umum dan tidak dimaksudkan sebagai nasihat hukum formal sebelum disepakati perjanjian kerja tertulis."*
 
 ---
 

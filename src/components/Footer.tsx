@@ -156,21 +156,11 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left text-white/50">
+        <div className="pt-8 text-center text-white/50">
           <div>
             &copy; {new Date().getFullYear()} <strong>SELECO — Sedana Legal Consultant</strong>. Hak Cipta Dilindungi Undang-Undang.
           </div>
-          <div className="flex items-center space-x-4">
-            <span className="hover:text-gold-accent transition-colors cursor-pointer">Privacy Policy</span>
-            <span>•</span>
-            <span className="hover:text-gold-accent transition-colors cursor-pointer">Legal Disclaimer</span>
-            <span>•</span>
-            <span className="hover:text-gold-accent transition-colors cursor-pointer">Terms of Use</span>
-          </div>
         </div>
-        <p className="text-center text-[10px] text-white/40 mt-4">
-          *Informasi yang dipublikasikan pada situs web ini disediakan untuk tujuan informasi umum dan tidak dimaksudkan sebagai nasihat hukum formal sebelum disepakati perjanjian kerja tertulis.
-        </p>
       </div>
 
       {/* Back to Top */}
