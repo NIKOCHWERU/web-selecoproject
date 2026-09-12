@@ -3,28 +3,35 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ShieldCheck, TrendingUp, Lightbulb, Lock, ArrowRight } from 'lucide-react';
+import { useContent } from '@/context/ContentContext';
 
 export default function AboutSection({ showMoreLink = false }: { showMoreLink?: boolean }) {
-  const values = [
+  const { content } = useContent();
+  const about = content?.about;
+
+  const valueIcons = [
+    <ShieldCheck key="1" className="w-5 h-5 text-gold-accent" />,
+    <TrendingUp key="2" className="w-5 h-5 text-gold-accent" />,
+    <Lightbulb key="3" className="w-5 h-5 text-gold-accent" />,
+    <Lock key="4" className="w-5 h-5 text-gold-accent" />,
+  ];
+
+  const values = about?.values || [
     {
-      icon: <ShieldCheck className="w-5 h-5 text-gold-accent" />,
       title: 'Integritas',
-      desc: 'Kerahasiaan penuh dan etika profesi hukum yang tinggi dalam setiap mandatoria klien.',
+      description: 'Kerahasiaan penuh dan etika profesi hukum yang tinggi dalam setiap mandatoria klien.',
     },
     {
-      icon: <TrendingUp className="w-5 h-5 text-gold-accent" />,
       title: 'Strategis',
-      desc: 'Analisis hukum yang diselaraskan langsung dengan kepentingan bisnis dan risiko komersial.',
+      description: 'Analisis hukum yang diselaraskan langsung dengan kepentingan bisnis dan risiko komersial.',
     },
     {
-      icon: <Lightbulb className="w-5 h-5 text-gold-accent" />,
       title: 'Praktis',
-      desc: 'Masalah hukum yang kompleks diterjemahkan menjadi rekomendasi langkah kerja yang jelas.',
+      description: 'Masalah hukum yang kompleks diterjemahkan menjadi rekomendasi langkah kerja yang jelas.',
     },
     {
-      icon: <Lock className="w-5 h-5 text-gold-accent" />,
       title: 'Kerahasiaan',
-      desc: 'Seluruh data dan informasi klien ditangani menggunakan standar kerahasiaan profesi yang ketat.',
+      description: 'Seluruh data dan informasi klien ditangani menggunakan standar kerahasiaan profesi yang ketat.',
     },
   ];
 
@@ -43,14 +50,14 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
           >
             <div className="col-span-2 h-64 sm:h-72 rounded-2xl overflow-hidden border border-gray-200 shadow-md">
               <img
-                src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=900&q=80"
+                src={about?.image1 || "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=900&q=80"}
                 alt="Patung Dewi Keadilan - Lady Justice"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
               />
             </div>
             <div className="h-44 sm:h-48 rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
               <img
-                src="https://images.unsplash.com/photo-1589994965851-a8f479c573a9?auto=format&fit=crop&w=600&q=80"
+                src={about?.image2 || "https://images.unsplash.com/photo-1589994965851-a8f479c573a9?auto=format&fit=crop&w=600&q=80"}
                 alt="Palu Sidang Hukum & Buku Undang-Undang"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
               />
@@ -73,37 +80,38 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
             className="lg:col-span-6 space-y-6"
           >
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-50 border border-amber-200/80 rounded-full text-amber-800 text-xs font-bold uppercase tracking-widest">
-              TENTANG SELECO
+              {about?.badge || 'TENTANG SELECO'}
             </div>
 
             <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
-              Hukum yang Dipahami dalam Konteks Bisnis.
+              {about?.title || 'Hukum yang Dipahami dalam Konteks Bisnis.'}{' '}
+              {about?.titleAccent && <span className="text-amber-800">{about.titleAccent}</span>}
             </h2>
 
             <div className="w-16 h-[3px] bg-gold-accent rounded-full" />
 
             <p className="text-base text-slate-600 leading-relaxed font-normal">
-              Persoalan hukum memengaruhi setiap keputusan bisnis, hubungan kerja, dan operasional perusahaan Anda. <strong className="text-slate-900 font-semibold">SELECO — Sedana Legal Consultant</strong> hadir sebagai mitra yang menghubungkan analisis hukum mendalam dengan kebutuhan praktis secara terstruktur, terukur, dan transparan.
+              {about?.paragraph1 || 'Persoalan hukum memengaruhi setiap keputusan bisnis, hubungan kerja, dan operasional perusahaan Anda. SELECO hadir sebagai mitra yang menghubungkan analisis hukum mendalam dengan kebutuhan praktis secara terstruktur, terukur, dan transparan.'}
             </p>
 
             <p className="text-sm text-slate-600 leading-relaxed font-normal">
-              Kami mencakup 34 perkara hukum litigasi &amp; non-litigasi, serta mengelola pengurusan lebih dari 411 jenis perizinan usaha dan legalitas OSS RBA di seluruh wilayah Indonesia.
+              {about?.paragraph2 || 'Kami mencakup 34 perkara hukum litigasi & non-litigasi, serta mengelola pengurusan lebih dari 411 jenis perizinan usaha dan legalitas OSS RBA di seluruh wilayah Indonesia.'}
             </p>
 
             {/* Values Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              {values.map((v, i) => (
+              {values.map((v: any, i: number) => (
                 <div
                   key={i}
                   className="p-5 bg-slate-50 border border-gray-200/80 rounded-xl hover:border-gold-accent/70 hover:bg-white hover:shadow-md transition-all duration-300 group"
                 >
                   <div className="flex items-center gap-2.5 mb-2">
                     <div className="w-8 h-8 rounded-lg bg-amber-100/60 flex items-center justify-center group-hover:scale-110 transition-transform">
-                      {v.icon}
+                      {valueIcons[i % valueIcons.length]}
                     </div>
                     <span className="font-serif-title text-base font-bold text-slate-900">{v.title}</span>
                   </div>
-                  <p className="text-xs text-slate-600 leading-relaxed">{v.desc}</p>
+                  <p className="text-xs text-slate-600 leading-relaxed">{v.description || v.desc}</p>
                 </div>
               ))}
             </div>

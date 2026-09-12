@@ -3,9 +3,13 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Scale, ArrowUp, MessageCircle, Mail, MapPin, Phone, Shield, FileText } from 'lucide-react';
+import { useContent } from '@/context/ContentContext';
 
 export default function Footer() {
   const [showTopBtn, setShowTopBtn] = useState(false);
+  const { content } = useContent();
+  const global = content?.global;
+  const footer = content?.footer;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,14 +32,14 @@ export default function Footer() {
           <div className="space-y-4">
             <Link href="/" className="flex flex-col">
               <span className="font-serif-title text-2xl font-bold tracking-widest text-white">
-                SELECO <span className="text-gold-accent">.</span>
+                {global?.brandName || 'SELECO'} <span className="text-gold-accent">.</span>
               </span>
               <span className="text-[9px] font-bold tracking-[0.2em] text-gold-accent uppercase mt-0.5">
-                SEDANA LEGAL CONSULTANT
+                {global?.brandTagline || 'SEDANA LEGAL CONSULTANT'}
               </span>
             </Link>
             <p className="text-white/60 leading-relaxed text-xs">
-              Strategic legal counsel for businesses, organizations, and individuals in Indonesia. Pendampingan 34 Perkara Hukum & 411+ Perizinan Usaha OSS RBA.
+              {footer?.description || 'Strategic legal counsel for businesses, organizations, and individuals in Indonesia. Pendampingan 34 Perkara Hukum & 411+ Perizinan Usaha OSS RBA.'}
             </p>
             <div className="pt-2">
               <Link
@@ -134,18 +138,18 @@ export default function Footer() {
             <div className="space-y-3">
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-gold-accent shrink-0 mt-0.5" />
-                <span>Jakarta, Indonesia</span>
+                <span>{global?.address || 'Jakarta, Indonesia'}</span>
               </div>
               <div className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-gold-accent shrink-0" />
-                <a href="mailto:consult@seleco.id" className="hover:text-gold-accent transition-colors">
-                  consult@seleco.id
+                <a href={`mailto:${global?.email || 'info@selecoproject.com'}`} className="hover:text-gold-accent transition-colors">
+                  {global?.email || 'info@selecoproject.com'}
                 </a>
               </div>
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-gold-accent shrink-0" />
-                <a href="tel:+6282211020022" className="hover:text-gold-accent transition-colors">
-                  +62 822-1102-0022
+                <a href={`tel:${global?.whatsappNumber || '6282211020022'}`} className="hover:text-gold-accent transition-colors">
+                  {global?.whatsappDisplay || '+62 822-1102-0022'}
                 </a>
               </div>
               <div className="pt-2 text-white/50">
@@ -158,7 +162,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 text-center text-white/50">
           <div>
-            &copy; {new Date().getFullYear()} <strong>SELECO — Sedana Legal Consultant</strong>. Hak Cipta Dilindungi Undang-Undang.
+            {footer?.copyright || `© ${new Date().getFullYear()} SELECO (Sedana Legal Consultant). Hak Cipta Dilindungi Undang-Undang.`}
           </div>
         </div>
       </div>

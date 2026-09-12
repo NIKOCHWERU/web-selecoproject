@@ -56,4 +56,19 @@
   .divide-corporate > * + * {
     border-color: rgba(7, 20, 38, 0.12);
   }
+
+  /* Custom subtle scrollbar for admin panels */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.6);
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(201, 162, 39, 0.4);
+    border-radius: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(201, 162, 39, 0.7);
+  }
 }

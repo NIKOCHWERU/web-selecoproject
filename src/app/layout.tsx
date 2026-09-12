@@ -26,19 +26,25 @@ export const metadata: Metadata = {
 };
 
 import FloatingWA from '@/components/FloatingWA';
+import { ContentProvider } from '@/context/ContentContext';
+import { getSiteContent } from '@/lib/contentService';
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const initialContent = getSiteContent();
+
   return (
     <html lang="id" className="scroll-smooth">
       <body className="bg-white text-slate-900 antialiased min-h-screen flex flex-col justify-between selection:bg-gold-accent selection:text-navy-deep">
-        <Navbar />
-        <main className="flex-grow">{children}</main>
-        <FloatingWA />
-        <Footer />
+        <ContentProvider initialContent={initialContent}>
+          <Navbar />
+          <main className="flex-grow">{children}</main>
+          <FloatingWA />
+          <Footer />
+        </ContentProvider>
       </body>
     </html>
   );

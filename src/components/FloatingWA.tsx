@@ -1,10 +1,14 @@
 'use client';
 import { motion } from 'framer-motion';
+import { useContent } from '@/context/ContentContext';
 
 export default function FloatingWA() {
+  const { content } = useContent();
+  const waNum = content?.global?.whatsappNumber || '6282211020022';
+
   return (
     <motion.a
-      href="https://wa.me/6282211020022"
+      href={`https://wa.me/${waNum}`}
       target="_blank"
       rel="noopener noreferrer"
       initial={{ opacity: 0, scale: 0.8 }}

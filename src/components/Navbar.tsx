@@ -6,10 +6,14 @@ import { usePathname } from 'next/navigation';
 import { Menu, X, Scale, Calendar, PhoneCall, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+import { useContent } from '@/context/ContentContext';
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
+  const { content } = useContent();
+  const global = content?.global;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,10 +48,10 @@ export default function Navbar() {
           {/* Logo Brand */}
           <Link href="/" className="flex flex-col group">
             <span className="font-serif-title text-2xl font-bold tracking-widest text-slate-900 transition-colors group-hover:text-gold-accent">
-              SELECO <span className="text-gold-accent">.</span>
+              {global?.brandName || 'SELECO'} <span className="text-gold-accent">.</span>
             </span>
             <span className="text-[10px] font-bold tracking-[0.25em] text-gold-accent uppercase -mt-1">
-              SEDANA LEGAL CONSULTANT
+              {global?.brandTagline || 'SEDANA LEGAL CONSULTANT'}
             </span>
           </Link>
 

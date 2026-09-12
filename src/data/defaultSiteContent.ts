@@ -1,0 +1,300 @@
+export interface SiteContent {
+  global: {
+    brandName: string;
+    brandTagline: string;
+    whatsappNumber: string;
+    whatsappDisplay: string;
+    phone: string;
+    email: string;
+    address: string;
+    consultationUrl: string;
+    badgeText: string;
+  };
+  hero: {
+    topBadge: string;
+    headlinePart1: string;
+    headlineItalic: string;
+    subheadline: string;
+    bgImage: string;
+    ctaButton1Text: string;
+    ctaButton1Link: string;
+    ctaButton2Text: string;
+    ctaButton2Link: string;
+    featurePills: string[];
+    sealQuote: string;
+    sealDescription: string;
+    stat1Number: string;
+    stat1Label: string;
+    stat2Number: string;
+    stat2Label: string;
+  };
+  about: {
+    badge: string;
+    title: string;
+    titleAccent: string;
+    paragraph1: string;
+    paragraph2: string;
+    image1: string;
+    image2: string;
+    experienceYears: string;
+    values: Array<{
+      title: string;
+      description: string;
+    }>;
+  };
+  services: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    ctaBannerTitle: string;
+    ctaBannerSubtitle: string;
+    ctaBannerButtonText: string;
+  };
+  retainer: {
+    badge: string;
+    title: string;
+    subtitle: string;
+  };
+  team: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    members: Array<{
+      id: string;
+      name: string;
+      role: string;
+      specialization: string;
+      image: string;
+      bio: string;
+    }>;
+  };
+  insights: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    articles: Array<{
+      id: string;
+      title: string;
+      tag: string;
+      date: string;
+      readTime: string;
+      image: string;
+      excerpt: string;
+    }>;
+  };
+  faq: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    items: Array<{
+      question: string;
+      answer: string;
+    }>;
+  };
+  contact: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    formTitle: string;
+    formSubtitle: string;
+    offices: Array<{
+      city: string;
+      name: string;
+      address: string;
+      phone: string;
+    }>;
+  };
+  footer: {
+    description: string;
+    copyright: string;
+  };
+}
+
+export const defaultSiteContent: SiteContent = {
+  global: {
+    brandName: "SELECO",
+    brandTagline: "SEDANA LEGAL CONSULTANT",
+    whatsappNumber: "6282211020022",
+    whatsappDisplay: "0822-1102-0022",
+    phone: "+62 822-1102-0022",
+    email: "info@selecoproject.com",
+    address: "Sudirman Central Business District (SCBD), Jakarta Selatan",
+    consultationUrl: "/kontak",
+    badgeText: "Advokat & Konsultan Hukum Resmi",
+  },
+  hero: {
+    topBadge: "Advokat & Konsultan Hukum Korporasi",
+    headlinePart1: "Pendampingan Hukum Strategis untuk",
+    headlineItalic: "Keputusan Penting.",
+    subheadline: "SELECO memberikan layanan konsultasi 34 Perkara Hukum Litigasi & Non-Litigasi serta pengurusan 411+ Perizinan & Legalitas Usaha OSS RBA secara profesional, transparan, dan terukur.",
+    bgImage: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80",
+    ctaButton1Text: "Cari 445+ Layanan & Perizinan",
+    ctaButton1Link: "/layanan",
+    ctaButton2Text: "Jadwalkan Konsultasi",
+    ctaButton2Link: "/kontak",
+    featurePills: [
+      "34 Perkara Hukum",
+      "411 Perizinan OSS RBA",
+      "Retainer Corporate",
+      "Tax & BPN Advisory"
+    ],
+    sealQuote: "“Integrity. Strategy. Legal Excellence.”",
+    sealDescription: "Mitra konsultan hukum tepercaya di Indonesia yang berfokus pada kepastian hukum, perlindungan aset, serta kepatuhan regulasi operasional bisnis.",
+    stat1Number: "10+",
+    stat1Label: "Tahun Pengalaman",
+    stat2Number: "445+",
+    stat2Label: "Cakupan Layanan",
+  },
+  about: {
+    badge: "Tentang SELECO",
+    title: "Membangun Fondasi Hukum yang",
+    titleAccent: "Kokoh & Tepercaya.",
+    paragraph1: "SELECO (Sedana Legal Consultant) adalah kantor advokat dan konsultan hukum korporasi terkemuka yang berdedikasi memberikan solusi hukum komprehensif, strategis, dan terukur bagi pelaku usaha, korporasi multinasional, hingga perseorangan.",
+    paragraph2: "Dengan pengalaman mendalam dalam 34 lingkup perkara hukum perdata, pidana bisnis, hubungan industrial, hingga 411+ izin usaha OSS RBA, kami memastikan setiap langkah bisnis Anda aman secara regulasi dan terlindungi secara hukum.",
+    image1: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1200&q=80",
+    image2: "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80",
+    experienceYears: "10+",
+    values: [
+      {
+        title: "Integritas Tertinggi",
+        description: "Menjunjung standar etika advokat profesional dengan transparansi penuh dalam setiap penanganan perkara.",
+      },
+      {
+        title: "Solusi Strategis & Taktis",
+        description: "Tidak hanya menyelesaikan sengketa, kami merancang proteksi preventif untuk memitigasi risiko hukum di masa depan.",
+      },
+      {
+        title: "Responsif & Terukur",
+        description: "Komunikasi aktif, pembaruan perkara berkala, dan kepastian biaya hukum yang jelas tanpa biaya tersembunyi.",
+      },
+      {
+        title: "Kerahasiaan Klien Mutlak",
+        description: "Seluruh data, dokumen rahasia perusahaan, dan privasi kasus klien terlindungi di bawah sumpah profesi advokat.",
+      },
+    ],
+  },
+  services: {
+    badge: "Layanan & Spesialisasi",
+    title: "Solusi Hukum Menyeluruh untuk",
+    subtitle: "Kebutuhan Bisnis & Personal",
+    ctaBannerTitle: "Membutuhkan Pendampingan Hukum Khusus?",
+    ctaBannerSubtitle: "Tim advokat kami siap membedah dokumen dan memberikan advis awal untuk perkara Anda.",
+    ctaBannerButtonText: "Konsultasi WhatsApp Langsung",
+  },
+  retainer: {
+    badge: "Corporate Retainer Program",
+    title: "Mitra Hukum In-House untuk",
+    subtitle: "Keberlanjutan Bisnis Anda",
+  },
+  team: {
+    badge: "Advokat & Konsultan",
+    title: "Dipimpin oleh Praktisi Hukum",
+    subtitle: "Berpengalaman & Berdedikasi",
+    members: [
+      {
+        id: "1",
+        name: "Sedana, S.H., M.H.",
+        role: "Managing Partner & Senior Litigator",
+        specialization: "Hukum Korporasi, Kepailitan & Litigasi Perdata",
+        image: "https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=800&q=80",
+        bio: "Berpengalaman lebih dari 12 tahun menangani sengketa komersial bernilai tinggi, restrukturisasi utang, dan arbitrase bisnis nasional.",
+      },
+      {
+        id: "2",
+        name: "Arya Wibawa, S.H., LL.M.",
+        role: "Partner - Regulatory & OSS Specialist",
+        specialization: "Perizinan OSS RBA, HAKI, Merger & Akuisisi",
+        image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
+        bio: "Ahli regulasi penanaman modal dan kepatuhan perizinan usaha sektor tambang, industri manufaktur, dan teknologi.",
+      },
+      {
+        id: "3",
+        name: "Ratna Sari, S.H., M.Kn.",
+        role: "Senior Legal Counsel",
+        specialization: "Hukum Agraria (BPN), Perjanjian Kontrak & Ketenagakerjaan",
+        image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80",
+        bio: "Spesialis audit hukum pertanahan, perancangan kontrak kerja sama internasional, dan penyelesaian perselisihan hubungan industrial.",
+      },
+    ],
+  },
+  insights: {
+    badge: "Artikel & Analisis Hukum",
+    title: "Insight Regulasi Terbaru untuk",
+    subtitle: "Pengambilan Keputusan Cermat",
+    articles: [
+      {
+        id: "1",
+        title: "Panduan Lengkap Migrasi Izin Usaha ke Sistem OSS RBA Terbaru 2026",
+        tag: "Perizinan OSS",
+        date: "10 Sep 2026",
+        readTime: "5 menit baca",
+        image: "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80",
+        excerpt: "Langkah-langkah strategis bagi korporasi dan UMKM dalam memenuhi persyaratan dasar perizinan berusaha berbasis risiko sesuai regulasi pemerintah terkini.",
+      },
+      {
+        id: "2",
+        title: "Strategi Efektif Mengatasi Wanprestasi Kontrak Bisnis Tanpa Harus Masuk Pengadilan",
+        tag: "Hukum Perjanjian",
+        date: "04 Sep 2026",
+        readTime: "7 menit baca",
+        image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80",
+        excerpt: "Pemanfaatan somasi hukum terukur, mediasi komersial, dan klausul arbitrase untuk memulihkan kerugian perusahaan secara cepat dan minim biaya.",
+      },
+      {
+        id: "3",
+        title: "Urgensi Legal Due Diligence Sebelum Melakukan Akuisisi atau Penyertaan Modal Perusahaan",
+        tag: "Korporasi & M&A",
+        date: "28 Agu 2026",
+        readTime: "6 menit baca",
+        image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80",
+        excerpt: "Mengidentifikasi liabilitas tersembunyi, sengketa aset, dan kepatuhan pajak target akuisisi demi mengamankan investasi investor.",
+      },
+    ],
+  },
+  faq: {
+    badge: "Pertanyaan Populer",
+    title: "Pertanyaan yang Sering",
+    subtitle: "Diajukan seputar Layanan Kami",
+    items: [
+      {
+        question: "Bagaimana tahapan awal konsultasi hukum di SELECO?",
+        answer: "Anda dapat menghubungi kami melalui WhatsApp atau formulir website. Tim kami akan melakukan penjadwalan konsultasi awal (tatap muka atau online via Zoom) untuk membedah kronologi perkara, meninjau dokumen dasar, dan menyusun opsi strategi hukum terbaik.",
+      },
+      {
+        question: "Berapa lama estimasi pengurusan izin usaha OSS RBA?",
+        answer: "Lama pengurusan bergantung pada tingkat risiko KBLI (Rendah, Menengah Rendah, Menengah Tinggi, atau Tinggi). Untuk risiko rendah-menengah, NIB dapat terbit dalam 1-3 hari kerja. Untuk risiko tinggi dengan AMDAL/PBG/SLF, tim kami mendampingi verifikasi teknis instansi terkait hingga izin operasional terbit penuh.",
+      },
+      {
+        question: "Apakah SELECO melayani penanganan perkara di luar Jabodetabek?",
+        answer: "Ya. Advokat kami memiliki izin beracara resmi dari PERADI dan sah berpraktik di seluruh wilayah Republik Indonesia, mulai dari Pengadilan Negeri, Pengadilan Niaga, Pengadilan Hubungan Industrial, hingga Mahkamah Agung.",
+      },
+      {
+        question: "Apa keuntungan mengambil program Retainer Hukum Korporasi bulanan?",
+        answer: "Program Retainer memberikan perusahaan Anda akses ke tim hukum in-house tanpa biaya penggajian karyawan tetap. Manfaatnya mencakup review kontrak tanpa batas, advis legal harian via WhatsApp/Telepon, audit kepatuhan ketenagakerjaan, hingga potongan biaya pendampingan litigasi pengadilan.",
+      },
+      {
+        question: "Bagaimana sistem transparansi biaya operasional dan honorarium advokat?",
+        answer: "Semua biaya disepakati tertulis di awal dalam Surat Perjanjian Jasa Hukum (SPJH) dengan rincian honorarium, success fee (jika ada), dan biaya operasional perkara yang dipertanggungjawabkan secara transparan.",
+      },
+    ],
+  },
+  contact: {
+    badge: "Hubungi Kantor Kami",
+    title: "Diskusikan Kebutuhan Hukum Anda",
+    subtitle: "Bersama Tim Ahli Kami",
+    formTitle: "Kirim Pesan & Kronologi Singkat",
+    formSubtitle: "Pesan Anda akan langsung ditinjau oleh advokat kami dengan jaminan kerahasiaan 100%.",
+    offices: [
+      {
+        city: "Jakarta (Kantor Utama)",
+        name: "SELECO Head Office",
+        address: "Sudirman Central Business District (SCBD) Lot 28, Jakarta Selatan 12190",
+        phone: "+62 822-1102-0022",
+      },
+    ],
+  },
+  footer: {
+    description: "SELECO (Sedana Legal Consultant) adalah kantor advokat dan konsultan hukum korporasi terpercaya di Indonesia, mengkhususkan diri pada 34 Perkara Hukum Litigasi & Non-Litigasi serta pengurusan 411+ Perizinan & Legalitas Usaha OSS RBA.",
+    copyright: "© 2026 SELECO (Sedana Legal Consultant). Hak Cipta Dilindungi Undang-Undang.",
+  },
+};
