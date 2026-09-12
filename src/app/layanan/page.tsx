@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Search, X, Scale, ChevronRight, Filter, Grid, List } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useContent } from '@/context/ContentContext';
 import {
   SERVICE_CATEGORIES,
   PERKARA_HUKUM_ITEMS,
@@ -13,6 +14,11 @@ import {
 } from '@/data/layananData';
 
 export default function LayananPage() {
+  const { content } = useContent();
+  const totalServices = content?.global?.totalServices || content?.hero?.stat2Number || '445+';
+  const litigationCount = content?.global?.litigationCount || '34';
+  const ossLicenseCount = content?.global?.ossLicenseCount || '411+';
+
   const searchParams = useSearchParams();
   const [activeCat, setActiveCat] = useState(searchParams.get('cat') || 'all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -82,16 +88,16 @@ export default function LayananPage() {
                 <Scale className="w-3.5 h-3.5" /> DIREKTORI PELAYANAN HUKUM &amp; LEGALITAS
               </div>
               <h1 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
-                445+ Layanan Hukum &amp; Perizinan Usaha
+                {content?.services?.title || `${totalServices} Layanan Hukum & Perizinan Usaha`}
               </h1>
               <div className="w-16 h-[3px] bg-gold-accent mt-3 mb-4 rounded-full" />
               <p className="text-base text-slate-600 max-w-2xl leading-relaxed">
-                Direktori komprehensif mencakup <strong className="text-slate-900 font-semibold">34 Perkara Hukum</strong> (Litigasi &amp; Non-Litigasi) dan <strong className="text-slate-900 font-semibold">411 Perizinan OSS RBA</strong> yang ditangani SELECO secara profesional.
+                Direktori komprehensif mencakup <strong className="text-slate-900 font-semibold">{litigationCount} Perkara Hukum</strong> (Litigasi &amp; Non-Litigasi) dan <strong className="text-slate-900 font-semibold">{ossLicenseCount} Perizinan OSS RBA</strong> yang ditangani SELECO secara profesional.
               </p>
             </div>
             <div className="flex flex-col gap-2 text-center shrink-0">
               <div className="bg-slate-50 border border-gray-200 rounded-2xl px-8 py-4 shadow-sm">
-                <p className="font-serif-title text-4xl font-bold text-gold-accent">445+</p>
+                <p className="font-serif-title text-4xl font-bold text-gold-accent">{totalServices}</p>
                 <p className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold mt-1">Total Layanan</p>
               </div>
             </div>
@@ -121,9 +127,9 @@ export default function LayananPage() {
                         : 'text-navy-dark/70 hover:bg-gray-50 hover:text-navy-dark'
                     }`}
                   >
-                    <span className="leading-snug font-semibold">{cat.name}</span>
+                    <span className="leading-snug font-semibold">{cat.id === 'all' ? `Semua Layanan (${totalServices})` : cat.name}</span>
                     <span className={`shrink-0 text-[10px] font-bold px-1.5 py-0.5 rounded ${activeCat === cat.id ? 'bg-gold-accent text-white' : 'bg-gray-100 text-navy-dark/60'}`}>
-                      {cat.count}
+                      {cat.id === 'all' ? totalServices : cat.count}
                     </span>
                   </button>
                 ))}

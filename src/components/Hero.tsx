@@ -8,6 +8,8 @@ import { useContent } from '@/context/ContentContext';
 export default function Hero() {
   const { content } = useContent();
   const hero = content?.hero;
+  const global = content?.global;
+  const totalServices = global?.totalServices || hero?.stat2Number || '445+';
 
   return (
     <section id="hero" className="relative lg:h-[calc(100vh-5rem)] min-h-[580px] flex items-center justify-center overflow-hidden py-8 lg:py-0 bg-slate-950 text-white">
@@ -61,7 +63,7 @@ export default function Hero() {
                 className="px-5 py-3 bg-gradient-to-r from-gold-accent to-gold-bright text-slate-950 font-bold text-xs uppercase tracking-wider rounded-lg hover:brightness-110 transition-all shadow-md hover:shadow-gold flex items-center gap-2 group"
               >
                 <Scale className="w-4 h-4 text-slate-950" />
-                <span>{hero?.ctaButton1Text || 'Cari 445+ Layanan & Perizinan'}</span>
+                <span>{hero?.ctaButton1Text || `Cari ${totalServices} Layanan & Perizinan`}</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
@@ -113,7 +115,7 @@ export default function Hero() {
                   <div className="text-[9px] text-slate-300 uppercase tracking-wider font-semibold mt-0.5">{hero?.stat1Label || 'Tahun Pengalaman'}</div>
                 </div>
                 <div className="p-2.5 bg-white/5 backdrop-blur-md rounded-xl border border-white/10">
-                  <div className="font-serif-title text-2xl font-bold text-amber-300">{hero?.stat2Number || '445+'}</div>
+                  <div className="font-serif-title text-2xl font-bold text-amber-300">{hero?.stat2Number || totalServices}</div>
                   <div className="text-[9px] text-slate-300 uppercase tracking-wider font-semibold mt-0.5">{hero?.stat2Label || 'Cakupan Layanan'}</div>
                 </div>
               </div>

@@ -31,12 +31,51 @@ export const ContentProvider = ({
   const [content, setContent] = useState<SiteContent>(initialContent || defaultSiteContent);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  // Synchronize state immediately when initialContent prop changes
+  // 1. Synchronize state immediately when initialContent prop changes
   useEffect(() => {
     if (initialContent) {
       setContent(initialContent);
     }
   }, [initialContent]);
+
+  // 2. On client mount: Hydrate from localStorage first, then fetch latest from server
+  useEffect(() => {
+    try {
+      const cached = localStorage.getItem('seleco_site_content');
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        setContent(parsed);
+      }
+    } catch (e) {
+      console.warn('Could not read from localStorage:', e);
+    }
+
+    // Always fetch latest saved content from server API
+    reloadContent();
+
+    // Listen for storage events (if user saves in /admin in another tab, update this tab immediately)
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'seleco_site_content' && e.newValue) {
+        try {
+          setContent(JSON.parse(e.newValue));
+        } catch (err) {}
+      }
+    };
+
+    const handleCustomUpdate = (e: any) => {
+      if (e.detail) {
+        setContent(e.detail);
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('seleco_content_updated', handleCustomUpdate);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('seleco_content_updated', handleCustomUpdate);
+    };
+  }, []);
 
   const reloadContent = async () => {
     try {
@@ -46,6 +85,9 @@ export const ContentProvider = ({
         const data = await res.json();
         if (data.content) {
           setContent(data.content);
+          try {
+            localStorage.setItem('seleco_site_content', JSON.stringify(data.content));
+          } catch (e) {}
         }
       }
     } catch (err) {
@@ -67,6 +109,12 @@ export const ContentProvider = ({
 
   const saveToServer = async () => {
     try {
+      // Save locally first
+      try {
+        localStorage.setItem('seleco_site_content', JSON.stringify(content));
+        window.dispatchEvent(new CustomEvent('seleco_content_updated', { detail: content }));
+      } catch (e) {}
+
       const res = await fetch('/api/admin/content', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

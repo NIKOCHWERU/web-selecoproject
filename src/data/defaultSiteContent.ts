@@ -9,6 +9,9 @@ export interface SiteContent {
     address: string;
     consultationUrl: string;
     badgeText: string;
+    totalServices: string;
+    litigationCount: string;
+    ossLicenseCount: string;
   };
   hero: {
     topBadge: string;
@@ -121,6 +124,9 @@ export const defaultSiteContent: SiteContent = {
     address: "Sudirman Central Business District (SCBD), Jakarta Selatan",
     consultationUrl: "/kontak",
     badgeText: "Advokat & Konsultan Hukum Resmi",
+    totalServices: "445+",
+    litigationCount: "34",
+    ossLicenseCount: "411+",
   },
   hero: {
     topBadge: "Advokat & Konsultan Hukum Korporasi",

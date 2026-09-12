@@ -9,6 +9,10 @@ import { useContent } from '@/context/ContentContext';
 export default function ServicesSection() {
   const { content } = useContent();
   const services = content?.services;
+  const global = content?.global;
+  const totalServices = global?.totalServices || content?.hero?.stat2Number || '445+';
+  const litigationCount = global?.litigationCount || '34';
+  const ossLicenseCount = global?.ossLicenseCount || '411+';
 
   const getIcon = (iconName: string) => {
     switch (iconName) {
@@ -37,11 +41,11 @@ export default function ServicesSection() {
             {services?.badge || 'CAKUPAN KEAHLIAN HUKUM & PERIZINAN'}
           </div>
           <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
-            {services?.title || '445+ Pelayanan Hukum & Perizinan Usaha'}
+            {services?.title || `${totalServices} Pelayanan Hukum & Perizinan Usaha`}
           </h2>
           <div className="w-16 h-[3px] bg-gold-accent mx-auto my-4 rounded-full" />
           <p className="text-base text-slate-600 leading-relaxed font-normal">
-            {services?.subtitle || 'Direktori komprehensif mencakup 34 Perkara Hukum (Litigasi & Non-Litigasi) serta 411 jenis Perizinan & Legalitas OSS RBA di Indonesia.'}
+            {services?.subtitle || `Direktori komprehensif mencakup ${litigationCount} Perkara Hukum (Litigasi & Non-Litigasi) serta ${ossLicenseCount} jenis Perizinan & Legalitas OSS RBA di Indonesia.`}
           </p>
         </div>
 
@@ -92,7 +96,7 @@ export default function ServicesSection() {
               {services?.ctaBannerTitle || 'Membutuhkan Perizinan Khusus atau Perkara Hukum Tertentu?'}
             </h3>
             <p className="text-xs sm:text-sm text-slate-300 max-w-xl">
-              {services?.ctaBannerSubtitle || 'Gunakan pencarian interaktif kami untuk menemukan 411 jenis perizinan dan 34 perkara hukum secara spesifik.'}
+              {services?.ctaBannerSubtitle || `Gunakan pencarian interaktif kami untuk menemukan ${ossLicenseCount} jenis perizinan dan ${litigationCount} perkara hukum secara spesifik.`}
             </p>
           </div>
           <Link
@@ -100,7 +104,7 @@ export default function ServicesSection() {
             className="px-7 py-4 bg-gradient-to-r from-gold-accent to-gold-bright text-slate-950 font-bold text-xs uppercase tracking-wider rounded-lg hover:brightness-110 transition-all whitespace-nowrap flex items-center gap-2.5 shadow-lg shrink-0 z-10"
           >
             <Search className="w-4 h-4 text-slate-950" />
-            <span>{services?.ctaBannerButtonText || 'Buka Direktori Lengkap 445+ Layanan'}</span>
+            <span>{services?.ctaBannerButtonText || `Buka Direktori Lengkap ${totalServices} Layanan`}</span>
           </Link>
         </div>
 

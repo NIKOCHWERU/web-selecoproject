@@ -145,6 +145,13 @@ export default function AdminClient() {
   const handleSave = async () => {
     setIsSaving(true);
     try {
+      // 1. Instantly save in localStorage and dispatch cross-tab sync event
+      try {
+        localStorage.setItem('seleco_site_content', JSON.stringify(editorContent));
+        window.dispatchEvent(new CustomEvent('seleco_content_updated', { detail: editorContent }));
+      } catch (e) {}
+
+      // 2. Persist to server
       const res = await fetch('/api/admin/content', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -166,6 +173,10 @@ export default function AdminClient() {
   const handleResetToDefault = () => {
     if (confirm('Apakah Anda yakin ingin mengembalikan seluruh konten ke template bawaan (default)? Semua perubahan yang belum disimpan akan hilang.')) {
       setEditorContent(defaultSiteContent);
+      try {
+        localStorage.setItem('seleco_site_content', JSON.stringify(defaultSiteContent));
+        window.dispatchEvent(new CustomEvent('seleco_content_updated', { detail: defaultSiteContent }));
+      } catch (e) {}
       triggerToast('Konten dikembalikan ke default. Klik "Simpan" jika ingin menerapkannya ke website.', 'success');
     }
   };
@@ -207,19 +218,62 @@ export default function AdminClient() {
     }
   };
 
-  // Helper update functions
+  // Helper update functions with Auto-Propagation
   const updateGlobal = (key: keyof SiteContent['global'], value: string) => {
-    setEditorContent((prev) => ({
-      ...prev,
-      global: { ...prev.global, [key]: value },
-    }));
+    setEditorContent((prev) => {
+      const updated = {
+        ...prev,
+        global: { ...prev.global, [key]: value },
+      };
+
+      // Auto-propagate totalServices changes
+      if (key === 'totalServices') {
+        const oldNum = prev.global?.totalServices || prev.hero?.stat2Number || '445+';
+        const newNum = value;
+        updated.hero = { ...updated.hero, stat2Number: newNum };
+        if (updated.hero.ctaButton1Text && updated.hero.ctaButton1Text.includes(oldNum)) {
+          updated.hero.ctaButton1Text = updated.hero.ctaButton1Text.replaceAll(oldNum, newNum);
+        }
+        if (updated.services.title && updated.services.title.includes(oldNum)) {
+          updated.services.title = updated.services.title.replaceAll(oldNum, newNum);
+        }
+        if (updated.services.ctaBannerButtonText && updated.services.ctaBannerButtonText.includes(oldNum)) {
+          updated.services.ctaBannerButtonText = updated.services.ctaBannerButtonText.replaceAll(oldNum, newNum);
+        }
+      }
+
+      return updated;
+    });
   };
 
   const updateHero = (key: keyof SiteContent['hero'], value: any) => {
-    setEditorContent((prev) => ({
-      ...prev,
-      hero: { ...prev.hero, [key]: value },
-    }));
+    setEditorContent((prev) => {
+      const updated = {
+        ...prev,
+        hero: { ...prev.hero, [key]: value },
+      };
+
+      // If user edits stat2Number in Hero (e.g. from 445+ to 400+), auto-propagate to all pages!
+      if (key === 'stat2Number' && typeof value === 'string') {
+        const oldNum = prev.hero?.stat2Number || prev.global?.totalServices || '445+';
+        const newNum = value;
+        updated.global = {
+          ...updated.global,
+          totalServices: newNum,
+        };
+        if (updated.hero.ctaButton1Text && updated.hero.ctaButton1Text.includes(oldNum)) {
+          updated.hero.ctaButton1Text = updated.hero.ctaButton1Text.replaceAll(oldNum, newNum);
+        }
+        if (updated.services.title && updated.services.title.includes(oldNum)) {
+          updated.services.title = updated.services.title.replaceAll(oldNum, newNum);
+        }
+        if (updated.services.ctaBannerButtonText && updated.services.ctaBannerButtonText.includes(oldNum)) {
+          updated.services.ctaBannerButtonText = updated.services.ctaBannerButtonText.replaceAll(oldNum, newNum);
+        }
+      }
+
+      return updated;
+    });
   };
 
   const updateAbout = (key: keyof SiteContent['about'], value: any) => {
@@ -1344,6 +1398,43 @@ export default function AdminClient() {
                     onChange={(e) => updateGlobal('brandTagline', e.target.value)}
                     className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-amber-300 text-xs focus:outline-none focus:border-amber-400 uppercase tracking-wider"
                   />
+                </div>
+
+                {/* Global Key Stats & Numbers */}
+                <div className="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl space-y-3">
+                  <span className="text-xs font-bold text-amber-300 block">Statistik Layanan Global Website</span>
+                  <div>
+                    <span className="text-[10px] text-slate-400">Total Layanan &amp; Perizinan (Otomatis sinkron ke Hero, Layanan, Footer, &amp; Direktori)</span>
+                    <input
+                      type="text"
+                      value={editorContent.global.totalServices || editorContent.hero?.stat2Number || '445+'}
+                      onChange={(e) => updateGlobal('totalServices', e.target.value)}
+                      placeholder="445+ atau 400+"
+                      className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded text-xs text-amber-300 font-bold focus:outline-none focus:border-amber-400"
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <span className="text-[10px] text-slate-400">Perkara Litigasi</span>
+                      <input
+                        type="text"
+                        value={editorContent.global.litigationCount || '34'}
+                        onChange={(e) => updateGlobal('litigationCount', e.target.value)}
+                        placeholder="34"
+                        className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
+                      />
+                    </div>
+                    <div>
+                      <span className="text-[10px] text-slate-400">Perizinan OSS RBA</span>
+                      <input
+                        type="text"
+                        value={editorContent.global.ossLicenseCount || '411+'}
+                        onChange={(e) => updateGlobal('ossLicenseCount', e.target.value)}
+                        placeholder="411+"
+                        className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
+                      />
+                    </div>
+                  </div>
                 </div>
 
                 <div className="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl space-y-3">

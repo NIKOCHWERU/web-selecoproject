@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import { useContent } from '@/context/ContentContext';
 
 import Hero from '@/components/Hero';
+import TrustStatsBanner from '@/components/TrustStatsBanner';
 import AboutSection from '@/components/AboutSection';
 import ServicesSection from '@/components/ServicesSection';
 import RetainerSection from '@/components/RetainerSection';
@@ -11,6 +12,7 @@ import TeamSection from '@/components/TeamSection';
 import InsightsSection from '@/components/InsightsSection';
 import FAQSection from '@/components/FAQSection';
 import ContactSection from '@/components/ContactSection';
+import Footer from '@/components/Footer';
 
 export default function AdminPreviewPage() {
   const { setContent } = useContent();
@@ -49,6 +51,7 @@ export default function AdminPreviewPage() {
   return (
     <div className="w-full bg-white text-slate-900 overflow-x-hidden">
       <Hero />
+      <TrustStatsBanner />
       <AboutSection showMoreLink={true} />
       <ServicesSection />
       <RetainerSection />
@@ -56,6 +59,7 @@ export default function AdminPreviewPage() {
       <InsightsSection />
       <FAQSection />
       <ContactSection />
+      <Footer />
     </div>
   );
 }

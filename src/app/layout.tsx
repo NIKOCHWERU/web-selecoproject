@@ -3,6 +3,9 @@ import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title: 'SELECO | Sedana Legal Consultant — Strategic Legal Counsel & Licensing Directory',
   description: 'SELECO (Sedana Legal Consultant) memberikan pendampingan hukum strategis, perancangan kontrak bisnis, kepatuhan regulasi, 34 perkara litigasi/non-litigasi, serta 411+ perizinan & legalitas usaha di Indonesia.',

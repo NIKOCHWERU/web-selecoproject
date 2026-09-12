@@ -39,7 +39,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-white/60 leading-relaxed text-xs">
-              {footer?.description || 'Strategic legal counsel for businesses, organizations, and individuals in Indonesia. Pendampingan 34 Perkara Hukum & 411+ Perizinan Usaha OSS RBA.'}
+              {footer?.description || `Strategic legal counsel for businesses, organizations, and individuals in Indonesia. Pendampingan ${global?.litigationCount || '34'} Perkara Hukum & ${global?.ossLicenseCount || '411+'} Perizinan Usaha OSS RBA.`}
             </p>
             <div className="pt-2">
               <Link
@@ -47,7 +47,7 @@ export default function Footer() {
                 className="inline-flex items-center gap-2 px-3 py-1.5 bg-gold-accent/10 border border-gold-accent/30 rounded text-gold-accent text-xs font-semibold hover:bg-gold-accent hover:text-white transition-all"
               >
                 <Scale className="w-3.5 h-3.5" />
-                Direktori Layanan (445+)
+                Direktori Layanan ({global?.totalServices || '445+'})
               </Link>
             </div>
           </div>

@@ -8,7 +8,10 @@
     "email": "info@selecoproject.com",
     "address": "Sudirman Central Business District (SCBD), Jakarta Selatan",
     "consultationUrl": "/kontak",
-    "badgeText": "Advokat & Konsultan Hukum Resmi"
+    "badgeText": "Advokat & Konsultan Hukum Resmi",
+    "totalServices": "445+",
+    "litigationCount": "34",
+    "ossLicenseCount": "411+"
   },
   "hero": {
     "topBadge": "Advokat & Konsultan Hukum Korporasi",
