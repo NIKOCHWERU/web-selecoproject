@@ -33,11 +33,15 @@ export async function POST(request: Request) {
 
     fs.writeFileSync(filePath, buffer);
 
+    const mimeType = file.type || 'image/jpeg';
+    const base64 = buffer.toString('base64');
+    const dataUrl = `data:${mimeType};base64,${base64}`;
     const publicUrl = `/uploads/${filename}`;
 
     return NextResponse.json({
       success: true,
-      url: publicUrl,
+      url: dataUrl,
+      localUrl: publicUrl,
       message: 'Foto berhasil diunggah!',
     });
   } catch (error: any) {
