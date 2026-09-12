@@ -3,10 +3,14 @@
 import { useState, useRef } from 'react';
 import { MapPin, Mail, Phone, Send, CheckCircle2 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useContent } from '@/context/ContentContext';
 
 export default function ContactSection() {
   const [submitted, setSubmitted] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
+  const { content } = useContent();
+  const contact = content?.contact;
+  const global = content?.global;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,7 +26,8 @@ export default function ContactSection() {
 
     const message = `*Formulir Konsultasi SELECO*%0A%0A*Nama:* ${encodeURIComponent(nama)}%0A*Perusahaan:* ${encodeURIComponent(perusahaan)}%0A*Email:* ${encodeURIComponent(email)}%0A*Telepon:* ${encodeURIComponent(telepon)}%0A*Layanan:* ${encodeURIComponent(layanan)}%0A*Deskripsi:*%0A${encodeURIComponent(deskripsi)}`;
 
-    window.open(`https://wa.me/6282211020022?text=${message}`, '_blank');
+    const waNum = global?.whatsappNumber || '6282211020022';
+    window.open(`https://wa.me/${waNum}?text=${message}`, '_blank');
 
     setSubmitted(true);
     form.reset();
@@ -52,14 +57,14 @@ export default function ContactSection() {
 
         <div className="text-center max-w-2xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-50 border border-amber-200/80 rounded-full text-amber-800 text-xs font-bold uppercase tracking-widest mb-4">
-            HUBUNGI KAMI
+            {contact?.badge || 'HUBUNGI KAMI'}
           </div>
           <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
-            Mari Diskusikan Kebutuhan Hukum Anda.
+            {contact?.title || 'Mari Diskusikan Kebutuhan Hukum Anda.'}
           </h2>
           <div className="w-16 h-[3px] bg-gold-accent mx-auto my-4 rounded-full" />
           <p className="text-base text-slate-600 font-normal">
-            Sampaikan secara singkat kebutuhan hukum Anda. Tim kami akan merespons dalam 1×24 jam kerja.
+            {contact?.subtitle || 'Sampaikan secara singkat kebutuhan hukum Anda. Tim kami akan merespons dalam 1×24 jam kerja.'}
           </p>
         </div>
 
@@ -75,10 +80,10 @@ export default function ContactSection() {
           >
             <div>
               <h3 className="font-serif-title text-2xl lg:text-3xl font-bold text-white mb-2">
-                Sedana Legal Consultant
+                {global?.brandName || 'SELECO'}
               </h3>
               <p className="text-xs text-slate-300 leading-relaxed mb-8 font-light">
-                Strategic Legal Counsel for Business &amp; Individuals in Indonesia.
+                {global?.brandTagline || 'SEDANA LEGAL CONSULTANT'} — Strategic Legal Counsel in Indonesia.
               </p>
 
               <div className="space-y-6">
@@ -88,7 +93,7 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <p className="text-[10px] text-amber-300 font-bold uppercase tracking-widest">Alamat Kantor</p>
-                    <p className="text-sm text-slate-200 font-medium mt-0.5">Jakarta, Indonesia</p>
+                    <p className="text-sm text-slate-200 font-medium mt-0.5">{global?.address || 'Jakarta, Indonesia'}</p>
                   </div>
                 </div>
 
@@ -98,8 +103,8 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <p className="text-[10px] text-amber-300 font-bold uppercase tracking-widest">Email Resmi</p>
-                    <a href="mailto:consult@seleco.id" className="text-sm text-slate-200 hover:text-amber-300 transition-colors font-medium mt-0.5 block">
-                      consult@seleco.id
+                    <a href={`mailto:${global?.email || 'info@selecoproject.com'}`} className="text-sm text-slate-200 hover:text-amber-300 transition-colors font-medium mt-0.5 block">
+                      {global?.email || 'info@selecoproject.com'}
                     </a>
                   </div>
                 </div>
@@ -110,8 +115,8 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <p className="text-[10px] text-amber-300 font-bold uppercase tracking-widest">Telepon / WhatsApp</p>
-                    <a href="tel:+6282211020022" className="text-sm text-slate-200 hover:text-amber-300 transition-colors font-medium mt-0.5 block">
-                      +62 822-1102-0022
+                    <a href={`https://wa.me/${global?.whatsappNumber || '6282211020022'}`} target="_blank" rel="noopener noreferrer" className="text-sm text-slate-200 hover:text-amber-300 transition-colors font-medium mt-0.5 block">
+                      {global?.whatsappDisplay || '+62 822-1102-0022'}
                     </a>
                   </div>
                 </div>

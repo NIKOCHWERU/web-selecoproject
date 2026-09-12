@@ -12,7 +12,7 @@ interface ContentContextType {
   isLoading: boolean;
 }
 
-const ContentContext = createContext<ContentContextType>({
+export const ContentContext = createContext<ContentContextType>({
   content: defaultSiteContent,
   setContent: () => {},
   updateSection: () => {},
@@ -30,6 +30,13 @@ export const ContentProvider = ({
 }) => {
   const [content, setContent] = useState<SiteContent>(initialContent || defaultSiteContent);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  // Synchronize state immediately when initialContent prop changes
+  useEffect(() => {
+    if (initialContent) {
+      setContent(initialContent);
+    }
+  }, [initialContent]);
 
   const reloadContent = async () => {
     try {

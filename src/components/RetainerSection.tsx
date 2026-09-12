@@ -3,8 +3,12 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ShieldCheck, CheckCircle2, Handshake } from 'lucide-react';
+import { useContent } from '@/context/ContentContext';
 
 export default function RetainerSection() {
+  const { content } = useContent();
+  const retainer = content?.retainer;
+
   const retainerServices = [
     "Konsultasi Hukum Harian Korporasi",
     "Review & Draf Perjanjian Bisnis Rutin",
@@ -28,17 +32,17 @@ export default function RetainerSection() {
             <div className="lg:col-span-7 space-y-7">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-400/10 border border-amber-400/30 rounded-full text-amber-300 text-xs font-bold uppercase tracking-widest backdrop-blur-md">
                 <ShieldCheck className="w-4 h-4 text-amber-300" />
-                <span>RETAINER KORPORASI</span>
+                <span>{retainer?.badge || 'RETAINER KORPORASI'}</span>
               </div>
 
               <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
-                Departemen Hukum Eksternal Bisnis Anda.
+                {retainer?.title || 'Departemen Hukum Eksternal Bisnis Anda.'}
               </h2>
 
               <div className="w-16 h-[3px] bg-gradient-to-r from-gold-accent to-gold-bright rounded-full" />
 
               <p className="text-base text-slate-300 leading-relaxed font-normal">
-                Akses pendampingan hukum berkelanjutan sesuai kebutuhan operasional perusahaan—mulai dari konsultasi harian, perancangan kontrak, HR, perizinan OSS RBA, hingga mitigasi sengketa bisnis tanpa beban tetap.
+                {retainer?.subtitle || 'Akses pendampingan hukum berkelanjutan sesuai kebutuhan operasional perusahaan—mulai dari konsultasi harian, perancangan kontrak, HR, perizinan OSS RBA, hingga mitigasi sengketa bisnis tanpa beban tetap.'}
               </p>
 
               {/* Grid 6 Services */}

@@ -26,10 +26,12 @@ import {
   Users,
   HelpCircle,
   Phone,
-  Scale
+  Scale,
+  Briefcase,
+  ShieldCheck
 } from 'lucide-react';
 import { SiteContent, defaultSiteContent } from '@/data/defaultSiteContent';
-import { ContentProvider, useContent } from '@/context/ContentContext';
+import { ContentContext, useContent } from '@/context/ContentContext';
 
 // Import public components for real-time live preview inside the editor
 import Navbar from '@/components/Navbar';
@@ -51,7 +53,7 @@ export default function AdminClient() {
 
   // Content state inside builder
   const [editorContent, setEditorContent] = useState<SiteContent>(defaultSiteContent);
-  const [activeTab, setActiveTab] = useState<'hero' | 'about' | 'team' | 'insights' | 'faq' | 'global'>('hero');
+  const [activeTab, setActiveTab] = useState<'hero' | 'about' | 'services' | 'retainer' | 'team' | 'insights' | 'faq' | 'global'>('hero');
   const [activeSection, setActiveSection] = useState<string>('hero-text');
   const [deviceView, setDeviceView] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
   const [isSaving, setIsSaving] = useState<boolean>(false);
@@ -199,6 +201,27 @@ export default function AdminClient() {
     }));
   };
 
+  const updateServices = (key: keyof SiteContent['services'], value: string) => {
+    setEditorContent((prev) => ({
+      ...prev,
+      services: { ...prev.services, [key]: value },
+    }));
+  };
+
+  const updateRetainer = (key: keyof SiteContent['retainer'], value: string) => {
+    setEditorContent((prev) => ({
+      ...prev,
+      retainer: { ...prev.retainer, [key]: value },
+    }));
+  };
+
+  const updateContact = (key: keyof SiteContent['contact'], value: string) => {
+    setEditorContent((prev) => ({
+      ...prev,
+      contact: { ...prev.contact, [key]: value },
+    }));
+  };
+
   const updateTeam = (key: keyof SiteContent['team'], value: any) => {
     setEditorContent((prev) => ({
       ...prev,
@@ -230,7 +253,7 @@ export default function AdminClient() {
   // Login Gate
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 relative overflow-hidden">
+      <div className="fixed inset-0 z-[999] bg-slate-950 flex items-center justify-center p-4 overflow-hidden">
         {/* Ambient Glows */}
         <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-1/4 right-1/3 w-96 h-96 bg-amber-600/10 rounded-full blur-3xl pointer-events-none" />
@@ -299,7 +322,7 @@ export default function AdminClient() {
 
   // ELEMENTOR BUILDER INTERFACE
   return (
-    <div className="h-screen flex flex-col bg-slate-900 text-slate-100 overflow-hidden select-none">
+    <div className="fixed inset-0 z-[999] h-screen w-screen flex flex-col bg-slate-900 text-slate-100 overflow-hidden select-none">
       
       {/* TOP HEADER / TOOLBAR */}
       <header className="h-16 bg-slate-950 border-b border-slate-800 flex items-center justify-between px-4 z-40 shrink-0">
@@ -410,19 +433,19 @@ export default function AdminClient() {
         <aside className="w-full sm:w-96 md:w-[420px] bg-slate-950 border-r border-slate-800 flex flex-col shrink-0 z-30 overflow-hidden">
           
           {/* Main Tab Category Navigation */}
-          <div className="p-2.5 border-b border-slate-800 grid grid-cols-3 gap-1 bg-slate-900/60">
+          <div className="p-2 border-b border-slate-800 grid grid-cols-4 gap-1 bg-slate-900/60">
             <button
               onClick={() => { setActiveTab('hero'); setActiveSection('hero-text'); }}
-              className={`px-2 py-2 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+              className={`px-1.5 py-1.5 rounded-lg text-[11px] font-semibold flex flex-col items-center justify-center gap-1 transition-all ${
                 activeTab === 'hero' ? 'bg-amber-400/20 text-amber-300 border border-amber-400/30' : 'text-slate-400 hover:text-white hover:bg-slate-800'
               }`}
             >
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Hero / Atas</span>
+              <span>Hero</span>
             </button>
             <button
               onClick={() => { setActiveTab('about'); setActiveSection('about-text'); }}
-              className={`px-2 py-2 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+              className={`px-1.5 py-1.5 rounded-lg text-[11px] font-semibold flex flex-col items-center justify-center gap-1 transition-all ${
                 activeTab === 'about' ? 'bg-amber-400/20 text-amber-300 border border-amber-400/30' : 'text-slate-400 hover:text-white hover:bg-slate-800'
               }`}
             >
@@ -430,26 +453,44 @@ export default function AdminClient() {
               <span>Tentang</span>
             </button>
             <button
+              onClick={() => { setActiveTab('services'); setActiveSection('services-text'); }}
+              className={`px-1.5 py-1.5 rounded-lg text-[11px] font-semibold flex flex-col items-center justify-center gap-1 transition-all ${
+                activeTab === 'services' ? 'bg-amber-400/20 text-amber-300 border border-amber-400/30' : 'text-slate-400 hover:text-white hover:bg-slate-800'
+              }`}
+            >
+              <Briefcase className="w-3.5 h-3.5" />
+              <span>Layanan</span>
+            </button>
+            <button
+              onClick={() => { setActiveTab('retainer'); setActiveSection('retainer-text'); }}
+              className={`px-1.5 py-1.5 rounded-lg text-[11px] font-semibold flex flex-col items-center justify-center gap-1 transition-all ${
+                activeTab === 'retainer' ? 'bg-amber-400/20 text-amber-300 border border-amber-400/30' : 'text-slate-400 hover:text-white hover:bg-slate-800'
+              }`}
+            >
+              <ShieldCheck className="w-3.5 h-3.5" />
+              <span>Retainer</span>
+            </button>
+            <button
               onClick={() => { setActiveTab('team'); setActiveSection('team-members'); }}
-              className={`px-2 py-2 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+              className={`px-1.5 py-1.5 rounded-lg text-[11px] font-semibold flex flex-col items-center justify-center gap-1 transition-all ${
                 activeTab === 'team' ? 'bg-amber-400/20 text-amber-300 border border-amber-400/30' : 'text-slate-400 hover:text-white hover:bg-slate-800'
               }`}
             >
               <Users className="w-3.5 h-3.5" />
-              <span>Tim Advokat</span>
+              <span>Tim</span>
             </button>
             <button
               onClick={() => { setActiveTab('insights'); setActiveSection('insights-articles'); }}
-              className={`px-2 py-2 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+              className={`px-1.5 py-1.5 rounded-lg text-[11px] font-semibold flex flex-col items-center justify-center gap-1 transition-all ${
                 activeTab === 'insights' ? 'bg-amber-400/20 text-amber-300 border border-amber-400/30' : 'text-slate-400 hover:text-white hover:bg-slate-800'
               }`}
             >
               <FileText className="w-3.5 h-3.5" />
-              <span>Artikel Insight</span>
+              <span>Insight</span>
             </button>
             <button
               onClick={() => { setActiveTab('faq'); setActiveSection('faq-items'); }}
-              className={`px-2 py-2 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+              className={`px-1.5 py-1.5 rounded-lg text-[11px] font-semibold flex flex-col items-center justify-center gap-1 transition-all ${
                 activeTab === 'faq' ? 'bg-amber-400/20 text-amber-300 border border-amber-400/30' : 'text-slate-400 hover:text-white hover:bg-slate-800'
               }`}
             >
@@ -458,12 +499,12 @@ export default function AdminClient() {
             </button>
             <button
               onClick={() => { setActiveTab('global'); setActiveSection('global-contacts'); }}
-              className={`px-2 py-2 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+              className={`px-1.5 py-1.5 rounded-lg text-[11px] font-semibold flex flex-col items-center justify-center gap-1 transition-all ${
                 activeTab === 'global' ? 'bg-amber-400/20 text-amber-300 border border-amber-400/30' : 'text-slate-400 hover:text-white hover:bg-slate-800'
               }`}
             >
               <Phone className="w-3.5 h-3.5" />
-              <span>Kontak / Footer</span>
+              <span>Kontak</span>
             </button>
           </div>
 
@@ -821,6 +862,127 @@ export default function AdminClient() {
                       }}
                     />
                   </label>
+                </div>
+              </div>
+            )}
+
+            {/* TAB: SERVICES SECTION */}
+            {activeTab === 'services' && (
+              <div className="space-y-5">
+                <div className="border-b border-slate-800 pb-3">
+                  <h3 className="text-sm font-bold text-amber-300 uppercase tracking-wider flex items-center gap-2">
+                    <Briefcase className="w-4 h-4" />
+                    <span>Layanan &amp; Spesialisasi Hukum</span>
+                  </h3>
+                  <p className="text-xs text-slate-400 mt-1">
+                    Edit lencana, judul utama direktori, dan teks banner konsultasi layanan.
+                  </p>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Lencana / Badge</label>
+                  <input
+                    type="text"
+                    value={editorContent.services?.badge || ''}
+                    onChange={(e) => updateServices('badge', e.target.value)}
+                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-amber-400"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Judul Utama Layanan</label>
+                  <input
+                    type="text"
+                    value={editorContent.services?.title || ''}
+                    onChange={(e) => updateServices('title', e.target.value)}
+                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-amber-400"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Subjudul / Deskripsi</label>
+                  <textarea
+                    rows={2}
+                    value={editorContent.services?.subtitle || ''}
+                    onChange={(e) => updateServices('subtitle', e.target.value)}
+                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-amber-400"
+                  />
+                </div>
+
+                <div className="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl space-y-3">
+                  <span className="text-xs font-bold text-amber-300 block">Banner Direktori Bawah</span>
+                  <div>
+                    <span className="text-[10px] text-slate-400">Judul Banner</span>
+                    <input
+                      type="text"
+                      value={editorContent.services?.ctaBannerTitle || ''}
+                      onChange={(e) => updateServices('ctaBannerTitle', e.target.value)}
+                      className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
+                    />
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-slate-400">Deskripsi Banner</span>
+                    <textarea
+                      rows={2}
+                      value={editorContent.services?.ctaBannerSubtitle || ''}
+                      onChange={(e) => updateServices('ctaBannerSubtitle', e.target.value)}
+                      className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
+                    />
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-slate-400">Teks Tombol Banner</span>
+                    <input
+                      type="text"
+                      value={editorContent.services?.ctaBannerButtonText || ''}
+                      onChange={(e) => updateServices('ctaBannerButtonText', e.target.value)}
+                      className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* TAB: RETAINER SECTION */}
+            {activeTab === 'retainer' && (
+              <div className="space-y-5">
+                <div className="border-b border-slate-800 pb-3">
+                  <h3 className="text-sm font-bold text-amber-300 uppercase tracking-wider flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4" />
+                    <span>Corporate Legal Retainer</span>
+                  </h3>
+                  <p className="text-xs text-slate-400 mt-1">
+                    Edit penawaran retainer korporasi untuk proteksi hukum bulanan perusahaan.
+                  </p>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Lencana / Badge</label>
+                  <input
+                    type="text"
+                    value={editorContent.retainer?.badge || ''}
+                    onChange={(e) => updateRetainer('badge', e.target.value)}
+                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-amber-400"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Judul Utama</label>
+                  <input
+                    type="text"
+                    value={editorContent.retainer?.title || ''}
+                    onChange={(e) => updateRetainer('title', e.target.value)}
+                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-amber-400"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Deskripsi / Penjelasan Retainer</label>
+                  <textarea
+                    rows={4}
+                    value={editorContent.retainer?.subtitle || ''}
+                    onChange={(e) => updateRetainer('subtitle', e.target.value)}
+                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-amber-400 leading-relaxed"
+                  />
                 </div>
               </div>
             )}
@@ -1242,8 +1404,27 @@ export default function AdminClient() {
                 : 'w-[375px] max-w-full border-[10px] border-slate-800 rounded-[40px]'
             }`}
           >
-            {/* Real-Time Live Render with Mock ContentProvider */}
-            <ContentProvider initialContent={editorContent}>
+            {/* Real-Time Live Render with Direct ContentContext.Provider */}
+            <ContentContext.Provider
+              value={{
+                content: editorContent,
+                setContent: setEditorContent,
+                updateSection: (section, data) =>
+                  setEditorContent((prev) => ({
+                    ...prev,
+                    [section]: {
+                      ...prev[section],
+                      ...data,
+                    },
+                  })),
+                saveToServer: async () => {
+                  await handleSave();
+                  return { success: true };
+                },
+                reloadContent: fetchCurrentContent,
+                isLoading: false,
+              }}
+            >
               <div className="pointer-events-auto">
                 <Navbar />
                 <Hero />
@@ -1253,9 +1434,10 @@ export default function AdminClient() {
                 <TeamSection />
                 <InsightsSection />
                 <FAQSection />
+                <ContactSection />
                 <Footer />
               </div>
-            </ContentProvider>
+            </ContentContext.Provider>
           </div>
 
         </main>

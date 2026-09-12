@@ -4,8 +4,12 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Scale, Building2, Receipt, Stethoscope, Globe, Landmark, Zap, FileCheck, Ship, ArrowRight, Search } from 'lucide-react';
 import { SERVICE_CATEGORIES } from '@/data/layananData';
+import { useContent } from '@/context/ContentContext';
 
 export default function ServicesSection() {
+  const { content } = useContent();
+  const services = content?.services;
+
   const getIcon = (iconName: string) => {
     switch (iconName) {
       case 'Scale': return <Scale className="w-6 h-6 text-gold-accent" />;
@@ -30,14 +34,14 @@ export default function ServicesSection() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-50 border border-amber-200/80 rounded-full text-amber-800 text-xs font-bold uppercase tracking-widest mb-4">
-            CAKUPAN KEAHLIAN HUKUM &amp; PERIZINAN
+            {services?.badge || 'CAKUPAN KEAHLIAN HUKUM & PERIZINAN'}
           </div>
           <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
-            445+ Pelayanan Hukum &amp; Perizinan Usaha
+            {services?.title || '445+ Pelayanan Hukum & Perizinan Usaha'}
           </h2>
           <div className="w-16 h-[3px] bg-gold-accent mx-auto my-4 rounded-full" />
           <p className="text-base text-slate-600 leading-relaxed font-normal">
-            Direktori komprehensif mencakup 34 Perkara Hukum (Litigasi &amp; Non-Litigasi) serta 411 jenis Perizinan &amp; Legalitas OSS RBA di Indonesia.
+            {services?.subtitle || 'Direktori komprehensif mencakup 34 Perkara Hukum (Litigasi & Non-Litigasi) serta 411 jenis Perizinan & Legalitas OSS RBA di Indonesia.'}
           </p>
         </div>
 
@@ -85,10 +89,10 @@ export default function ServicesSection() {
           <div className="space-y-2 text-center md:text-left z-10">
             <span className="text-amber-300 text-xs font-bold uppercase tracking-widest block">DIREKTORI LENGKAP</span>
             <h3 className="font-serif-title text-2xl lg:text-3xl font-bold text-white">
-              Membutuhkan Perizinan Khusus atau Perkara Hukum Tertentu?
+              {services?.ctaBannerTitle || 'Membutuhkan Perizinan Khusus atau Perkara Hukum Tertentu?'}
             </h3>
             <p className="text-xs sm:text-sm text-slate-300 max-w-xl">
-              Gunakan pencarian interaktif kami untuk menemukan 411 jenis perizinan dan 34 perkara hukum secara spesifik.
+              {services?.ctaBannerSubtitle || 'Gunakan pencarian interaktif kami untuk menemukan 411 jenis perizinan dan 34 perkara hukum secara spesifik.'}
             </p>
           </div>
           <Link
@@ -96,7 +100,7 @@ export default function ServicesSection() {
             className="px-7 py-4 bg-gradient-to-r from-gold-accent to-gold-bright text-slate-950 font-bold text-xs uppercase tracking-wider rounded-lg hover:brightness-110 transition-all whitespace-nowrap flex items-center gap-2.5 shadow-lg shrink-0 z-10"
           >
             <Search className="w-4 h-4 text-slate-950" />
-            <span>Buka Direktori Lengkap 445+ Layanan</span>
+            <span>{services?.ctaBannerButtonText || 'Buka Direktori Lengkap 445+ Layanan'}</span>
           </Link>
         </div>
 
