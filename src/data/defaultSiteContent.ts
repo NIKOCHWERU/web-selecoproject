@@ -111,6 +111,27 @@ export interface SiteContent {
     description: string;
     copyright: string;
   };
+  styles?: {
+    [elementKey: string]: {
+      textAlign?: 'left' | 'center' | 'right' | 'justify';
+      fontSize?: string;
+      color?: string;
+      fontWeight?: string;
+      fontStyle?: string;
+      textDecoration?: string;
+      lineHeight?: string;
+      letterSpacing?: string;
+      margin?: string;
+      padding?: string;
+      borderRadius?: string;
+      backgroundColor?: string;
+      borderColor?: string;
+      borderWidth?: string;
+      borderStyle?: string;
+      opacity?: string;
+      boxShadow?: string;
+    };
+  };
 }
 
 export const defaultSiteContent: SiteContent = {
@@ -303,4 +324,5 @@ export const defaultSiteContent: SiteContent = {
     description: "SELECO (Sedana Legal Consultant) adalah kantor advokat dan konsultan hukum korporasi terpercaya di Indonesia, mengkhususkan diri pada 34 Perkara Hukum Litigasi & Non-Litigasi serta pengurusan 411+ Perizinan & Legalitas Usaha OSS RBA.",
     copyright: "© 2026 SELECO (Sedana Legal Consultant). Hak Cipta Dilindungi Undang-Undang.",
   },
+  styles: {},
 };

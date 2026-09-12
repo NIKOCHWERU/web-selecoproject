@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Scale, Building2, Receipt, Stethoscope, Globe, Landmark, Zap, FileCheck, Ship, ArrowRight, Search } from 'lucide-react';
 import { SERVICE_CATEGORIES } from '@/data/layananData';
 import { useContent } from '@/context/ContentContext';
+import { EditableText } from './EditableElement';
 
 export default function ServicesSection() {
   const { content } = useContent();
@@ -38,14 +39,27 @@ export default function ServicesSection() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-50 border border-amber-200/80 rounded-full text-amber-800 text-xs font-bold uppercase tracking-widest mb-4">
-            {services?.badge || 'CAKUPAN KEAHLIAN HUKUM & PERIZINAN'}
+            <EditableText
+              fieldPath="services.badge"
+              fallback="CAKUPAN KEAHLIAN HUKUM & PERIZINAN"
+              label="Badge Layanan"
+            />
           </div>
           <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
-            {services?.title || `${totalServices} Pelayanan Hukum & Perizinan Usaha`}
+            <EditableText
+              fieldPath="services.title"
+              fallback={`${totalServices} Pelayanan Hukum & Perizinan Usaha`}
+              label="Judul Layanan"
+            />
           </h2>
           <div className="w-16 h-[3px] bg-gold-accent mx-auto my-4 rounded-full" />
           <p className="text-base text-slate-600 leading-relaxed font-normal">
-            {services?.subtitle || `Direktori komprehensif mencakup ${litigationCount} Perkara Hukum (Litigasi & Non-Litigasi) serta ${ossLicenseCount} jenis Perizinan & Legalitas OSS RBA di Indonesia.`}
+            <EditableText
+              fieldPath="services.subtitle"
+              fallback={`Direktori komprehensif mencakup ${litigationCount} Perkara Hukum (Litigasi & Non-Litigasi) serta ${ossLicenseCount} jenis Perizinan & Legalitas OSS RBA di Indonesia.`}
+              label="Subjudul Layanan"
+              multiline={true}
+            />
           </p>
         </div>
 
@@ -93,10 +107,19 @@ export default function ServicesSection() {
           <div className="space-y-2 text-center md:text-left z-10">
             <span className="text-amber-300 text-xs font-bold uppercase tracking-widest block">DIREKTORI LENGKAP</span>
             <h3 className="font-serif-title text-2xl lg:text-3xl font-bold text-white">
-              {services?.ctaBannerTitle || 'Membutuhkan Perizinan Khusus atau Perkara Hukum Tertentu?'}
+              <EditableText
+                fieldPath="services.ctaBannerTitle"
+                fallback="Membutuhkan Perizinan Khusus atau Perkara Hukum Tertentu?"
+                label="Judul Banner Layanan"
+              />
             </h3>
             <p className="text-xs sm:text-sm text-slate-300 max-w-xl">
-              {services?.ctaBannerSubtitle || `Gunakan pencarian interaktif kami untuk menemukan ${ossLicenseCount} jenis perizinan dan ${litigationCount} perkara hukum secara spesifik.`}
+              <EditableText
+                fieldPath="services.ctaBannerSubtitle"
+                fallback={`Gunakan pencarian interaktif kami untuk menemukan ${ossLicenseCount} jenis perizinan dan ${litigationCount} perkara hukum secara spesifik.`}
+                label="Subjudul Banner Layanan"
+                multiline={true}
+              />
             </p>
           </div>
           <Link
@@ -104,7 +127,11 @@ export default function ServicesSection() {
             className="px-7 py-4 bg-gradient-to-r from-gold-accent to-gold-bright text-slate-950 font-bold text-xs uppercase tracking-wider rounded-lg hover:brightness-110 transition-all whitespace-nowrap flex items-center gap-2.5 shadow-lg shrink-0 z-10"
           >
             <Search className="w-4 h-4 text-slate-950" />
-            <span>{services?.ctaBannerButtonText || `Buka Direktori Lengkap ${totalServices} Layanan`}</span>
+            <EditableText
+              fieldPath="services.ctaBannerButtonText"
+              fallback={`Buka Direktori Lengkap ${totalServices} Layanan`}
+              label="Tombol Banner Layanan"
+            />
           </Link>
         </div>
 

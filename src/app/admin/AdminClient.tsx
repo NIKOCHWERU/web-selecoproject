@@ -28,7 +28,9 @@ import {
   Phone,
   Scale,
   Briefcase,
-  ShieldCheck
+  ShieldCheck,
+  MousePointerClick,
+  Sliders
 } from 'lucide-react';
 import { SiteContent, defaultSiteContent } from '@/data/defaultSiteContent';
 import { compressImageToDataUrl } from '@/lib/imageUtils';
@@ -41,6 +43,7 @@ export default function AdminClient() {
 
   // Content state inside builder
   const [editorContent, setEditorContent] = useState<SiteContent>(defaultSiteContent);
+  const [editorMode, setEditorMode] = useState<'sidebar' | 'click_to_edit'>('sidebar');
   const [activeTab, setActiveTab] = useState<'hero' | 'about' | 'services' | 'retainer' | 'team' | 'insights' | 'faq' | 'global'>('hero');
   const [activeSection, setActiveSection] = useState<string>('hero-text');
   const [deviceView, setDeviceView] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
@@ -59,10 +62,15 @@ export default function AdminClient() {
   const sendContentToIframe = (contentToSend: SiteContent) => {
     try {
       sessionStorage.setItem('seleco_live_preview_content', JSON.stringify(contentToSend));
+      sessionStorage.setItem('seleco_editor_mode', editorMode);
       if (iframeRef.current?.contentWindow) {
         iframeRef.current.contentWindow.postMessage({
           type: 'UPDATE_SITE_CONTENT',
           content: contentToSend,
+        }, '*');
+        iframeRef.current.contentWindow.postMessage({
+          type: 'SET_EDITOR_MODE',
+          mode: editorMode,
         }, '*');
       }
     } catch (e) {
@@ -70,22 +78,25 @@ export default function AdminClient() {
     }
   };
 
-  // Broadcast to iframe on every single keystroke / content change
+  // Broadcast to iframe on every single keystroke / content change or mode change
   useEffect(() => {
     sendContentToIframe(editorContent);
-  }, [editorContent]);
+  }, [editorContent, editorMode]);
 
-  // Listen to iframe ready signal
+  // Listen to iframe ready signal & inline edits from click-to-edit
   useEffect(() => {
     const handleIframeMessage = (e: MessageEvent) => {
       if (e.data?.type === 'PREVIEW_IFRAME_READY') {
         setIframeLoaded(true);
         sendContentToIframe(editorContent);
       }
+      if (e.data?.type === 'ON_ELEMENT_UPDATED' && e.data.content) {
+        setEditorContent(e.data.content);
+      }
     };
     window.addEventListener('message', handleIframeMessage);
     return () => window.removeEventListener('message', handleIframeMessage);
-  }, [editorContent]);
+  }, [editorContent, editorMode]);
 
   // Check auth session on load
   useEffect(() => {
@@ -433,44 +444,75 @@ export default function AdminClient() {
           </Link>
         </div>
 
-        {/* Center: Device Switcher */}
-        <div className="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800">
-          <button
-            onClick={() => setDeviceView('desktop')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
-              deviceView === 'desktop'
-                ? 'bg-amber-400 text-slate-950 shadow-sm'
-                : 'text-slate-400 hover:text-white'
-            }`}
-            title="Tampilan Desktop"
-          >
-            <Monitor className="w-3.5 h-3.5" />
-            <span className="hidden md:inline">Desktop</span>
-          </button>
-          <button
-            onClick={() => setDeviceView('tablet')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
-              deviceView === 'tablet'
-                ? 'bg-amber-400 text-slate-950 shadow-sm'
-                : 'text-slate-400 hover:text-white'
-            }`}
-            title="Tampilan Tablet"
-          >
-            <Tablet className="w-3.5 h-3.5" />
-            <span className="hidden md:inline">Tablet</span>
-          </button>
-          <button
-            onClick={() => setDeviceView('mobile')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
-              deviceView === 'mobile'
-                ? 'bg-amber-400 text-slate-950 shadow-sm'
-                : 'text-slate-400 hover:text-white'
-            }`}
-            title="Tampilan Mobile"
-          >
-            <Smartphone className="w-3.5 h-3.5" />
-            <span className="hidden md:inline">Mobile</span>
-          </button>
+        {/* Center: Mode Switcher & Device Switcher */}
+        <div className="flex items-center gap-3">
+          {/* Mode Switcher */}
+          <div className="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800 shadow-inner">
+            <button
+              onClick={() => setEditorMode('sidebar')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+                editorMode === 'sidebar'
+                  ? 'bg-gradient-to-r from-[#D4AF37] to-[#C9A227] text-slate-950 shadow-md font-bold'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+              title="Mode Panel Form Sidebar (Tradisional)"
+            >
+              <Layers className="w-3.5 h-3.5" />
+              <span>Mode Panel (Form)</span>
+            </button>
+            <button
+              onClick={() => setEditorMode('click_to_edit')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+                editorMode === 'click_to_edit'
+                  ? 'bg-gradient-to-r from-[#D4AF37] to-[#C9A227] text-slate-950 shadow-md font-bold animate-pulse'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+              title="Mode Klik Langsung di Halaman (Elementor Style)"
+            >
+              <MousePointerClick className="w-3.5 h-3.5" />
+              <span>Mode Klik Langsung (Visual)</span>
+            </button>
+          </div>
+
+          {/* Device Switcher */}
+          <div className="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800">
+            <button
+              onClick={() => setDeviceView('desktop')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+                deviceView === 'desktop'
+                  ? 'bg-amber-400 text-slate-950 shadow-sm'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+              title="Tampilan Desktop"
+            >
+              <Monitor className="w-3.5 h-3.5" />
+              <span className="hidden md:inline">Desktop</span>
+            </button>
+            <button
+              onClick={() => setDeviceView('tablet')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+                deviceView === 'tablet'
+                  ? 'bg-amber-400 text-slate-950 shadow-sm'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+              title="Tampilan Tablet"
+            >
+              <Tablet className="w-3.5 h-3.5" />
+              <span className="hidden md:inline">Tablet</span>
+            </button>
+            <button
+              onClick={() => setDeviceView('mobile')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+                deviceView === 'mobile'
+                  ? 'bg-amber-400 text-slate-950 shadow-sm'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+              title="Tampilan Mobile"
+            >
+              <Smartphone className="w-3.5 h-3.5" />
+              <span className="hidden md:inline">Mobile</span>
+            </button>
+          </div>
         </div>
 
         {/* Right: Actions */}
@@ -511,8 +553,12 @@ export default function AdminClient() {
       {/* BODY: DUAL PANEL (SIDEBAR + LIVE PREVIEW) */}
       <div className="flex-grow flex overflow-hidden">
         
-        {/* LEFT PANEL: ELEMENTOR CONTROL SIDEBAR (W-96 / 384px) */}
-        <aside className="w-full sm:w-96 md:w-[420px] bg-slate-950 border-r border-slate-800 flex flex-col shrink-0 z-30 overflow-hidden">
+        {/* LEFT PANEL: ELEMENTOR CONTROL SIDEBAR (W-96 / 420px) */}
+        <aside className={`bg-slate-950 border-r border-slate-800 flex flex-col shrink-0 z-30 overflow-hidden transition-all duration-300 ${
+          editorMode === 'click_to_edit'
+            ? 'w-0 sm:w-0 border-r-0 opacity-0 pointer-events-none'
+            : 'w-full sm:w-96 md:w-[420px] opacity-100'
+        }`}>
           
           {/* Main Tab Category Navigation */}
           <div className="p-2 border-b border-slate-800 grid grid-cols-4 gap-1 bg-slate-900/60">
@@ -1513,12 +1559,25 @@ export default function AdminClient() {
         {/* RIGHT PANEL: LIVE RESPONSIVE CANVAS PREVIEW (AUTHENTIC IFRAME VIEWPORT) */}
         <main className="flex-grow bg-slate-950 flex flex-col items-center justify-center overflow-hidden p-2 sm:p-4 md:p-5 relative">
           
-          {/* Viewport Dimension Info Badge */}
-          <div className="absolute top-2 right-4 z-20 hidden md:flex items-center gap-2 text-[10px] text-slate-400 bg-slate-900/90 px-3 py-1 rounded-full border border-slate-800 shadow-md">
-            <span>Resolusi Layar:</span>
-            <span className="font-mono text-amber-300 font-semibold">
-              {deviceView === 'desktop' ? 'Desktop (100% Viewport)' : deviceView === 'tablet' ? '768px (iPad / Tablet Viewport)' : '375px (iPhone / Mobile Viewport)'}
-            </span>
+          {/* Viewport Dimension & Mode Info Badge */}
+          <div className="absolute top-2 left-4 right-4 z-20 flex items-center justify-between pointer-events-none">
+            {editorMode === 'click_to_edit' ? (
+              <div className="flex items-center gap-2 text-xs bg-amber-400 text-slate-950 font-bold px-4 py-1.5 rounded-full shadow-xl pointer-events-auto animate-bounce">
+                <MousePointerClick className="w-4 h-4" />
+                <span>Mode Klik Langsung Aktif: Klik teks untuk edit & atur format (align/warna/ukuran), klik foto untuk ganti gambar!</span>
+              </div>
+            ) : (
+              <div className="text-[11px] text-slate-400 hidden sm:block">
+                Edit teks dan foto melalui panel form di sebelah kiri.
+              </div>
+            )}
+
+            <div className="hidden md:flex items-center gap-2 text-[10px] text-slate-400 bg-slate-900/90 px-3 py-1 rounded-full border border-slate-800 shadow-md">
+              <span>Resolusi Layar:</span>
+              <span className="font-mono text-amber-300 font-semibold">
+                {deviceView === 'desktop' ? 'Desktop (100% Viewport)' : deviceView === 'tablet' ? '768px (iPad / Tablet Viewport)' : '375px (iPhone / Mobile Viewport)'}
+              </span>
+            </div>
           </div>
 
           {/* Device Mockup Frame */}

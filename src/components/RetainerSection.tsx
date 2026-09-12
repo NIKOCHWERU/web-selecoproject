@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ShieldCheck, CheckCircle2, Handshake } from 'lucide-react';
 import { useContent } from '@/context/ContentContext';
+import { EditableText } from './EditableElement';
 
 export default function RetainerSection() {
   const { content } = useContent();
@@ -32,17 +33,30 @@ export default function RetainerSection() {
             <div className="lg:col-span-7 space-y-7">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-400/10 border border-amber-400/30 rounded-full text-amber-300 text-xs font-bold uppercase tracking-widest backdrop-blur-md">
                 <ShieldCheck className="w-4 h-4 text-amber-300" />
-                <span>{retainer?.badge || 'RETAINER KORPORASI'}</span>
+                <EditableText
+                  fieldPath="retainer.badge"
+                  fallback="RETAINER KORPORASI"
+                  label="Badge Retainer"
+                />
               </div>
 
               <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
-                {retainer?.title || 'Departemen Hukum Eksternal Bisnis Anda.'}
+                <EditableText
+                  fieldPath="retainer.title"
+                  fallback="Departemen Hukum Eksternal Bisnis Anda."
+                  label="Judul Retainer"
+                />
               </h2>
 
               <div className="w-16 h-[3px] bg-gradient-to-r from-gold-accent to-gold-bright rounded-full" />
 
               <p className="text-base text-slate-300 leading-relaxed font-normal">
-                {retainer?.subtitle || 'Akses pendampingan hukum berkelanjutan sesuai kebutuhan operasional perusahaan—mulai dari konsultasi harian, perancangan kontrak, HR, perizinan OSS RBA, hingga mitigasi sengketa bisnis tanpa beban tetap.'}
+                <EditableText
+                  fieldPath="retainer.subtitle"
+                  fallback="Akses pendampingan hukum berkelanjutan sesuai kebutuhan operasional perusahaan—mulai dari konsultasi harian, perancangan kontrak, HR, perizinan OSS RBA, hingga mitigasi sengketa bisnis tanpa beban tetap."
+                  label="Subjudul Retainer"
+                  multiline={true}
+                />
               </p>
 
               {/* Grid 6 Services */}

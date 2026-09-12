@@ -4,6 +4,7 @@ import { useState, useRef } from 'react';
 import { MapPin, Mail, Phone, Send, CheckCircle2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useContent } from '@/context/ContentContext';
+import { EditableText } from './EditableElement';
 
 export default function ContactSection() {
   const [submitted, setSubmitted] = useState(false);
@@ -57,14 +58,27 @@ export default function ContactSection() {
 
         <div className="text-center max-w-2xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-50 border border-amber-200/80 rounded-full text-amber-800 text-xs font-bold uppercase tracking-widest mb-4">
-            {contact?.badge || 'HUBUNGI KAMI'}
+            <EditableText
+              fieldPath="contact.badge"
+              fallback="HUBUNGI KAMI"
+              label="Badge Kontak"
+            />
           </div>
           <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
-            {contact?.title || 'Mari Diskusikan Kebutuhan Hukum Anda.'}
+            <EditableText
+              fieldPath="contact.title"
+              fallback="Mari Diskusikan Kebutuhan Hukum Anda."
+              label="Judul Kontak"
+            />
           </h2>
           <div className="w-16 h-[3px] bg-gold-accent mx-auto my-4 rounded-full" />
           <p className="text-base text-slate-600 font-normal">
-            {contact?.subtitle || 'Sampaikan secara singkat kebutuhan hukum Anda. Tim kami akan merespons dalam 1×24 jam kerja.'}
+            <EditableText
+              fieldPath="contact.subtitle"
+              fallback="Sampaikan secara singkat kebutuhan hukum Anda. Tim kami akan merespons dalam 1×24 jam kerja."
+              label="Subjudul Kontak"
+              multiline={true}
+            />
           </p>
         </div>
 

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ShieldCheck, TrendingUp, Lightbulb, Lock, ArrowRight } from 'lucide-react';
 import { useContent } from '@/context/ContentContext';
+import { EditableText, EditableImage } from './EditableElement';
 
 export default function AboutSection({ showMoreLink = false }: { showMoreLink?: boolean }) {
   const { content } = useContent();
@@ -49,17 +50,19 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
             className="lg:col-span-6 grid grid-cols-2 gap-4"
           >
             <div className="col-span-2 h-64 sm:h-72 rounded-2xl overflow-hidden border border-gray-200 shadow-md">
-              <img
-                src={about?.image1 || "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=900&q=80"}
+              <EditableImage
+                fieldPath="about.image1"
+                fallback="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=900&q=80"
                 alt="Patung Dewi Keadilan - Lady Justice"
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                label="Foto Utama Tentang Kami"
               />
             </div>
             <div className="h-44 sm:h-48 rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
-              <img
-                src={about?.image2 || "https://images.unsplash.com/photo-1589994965851-a8f479c573a9?auto=format&fit=crop&w=600&q=80"}
+              <EditableImage
+                fieldPath="about.image2"
+                fallback="https://images.unsplash.com/photo-1589994965851-a8f479c573a9?auto=format&fit=crop&w=600&q=80"
                 alt="Palu Sidang Hukum & Buku Undang-Undang"
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                label="Foto Kolase 2"
               />
             </div>
             <div className="h-44 sm:h-48 rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
@@ -80,22 +83,48 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
             className="lg:col-span-6 space-y-6"
           >
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-50 border border-amber-200/80 rounded-full text-amber-800 text-xs font-bold uppercase tracking-widest">
-              {about?.badge || 'TENTANG SELECO'}
+              <EditableText
+                fieldPath="about.badge"
+                fallback="TENTANG SELECO"
+                label="Badge Tentang"
+              />
             </div>
 
             <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
-              {about?.title || 'Hukum yang Dipahami dalam Konteks Bisnis.'}{' '}
-              {about?.titleAccent && <span className="text-amber-800">{about.titleAccent}</span>}
+              <EditableText
+                fieldPath="about.title"
+                fallback="Hukum yang Dipahami dalam Konteks Bisnis."
+                label="Judul Tentang"
+              />{' '}
+              {about?.titleAccent && (
+                <span className="text-amber-800">
+                  <EditableText
+                    fieldPath="about.titleAccent"
+                    fallback={about.titleAccent}
+                    label="Aksen Judul"
+                  />
+                </span>
+              )}
             </h2>
 
             <div className="w-16 h-[3px] bg-gold-accent rounded-full" />
 
             <p className="text-base text-slate-600 leading-relaxed font-normal">
-              {about?.paragraph1 || 'Persoalan hukum memengaruhi setiap keputusan bisnis, hubungan kerja, dan operasional perusahaan Anda. SELECO hadir sebagai mitra yang menghubungkan analisis hukum mendalam dengan kebutuhan praktis secara terstruktur, terukur, dan transparan.'}
+              <EditableText
+                fieldPath="about.paragraph1"
+                fallback="Persoalan hukum memengaruhi setiap keputusan bisnis, hubungan kerja, dan operasional perusahaan Anda. SELECO hadir sebagai mitra yang menghubungkan analisis hukum mendalam dengan kebutuhan praktis secara terstruktur, terukur, dan transparan."
+                label="Paragraf 1"
+                multiline={true}
+              />
             </p>
 
             <p className="text-sm text-slate-600 leading-relaxed font-normal">
-              {about?.paragraph2 || 'Kami mencakup 34 perkara hukum litigasi & non-litigasi, serta mengelola pengurusan lebih dari 411 jenis perizinan usaha dan legalitas OSS RBA di seluruh wilayah Indonesia.'}
+              <EditableText
+                fieldPath="about.paragraph2"
+                fallback="Kami mencakup 34 perkara hukum litigasi & non-litigasi, serta mengelola pengurusan lebih dari 411 jenis perizinan usaha dan legalitas OSS RBA di seluruh wilayah Indonesia."
+                label="Paragraf 2"
+                multiline={true}
+              />
             </p>
 
             {/* Values Grid */}

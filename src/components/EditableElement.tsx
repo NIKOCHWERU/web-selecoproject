@@ -1,0 +1,508 @@
+'use client';
+
+import React, { useState, useEffect, useRef } from 'react';
+import { useContent } from '@/context/ContentContext';
+import { 
+  AlignLeft, 
+  AlignCenter, 
+  AlignRight, 
+  AlignJustify, 
+  Type, 
+  Palette, 
+  Upload, 
+  Sparkles, 
+  Check, 
+  X, 
+  Edit3,
+  Sliders,
+  Maximize2
+} from 'lucide-react';
+import { compressImageToDataUrl } from '@/lib/imageUtils';
+
+interface EditableTextProps {
+  fieldPath: string; // e.g., 'hero.headlinePart1'
+  fallback: string;
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'p' | 'span' | 'div' | 'blockquote' | 'button';
+  className?: string;
+  label?: string;
+  multiline?: boolean;
+}
+
+export function EditableText({
+  fieldPath,
+  fallback,
+  as: Component = 'span',
+  className = '',
+  label,
+  multiline = false,
+}: EditableTextProps) {
+  const { content, setContent } = useContent();
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [showToolbar, setShowToolbar] = useState<boolean>(false);
+  const toolbarRef = useRef<HTMLDivElement>(null);
+
+  // Check if preview is in click-to-edit mode
+  useEffect(() => {
+    const checkMode = () => {
+      const mode = sessionStorage.getItem('seleco_editor_mode');
+      setIsEditMode(mode === 'click_to_edit');
+    };
+    checkMode();
+
+    const handleMessage = (e: MessageEvent) => {
+      if (e.data?.type === 'SET_EDITOR_MODE') {
+        setIsEditMode(e.data.mode === 'click_to_edit');
+      }
+    };
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
+
+  // Close toolbar when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (toolbarRef.current && !toolbarRef.current.contains(e.target as Node)) {
+        setShowToolbar(false);
+      }
+    };
+    if (showToolbar) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showToolbar]);
+
+  // Resolve current value from path
+  const getValue = (): string => {
+    try {
+      const parts = fieldPath.split('.');
+      let cur: any = content;
+      for (const p of parts) {
+        if (cur === undefined || cur === null) return fallback;
+        cur = cur[p];
+      }
+      return typeof cur === 'string' ? cur : fallback;
+    } catch {
+      return fallback;
+    }
+  };
+
+  // Resolve custom styling if set
+  const customStyle = content?.styles?.[fieldPath] || {};
+
+  const currentText = getValue();
+
+  // Helper update value in content context and postMessage to parent
+  const updateContentValue = (newVal: string) => {
+    const parts = fieldPath.split('.');
+    setContent((prev: any) => {
+      const copy = JSON.parse(JSON.stringify(prev || {}));
+      let cur = copy;
+      for (let i = 0; i < parts.length - 1; i++) {
+        if (!cur[parts[i]]) cur[parts[i]] = {};
+        cur = cur[parts[i]];
+      }
+      cur[parts[parts.length - 1]] = newVal;
+
+      // Auto-propagate if stat2Number / totalServices changed
+      if (fieldPath === 'hero.stat2Number' || fieldPath === 'global.totalServices') {
+        const oldNum = prev?.global?.totalServices || prev?.hero?.stat2Number || '445+';
+        const newNum = newVal;
+        if (!copy.global) copy.global = {};
+        if (!copy.hero) copy.hero = {};
+        copy.global.totalServices = newNum;
+        copy.hero.stat2Number = newNum;
+        if (copy.hero.ctaButton1Text && copy.hero.ctaButton1Text.includes(oldNum)) {
+          copy.hero.ctaButton1Text = copy.hero.ctaButton1Text.replaceAll(oldNum, newNum);
+        }
+        if (copy.services?.title && copy.services.title.includes(oldNum)) {
+          copy.services.title = copy.services.title.replaceAll(oldNum, newNum);
+        }
+        if (copy.services?.ctaBannerButtonText && copy.services.ctaBannerButtonText.includes(oldNum)) {
+          copy.services.ctaBannerButtonText = copy.services.ctaBannerButtonText.replaceAll(oldNum, newNum);
+        }
+      }
+
+      // Sync to parent window & sessionStorage
+      try {
+        sessionStorage.setItem('seleco_live_preview_content', JSON.stringify(copy));
+        if (window.parent && window.parent !== window) {
+          window.parent.postMessage({
+            type: 'ON_ELEMENT_UPDATED',
+            content: copy,
+            fieldPath,
+            value: newVal,
+          }, '*');
+        }
+      } catch (err) {
+        console.error('Error posting to parent:', err);
+      }
+
+      return copy;
+    });
+  };
+
+  const updateStyleProp = (prop: string, val: any) => {
+    setContent((prev: any) => {
+      const copy = JSON.parse(JSON.stringify(prev || {}));
+      if (!copy.styles) copy.styles = {};
+      if (!copy.styles[fieldPath]) copy.styles[fieldPath] = {};
+      copy.styles[fieldPath][prop] = val;
+
+      try {
+        sessionStorage.setItem('seleco_live_preview_content', JSON.stringify(copy));
+        if (window.parent && window.parent !== window) {
+          window.parent.postMessage({
+            type: 'ON_ELEMENT_UPDATED',
+            content: copy,
+            fieldPath,
+            styleProp: prop,
+            styleVal: val,
+          }, '*');
+        }
+      } catch (err) {
+        console.error('Error posting style to parent:', err);
+      }
+
+      return copy;
+    });
+  };
+
+  // Applied inline styles
+  const appliedStyle: React.CSSProperties = {
+    ...(customStyle.textAlign ? { textAlign: customStyle.textAlign as any } : {}),
+    ...(customStyle.color ? { color: customStyle.color } : {}),
+    ...(customStyle.fontSize ? { fontSize: customStyle.fontSize } : {}),
+    ...(customStyle.fontWeight ? { fontWeight: customStyle.fontWeight } : {}),
+  };
+
+  if (!isEditMode) {
+    return (
+      <Component className={className} style={appliedStyle}>
+        {currentText}
+      </Component>
+    );
+  }
+
+  // CLICK-TO-EDIT MODE ACTIVE
+  return (
+    <div 
+      className="relative inline-block w-auto max-w-full group/editable"
+      style={{ display: Component === 'div' || Component === 'p' ? 'block' : 'inline-block' }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      ref={toolbarRef}
+    >
+      {/* Visual Outline Indicator on Hover */}
+      <div 
+        className={`absolute -inset-1 rounded-md pointer-events-none transition-all duration-150 z-20 ${
+          showToolbar 
+            ? 'border-2 border-amber-400 bg-amber-400/10 shadow-[0_0_15px_rgba(212,175,55,0.3)]' 
+            : isHovered 
+            ? 'border-2 border-dashed border-amber-400/80 bg-amber-400/5' 
+            : 'border border-transparent'
+        }`}
+      />
+
+      {/* Label Tooltip & Quick Action Pill on Hover */}
+      {isHovered && !showToolbar && (
+        <div className="absolute -top-7 left-0 z-30 flex items-center gap-1 bg-slate-950 text-white text-[10px] px-2 py-0.5 rounded shadow-lg border border-amber-400/40 pointer-events-none whitespace-nowrap animate-fade-in">
+          <Edit3 className="w-2.5 h-2.5 text-amber-400" />
+          <span className="font-semibold text-amber-300">{label || fieldPath}</span>
+          <span className="text-slate-400 text-[9px]">(Klik untuk edit)</span>
+        </div>
+      )}
+
+      {/* Editable Component */}
+      <Component
+        className={`${className} cursor-text outline-none relative z-10 select-text`}
+        style={appliedStyle}
+        contentEditable={isEditMode}
+        suppressContentEditableWarning={true}
+        onClick={(e) => {
+          e.stopPropagation();
+          setShowToolbar(true);
+        }}
+        onBlur={(e) => {
+          const newText = e.currentTarget.innerText?.trim() ?? '';
+          if (newText !== currentText) {
+            updateContentValue(newText);
+          }
+        }}
+        onKeyDown={(e) => {
+          if (!multiline && e.key === 'Enter') {
+            e.preventDefault();
+            e.currentTarget.blur();
+          }
+        }}
+      >
+        {currentText}
+      </Component>
+
+      {/* ELEMENTOR-STYLE FLOATING QUICK TOOLBAR (Style, Align, Color, Size) */}
+      {showToolbar && (
+        <div 
+          className="absolute left-0 bottom-full mb-2 z-50 bg-slate-900/95 backdrop-blur-xl border border-amber-400/60 rounded-xl shadow-2xl p-2 flex items-center gap-2 text-white text-xs select-none animate-in fade-in zoom-in-95 duration-150 whitespace-nowrap min-w-max"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Label Header */}
+          <div className="flex items-center gap-1 px-1.5 border-r border-slate-700 pr-2">
+            <Sliders className="w-3.5 h-3.5 text-amber-400" />
+            <span className="text-[10px] font-bold uppercase tracking-wider text-amber-300">
+              {label || 'Format'}
+            </span>
+          </div>
+
+          {/* Text Alignments */}
+          <div className="flex items-center gap-0.5 bg-slate-950/80 p-0.5 rounded-lg border border-slate-800">
+            <button
+              onClick={() => updateStyleProp('textAlign', 'left')}
+              className={`p-1.5 rounded hover:bg-amber-400 hover:text-slate-950 transition-colors ${
+                customStyle.textAlign === 'left' ? 'bg-amber-400 text-slate-950' : 'text-slate-300'
+              }`}
+              title="Rata Kiri (Left)"
+            >
+              <AlignLeft className="w-3.5 h-3.5" />
+            </button>
+            <button
+              onClick={() => updateStyleProp('textAlign', 'center')}
+              className={`p-1.5 rounded hover:bg-amber-400 hover:text-slate-950 transition-colors ${
+                customStyle.textAlign === 'center' ? 'bg-amber-400 text-slate-950' : 'text-slate-300'
+              }`}
+              title="Rata Tengah (Center)"
+            >
+              <AlignCenter className="w-3.5 h-3.5" />
+            </button>
+            <button
+              onClick={() => updateStyleProp('textAlign', 'right')}
+              className={`p-1.5 rounded hover:bg-amber-400 hover:text-slate-950 transition-colors ${
+                customStyle.textAlign === 'right' ? 'bg-amber-400 text-slate-950' : 'text-slate-300'
+              }`}
+              title="Rata Kanan (Right)"
+            >
+              <AlignRight className="w-3.5 h-3.5" />
+            </button>
+            <button
+              onClick={() => updateStyleProp('textAlign', 'justify')}
+              className={`p-1.5 rounded hover:bg-amber-400 hover:text-slate-950 transition-colors ${
+                customStyle.textAlign === 'justify' ? 'bg-amber-400 text-slate-950' : 'text-slate-300'
+              }`}
+              title="Rata Kanan-Kiri (Justify)"
+            >
+              <AlignJustify className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
+          {/* Color Picker Quick Palette */}
+          <div className="flex items-center gap-1 bg-slate-950/80 px-1.5 py-1 rounded-lg border border-slate-800">
+            <Palette className="w-3.5 h-3.5 text-amber-300 mr-0.5" />
+            {['#ffffff', '#0f172a', '#D4AF37', '#f8fafc', '#94a3b8'].map((c) => (
+              <button
+                key={c}
+                onClick={() => updateStyleProp('color', c)}
+                style={{ backgroundColor: c }}
+                className="w-4 h-4 rounded-full border border-slate-700 hover:scale-125 transition-transform"
+                title={`Warna ${c}`}
+              />
+            ))}
+            <input
+              type="color"
+              value={customStyle.color || '#ffffff'}
+              onChange={(e) => updateStyleProp('color', e.target.value)}
+              className="w-5 h-5 rounded cursor-pointer bg-transparent border-0"
+              title="Pilih Warna Custom"
+            />
+          </div>
+
+          {/* Font Size Quick Adjust */}
+          <div className="flex items-center gap-1 bg-slate-950/80 px-2 py-1 rounded-lg border border-slate-800 text-[11px]">
+            <Type className="w-3 h-3 text-amber-300" />
+            <select
+              value={customStyle.fontSize || ''}
+              onChange={(e) => updateStyleProp('fontSize', e.target.value)}
+              className="bg-transparent text-white text-[11px] focus:outline-none cursor-pointer"
+            >
+              <option value="" className="bg-slate-900">Ukuran Normal</option>
+              <option value="12px" className="bg-slate-900">12px (Kecil)</option>
+              <option value="14px" className="bg-slate-900">14px (Reguler)</option>
+              <option value="16px" className="bg-slate-900">16px (Medium)</option>
+              <option value="20px" className="bg-slate-900">20px (Besar)</option>
+              <option value="24px" className="bg-slate-900">24px (Subjudul)</option>
+              <option value="32px" className="bg-slate-900">32px (Judul)</option>
+              <option value="44px" className="bg-slate-900">44px (Hero Title)</option>
+            </select>
+          </div>
+
+          {/* Close Toolbar */}
+          <button
+            onClick={() => setShowToolbar(false)}
+            className="p-1 text-slate-400 hover:text-white rounded hover:bg-slate-800"
+            title="Selesai"
+          >
+            <Check className="w-4 h-4 text-emerald-400" />
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ========================================================================= */
+/* EDITABLE IMAGE COMPONENT                                                 */
+/* ========================================================================= */
+
+interface EditableImageProps {
+  fieldPath: string; // e.g., 'about.image1'
+  fallback: string;
+  alt: string;
+  className?: string;
+  containerClassName?: string;
+  label?: string;
+}
+
+export function EditableImage({
+  fieldPath,
+  fallback,
+  alt,
+  className = 'w-full h-full object-cover',
+  containerClassName = '',
+  label,
+}: EditableImageProps) {
+  const { content, setContent } = useContent();
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [isUploading, setIsUploading] = useState<boolean>(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const checkMode = () => {
+      const mode = sessionStorage.getItem('seleco_editor_mode');
+      setIsEditMode(mode === 'click_to_edit');
+    };
+    checkMode();
+
+    const handleMessage = (e: MessageEvent) => {
+      if (e.data?.type === 'SET_EDITOR_MODE') {
+        setIsEditMode(e.data.mode === 'click_to_edit');
+      }
+    };
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
+
+  const getValue = (): string => {
+    try {
+      const parts = fieldPath.split('.');
+      let cur: any = content;
+      for (const p of parts) {
+        if (cur === undefined || cur === null) return fallback;
+        cur = cur[p];
+      }
+      return typeof cur === 'string' ? cur : fallback;
+    } catch {
+      return fallback;
+    }
+  };
+
+  const currentSrc = getValue();
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    try {
+      // 1. Compress to 100% offline Base64 Data URL (0% 404 guarantee)
+      const dataUrl = await compressImageToDataUrl(file);
+      
+      const parts = fieldPath.split('.');
+      setContent((prev: any) => {
+        const copy = JSON.parse(JSON.stringify(prev || {}));
+        let cur = copy;
+        for (let i = 0; i < parts.length - 1; i++) {
+          if (!cur[parts[i]]) cur[parts[i]] = {};
+          cur = cur[parts[i]];
+        }
+        cur[parts[parts.length - 1]] = dataUrl;
+
+        try {
+          sessionStorage.setItem('seleco_live_preview_content', JSON.stringify(copy));
+          if (window.parent && window.parent !== window) {
+            window.parent.postMessage({
+              type: 'ON_ELEMENT_UPDATED',
+              content: copy,
+              fieldPath,
+              value: dataUrl,
+            }, '*');
+          }
+        } catch (err) {
+          console.error('Error posting image to parent:', err);
+        }
+
+        return copy;
+      });
+    } catch (err) {
+      console.error('Error handling inline image upload:', err);
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  if (!isEditMode) {
+    return (
+      <div className={containerClassName}>
+        <img src={currentSrc} alt={alt} className={className} />
+      </div>
+    );
+  }
+
+  return (
+    <div 
+      className={`relative group/editable-img ${containerClassName}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={() => fileInputRef.current?.click()}
+    >
+      {/* Hidden File Input */}
+      <input 
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        onChange={handleFileChange}
+        className="hidden"
+      />
+
+      <img src={currentSrc} alt={alt} className={className} />
+
+      {/* Visual Overlay on Hover */}
+      <div className={`absolute inset-0 transition-all duration-200 cursor-pointer flex flex-col items-center justify-center gap-2 ${
+        isHovered ? 'bg-slate-950/75 backdrop-blur-[2px] border-2 border-amber-400' : 'bg-transparent'
+      }`}>
+        {isHovered && (
+          <div className="text-center p-3 animate-fade-in">
+            <div className="w-10 h-10 rounded-full bg-amber-400 text-slate-950 flex items-center justify-center mx-auto mb-2 shadow-lg">
+              {isUploading ? (
+                <div className="w-5 h-5 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
+              ) : (
+                <Upload className="w-5 h-5" />
+              )}
+            </div>
+            <p className="text-xs font-bold text-white tracking-wide">
+              {isUploading ? 'Memproses Foto...' : 'Klik untuk Ganti Foto'}
+            </p>
+            <p className="text-[10px] text-amber-300/90 mt-0.5">
+              {label || fieldPath}
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* Floating Badge Indicator */}
+      <div className="absolute top-2 right-2 bg-slate-950/80 text-amber-300 border border-amber-400/40 text-[10px] font-bold px-2 py-0.5 rounded-full shadow pointer-events-none">
+        📷 Foto
+      </div>
+    </div>
+  );
+}

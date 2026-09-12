@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Scale, Calendar, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { useContent } from '@/context/ContentContext';
+import { EditableText } from './EditableElement';
 
 export default function Hero() {
   const { content } = useContent();
@@ -37,14 +38,26 @@ export default function Hero() {
             {/* Top Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-400/10 border border-amber-400/30 rounded-full text-amber-300 text-[11px] font-bold uppercase tracking-widest backdrop-blur-md shadow-sm">
               <Scale className="w-3.5 h-3.5 text-amber-300" />
-              <span>{hero?.topBadge || 'Advokat & Konsultan Hukum Korporasi'}</span>
+              <EditableText
+                fieldPath="hero.topBadge"
+                fallback="Advokat & Konsultan Hukum Korporasi"
+                label="Badge Atas"
+              />
             </div>
 
             {/* Main Headline */}
             <h1 className="font-serif-title text-3xl sm:text-4xl lg:text-[2.65rem] xl:text-[2.85rem] font-bold tracking-tight leading-[1.15] text-white">
-              {hero?.headlinePart1 || 'Pendampingan Hukum Strategis untuk'}{' '}
+              <EditableText
+                fieldPath="hero.headlinePart1"
+                fallback="Pendampingan Hukum Strategis untuk"
+                label="Judul Bagian 1"
+              />{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F7E19C] via-[#D4AF37] to-[#C9A227] italic">
-                {hero?.headlineItalic || 'Keputusan Penting.'}
+                <EditableText
+                  fieldPath="hero.headlineItalic"
+                  fallback="Keputusan Penting."
+                  label="Judul Miring Gold"
+                />
               </span>
             </h1>
 
@@ -53,7 +66,12 @@ export default function Hero() {
 
             {/* Subheadline Paragraph */}
             <p className="text-xs sm:text-sm lg:text-[15px] text-slate-200 font-normal leading-relaxed max-w-xl border-l-2 border-gold-accent/80 pl-3.5">
-              {hero?.subheadline || 'SELECO memberikan layanan konsultasi 34 Perkara Hukum Litigasi & Non-Litigasi serta pengurusan 411+ Perizinan & Legalitas Usaha OSS RBA secara profesional, transparan, dan terukur.'}
+              <EditableText
+                fieldPath="hero.subheadline"
+                fallback="SELECO memberikan layanan konsultasi 34 Perkara Hukum Litigasi & Non-Litigasi serta pengurusan 411+ Perizinan & Legalitas Usaha OSS RBA secara profesional, transparan, dan terukur."
+                label="Subjudul Hero"
+                multiline={true}
+              />
             </p>
 
             {/* CTA Group */}
@@ -63,7 +81,11 @@ export default function Hero() {
                 className="px-5 py-3 bg-gradient-to-r from-gold-accent to-gold-bright text-slate-950 font-bold text-xs uppercase tracking-wider rounded-lg hover:brightness-110 transition-all shadow-md hover:shadow-gold flex items-center gap-2 group"
               >
                 <Scale className="w-4 h-4 text-slate-950" />
-                <span>{hero?.ctaButton1Text || `Cari ${totalServices} Layanan & Perizinan`}</span>
+                <EditableText
+                  fieldPath="hero.ctaButton1Text"
+                  fallback={`Cari ${totalServices} Layanan & Perizinan`}
+                  label="Teks Tombol 1"
+                />
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
@@ -71,7 +93,11 @@ export default function Hero() {
                 className="px-5 py-3 bg-white/10 hover:bg-white text-white hover:text-slate-950 border border-white/30 hover:border-white font-bold text-xs uppercase tracking-wider rounded-lg transition-all backdrop-blur-sm flex items-center gap-2 shadow-sm"
               >
                 <Calendar className="w-4 h-4" />
-                <span>{hero?.ctaButton2Text || 'Jadwalkan Konsultasi'}</span>
+                <EditableText
+                  fieldPath="hero.ctaButton2Text"
+                  fallback="Jadwalkan Konsultasi"
+                  label="Teks Tombol 2"
+                />
               </Link>
             </div>
 
@@ -101,22 +127,55 @@ export default function Hero() {
               </div>
 
               <blockquote className="font-serif-title text-xl lg:text-2xl italic text-white leading-snug mb-3">
-                {hero?.sealQuote || '“Integrity. Strategy. Legal Excellence.”'}
+                <EditableText
+                  fieldPath="hero.sealQuote"
+                  fallback="“Integrity. Strategy. Legal Excellence.”"
+                  label="Kutipan Komitmen"
+                />
               </blockquote>
 
               <p className="text-[11px] lg:text-xs text-slate-300 leading-relaxed border-t border-white/10 pt-3 mb-5 font-light">
-                {hero?.sealDescription || 'Mitra konsultan hukum tepercaya di Indonesia yang berfokus pada kepastian hukum, perlindungan aset, serta kepatuhan regulasi operasional bisnis.'}
+                <EditableText
+                  fieldPath="hero.sealDescription"
+                  fallback="Mitra konsultan hukum tepercaya di Indonesia yang berfokus pada kepastian hukum, perlindungan aset, serta kepatuhan regulasi operasional bisnis."
+                  label="Deskripsi Komitmen"
+                  multiline={true}
+                />
               </p>
 
               {/* Stats Cards Inside Seal */}
               <div className="grid grid-cols-2 gap-3 border-t border-white/10 pt-4 text-center">
                 <div className="p-2.5 bg-white/5 backdrop-blur-md rounded-xl border border-white/10">
-                  <div className="font-serif-title text-2xl font-bold text-amber-300">{hero?.stat1Number || '10+'}</div>
-                  <div className="text-[9px] text-slate-300 uppercase tracking-wider font-semibold mt-0.5">{hero?.stat1Label || 'Tahun Pengalaman'}</div>
+                  <div className="font-serif-title text-2xl font-bold text-amber-300">
+                    <EditableText
+                      fieldPath="hero.stat1Number"
+                      fallback="10+"
+                      label="Angka Pengalaman"
+                    />
+                  </div>
+                  <div className="text-[9px] text-slate-300 uppercase tracking-wider font-semibold mt-0.5">
+                    <EditableText
+                      fieldPath="hero.stat1Label"
+                      fallback="Tahun Pengalaman"
+                      label="Label Pengalaman"
+                    />
+                  </div>
                 </div>
                 <div className="p-2.5 bg-white/5 backdrop-blur-md rounded-xl border border-white/10">
-                  <div className="font-serif-title text-2xl font-bold text-amber-300">{hero?.stat2Number || totalServices}</div>
-                  <div className="text-[9px] text-slate-300 uppercase tracking-wider font-semibold mt-0.5">{hero?.stat2Label || 'Cakupan Layanan'}</div>
+                  <div className="font-serif-title text-2xl font-bold text-amber-300">
+                    <EditableText
+                      fieldPath="hero.stat2Number"
+                      fallback={totalServices}
+                      label="Angka Layanan"
+                    />
+                  </div>
+                  <div className="text-[9px] text-slate-300 uppercase tracking-wider font-semibold mt-0.5">
+                    <EditableText
+                      fieldPath="hero.stat2Label"
+                      fallback="Cakupan Layanan"
+                      label="Label Layanan"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
