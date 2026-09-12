@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Scale, Calendar, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { useContent } from '@/context/ContentContext';
-import { EditableText } from './EditableElement';
+import { EditableText, EditableBackground, EditableSection } from './EditableElement';
 
 export default function Hero() {
   const { content } = useContent();
@@ -13,17 +13,17 @@ export default function Hero() {
   const totalServices = global?.totalServices || hero?.stat2Number || '445+';
 
   return (
-    <section id="hero" className="relative lg:h-[calc(100vh-5rem)] min-h-[580px] flex items-center justify-center overflow-hidden py-8 lg:py-0 bg-slate-950 text-white">
+    <EditableSection id="hero" name="Hero Banner Section" className="relative lg:h-[calc(100vh-5rem)] min-h-[580px] flex items-center justify-center overflow-hidden py-8 lg:py-0 bg-slate-950 text-white">
       {/* Background Image: Clean, Neat, White Modern Corporate Office */}
-      <div 
+      <EditableBackground
+        fieldPath="hero.bgImage"
+        fallback="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80"
         className="absolute inset-0 bg-cover bg-center z-0 scale-105 transform transition-all duration-700"
-        style={{
-          backgroundImage: `url('${hero?.bgImage || 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80'}')`
-        }}
+        label="Foto Latar Belakang Hero"
       />
       {/* Dark Luxury Contrast Overlay to ensure bright white/gold text stands out crisply */}
-      <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-900/85 to-slate-950/75 z-10" />
-      <div className="absolute inset-0 bg-slate-950/40 z-10" />
+      <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-900/85 to-slate-950/75 z-10 pointer-events-none" />
+      <div className="absolute inset-0 bg-slate-950/40 z-10 pointer-events-none" />
 
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
@@ -105,7 +105,12 @@ export default function Hero() {
             <div className="pt-3 border-t border-white/15 flex flex-wrap gap-2.5">
               {(hero?.featurePills || ['34 Perkara Hukum', '411 Perizinan OSS RBA', 'Retainer Corporate', 'Tax & BPN Advisory']).map((pill, idx) => (
                 <span key={idx} className="inline-flex items-center gap-1.5 text-[11px] font-medium text-white/90 bg-white/10 backdrop-blur-md border border-white/15 px-3 py-1 rounded-full">
-                  <CheckCircle2 className="w-3 h-3 text-amber-300" /> {pill}
+                  <CheckCircle2 className="w-3 h-3 text-amber-300" />
+                  <EditableText
+                    fieldPath={`hero.featurePills.${idx}`}
+                    fallback={pill}
+                    label={`Fitur Pill #${idx + 1}`}
+                  />
                 </span>
               ))}
             </div>
@@ -183,6 +188,6 @@ export default function Hero() {
 
         </div>
       </div>
-    </section>
+    </EditableSection>
   );
 }

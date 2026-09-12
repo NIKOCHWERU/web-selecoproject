@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { Scale, Building2, Receipt, Stethoscope, Globe, Landmark, Zap, FileCheck, Ship, ArrowRight, Search } from 'lucide-react';
 import { SERVICE_CATEGORIES } from '@/data/layananData';
 import { useContent } from '@/context/ContentContext';
-import { EditableText } from './EditableElement';
+import { EditableText, EditableSection } from './EditableElement';
 
 export default function ServicesSection() {
   const { content } = useContent();
@@ -33,7 +33,7 @@ export default function ServicesSection() {
   const categories = SERVICE_CATEGORIES.filter(c => c.id !== 'all');
 
   return (
-    <section id="practice" className="py-20 lg:py-28 bg-slate-50 border-b border-gray-200/80">
+    <EditableSection id="services" name="Layanan & Spesialisasi Section" className="py-20 lg:py-28 bg-slate-50 border-b border-gray-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -136,6 +136,6 @@ export default function ServicesSection() {
         </div>
 
       </div>
-    </section>
+    </EditableSection>
   );
 }

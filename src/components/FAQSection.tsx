@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Plus, Minus } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useContent } from '@/context/ContentContext';
-import { EditableText } from './EditableElement';
+import { EditableText, EditableSection } from './EditableElement';
 
 export default function FAQSection() {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
@@ -13,7 +13,7 @@ export default function FAQSection() {
   const items = faq?.items || [];
 
   return (
-    <section id="faq" className="py-20 lg:py-28 bg-slate-50 border-b border-gray-200/80">
+    <EditableSection id="faq" name="FAQ Pertanyaan Umum Section" className="py-20 lg:py-28 bg-slate-50 border-b border-gray-200/80">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div className="text-center mb-16">
@@ -91,7 +91,7 @@ export default function FAQSection() {
           ))}
         </div>
       </div>
-    </section>
+    </EditableSection>
   );
 }
 

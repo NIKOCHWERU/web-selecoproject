@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Scale, ArrowUp, MessageCircle, Mail, MapPin, Phone, Shield, FileText } from 'lucide-react';
 import { useContent } from '@/context/ContentContext';
+import { EditableText, EditableSection } from './EditableElement';
 
 export default function Footer() {
   const [showTopBtn, setShowTopBtn] = useState(false);
@@ -25,21 +26,34 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-navy-dark text-white/70 text-xs border-t border-gold-accent/40 pt-16 pb-8 relative">
+    <EditableSection id="footer" name="Footer Situs Section" tag="footer" className="bg-navy-dark text-white/70 text-xs border-t border-gold-accent/40 pt-16 pb-8 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/10">
           {/* Brand Info */}
           <div className="space-y-4">
             <Link href="/" className="flex flex-col">
               <span className="font-serif-title text-2xl font-bold tracking-widest text-white">
-                {global?.brandName || 'SELECO'} <span className="text-gold-accent">.</span>
+                <EditableText
+                  fieldPath="global.brandName"
+                  fallback="SELECO"
+                  label="Nama Brand"
+                /> <span className="text-gold-accent">.</span>
               </span>
               <span className="text-[9px] font-bold tracking-[0.2em] text-gold-accent uppercase mt-0.5">
-                {global?.brandTagline || 'SEDANA LEGAL CONSULTANT'}
+                <EditableText
+                  fieldPath="global.brandTagline"
+                  fallback="SEDANA LEGAL CONSULTANT"
+                  label="Tagline Brand"
+                />
               </span>
             </Link>
             <p className="text-white/60 leading-relaxed text-xs">
-              {footer?.description || `Strategic legal counsel for businesses, organizations, and individuals in Indonesia. Pendampingan ${global?.litigationCount || '34'} Perkara Hukum & ${global?.ossLicenseCount || '411+'} Perizinan Usaha OSS RBA.`}
+              <EditableText
+                fieldPath="footer.description"
+                fallback={`Strategic legal counsel for businesses, organizations, and individuals in Indonesia. Pendampingan ${global?.litigationCount || '34'} Perkara Hukum & ${global?.ossLicenseCount || '411+'} Perizinan Usaha OSS RBA.`}
+                label="Deskripsi Footer"
+                multiline={true}
+              />
             </p>
             <div className="pt-2">
               <Link
@@ -162,7 +176,11 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 text-center text-white/50">
           <div>
-            {footer?.copyright || `© ${new Date().getFullYear()} SELECO (Sedana Legal Consultant). Hak Cipta Dilindungi Undang-Undang.`}
+            <EditableText
+              fieldPath="footer.copyright"
+              fallback={`© ${new Date().getFullYear()} SELECO (Sedana Legal Consultant). Hak Cipta Dilindungi Undang-Undang.`}
+              label="Teks Copyright"
+            />
           </div>
         </div>
       </div>
@@ -177,6 +195,6 @@ export default function Footer() {
           <ArrowUp className="w-5 h-5" />
         </button>
       )}
-    </footer>
+    </EditableSection>
   );
 }

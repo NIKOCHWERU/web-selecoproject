@@ -4,7 +4,7 @@ import { useState, useRef } from 'react';
 import { MapPin, Mail, Phone, Send, CheckCircle2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useContent } from '@/context/ContentContext';
-import { EditableText } from './EditableElement';
+import { EditableText, EditableSection } from './EditableElement';
 
 export default function ContactSection() {
   const [submitted, setSubmitted] = useState(false);
@@ -53,7 +53,7 @@ export default function ContactSection() {
   ];
 
   return (
-    <section id="contact" className="py-20 lg:py-28 bg-white border-b border-gray-200/80">
+    <EditableSection id="contact" name="Kontak & Kantor Section" className="py-20 lg:py-28 bg-white border-b border-gray-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div className="text-center max-w-2xl mx-auto mb-16">
@@ -262,6 +262,6 @@ export default function ContactSection() {
 
         </div>
       </div>
-    </section>
+    </EditableSection>
   );
 }

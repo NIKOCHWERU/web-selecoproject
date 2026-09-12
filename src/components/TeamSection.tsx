@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useContent } from '@/context/ContentContext';
-import { EditableText, EditableImage } from './EditableElement';
+import { EditableText, EditableImage, EditableSection } from './EditableElement';
 
 export default function TeamSection() {
   const { content } = useContent();
@@ -10,7 +10,7 @@ export default function TeamSection() {
   const members = team?.members || [];
 
   return (
-    <section id="attorneys" className="py-20 lg:py-28 bg-slate-50 border-b border-gray-200/80">
+    <EditableSection id="attorneys" name="Tim Advokat & Konsultan Section" className="py-20 lg:py-28 bg-slate-50 border-b border-gray-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="text-center max-w-2xl mx-auto mb-16">
@@ -87,7 +87,7 @@ export default function TeamSection() {
           ))}
         </div>
       </div>
-    </section>
+    </EditableSection>
   );
 }
 

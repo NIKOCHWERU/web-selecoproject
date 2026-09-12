@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ShieldCheck, CheckCircle2, Handshake } from 'lucide-react';
 import { useContent } from '@/context/ContentContext';
-import { EditableText } from './EditableElement';
+import { EditableText, EditableImage, EditableSection } from './EditableElement';
 
 export default function RetainerSection() {
   const { content } = useContent();
@@ -20,7 +20,7 @@ export default function RetainerSection() {
   ];
 
   return (
-    <section id="retainer" className="py-20 lg:py-28 bg-white border-b border-gray-200/80">
+    <EditableSection id="retainer" name="Corporate Retainer Section" className="py-20 lg:py-28 bg-white border-b border-gray-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="bg-slate-900 text-white rounded-3xl p-8 sm:p-14 shadow-2xl border border-amber-400/30 relative overflow-hidden">
@@ -67,7 +67,13 @@ export default function RetainerSection() {
                     className="flex items-center gap-3 bg-white/5 border border-white/10 p-3.5 rounded-xl hover:border-amber-400/50 hover:bg-white/10 transition-all duration-300"
                   >
                     <CheckCircle2 className="w-4 h-4 text-amber-300 shrink-0" />
-                    <span className="text-xs font-semibold text-white/95">{service}</span>
+                    <span className="text-xs font-semibold text-white/95">
+                      <EditableText
+                        fieldPath={`retainer.serviceItems.${idx}`}
+                        fallback={service}
+                        label={`Item Retainer #${idx + 1}`}
+                      />
+                    </span>
                   </div>
                 ))}
               </div>
@@ -75,15 +81,33 @@ export default function RetainerSection() {
               {/* Retainer CTA */}
               <div className="pt-6 border-t border-white/15 flex flex-wrap items-center justify-between gap-6">
                 <div>
-                  <h4 className="font-serif-title text-xl font-bold text-white">Perkuat Perlindungan Legalitas Perusahaan</h4>
-                  <p className="text-xs text-slate-400 mt-0.5">Konsultan hukum profesional siap mendampingi operasional Anda.</p>
+                  <h4 className="font-serif-title text-xl font-bold text-white">
+                    <EditableText
+                      fieldPath="retainer.ctaTitle"
+                      fallback="Perkuat Perlindungan Legalitas Perusahaan"
+                      label="Judul CTA Retainer"
+                    />
+                  </h4>
+                  <p className="text-xs text-slate-400 mt-0.5">
+                    <EditableText
+                      fieldPath="retainer.ctaSubtitle"
+                      fallback="Konsultan hukum profesional siap mendampingi operasional Anda."
+                      label="Subjudul CTA Retainer"
+                    />
+                  </p>
                 </div>
                 <Link
                   href="/kontak"
                   className="px-7 py-3.5 bg-gradient-to-r from-gold-accent to-gold-bright text-slate-950 font-bold text-xs uppercase tracking-wider rounded-lg hover:brightness-110 transition-all shadow-md flex items-center gap-2"
                 >
                   <Handshake className="w-4 h-4" />
-                  <span>Diskusikan Layanan Retainer</span>
+                  <span>
+                    <EditableText
+                      fieldPath="retainer.ctaButtonText"
+                      fallback="Diskusikan Layanan Retainer"
+                      label="Tombol Retainer"
+                    />
+                  </span>
                 </Link>
               </div>
             </div>
@@ -91,13 +115,15 @@ export default function RetainerSection() {
             {/* Right Photo Frame */}
             <div className="lg:col-span-5">
               <div className="relative rounded-2xl overflow-hidden border border-amber-400/40 shadow-2xl h-80 lg:h-[420px]">
-                <img
-                  src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=800&q=80"
+                <EditableImage
+                  fieldPath="retainer.image"
+                  fallback="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=800&q=80"
                   alt="Ruang Konsultasi Hukum Firma SELECO"
+                  label="Foto Ruang Retainer"
                   className="w-full h-full object-cover filter brightness-[0.85]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent" />
-                <div className="absolute bottom-5 left-5 right-5 p-5 bg-slate-900/90 backdrop-blur-md border border-amber-400/30 rounded-xl text-center">
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute bottom-5 left-5 right-5 p-5 bg-slate-900/90 backdrop-blur-md border border-amber-400/30 rounded-xl text-center pointer-events-none">
                   <span className="font-serif-title text-lg font-bold text-white block">
                     SELECO External Legal Team
                   </span>
@@ -112,6 +138,6 @@ export default function RetainerSection() {
         </div>
 
       </div>
-    </section>
+    </EditableSection>
   );
 }

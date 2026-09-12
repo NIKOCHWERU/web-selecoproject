@@ -15,7 +15,11 @@ import {
   X, 
   Edit3,
   Sliders,
-  Maximize2
+  Maximize2,
+  Image as ImageIcon,
+  Layout,
+  Paintbrush,
+  Move
 } from 'lucide-react';
 import { compressImageToDataUrl } from '@/lib/imageUtils';
 
@@ -506,3 +510,341 @@ export function EditableImage({
     </div>
   );
 }
+
+/* ========================================================================= */
+/* EDITABLE BACKGROUND IMAGE / COLOR (HERO & SECTION BACKGROUNDS)            */
+/* ========================================================================= */
+
+interface EditableBackgroundProps {
+  fieldPath: string; // e.g. 'hero.bgImage'
+  fallback: string;
+  className?: string;
+  label?: string;
+}
+
+export function EditableBackground({
+  fieldPath,
+  fallback,
+  className = 'absolute inset-0 bg-cover bg-center z-0',
+  label = 'Background Section',
+}: EditableBackgroundProps) {
+  const { content, setContent } = useContent();
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [isUploading, setIsUploading] = useState<boolean>(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const checkMode = () => {
+      const mode = sessionStorage.getItem('seleco_editor_mode');
+      setIsEditMode(mode === 'click_to_edit');
+    };
+    checkMode();
+
+    const handleMessage = (e: MessageEvent) => {
+      if (e.data?.type === 'SET_EDITOR_MODE') {
+        setIsEditMode(e.data.mode === 'click_to_edit');
+      }
+    };
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
+
+  const getValue = (): string => {
+    try {
+      const parts = fieldPath.split('.');
+      let cur: any = content;
+      for (const p of parts) {
+        if (cur === undefined || cur === null) return fallback;
+        cur = cur[p];
+      }
+      return typeof cur === 'string' ? cur : fallback;
+    } catch {
+      return fallback;
+    }
+  };
+
+  const currentBg = getValue();
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    try {
+      const dataUrl = await compressImageToDataUrl(file);
+      const parts = fieldPath.split('.');
+      setContent((prev: any) => {
+        const copy = JSON.parse(JSON.stringify(prev || {}));
+        let cur = copy;
+        for (let i = 0; i < parts.length - 1; i++) {
+          if (!cur[parts[i]]) cur[parts[i]] = {};
+          cur = cur[parts[i]];
+        }
+        cur[parts[parts.length - 1]] = dataUrl;
+
+        try {
+          sessionStorage.setItem('seleco_live_preview_content', JSON.stringify(copy));
+          if (window.parent && window.parent !== window) {
+            window.parent.postMessage({
+              type: 'ON_ELEMENT_UPDATED',
+              content: copy,
+              fieldPath,
+              value: dataUrl,
+            }, '*');
+          }
+        } catch (err) {
+          console.error('Error posting bg to parent:', err);
+        }
+
+        return copy;
+      });
+    } catch (err) {
+      console.error('Error uploading background:', err);
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  return (
+    <>
+      <div 
+        className={className}
+        style={{ backgroundImage: `url('${currentBg}')` }}
+      />
+
+      {isEditMode && (
+        <div 
+          className="absolute top-4 left-4 z-40"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <input 
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="hidden"
+          />
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              fileInputRef.current?.click();
+            }}
+            className="px-3.5 py-2 bg-slate-950/90 hover:bg-amber-400 hover:text-slate-950 text-amber-300 border border-amber-400/50 rounded-xl shadow-2xl flex items-center gap-2 text-xs font-bold uppercase tracking-wider backdrop-blur-md transition-all duration-200"
+            title="Klik untuk mengganti background image hero ini"
+          >
+            {isUploading ? (
+              <div className="w-4 h-4 border-2 border-amber-400 border-t-transparent rounded-full animate-spin" />
+            ) : (
+              <Upload className="w-4 h-4" />
+            )}
+            <span>{isUploading ? 'Memproses Background...' : 'Ganti Background Hero'}</span>
+          </button>
+        </div>
+      )}
+    </>
+  );
+}
+
+/* ========================================================================= */
+/* EDITABLE SECTION / DIV CONTAINER (SECTION STYLING & CONTROLS)            */
+/* ========================================================================= */
+
+interface EditableSectionProps {
+  id: string;
+  name: string;
+  children: React.ReactNode;
+  className?: string;
+  tag?: 'section' | 'div' | 'header' | 'footer';
+}
+
+export function EditableSection({
+  id,
+  name,
+  children,
+  className = '',
+  tag: Tag = 'section',
+}: EditableSectionProps) {
+  const { content, setContent } = useContent();
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [showToolbar, setShowToolbar] = useState<boolean>(false);
+  const toolbarRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const checkMode = () => {
+      const mode = sessionStorage.getItem('seleco_editor_mode');
+      setIsEditMode(mode === 'click_to_edit');
+    };
+    checkMode();
+
+    const handleMessage = (e: MessageEvent) => {
+      if (e.data?.type === 'SET_EDITOR_MODE') {
+        setIsEditMode(e.data.mode === 'click_to_edit');
+      }
+    };
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (toolbarRef.current && !toolbarRef.current.contains(e.target as Node)) {
+        setShowToolbar(false);
+      }
+    };
+    if (showToolbar) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showToolbar]);
+
+  const customStyle = content?.styles?.[`section.${id}`] || {};
+
+  const updateSectionStyle = (prop: string, val: any) => {
+    setContent((prev: any) => {
+      const copy = JSON.parse(JSON.stringify(prev || {}));
+      if (!copy.styles) copy.styles = {};
+      const key = `section.${id}`;
+      if (!copy.styles[key]) copy.styles[key] = {};
+      copy.styles[key][prop] = val;
+
+      try {
+        sessionStorage.setItem('seleco_live_preview_content', JSON.stringify(copy));
+        if (window.parent && window.parent !== window) {
+          window.parent.postMessage({
+            type: 'ON_ELEMENT_UPDATED',
+            content: copy,
+            fieldPath: key,
+            styleProp: prop,
+            styleVal: val,
+          }, '*');
+        }
+      } catch (err) {
+        console.error('Error posting section style:', err);
+      }
+
+      return copy;
+    });
+  };
+
+  const appliedStyle: React.CSSProperties = {
+    ...(customStyle.backgroundColor ? { backgroundColor: customStyle.backgroundColor } : {}),
+    ...(customStyle.padding ? { padding: customStyle.padding } : {}),
+  };
+
+  if (!isEditMode) {
+    return (
+      <Tag id={id} className={className} style={appliedStyle}>
+        {children}
+      </Tag>
+    );
+  }
+
+  return (
+    <Tag 
+      id={id} 
+      className={`relative group/editable-section ${className}`}
+      style={appliedStyle}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      ref={toolbarRef}
+    >
+      {/* Elementor Section Outline */}
+      <div 
+        className={`absolute inset-0 pointer-events-none transition-all duration-150 z-20 ${
+          showToolbar 
+            ? 'border-2 border-amber-400/90 shadow-[inset_0_0_20px_rgba(212,175,55,0.1)]' 
+            : isHovered 
+            ? 'border border-dashed border-amber-400/50' 
+            : 'border-0'
+        }`}
+      />
+
+      {/* Elementor Section Header Handle Bar */}
+      {isHovered && (
+        <div className="absolute top-2 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1.5 bg-slate-900/95 text-white text-xs px-3.5 py-1.5 rounded-full shadow-2xl border border-amber-400/60 backdrop-blur-md animate-fade-in">
+          <Layout className="w-3.5 h-3.5 text-amber-400" />
+          <span className="font-bold text-amber-300 uppercase tracking-wider text-[11px]">{name}</span>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowToolbar(!showToolbar);
+            }}
+            className="ml-1 px-2 py-0.5 bg-amber-400 hover:brightness-110 text-slate-950 font-bold text-[10px] rounded transition-all"
+            title="Ubah style / warna latar section ini"
+          >
+            Edit Section
+          </button>
+        </div>
+      )}
+
+      {/* Floating Section Style Toolbar */}
+      {showToolbar && (
+        <div 
+          className="absolute top-12 left-1/2 -translate-x-1/2 z-50 bg-slate-900/95 backdrop-blur-xl border border-amber-400/60 rounded-2xl shadow-2xl p-3 flex items-center gap-3 text-white text-xs select-none animate-in fade-in zoom-in-95 duration-150 whitespace-nowrap"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="flex items-center gap-1.5 pr-2 border-r border-slate-700">
+            <Paintbrush className="w-4 h-4 text-amber-300" />
+            <span className="text-[11px] font-bold text-white uppercase tracking-wider">Latar Section</span>
+          </div>
+
+          {/* Quick Bg Color Presets */}
+          <div className="flex items-center gap-1.5 bg-slate-950/80 px-2 py-1.5 rounded-xl border border-slate-800">
+            {[
+              { color: '#ffffff', label: 'Putih Bersih' },
+              { color: '#f8fafc', label: 'Slate Terang' },
+              { color: '#0f172a', label: 'Navy Deep' },
+              { color: '#020617', label: 'Slate Gelap' },
+              { color: '#0b1120', label: 'Midnight' },
+            ].map((p) => (
+              <button
+                key={p.color}
+                onClick={() => updateSectionStyle('backgroundColor', p.color)}
+                style={{ backgroundColor: p.color }}
+                className="w-5 h-5 rounded-full border border-slate-600 hover:scale-125 transition-transform"
+                title={p.label}
+              />
+            ))}
+            <input
+              type="color"
+              value={customStyle.backgroundColor || '#ffffff'}
+              onChange={(e) => updateSectionStyle('backgroundColor', e.target.value)}
+              className="w-6 h-6 rounded cursor-pointer bg-transparent border-0"
+              title="Pilih Warna Bebas"
+            />
+          </div>
+
+          {/* Padding Adjust */}
+          <div className="flex items-center gap-1 bg-slate-950/80 px-2 py-1.5 rounded-xl border border-slate-800 text-[11px]">
+            <span>Padding:</span>
+            <select
+              value={customStyle.padding || ''}
+              onChange={(e) => updateSectionStyle('padding', e.target.value)}
+              className="bg-transparent text-amber-300 text-[11px] focus:outline-none cursor-pointer font-semibold"
+            >
+              <option value="" className="bg-slate-900">Normal (Default)</option>
+              <option value="40px 0" className="bg-slate-900">Rapat (40px)</option>
+              <option value="80px 0" className="bg-slate-900">Sedang (80px)</option>
+              <option value="120px 0" className="bg-slate-900">Luas (120px)</option>
+            </select>
+          </div>
+
+          <button
+            onClick={() => setShowToolbar(false)}
+            className="p-1 text-slate-400 hover:text-white rounded hover:bg-slate-800"
+          >
+            <Check className="w-4 h-4 text-emerald-400" />
+          </button>
+        </div>
+      )}
+
+      {children}
+    </Tag>
+  );
+}
+

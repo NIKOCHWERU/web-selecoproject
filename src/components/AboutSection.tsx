@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ShieldCheck, TrendingUp, Lightbulb, Lock, ArrowRight } from 'lucide-react';
 import { useContent } from '@/context/ContentContext';
-import { EditableText, EditableImage } from './EditableElement';
+import { EditableText, EditableImage, EditableSection } from './EditableElement';
 
 export default function AboutSection({ showMoreLink = false }: { showMoreLink?: boolean }) {
   const { content } = useContent();
@@ -37,7 +37,7 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
   ];
 
   return (
-    <section id="about" className="py-20 lg:py-28 bg-white border-b border-gray-200/80">
+    <EditableSection id="about" name="Tentang Kami Section" className="py-20 lg:py-28 bg-white border-b border-gray-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
@@ -66,10 +66,11 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
               />
             </div>
             <div className="h-44 sm:h-48 rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
-              <img
-                src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=600&q=80"
+              <EditableImage
+                fieldPath="about.image3"
+                fallback="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=600&q=80"
                 alt="Penandatanganan Kontrak & Dokumen Legal"
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                label="Foto Kolase 3"
               />
             </div>
           </motion.div>
@@ -138,9 +139,22 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
                     <div className="w-8 h-8 rounded-lg bg-amber-100/60 flex items-center justify-center group-hover:scale-110 transition-transform">
                       {valueIcons[i % valueIcons.length]}
                     </div>
-                    <span className="font-serif-title text-base font-bold text-slate-900">{v.title}</span>
+                    <span className="font-serif-title text-base font-bold text-slate-900">
+                      <EditableText
+                        fieldPath={`about.values.${i}.title`}
+                        fallback={v.title}
+                        label={`Nilai #${i + 1} Judul`}
+                      />
+                    </span>
                   </div>
-                  <p className="text-xs text-slate-600 leading-relaxed">{v.description || v.desc}</p>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    <EditableText
+                      fieldPath={`about.values.${i}.description`}
+                      fallback={v.description || v.desc}
+                      label={`Nilai #${i + 1} Deskripsi`}
+                      multiline={true}
+                    />
+                  </p>
                 </div>
               ))}
             </div>
@@ -160,6 +174,6 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
 
         </div>
       </div>
-    </section>
+    </EditableSection>
   );
 }

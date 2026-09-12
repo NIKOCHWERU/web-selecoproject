@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useContent } from '@/context/ContentContext';
-import { EditableText, EditableImage } from './EditableElement';
+import { EditableText, EditableImage, EditableSection } from './EditableElement';
 
 export default function InsightsSection() {
   const { content } = useContent();
@@ -11,7 +11,7 @@ export default function InsightsSection() {
   const articles = insights?.articles || [];
 
   return (
-    <section id="insights" className="py-20 lg:py-28 bg-white border-b border-gray-200/80">
+    <EditableSection id="insights" name="Publikasi Insight Section" className="py-20 lg:py-28 bg-white border-b border-gray-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="text-center max-w-2xl mx-auto mb-16">
@@ -104,6 +104,6 @@ export default function InsightsSection() {
         </div>
 
       </div>
-    </section>
+    </EditableSection>
   );
 }
