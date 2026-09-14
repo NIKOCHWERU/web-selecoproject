@@ -130,6 +130,19 @@ export interface SiteContent {
       borderStyle?: string;
       opacity?: string;
       boxShadow?: string;
+      // Image & Background CSS & Cropping properties
+      objectFit?: 'cover' | 'contain' | 'fill' | 'scale-down' | 'none';
+      objectPosition?: string; // e.g. 'center', 'top', 'bottom', '50% 20%'
+      backgroundPosition?: string;
+      backgroundSize?: string;
+      aspectRatio?: string; // e.g. '16/9', '4/3', '1/1', 'auto'
+      filterBrightness?: string; // e.g. '1', '0.8', '1.2'
+      filterContrast?: string;
+      filterGrayscale?: string; // e.g. '0%', '100%'
+      filterBlur?: string;
+      scale?: string; // zoom factor e.g. '1', '1.1', '1.25'
+      rotate?: string; // e.g. '0deg', '90deg'
+      [prop: string]: any;
     };
   };
 }
@@ -141,32 +154,32 @@ export const defaultSiteContent: SiteContent = {
     whatsappNumber: "6282211020022",
     whatsappDisplay: "0822-1102-0022",
     phone: "+62 822-1102-0022",
-    email: "info@selecoproject.com",
-    address: "Sudirman Central Business District (SCBD), Jakarta Selatan",
+    email: "hello@selecoproject.com",
+    address: "Jl.M.H Thamrin No. 9 Lt 12, Kebon Sirih Menteng, DKI Jakarta, 10340",
     consultationUrl: "/kontak",
-    badgeText: "Advokat & Konsultan Hukum Resmi",
+    badgeText: "Konsultan Legalitas & Perizinan Usaha",
     totalServices: "445+",
     litigationCount: "34",
     ossLicenseCount: "411+",
   },
   hero: {
-    topBadge: "Advokat & Konsultan Hukum Korporasi",
-    headlinePart1: "Pendampingan Hukum Strategis untuk",
-    headlineItalic: "Keputusan Penting.",
-    subheadline: "SELECO memberikan layanan konsultasi 34 Perkara Hukum Litigasi & Non-Litigasi serta pengurusan 411+ Perizinan & Legalitas Usaha OSS RBA secara profesional, transparan, dan terukur.",
+    topBadge: "Konsultan Perizinan & Legalitas Usaha",
+    headlinePart1: "Pendampingan Legalitas & Perizinan untuk",
+    headlineItalic: "Pertumbuhan Bisnis.",
+    subheadline: "SELECO memberikan layanan konsultasi 34 Legalitas Bisnis & Kontrak serta pengurusan 411+ Perizinan Usaha OSS RBA secara profesional, transparan, dan terukur.",
     bgImage: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80",
     ctaButton1Text: "Cari 445+ Layanan & Perizinan",
     ctaButton1Link: "/layanan",
     ctaButton2Text: "Jadwalkan Konsultasi",
     ctaButton2Link: "/kontak",
     featurePills: [
-      "34 Perkara Hukum",
+      "34 Legalitas Bisnis",
       "411 Perizinan OSS RBA",
       "Retainer Corporate",
       "Tax & BPN Advisory"
     ],
-    sealQuote: "“Integrity. Strategy. Legal Excellence.”",
-    sealDescription: "Mitra konsultan hukum tepercaya di Indonesia yang berfokus pada kepastian hukum, perlindungan aset, serta kepatuhan regulasi operasional bisnis.",
+    sealQuote: "“Integrity. Strategy. Corporate Excellence.”",
+    sealDescription: "Mitra konsultan legalitas usaha tepercaya di Indonesia yang berfokus pada kepatuhan regulasi, perizinan berusaha, serta perlindungan operasional bisnis.",
     stat1Number: "10+",
     stat1Label: "Tahun Pengalaman",
     stat2Number: "445+",
@@ -174,57 +187,57 @@ export const defaultSiteContent: SiteContent = {
   },
   about: {
     badge: "Tentang SELECO",
-    title: "Membangun Fondasi Hukum yang",
-    titleAccent: "Kokoh & Tepercaya.",
-    paragraph1: "SELECO (Sedana Legal Consultant) adalah kantor advokat dan konsultan hukum korporasi terkemuka yang berdedikasi memberikan solusi hukum komprehensif, strategis, dan terukur bagi pelaku usaha, korporasi multinasional, hingga perseorangan.",
-    paragraph2: "Dengan pengalaman mendalam dalam 34 lingkup perkara hukum perdata, pidana bisnis, hubungan industrial, hingga 411+ izin usaha OSS RBA, kami memastikan setiap langkah bisnis Anda aman secara regulasi dan terlindungi secara hukum.",
-    image1: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1200&q=80",
+    title: "Legalitas Usaha yang Terstruktur untuk",
+    titleAccent: "Pertumbuhan Bisnis.",
+    paragraph1: "SELECO (Sedana Legal Consultant) adalah konsultan legalitas usaha dan perizinan korporasi terkemuka yang berdedikasi memberikan solusi perizinan berusaha, pendirian badan usaha, dan kepatuhan regulasi bagi pelaku usaha, korporasi, hingga UMKM.",
+    paragraph2: "Dengan keahlian mendalam pada 34 lingkup legalitas bisnis & kontrak, serta pengurusan 411+ izin usaha OSS RBA, kami memastikan setiap langkah bisnis Anda memiliki perizinan lengkap dan patuh regulasi.",
+    image1: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
     image2: "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80",
     experienceYears: "10+",
     values: [
       {
         title: "Integritas Tertinggi",
-        description: "Menjunjung standar etika advokat profesional dengan transparansi penuh dalam setiap penanganan perkara.",
+        description: "Menjunjung standar etika konsultan profesional dengan transparansi penuh dalam setiap pendampingan izin dan legalitas usaha.",
       },
       {
         title: "Solusi Strategis & Taktis",
-        description: "Tidak hanya menyelesaikan sengketa, kami merancang proteksi preventif untuk memitigasi risiko hukum di masa depan.",
+        description: "Kami merancang kepatuhan perizinan dan proteksi preventif untuk memitigasi risiko regulasi di masa depan.",
       },
       {
         title: "Responsif & Terukur",
-        description: "Komunikasi aktif, pembaruan perkara berkala, dan kepastian biaya hukum yang jelas tanpa biaya tersembunyi.",
+        description: "Komunikasi aktif, pembaruan proses berkala, dan kepastian biaya perizinan yang jelas tanpa biaya tersembunyi.",
       },
       {
         title: "Kerahasiaan Klien Mutlak",
-        description: "Seluruh data, dokumen rahasia perusahaan, dan privasi kasus klien terlindungi di bawah sumpah profesi advokat.",
+        description: "Seluruh data, dokumen rahasia perusahaan, dan informasi perizinan klien terlindungi dengan standar kerahasiaan tinggi.",
       },
     ],
   },
   services: {
     badge: "Layanan & Spesialisasi",
-    title: "Solusi Hukum Menyeluruh untuk",
-    subtitle: "Kebutuhan Bisnis & Personal",
-    ctaBannerTitle: "Membutuhkan Pendampingan Hukum Khusus?",
-    ctaBannerSubtitle: "Tim advokat kami siap membedah dokumen dan memberikan advis awal untuk perkara Anda.",
+    title: "Solusi Legalitas & Perizinan untuk",
+    subtitle: "Kebutuhan Bisnis & Korporasi",
+    ctaBannerTitle: "Membutuhkan Konsultasi Perizinan & Legalitas Usaha?",
+    ctaBannerSubtitle: "Tim konsultan kami siap meninjau dokumen perusahaan dan memberikan panduan perizinan OSS terbaik.",
     ctaBannerButtonText: "Konsultasi WhatsApp Langsung",
   },
   retainer: {
     badge: "Corporate Retainer Program",
-    title: "Mitra Hukum In-House untuk",
+    title: "Mitra Legalitas & Kepatuhan In-House untuk",
     subtitle: "Keberlanjutan Bisnis Anda",
   },
   team: {
-    badge: "Advokat & Konsultan",
-    title: "Dipimpin oleh Praktisi Hukum",
+    badge: "Tim Konsultan Profesional",
+    title: "Dipimpin oleh Praktisi Perizinan & Regulasi",
     subtitle: "Berpengalaman & Berdedikasi",
     members: [
       {
         id: "1",
         name: "Sedana, S.H., M.H.",
-        role: "Managing Partner & Senior Litigator",
-        specialization: "Hukum Korporasi, Kepailitan & Litigasi Perdata",
+        role: "Managing Director & Corporate Consultant",
+        specialization: "Legalitas Korporasi, Perizinan Bisnis & Restrukturisasi Usaha",
         image: "https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=800&q=80",
-        bio: "Berpengalaman lebih dari 12 tahun menangani sengketa komersial bernilai tinggi, restrukturisasi utang, dan arbitrase bisnis nasional.",
+        bio: "Berpengalaman lebih dari 12 tahun mendampingi perizinan investasi, pendirian badan usaha, dan kepatuhan regulasi korporasi nasional & multinasional.",
       },
       {
         id: "2",
@@ -237,16 +250,16 @@ export const defaultSiteContent: SiteContent = {
       {
         id: "3",
         name: "Ratna Sari, S.H., M.Kn.",
-        role: "Senior Legal Counsel",
-        specialization: "Hukum Agraria (BPN), Perjanjian Kontrak & Ketenagakerjaan",
+        role: "Senior Legal & Licensing Counsel",
+        specialization: "Pertanahan & PBG/IMB, Perjanjian Kontrak Bisnis & Ketenagakerjaan",
         image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80",
-        bio: "Spesialis audit hukum pertanahan, perancangan kontrak kerja sama internasional, dan penyelesaian perselisihan hubungan industrial.",
+        bio: "Spesialis audit legalitas pertanahan & perizinan tata ruang, perancangan kontrak kerja sama bisnis, dan kepatuhan ketenagakerjaan.",
       },
     ],
   },
   insights: {
-    badge: "Artikel & Analisis Hukum",
-    title: "Insight Regulasi Terbaru untuk",
+    badge: "Artikel & Analisis Bisnis",
+    title: "Insight Regulasi & Perizinan Terbaru untuk",
     subtitle: "Pengambilan Keputusan Cermat",
     articles: [
       {
@@ -260,12 +273,12 @@ export const defaultSiteContent: SiteContent = {
       },
       {
         id: "2",
-        title: "Strategi Efektif Mengatasi Wanprestasi Kontrak Bisnis Tanpa Harus Masuk Pengadilan",
-        tag: "Hukum Perjanjian",
+        title: "Strategi Efektif Menyusun Kontrak Bisnis yang Aman dan Mengikat Bagi Perusahaan",
+        tag: "Kontrak Bisnis",
         date: "04 Sep 2026",
         readTime: "7 menit baca",
-        image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80",
-        excerpt: "Pemanfaatan somasi hukum terukur, mediasi komersial, dan klausul arbitrase untuk memulihkan kerugian perusahaan secara cepat dan minim biaya.",
+        image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80",
+        excerpt: "Tips praktis merancang klausul perjanjian komersial yang jelas, mitigasi risiko sengketa, dan menjaga kesinambungan kemitraan usaha.",
       },
       {
         id: "3",
@@ -274,7 +287,7 @@ export const defaultSiteContent: SiteContent = {
         date: "28 Agu 2026",
         readTime: "6 menit baca",
         image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80",
-        excerpt: "Mengidentifikasi liabilitas tersembunyi, sengketa aset, dan kepatuhan pajak target akuisisi demi mengamankan investasi investor.",
+        excerpt: "Mengidentifikasi liabilitas tersembunyi, legalitas aset, dan kepatuhan pajak target akuisisi demi mengamankan investasi investor.",
       },
     ],
   },
@@ -284,44 +297,44 @@ export const defaultSiteContent: SiteContent = {
     subtitle: "Diajukan seputar Layanan Kami",
     items: [
       {
-        question: "Bagaimana tahapan awal konsultasi hukum di SELECO?",
-        answer: "Anda dapat menghubungi kami melalui WhatsApp atau formulir website. Tim kami akan melakukan penjadwalan konsultasi awal (tatap muka atau online via Zoom) untuk membedah kronologi perkara, meninjau dokumen dasar, dan menyusun opsi strategi hukum terbaik.",
+        question: "Bagaimana tahapan awal konsultasi di SELECO?",
+        answer: "Anda dapat menghubungi kami melalui WhatsApp atau formulir website. Tim kami akan melakukan penjadwalan konsultasi awal (tatap muka atau online via Zoom) untuk menelaah kebutuhan perizinan dan legalitas, meninjau dokumen legal perusahaan, dan menyusun roadmap langkah kerja terbaik.",
       },
       {
         question: "Berapa lama estimasi pengurusan izin usaha OSS RBA?",
         answer: "Lama pengurusan bergantung pada tingkat risiko KBLI (Rendah, Menengah Rendah, Menengah Tinggi, atau Tinggi). Untuk risiko rendah-menengah, NIB dapat terbit dalam 1-3 hari kerja. Untuk risiko tinggi dengan AMDAL/PBG/SLF, tim kami mendampingi verifikasi teknis instansi terkait hingga izin operasional terbit penuh.",
       },
       {
-        question: "Apakah SELECO melayani penanganan perkara di luar Jabodetabek?",
-        answer: "Ya. Advokat kami memiliki izin beracara resmi dari PERADI dan sah berpraktik di seluruh wilayah Republik Indonesia, mulai dari Pengadilan Negeri, Pengadilan Niaga, Pengadilan Hubungan Industrial, hingga Mahkamah Agung.",
+        question: "Apakah SELECO melayani pengurusan perizinan di luar Jabodetabek?",
+        answer: "Ya. Tim konsultan kami menangani pendirian badan usaha dan perizinan OSS RBA di seluruh wilayah Indonesia, berkoordinasi langsung dengan kementerian teknis dan dinas penanaman modal (DPMPTSP) di berbagai daerah.",
       },
       {
-        question: "Apa keuntungan mengambil program Retainer Hukum Korporasi bulanan?",
-        answer: "Program Retainer memberikan perusahaan Anda akses ke tim hukum in-house tanpa biaya penggajian karyawan tetap. Manfaatnya mencakup review kontrak tanpa batas, advis legal harian via WhatsApp/Telepon, audit kepatuhan ketenagakerjaan, hingga potongan biaya pendampingan litigasi pengadilan.",
+        question: "Apa keuntungan mengambil program Retainer Legalitas & Kepatuhan Bisnis bulanan?",
+        answer: "Program Retainer memberikan perusahaan Anda akses ke tim konsultan legalitas in-house tanpa biaya penggajian karyawan tetap. Manfaatnya mencakup review kontrak bisnis tanpa batas, advis regulasi harian via WhatsApp/Telepon, audit kepatuhan perizinan berkala, dan pendampingan tata kelola perusahaan.",
       },
       {
-        question: "Bagaimana sistem transparansi biaya operasional dan honorarium advokat?",
-        answer: "Semua biaya disepakati tertulis di awal dalam Surat Perjanjian Jasa Hukum (SPJH) dengan rincian honorarium, success fee (jika ada), dan biaya operasional perkara yang dipertanggungjawabkan secara transparan.",
+        question: "Bagaimana sistem transparansi biaya perizinan dan konsultasi?",
+        answer: "Semua biaya disepakati tertulis di awal dalam Surat Penawaran & Perjanjian Kerjasama (PKS) dengan rincian biaya resmi PNBP/retribusi dan jasa konsultan yang dipertanggungjawabkan secara transparan tanpa biaya tersembunyi.",
       },
     ],
   },
   contact: {
     badge: "Hubungi Kantor Kami",
-    title: "Diskusikan Kebutuhan Hukum Anda",
-    subtitle: "Bersama Tim Ahli Kami",
-    formTitle: "Kirim Pesan & Kronologi Singkat",
-    formSubtitle: "Pesan Anda akan langsung ditinjau oleh advokat kami dengan jaminan kerahasiaan 100%.",
+    title: "Diskusikan Kebutuhan Perizinan & Legalitas Anda",
+    subtitle: "Bersama Tim Konsultan Kami",
+    formTitle: "Kirim Pesan & Konsultasi Singkat",
+    formSubtitle: "Pesan Anda akan langsung ditinjau oleh tim konsultan kami dengan jaminan kerahasiaan 100%.",
     offices: [
       {
         city: "Jakarta (Kantor Utama)",
         name: "SELECO Head Office",
-        address: "Sudirman Central Business District (SCBD) Lot 28, Jakarta Selatan 12190",
+        address: "Jl.M.H Thamrin No. 9 Lt 12, Kebon Sirih Menteng, DKI Jakarta, 10340",
         phone: "+62 822-1102-0022",
       },
     ],
   },
   footer: {
-    description: "SELECO (Sedana Legal Consultant) adalah kantor advokat dan konsultan hukum korporasi terpercaya di Indonesia, mengkhususkan diri pada 34 Perkara Hukum Litigasi & Non-Litigasi serta pengurusan 411+ Perizinan & Legalitas Usaha OSS RBA.",
+    description: "SELECO (Sedana Legal Consultant) adalah konsultan legalitas usaha dan perizinan OSS RBA terpercaya di Indonesia, mengkhususkan diri pada 34 Layanan Legalitas Bisnis & Kontrak serta pengurusan 411+ Perizinan & Legalitas Usaha OSS RBA.",
     copyright: "© 2026 SELECO (Sedana Legal Consultant). Hak Cipta Dilindungi Undang-Undang.",
   },
   styles: {},

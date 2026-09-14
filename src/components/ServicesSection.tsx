@@ -41,14 +41,14 @@ export default function ServicesSection() {
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-50 border border-amber-200/80 rounded-full text-amber-800 text-xs font-bold uppercase tracking-widest mb-4">
             <EditableText
               fieldPath="services.badge"
-              fallback="CAKUPAN KEAHLIAN HUKUM & PERIZINAN"
+              fallback="LAYANAN LEGALITAS & PERIZINAN USAHA"
               label="Badge Layanan"
             />
           </div>
           <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
             <EditableText
               fieldPath="services.title"
-              fallback={`${totalServices} Pelayanan Hukum & Perizinan Usaha`}
+              fallback={`${totalServices} Layanan Legalitas & Perizinan Usaha`}
               label="Judul Layanan"
             />
           </h2>
@@ -56,7 +56,7 @@ export default function ServicesSection() {
           <p className="text-base text-slate-600 leading-relaxed font-normal">
             <EditableText
               fieldPath="services.subtitle"
-              fallback={`Direktori komprehensif mencakup ${litigationCount} Perkara Hukum (Litigasi & Non-Litigasi) serta ${ossLicenseCount} jenis Perizinan & Legalitas OSS RBA di Indonesia.`}
+              fallback={`Direktori komprehensif mencakup ${litigationCount} Layanan Legalitas Bisnis & Kontrak serta ${ossLicenseCount} jenis Perizinan & Legalitas OSS RBA di Indonesia.`}
               label="Subjudul Layanan"
               multiline={true}
             />

@@ -7,20 +7,33 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: 'SELECO | Sedana Legal Consultant — Strategic Legal Counsel & Licensing Directory',
-  description: 'SELECO (Sedana Legal Consultant) memberikan pendampingan hukum strategis, perancangan kontrak bisnis, kepatuhan regulasi, 34 perkara litigasi/non-litigasi, serta 411+ perizinan & legalitas usaha di Indonesia.',
-  keywords: 'legal consultant Indonesia, corporate legal consultant, 411 perizinan usaha OSS, perizinan BPOM Halal SNI, perkara hukum litigasi non litigasi, legal retainer, konsultan hukum Jakarta',
+  title: 'SELECO | Sedana Corporate & Legal Consultant — Licensing & Corporate Services',
+  description: 'SELECO (Sedana Legal Consultant) memberikan layanan pendampingan legalitas bisnis, pendirian badan usaha, kepatuhan regulasi, serta 411+ perizinan usaha OSS RBA di Indonesia.',
+  keywords: 'konsultan perizinan usaha, corporate legal consultant, 411 perizinan usaha OSS RBA, pendirian PT CV PMA, BPOM Halal SNI, legal retainer perusahaan, konsultan perizinan Jakarta',
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'none',
+      'max-snippet': -1,
+    },
+  },
   openGraph: {
-    title: 'SELECO — Sedana Legal Consultant',
-    description: 'Pendampingan Hukum Strategis & Direktorat Perizinan Usaha Indonesia (445+ Layanan Hukum & Legalitas)',
+    title: 'SELECO — Sedana Corporate & Legal Consultant',
+    description: 'Konsultan Legalitas & Direktorat Perizinan Usaha Indonesia (445+ Layanan & Perizinan OSS RBA)',
     url: `https://${process.env.NEXT_PUBLIC_DOMAIN || 'selecoproject.com'}`,
-    siteName: 'SELECO Law Firm',
+    siteName: 'SELECO Corporate Consultant',
     images: [
       {
-        url: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1200&q=80',
+        url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80',
         width: 1200,
         height: 630,
-        alt: 'SELECO Lady Justice Dewi Keadilan',
+        alt: 'SELECO Corporate Office',
       },
     ],
     locale: 'id_ID',

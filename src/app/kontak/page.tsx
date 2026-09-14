@@ -6,7 +6,7 @@ import FAQSection from '@/components/FAQSection';
 
 export const metadata: Metadata = {
   title: 'Kontak & Konsultasi | SELECO — Sedana Legal Consultant',
-  description: 'Hubungi kantor hukum SELECO Jakarta. Konsultasi hukum perkara, perizinan usaha OSS RBA, dan legal retainer melalui formulir atau WhatsApp langsung.',
+  description: 'Hubungi konsultan legalitas SELECO Jakarta. Konsultasi legalitas bisnis, pendirian badan usaha, perizinan OSS RBA, dan legal retainer melalui formulir atau WhatsApp langsung.',
 };
 
 export default function KontakPage() {
@@ -25,11 +25,11 @@ export default function KontakPage() {
               <PhoneCall className="w-3.5 h-3.5" /> PUSAT KOMUNIKASI &amp; KONSULTASI
             </div>
             <h1 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
-              Konsultasi Hukum &amp; Perizinan Usaha
+              Konsultasi Legalitas &amp; Perizinan Usaha
             </h1>
             <div className="w-16 h-[3px] bg-gold-accent mt-3 mb-4 rounded-full" />
             <p className="text-base text-slate-600 max-w-2xl leading-relaxed font-normal">
-              Diskusikan perkara hukum bisnis, penanganan sengketa, atau perizinan OSS usaha Anda bersama penasihat hukum profesional SELECO.
+              Diskusikan legalitas bisnis, pendirian badan usaha, atau perizinan OSS usaha Anda bersama konsultan profesional SELECO.
             </p>
           </div>
         </div>

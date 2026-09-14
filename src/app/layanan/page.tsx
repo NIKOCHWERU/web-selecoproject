@@ -85,14 +85,14 @@ export default function LayananPage() {
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <div>
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-50 border border-amber-200/80 rounded-full text-amber-800 text-xs font-bold uppercase tracking-widest mb-3">
-                <Scale className="w-3.5 h-3.5" /> DIREKTORI PELAYANAN HUKUM &amp; LEGALITAS
+                <Scale className="w-3.5 h-3.5" /> DIREKTORI LAYANAN LEGALITAS &amp; PERIZINAN
               </div>
               <h1 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
-                {content?.services?.title || `${totalServices} Layanan Hukum & Perizinan Usaha`}
+                {content?.services?.title || `${totalServices} Layanan Legalitas & Perizinan Usaha`}
               </h1>
               <div className="w-16 h-[3px] bg-gold-accent mt-3 mb-4 rounded-full" />
               <p className="text-base text-slate-600 max-w-2xl leading-relaxed">
-                Direktori komprehensif mencakup <strong className="text-slate-900 font-semibold">{litigationCount} Perkara Hukum</strong> (Litigasi &amp; Non-Litigasi) dan <strong className="text-slate-900 font-semibold">{ossLicenseCount} Perizinan OSS RBA</strong> yang ditangani SELECO secara profesional.
+                Direktori komprehensif mencakup <strong className="text-slate-900 font-semibold">{litigationCount} Layanan Legalitas Bisnis</strong> dan <strong className="text-slate-900 font-semibold">{ossLicenseCount} Perizinan OSS RBA</strong> yang ditangani SELECO secara profesional.
               </p>
             </div>
             <div className="flex flex-col gap-2 text-center shrink-0">

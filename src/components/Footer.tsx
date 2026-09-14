@@ -50,7 +50,7 @@ export default function Footer() {
             <p className="text-white/60 leading-relaxed text-xs">
               <EditableText
                 fieldPath="footer.description"
-                fallback={`Strategic legal counsel for businesses, organizations, and individuals in Indonesia. Pendampingan ${global?.litigationCount || '34'} Perkara Hukum & ${global?.ossLicenseCount || '411+'} Perizinan Usaha OSS RBA.`}
+                fallback={`Konsultan legalitas usaha dan perizinan OSS RBA di Indonesia. Pendampingan ${global?.litigationCount || '34'} Layanan Legalitas Bisnis & ${global?.ossLicenseCount || '411+'} Perizinan Usaha OSS RBA.`}
                 label="Deskripsi Footer"
                 multiline={true}
               />
@@ -74,7 +74,7 @@ export default function Footer() {
             <ul className="space-y-2.5">
               <li>
                 <Link href="/layanan?cat=hukum" className="hover:text-gold-accent transition-colors">
-                  34 Perkara Litigasi & Non-Litigasi
+                  34 Legalitas Bisnis & Kontrak
                 </Link>
               </li>
               <li>
@@ -128,7 +128,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/tentang#attorneys" className="hover:text-gold-accent transition-colors">
-                  Tim Advokat & Konsultan
+                  Tim Konsultan Profesional
                 </Link>
               </li>
               <li>
@@ -152,12 +152,22 @@ export default function Footer() {
             <div className="space-y-3">
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-gold-accent shrink-0 mt-0.5" />
-                <span>{global?.address || 'Jakarta, Indonesia'}</span>
+                <span>
+                  <EditableText
+                    fieldPath="global.address"
+                    fallback="Jl.M.H Thamrin No. 9 Lt 12, Kebon Sirih Menteng, DKI Jakarta, 10340"
+                    label="Alamat Kantor"
+                  />
+                </span>
               </div>
               <div className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-gold-accent shrink-0" />
-                <a href={`mailto:${global?.email || 'info@selecoproject.com'}`} className="hover:text-gold-accent transition-colors">
-                  {global?.email || 'info@selecoproject.com'}
+                <a href={`mailto:${global?.email || 'hello@selecoproject.com'}`} className="hover:text-gold-accent transition-colors">
+                  <EditableText
+                    fieldPath="global.email"
+                    fallback="hello@selecoproject.com"
+                    label="Email Resmi"
+                  />
                 </a>
               </div>
               <div className="flex items-center gap-2.5">

@@ -20,19 +20,19 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
   const values = about?.values || [
     {
       title: 'Integritas',
-      description: 'Kerahasiaan penuh dan etika profesi hukum yang tinggi dalam setiap mandatoria klien.',
+      description: 'Kerahasiaan penuh dan etika profesional yang tinggi dalam setiap layanan klien.',
     },
     {
       title: 'Strategis',
-      description: 'Analisis hukum yang diselaraskan langsung dengan kepentingan bisnis dan risiko komersial.',
+      description: 'Kepatuhan regulasi yang diselaraskan langsung dengan kepentingan bisnis dan efisiensi operasional.',
     },
     {
       title: 'Praktis',
-      description: 'Masalah hukum yang kompleks diterjemahkan menjadi rekomendasi langkah kerja yang jelas.',
+      description: 'Regulasi perizinan yang kompleks diterjemahkan menjadi rekomendasi langkah kerja yang jelas.',
     },
     {
       title: 'Kerahasiaan',
-      description: 'Seluruh data dan informasi klien ditangani menggunakan standar kerahasiaan profesi yang ketat.',
+      description: 'Seluruh data dan informasi perusahaan klien ditangani menggunakan standar kerahasiaan tinggi.',
     },
   ];
 
@@ -94,7 +94,7 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
             <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
               <EditableText
                 fieldPath="about.title"
-                fallback="Hukum yang Dipahami dalam Konteks Bisnis."
+                fallback="Legalitas Usaha yang Terstruktur untuk"
                 label="Judul Tentang"
               />{' '}
               {about?.titleAccent && (
@@ -113,7 +113,7 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
             <p className="text-base text-slate-600 leading-relaxed font-normal">
               <EditableText
                 fieldPath="about.paragraph1"
-                fallback="Persoalan hukum memengaruhi setiap keputusan bisnis, hubungan kerja, dan operasional perusahaan Anda. SELECO hadir sebagai mitra yang menghubungkan analisis hukum mendalam dengan kebutuhan praktis secara terstruktur, terukur, dan transparan."
+                fallback="Legalitas dan perizinan memengaruhi setiap langkah bisnis, hubungan kemitraan, dan operasional perusahaan Anda. SELECO hadir sebagai konsultan yang menghubungkan kepatuhan regulasi dengan kebutuhan praktis secara terstruktur, terukur, dan transparan."
                 label="Paragraf 1"
                 multiline={true}
               />
@@ -122,7 +122,7 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
             <p className="text-sm text-slate-600 leading-relaxed font-normal">
               <EditableText
                 fieldPath="about.paragraph2"
-                fallback="Kami mencakup 34 perkara hukum litigasi & non-litigasi, serta mengelola pengurusan lebih dari 411 jenis perizinan usaha dan legalitas OSS RBA di seluruh wilayah Indonesia."
+                fallback="Kami mencakup 34 lingkup legalitas bisnis & kontrak, serta mengelola pengurusan lebih dari 411 jenis perizinan usaha dan legalitas OSS RBA di seluruh wilayah Indonesia."
                 label="Paragraf 2"
                 multiline={true}
               />
@@ -165,7 +165,7 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
                   href="/tentang"
                   className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-800 hover:text-gold-accent transition-colors group"
                 >
-                  <span>Pelajari Profil Firma &amp; Tim Kami</span>
+                  <span>Pelajari Profil &amp; Tim Konsultan Kami</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>

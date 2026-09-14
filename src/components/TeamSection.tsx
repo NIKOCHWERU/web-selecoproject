@@ -10,21 +10,21 @@ export default function TeamSection() {
   const members = team?.members || [];
 
   return (
-    <EditableSection id="attorneys" name="Tim Advokat & Konsultan Section" className="py-20 lg:py-28 bg-slate-50 border-b border-gray-200/80">
+    <EditableSection id="attorneys" name="Tim Konsultan Section" className="py-20 lg:py-28 bg-slate-50 border-b border-gray-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="text-center max-w-2xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-50 border border-amber-200/80 rounded-full text-amber-800 text-xs font-bold uppercase tracking-widest mb-4">
             <EditableText
               fieldPath="team.badge"
-              fallback="TIM KONSULTAN HUKUM"
+              fallback="TIM KONSULTAN PROFESIONAL"
               label="Badge Tim"
             />
           </div>
           <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
             <EditableText
               fieldPath="team.title"
-              fallback="Profil Advokat & Konsultan"
+              fallback="Profil Tim Konsultan"
               label="Judul Tim"
             />
           </h2>
@@ -32,7 +32,7 @@ export default function TeamSection() {
           <p className="text-base text-slate-600 font-normal">
             <EditableText
               fieldPath="team.subtitle"
-              fallback="Tenaga profesional hukum berpengalaman dengan integritas tinggi dan fokus pada solusi strategis bisnis."
+              fallback="Tenaga profesional berpengalaman dengan integritas tinggi dan fokus pada solusi legalitas serta kepatuhan izin usaha."
               label="Subjudul Tim"
               multiline={true}
             />

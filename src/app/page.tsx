@@ -31,11 +31,11 @@ export default function HomePage() {
             <Calendar className="w-4 h-4 text-gold-accent" /> KONSULTASI AWAL
           </div>
           <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 leading-tight text-slate-900">
-            Ambil Langkah Hukum yang Tepat untuk Bisnis Anda
+            Ambil Langkah Legalitas yang Tepat untuk Bisnis Anda
           </h2>
           <div className="w-16 h-[3px] bg-gold-accent mx-auto mb-6 rounded-full" />
           <p className="text-slate-600 text-base max-w-2xl mx-auto mb-10 leading-relaxed font-normal">
-            Tim konsultan SELECO siap memberikan arahan dan kepastian hukum mengenai perkara, perizinan, atau retainer korporasi Anda.
+            Tim konsultan SELECO siap memberikan arahan dan kepastian mengenai legalitas usaha, perizinan OSS RBA, atau retainer korporasi Anda.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link
@@ -48,7 +48,7 @@ export default function HomePage() {
               href="/tentang"
               className="w-full sm:w-auto px-8 py-4 bg-white border-2 border-slate-900 text-slate-900 font-bold text-xs uppercase tracking-wider rounded-lg hover:bg-slate-900 hover:text-white transition-all flex items-center justify-center gap-2"
             >
-              Pelajari Profil Firma <ArrowRight className="w-4 h-4" />
+              Pelajari Profil Kami <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>

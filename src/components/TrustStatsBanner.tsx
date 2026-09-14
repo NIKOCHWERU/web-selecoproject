@@ -22,14 +22,14 @@ export default function TrustStatsBanner() {
               <EditableText
                 fieldPath="global.litigationCount"
                 fallback={litigationCount}
-                label="Jumlah Perkara Litigasi"
+                label="Jumlah Legalitas Bisnis"
               />+
             </p>
             <p className="text-xs text-slate-500 uppercase tracking-widest font-semibold mt-2">
               <EditableText
                 fieldPath="global.litigationLabel"
-                fallback="Perkara Hukum Litigasi"
-                label="Label Litigasi"
+                fallback="Legalitas Bisnis & Kontrak"
+                label="Label Legalitas Bisnis"
               />
             </p>
           </div>

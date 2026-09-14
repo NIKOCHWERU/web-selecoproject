@@ -36,11 +36,11 @@ export default function ContactSection() {
   };
 
   const serviceOptions = [
-    'Hukum Korporasi & Komersial',
+    'Legalitas Korporasi & Komersial',
     'Penyusunan & Review Kontrak',
     'Ketenagakerjaan & HR',
     'Corporate Legal Retainer',
-    'Penyelesaian Sengketa Bisnis',
+    'Penyelesaian Perselisihan Bisnis (Mediasi)',
     'Perizinan Usaha & OSS RBA',
     'Legal Due Diligence',
     'Hak Kekayaan Intelektual (HAKI)',
@@ -107,7 +107,13 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <p className="text-[10px] text-amber-300 font-bold uppercase tracking-widest">Alamat Kantor</p>
-                    <p className="text-sm text-slate-200 font-medium mt-0.5">{global?.address || 'Jakarta, Indonesia'}</p>
+                    <p className="text-sm text-slate-200 font-medium mt-0.5">
+                      <EditableText
+                        fieldPath="global.address"
+                        fallback="Jl.M.H Thamrin No. 9 Lt 12, Kebon Sirih Menteng, DKI Jakarta, 10340"
+                        label="Alamat Kantor"
+                      />
+                    </p>
                   </div>
                 </div>
 
@@ -117,8 +123,12 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <p className="text-[10px] text-amber-300 font-bold uppercase tracking-widest">Email Resmi</p>
-                    <a href={`mailto:${global?.email || 'info@selecoproject.com'}`} className="text-sm text-slate-200 hover:text-amber-300 transition-colors font-medium mt-0.5 block">
-                      {global?.email || 'info@selecoproject.com'}
+                    <a href={`mailto:${global?.email || 'hello@selecoproject.com'}`} className="text-sm text-slate-200 hover:text-amber-300 transition-colors font-medium mt-0.5 block">
+                      <EditableText
+                        fieldPath="global.email"
+                        fallback="hello@selecoproject.com"
+                        label="Email Resmi"
+                      />
                     </a>
                   </div>
                 </div>
@@ -141,11 +151,11 @@ export default function ContactSection() {
             <div className="mt-10 relative h-48 rounded-2xl overflow-hidden border border-amber-400/30 shadow-md">
               <img
                 src="https://images.unsplash.com/photo-1575505586569-646b2ca898fc?auto=format&fit=crop&w=600&q=80"
-                alt="Kantor Hukum SELECO Jakarta"
+                alt="Kantor SELECO Jakarta"
                 className="w-full h-full object-cover brightness-50"
               />
               <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 bg-slate-950/40">
-                <span className="font-serif-title text-xl font-bold text-white">SELECO — Jakarta</span>
+                <span className="font-serif-title text-xl font-bold text-white">SELECO — Thamrin, Jakarta</span>
                 <span className="text-xs text-amber-300 font-semibold uppercase tracking-widest mt-1">
                   Senin–Jumat | 09:00–17:00 WIB
                 </span>
@@ -232,12 +242,12 @@ export default function ContactSection() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-2">Deskripsi Singkat Kebutuhan Hukum *</label>
+                  <label className="block text-xs font-semibold text-slate-700 mb-2">Deskripsi Singkat Kebutuhan Legalitas &amp; Perizinan *</label>
                   <textarea
                     name="deskripsi"
                     required
                     rows={4}
-                    placeholder="Jelaskan secara singkat konteks atau kebutuhan hukum Anda..."
+                    placeholder="Jelaskan secara singkat konteks kebutuhan perizinan atau legalitas bisnis Anda..."
                     className="w-full px-4 py-3 text-sm bg-slate-50 border border-gray-300 rounded-xl focus:outline-none focus:bg-white focus:border-gold-accent focus:ring-1 focus:ring-gold-accent text-slate-900 resize-none transition-all"
                   />
                 </div>
@@ -245,7 +255,7 @@ export default function ContactSection() {
                 <div className="flex items-start gap-2.5 text-xs text-slate-500 pt-1">
                   <input type="checkbox" required id="disclaimer" className="mt-0.5 accent-gold-accent rounded" />
                   <label htmlFor="disclaimer" className="cursor-pointer">
-                    Pengiriman formulir ini tidak secara otomatis membentuk hubungan advokat–klien formal.
+                    Pengiriman formulir ini adalah untuk konsultasi awal perizinan dan legalitas bisnis Anda.
                   </label>
                 </div>
 

@@ -38,41 +38,41 @@ export default function Hero() {
             {/* Top Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-400/10 border border-amber-400/30 rounded-full text-amber-300 text-[11px] font-bold uppercase tracking-widest backdrop-blur-md shadow-sm">
               <Scale className="w-3.5 h-3.5 text-amber-300" />
-              <EditableText
-                fieldPath="hero.topBadge"
-                fallback="Advokat & Konsultan Hukum Korporasi"
-                label="Badge Atas"
-              />
-            </div>
-
-            {/* Main Headline */}
-            <h1 className="font-serif-title text-3xl sm:text-4xl lg:text-[2.65rem] xl:text-[2.85rem] font-bold tracking-tight leading-[1.15] text-white">
-              <EditableText
-                fieldPath="hero.headlinePart1"
-                fallback="Pendampingan Hukum Strategis untuk"
-                label="Judul Bagian 1"
-              />{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F7E19C] via-[#D4AF37] to-[#C9A227] italic">
                 <EditableText
-                  fieldPath="hero.headlineItalic"
-                  fallback="Keputusan Penting."
-                  label="Judul Miring Gold"
+                  fieldPath="hero.topBadge"
+                  fallback="Konsultan Perizinan & Legalitas Usaha"
+                  label="Badge Atas"
                 />
-              </span>
-            </h1>
+              </div>
 
-            {/* Gold Accent Line */}
-            <div className="w-16 h-[2.5px] bg-gradient-to-r from-gold-accent to-gold-bright rounded-full" />
+              {/* Main Headline */}
+              <h1 className="font-serif-title text-3xl sm:text-4xl lg:text-[2.65rem] xl:text-[2.85rem] font-bold tracking-tight leading-[1.15] text-white">
+                <EditableText
+                  fieldPath="hero.headlinePart1"
+                  fallback="Pendampingan Legalitas & Perizinan untuk"
+                  label="Judul Bagian 1"
+                />{' '}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F7E19C] via-[#D4AF37] to-[#C9A227] italic">
+                  <EditableText
+                    fieldPath="hero.headlineItalic"
+                    fallback="Pertumbuhan Bisnis."
+                    label="Judul Miring Gold"
+                  />
+                </span>
+              </h1>
 
-            {/* Subheadline Paragraph */}
-            <p className="text-xs sm:text-sm lg:text-[15px] text-slate-200 font-normal leading-relaxed max-w-xl border-l-2 border-gold-accent/80 pl-3.5">
-              <EditableText
-                fieldPath="hero.subheadline"
-                fallback="SELECO memberikan layanan konsultasi 34 Perkara Hukum Litigasi & Non-Litigasi serta pengurusan 411+ Perizinan & Legalitas Usaha OSS RBA secara profesional, transparan, dan terukur."
-                label="Subjudul Hero"
-                multiline={true}
-              />
-            </p>
+              {/* Gold Accent Line */}
+              <div className="w-16 h-[2.5px] bg-gradient-to-r from-gold-accent to-gold-bright rounded-full" />
+
+              {/* Subheadline Paragraph */}
+              <p className="text-xs sm:text-sm lg:text-[15px] text-slate-200 font-normal leading-relaxed max-w-xl border-l-2 border-gold-accent/80 pl-3.5">
+                <EditableText
+                  fieldPath="hero.subheadline"
+                  fallback="SELECO memberikan layanan konsultasi 34 Legalitas Bisnis & Kontrak serta pengurusan 411+ Perizinan Usaha OSS RBA secara profesional, transparan, dan terukur."
+                  label="Subjudul Hero"
+                  multiline={true}
+                />
+              </p>
 
             {/* CTA Group */}
             <div className="flex flex-wrap gap-3 pt-1">
@@ -134,7 +134,7 @@ export default function Hero() {
               <blockquote className="font-serif-title text-xl lg:text-2xl italic text-white leading-snug mb-3">
                 <EditableText
                   fieldPath="hero.sealQuote"
-                  fallback="“Integrity. Strategy. Legal Excellence.”"
+                  fallback="“Integrity. Strategy. Corporate Excellence.”"
                   label="Kutipan Komitmen"
                 />
               </blockquote>
@@ -142,7 +142,7 @@ export default function Hero() {
               <p className="text-[11px] lg:text-xs text-slate-300 leading-relaxed border-t border-white/10 pt-3 mb-5 font-light">
                 <EditableText
                   fieldPath="hero.sealDescription"
-                  fallback="Mitra konsultan hukum tepercaya di Indonesia yang berfokus pada kepastian hukum, perlindungan aset, serta kepatuhan regulasi operasional bisnis."
+                  fallback="Mitra konsultan legalitas usaha tepercaya di Indonesia yang berfokus pada kepatuhan regulasi, perizinan berusaha, serta perlindungan operasional bisnis."
                   label="Deskripsi Komitmen"
                   multiline={true}
                 />

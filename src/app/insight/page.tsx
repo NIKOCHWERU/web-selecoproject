@@ -5,7 +5,7 @@ import { ChevronRight, ArrowRight, BookOpen } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Insight & Updates | SELECO',
-  description: 'Baca insight, analisis hukum, dan update regulasi terbaru dari SELECO Law Firm.',
+  description: 'Baca insight, analisis legalitas bisnis, dan update regulasi perizinan terbaru dari SELECO.',
 };
 
 const insights = [

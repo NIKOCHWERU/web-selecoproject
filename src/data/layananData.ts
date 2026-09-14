@@ -16,42 +16,42 @@ export interface ServiceCategory {
   description: string;
 }
 
-// 1. PELAYANAN HUKUM (Litigasi & Non-Litigasi)
+// 1. KONSULTASI LEGALITAS BISNIS & KONTRAK (34 Layanan Non-Litigasi)
 export const PERKARA_HUKUM_ITEMS: ServiceItem[] = [
-  { id: 1, title: "Perkara Kewarganegaraan", category: "Hukum Perdata & Keimigrasian", type: "hukum" },
-  { id: 2, title: "Perkara Perkawinan", category: "Hukum Keluarga & Perdata", type: "hukum" },
-  { id: 3, title: "Perkara Adopsi atau Hak Asuh Anak", category: "Hukum Keluarga & Perdata", type: "hukum" },
-  { id: 4, title: "Perkara Kepemilikan Barang atau Aset", category: "Hukum Aset & Property", type: "hukum" },
-  { id: 5, title: "Perkara Hak Usaha", category: "Hukum Komersial & Bisnis", type: "hukum" },
-  { id: 6, title: "Perkara Perikatan-perikatan", category: "Hukum Perjanjian & Kontrak", type: "hukum" },
-  { id: 7, title: "Perkara Perkumpulan atau Persekutuan", category: "Hukum Korporasi & Organisasi", type: "hukum" },
-  { id: 8, title: "Perkara Jual-Beli, Tukar-Menukar, Sewa-Menyewa, Pinjam-Meminjam", category: "Hukum Perjanjian & Komersial", type: "hukum" },
-  { id: 9, title: "Perkara Hutang Piutang", category: "Hukum Keuangan & Perdata", type: "hukum" },
-  { id: 10, title: "Perkara Waris atau Hibah", category: "Hukum Keluarga & Aset", type: "hukum" },
-  { id: 11, title: "Perkara Hak Paten atau Hak Kekayaan Intelektual", category: "Hukum HAKI & Kekayaan Intelektual", type: "hukum" },
-  { id: 12, title: "Perkara Pencemaran Nama Baik", category: "Hukum Pidana & ITE", type: "hukum" },
-  { id: 13, title: "Perkara Perubahan Nama atau Identitas", category: "Hukum Administrasi & Perdata", type: "hukum" },
-  { id: 14, title: "Perkara Wanprestasi", category: "Hukum Kontrak & Komersial", type: "hukum" },
-  { id: 15, title: "Perkara Perbuatan Melawan Hukum (PMH)", category: "Hukum Perdata & Litigasi", type: "hukum" },
-  { id: 16, title: "Perkara Pemisahan Harta", category: "Hukum Perkawinan & Aset", type: "hukum" },
-  { id: 17, title: "Perkara Perjanjian Bisnis atau Perjanjian untuk Melakukan Pekerjaan dan Perkara Lainnya", category: "Hukum Bisnis & Ketenagakerjaan", type: "hukum" },
-  { id: 18, title: "Perkara Pencurian atau Perampokan", category: "Hukum Pidana Umum", type: "hukum" },
-  { id: 19, title: "Perkara Pembunuhan", category: "Hukum Pidana Umum", type: "hukum" },
-  { id: 20, title: "Perkara Penipuan", category: "Hukum Pidana Komersial", type: "hukum" },
-  { id: 21, title: "Perkara Pemerasan", category: "Hukum Pidana Umum", type: "hukum" },
-  { id: 22, title: "Perkara Penganiayaan", category: "Hukum Pidana Umum", type: "hukum" },
-  { id: 23, title: "Perkara Pemerkosaan", category: "Hukum Pidana Umum", type: "hukum" },
-  { id: 24, title: "Perkara Korupsi", category: "Hukum Pidana Khusus (Tipikor)", type: "hukum" },
-  { id: 25, title: "Perkara Pengemplangan Pajak", category: "Hukum Pajak & Pidana Khusus", type: "hukum" },
-  { id: 26, title: "Perkara Pemalsuan Dokumen", category: "Hukum Pidana Dokumen", type: "hukum" },
-  { id: 27, title: "Perkara Perzinahan", category: "Hukum Pidana & Keluarga", type: "hukum" },
-  { id: 28, title: "Perkara Kekerasan Dalam Rumah Tangga (KDRT)", category: "Hukum Keluarga & Pidana", type: "hukum" },
-  { id: 29, title: "Perkara Narkotika", category: "Hukum Pidana Khusus", type: "hukum" },
-  { id: 30, title: "Perkara Pelanggaran Ketertiban Umum", category: "Hukum Pidana Umum", type: "hukum" },
-  { id: 31, title: "Perkara Pemalsuan", category: "Hukum Pidana Umum", type: "hukum" },
-  { id: 32, title: "Perkara Perbuatan Curang", category: "Hukum Pidana Komersial", type: "hukum" },
-  { id: 33, title: "Perkara Pemalsuan Merek / Produk", category: "Hukum HAKI & Pidana", type: "hukum" },
-  { id: 34, title: "Perkara Pelanggaran Jabatan dan Perkara Pidana Lainnya", category: "Hukum Pidana Jabatan", type: "hukum" }
+  { id: 1, title: "Konsultasi Legalitas & Struktur Usaha Perusahaan", category: "Legalitas Korporasi", type: "hukum" },
+  { id: 2, title: "Penyusunan & Drafting Kontrak Kerjasama Bisnis (MoU / PKS)", category: "Kontrak & Perjanjian", type: "hukum" },
+  { id: 3, title: "Review Kontrak Kerja Karyawan & Kebijakan HR (PKWT/PKWTT)", category: "Ketenagakerjaan & HR", type: "hukum" },
+  { id: 4, title: "Audit Kepatuhan Regulasi & Legal Compliance Usaha", category: "Kepatuhan Regulasi", type: "hukum" },
+  { id: 5, title: "Konsultasi Hak Usaha, Lisensi & Kemitraan Komersial", category: "Komersial & Bisnis", type: "hukum" },
+  { id: 6, title: "Penyusunan Perjanjian Kerahasiaan (Non-Disclosure Agreement / NDA)", category: "Kontrak & Perjanjian", type: "hukum" },
+  { id: 7, title: "Legalitas Perkumpulan, Yayasan & Persekutuan Perdata", category: "Badan Usaha & Organisasi", type: "hukum" },
+  { id: 8, title: "Drafting Kontrak Jual-Beli, Sewa-Menyewa & Pengadaan Barang/Jasa", category: "Kontrak Komersial", type: "hukum" },
+  { id: 9, title: "Tata Kelola Perjanjian Utang Piutang & Pembiayaan Bisnis", category: "Keuangan & Korporasi", type: "hukum" },
+  { id: 10, title: "Perencanaan Suksesi & Tata Kelola Perusahaan Keluarga (Family Governance)", category: "Tata Kelola Bisnis", type: "hukum" },
+  { id: 11, title: "Pendaftaran Hak Paten, Hak Cipta & Merek Dagang (HAKI)", category: "HAKI & Kekayaan Intelektual", type: "hukum" },
+  { id: 12, title: "Perlindungan Reputasi Brand & Kepatuhan Transaksi Elektronik", category: "Bisnis Digital & ITE", type: "hukum" },
+  { id: 13, title: "Perubahan Anggaran Dasar & Identitas Badan Usaha", category: "Legalitas Korporasi", type: "hukum" },
+  { id: 14, title: "Mitigasi Risiko Kontrak & Klausul Wanprestasi Komersial", category: "Kontrak Komersial", type: "hukum" },
+  { id: 15, title: "Advis Mediasi & Negosiasi Perselisihan Bisnis Non-Litigasi", category: "Penyelesaian Sengketa Bisnis", type: "hukum" },
+  { id: 16, title: "Perjanjian Pemisahan Harta & Struktur Kepemilikan Saham", category: "Struktur Modal & Aset", type: "hukum" },
+  { id: 17, title: "Standard Operating Procedure (SOP) Legalitas & Regulasi Internal", category: "SOP & Tata Kelola", type: "hukum" },
+  { id: 18, title: "Legal Due Diligence (Uji Tuntas Hukum) Akuisisi & Merger Usaha", category: "Merger & Akuisisi", type: "hukum" },
+  { id: 19, title: "Sistem Pencegahan Fraud & Manajemen Risiko Internal Korporasi", category: "Manajemen Risiko", type: "hukum" },
+  { id: 20, title: "Kepatuhan Perlindungan Data Pribadi (PDP) Bisnis & Platform Digital", category: "Kepatuhan Regulasi", type: "hukum" },
+  { id: 21, title: "Penyusunan Perjanjian Distribusi, Keagenan & Supply Chain", category: "Kontrak Komersial", type: "hukum" },
+  { id: 22, title: "Legalitas Waralaba (Franchise) & Surat Tanda Pendaftaran Waralaba (STPW)", category: "Waralaba & Lisensi", type: "hukum" },
+  { id: 23, title: "Good Corporate Governance (GCG) & Kebijakan Anti-Suap Korporasi", category: "Tata Kelola Bisnis", type: "hukum" },
+  { id: 24, title: "Advis Kepatuhan Pelaporan Pajak & Tax Advisory Perusahaan", category: "Perpajakan & Regulasi", type: "hukum" },
+  { id: 25, title: "Verifikasi Keabsahan Dokumen & Validasi Legalitas Rekanan Bisnis", category: "Verifikasi Legalitas", type: "hukum" },
+  { id: 26, title: "Penyusunan Peraturan Perusahaan (PP) & Perjanjian Kerja Bersama (PKB)", category: "Ketenagakerjaan & HR", type: "hukum" },
+  { id: 27, title: "Advis Tata Ruang, Kesesuaian Kegiatan Pemanfaatan Ruang (KKPR) & PBG", category: "Perizinan & Ruang Usaha", type: "hukum" },
+  { id: 28, title: "Penyusunan Pedoman Keselamatan & Kesehatan Kerja (K3) Perusahaan", category: "Kepatuhan K3 & Regulasi", type: "hukum" },
+  { id: 29, title: "Pengurusan Izin Edar & Sertifikasi Produk Industri", category: "Sertifikasi Produk", type: "hukum" },
+  { id: 30, title: "Advis Kepatuhan Peraturan Persaingan Usaha Sehat (KPPU Compliance)", category: "Kepatuhan Regulasi", type: "hukum" },
+  { id: 31, title: "Penyusunan Perjanjian Joint Venture (JV) & Konsorsium Bisnis", category: "Kontrak & Investasi", type: "hukum" },
+  { id: 32, title: "Restrukturisasi Korporasi, Pembubaran & Likuidasi Sukarela Badan Usaha", category: "Restrukturisasi Usaha", type: "hukum" },
+  { id: 33, title: "Sertifikasi Standar Usaha & Perizinan Berusaha Berbasis Risiko OSS RBA", category: "Perizinan OSS RBA", type: "hukum" },
+  { id: 34, title: "Tata Kelola Tugas & Tanggung Jawab Direksi dan Dewan Komisaris", category: "Tata Kelola Korporasi", type: "hukum" }
 ];
 
 // 2. PELAYANAN PERIZINAN DAN LEGALITAS (411 Item Lengkap dari layanan.txt)
@@ -508,14 +508,14 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     name: "Semua Layanan (445+)",
     iconName: "Grid",
     count: 445,
-    description: "Seluruh cakupan pelayanan hukum, litigasi, non-litigasi, perpajakan, keimigrasian, pertanahan, dan perizinan OSS RBA."
+    description: "Seluruh cakupan layanan legalitas bisnis, pendirian badan usaha, perizinan OSS RBA, perpajakan, keimigrasian, dan pertanahan."
   },
   {
     id: "hukum",
-    name: "Pelayanan Hukum (34 Perkara)",
+    name: "Legalitas Bisnis & Kontrak (34 Layanan)",
     iconName: "Scale",
     count: 34,
-    description: "Pendampingan perkara perdata, pidana, wanprestasi, PMH, korporasi, ketenagakerjaan, hingga tipikor di dalam dan luar pengadilan."
+    description: "Konsultasi legalitas korporasi, penyusunan kontrak komersial, audit kepatuhan regulasi usaha, dan tata kelola perusahaan (GCG)."
   },
   {
     id: "pendirian",

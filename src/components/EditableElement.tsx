@@ -19,7 +19,16 @@ import {
   Image as ImageIcon,
   Layout,
   Paintbrush,
-  Move
+  Move,
+  Crop,
+  Sun,
+  Contrast,
+  RotateCw,
+  ZoomIn,
+  SlidersHorizontal,
+  Square,
+  RectangleHorizontal,
+  Focus
 } from 'lucide-react';
 import { compressImageToDataUrl } from '@/lib/imageUtils';
 
@@ -454,20 +463,93 @@ export function EditableImage({
     }
   };
 
+  // Resolve custom image styling from content context
+  const customImgStyle = content?.styles?.[`img.${fieldPath}`] || {};
+
+  const updateImageStyle = (prop: string, val: any) => {
+    setContent((prev: any) => {
+      const copy = JSON.parse(JSON.stringify(prev || {}));
+      if (!copy.styles) copy.styles = {};
+      const key = `img.${fieldPath}`;
+      if (!copy.styles[key]) copy.styles[key] = {};
+      copy.styles[key][prop] = val;
+
+      try {
+        sessionStorage.setItem('seleco_live_preview_content', JSON.stringify(copy));
+        if (window.parent && window.parent !== window) {
+          window.parent.postMessage({
+            type: 'ON_ELEMENT_UPDATED',
+            content: copy,
+            fieldPath: key,
+            styleProp: prop,
+            styleVal: val,
+          }, '*');
+        }
+      } catch (err) {
+        console.error('Error posting image style:', err);
+      }
+
+      return copy;
+    });
+  };
+
+  const [showImageToolbar, setShowImageToolbar] = useState<boolean>(false);
+  const imageToolbarRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (imageToolbarRef.current && !imageToolbarRef.current.contains(e.target as Node)) {
+        setShowImageToolbar(false);
+      }
+    };
+    if (showImageToolbar) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showImageToolbar]);
+
+  // Compute CSS filter string
+  const filterParts = [];
+  if (customImgStyle.filterBrightness) filterParts.push(`brightness(${customImgStyle.filterBrightness})`);
+  if (customImgStyle.filterContrast) filterParts.push(`contrast(${customImgStyle.filterContrast})`);
+  if (customImgStyle.filterGrayscale) filterParts.push(`grayscale(${customImgStyle.filterGrayscale})`);
+  if (customImgStyle.filterBlur) filterParts.push(`blur(${customImgStyle.filterBlur})`);
+  const filterString = filterParts.length > 0 ? filterParts.join(' ') : undefined;
+
+  // Compute transform string
+  const transformParts = [];
+  if (customImgStyle.scale) transformParts.push(`scale(${customImgStyle.scale})`);
+  if (customImgStyle.rotate) transformParts.push(`rotate(${customImgStyle.rotate})`);
+  const transformString = transformParts.length > 0 ? transformParts.join(' ') : undefined;
+
+  const appliedImgStyle: React.CSSProperties = {
+    ...(customImgStyle.objectFit ? { objectFit: customImgStyle.objectFit as any } : {}),
+    ...(customImgStyle.objectPosition ? { objectPosition: customImgStyle.objectPosition } : {}),
+    ...(customImgStyle.aspectRatio ? { aspectRatio: customImgStyle.aspectRatio } : {}),
+    ...(customImgStyle.borderRadius ? { borderRadius: customImgStyle.borderRadius } : {}),
+    ...(customImgStyle.opacity ? { opacity: customImgStyle.opacity } : {}),
+    ...(filterString ? { filter: filterString } : {}),
+    ...(transformString ? { transform: transformString } : {}),
+    transition: 'all 0.2s ease',
+  };
+
   if (!isEditMode) {
     return (
-      <div className={containerClassName}>
-        <img src={currentSrc} alt={alt} className={className} />
+      <div className={`${containerClassName} overflow-hidden`} style={customImgStyle.borderRadius ? { borderRadius: customImgStyle.borderRadius } : undefined}>
+        <img src={currentSrc} alt={alt} className={className} style={appliedImgStyle} />
       </div>
     );
   }
 
   return (
     <div 
-      className={`relative group/editable-img ${containerClassName}`}
+      className={`relative group/editable-img ${containerClassName} overflow-hidden`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={() => fileInputRef.current?.click()}
+      ref={imageToolbarRef}
+      style={customImgStyle.borderRadius ? { borderRadius: customImgStyle.borderRadius } : undefined}
     >
       {/* Hidden File Input */}
       <input 
@@ -478,35 +560,277 @@ export function EditableImage({
         className="hidden"
       />
 
-      <img src={currentSrc} alt={alt} className={className} />
+      <img src={currentSrc} alt={alt} className={className} style={appliedImgStyle} />
 
-      {/* Visual Overlay on Hover */}
-      <div className={`absolute inset-0 transition-all duration-200 cursor-pointer flex flex-col items-center justify-center gap-2 ${
-        isHovered ? 'bg-slate-950/75 backdrop-blur-[2px] border-2 border-amber-400' : 'bg-transparent'
-      }`}>
-        {isHovered && (
-          <div className="text-center p-3 animate-fade-in">
-            <div className="w-10 h-10 rounded-full bg-amber-400 text-slate-950 flex items-center justify-center mx-auto mb-2 shadow-lg">
-              {isUploading ? (
-                <div className="w-5 h-5 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
-              ) : (
-                <Upload className="w-5 h-5" />
-              )}
-            </div>
-            <p className="text-xs font-bold text-white tracking-wide">
-              {isUploading ? 'Memproses Foto...' : 'Klik untuk Ganti Foto'}
-            </p>
-            <p className="text-[10px] text-amber-300/90 mt-0.5">
-              {label || fieldPath}
-            </p>
+      {/* Floating Header Action Pill (Elementor-style) */}
+      {isHovered && !showImageToolbar && (
+        <div className="absolute top-2 left-2 right-2 z-30 flex items-center justify-between pointer-events-none animate-fade-in">
+          <div className="bg-slate-950/90 text-amber-300 border border-amber-400/50 text-[10px] font-bold px-2.5 py-1 rounded-lg shadow-lg flex items-center gap-1.5 backdrop-blur-md">
+            <ImageIcon className="w-3 h-3 text-amber-400" />
+            <span>{label || 'Gambar'}</span>
           </div>
-        )}
-      </div>
 
-      {/* Floating Badge Indicator */}
-      <div className="absolute top-2 right-2 bg-slate-950/80 text-amber-300 border border-amber-400/40 text-[10px] font-bold px-2 py-0.5 rounded-full shadow pointer-events-none">
-        📷 Foto
-      </div>
+          <div className="flex items-center gap-1.5 pointer-events-auto">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowImageToolbar(true);
+              }}
+              className="px-2.5 py-1 bg-amber-400 text-slate-950 hover:brightness-110 text-[11px] font-bold rounded-lg shadow-lg flex items-center gap-1 transition-all"
+              title="Sesuaikan Crop, Posisi, Filter & Format CSS"
+            >
+              <SlidersHorizontal className="w-3 h-3" />
+              <span>Setting CSS / Crop</span>
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                fileInputRef.current?.click();
+              }}
+              className="px-2.5 py-1 bg-slate-900/90 hover:bg-slate-800 text-white text-[11px] font-bold rounded-lg border border-slate-700 shadow-lg flex items-center gap-1 transition-all"
+              title="Ganti Foto Baru"
+            >
+              <Upload className="w-3 h-3 text-amber-400" />
+              <span>Ganti Foto</span>
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ELEMENTOR IMAGE SETTINGS POPUP MODAL (Crop, Fit, Position, Zoom, Filters) */}
+      {showImageToolbar && (
+        <div 
+          className="absolute inset-x-2 top-2 z-50 bg-slate-950/95 backdrop-blur-xl border border-amber-400/70 rounded-2xl shadow-2xl p-4 text-white text-xs select-none animate-in fade-in zoom-in-95 duration-150 max-h-[92%] overflow-y-auto custom-scrollbar"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Header */}
+          <div className="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+            <div className="flex items-center gap-2">
+              <SlidersHorizontal className="w-4 h-4 text-amber-400" />
+              <span className="font-bold text-amber-300 text-xs uppercase tracking-wider">
+                Setting Gambar (CSS &amp; Crop)
+              </span>
+            </div>
+            <button
+              onClick={() => setShowImageToolbar(false)}
+              className="p-1 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800"
+            >
+              <Check className="w-4 h-4 text-emerald-400" />
+            </button>
+          </div>
+
+          <div className="space-y-3.5">
+            {/* 1. Aspect Ratio (Crop Presets) */}
+            <div>
+              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5 flex items-center gap-1">
+                <Crop className="w-3 h-3 text-amber-300" />
+                <span>Crop / Rasio Aspek (Aspect Ratio)</span>
+              </label>
+              <div className="grid grid-cols-4 gap-1.5 text-[10px]">
+                {[
+                  { label: 'Default', val: '' },
+                  { label: '1:1 Persegi', val: '1/1' },
+                  { label: '4:3 Kamera', val: '4/3' },
+                  { label: '16:9 Banner', val: '16/9' },
+                  { label: '3:2 Klasik', val: '3/2' },
+                  { label: '3:4 Potret', val: '3/4' },
+                  { label: '9:16 Story', val: '9/16' },
+                  { label: '21:9 Ultra', val: '21/9' },
+                ].map((r) => (
+                  <button
+                    key={r.label}
+                    onClick={() => updateImageStyle('aspectRatio', r.val)}
+                    className={`py-1 px-1.5 rounded-lg border text-center font-medium transition-all ${
+                      (customImgStyle.aspectRatio || '') === r.val
+                        ? 'bg-amber-400 text-slate-950 border-amber-400 font-bold'
+                        : 'bg-slate-900 border-slate-800 text-slate-300 hover:border-slate-700'
+                    }`}
+                  >
+                    {r.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* 2. Object Fit (Ukuran Tampilan Gambar) */}
+            <div>
+              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5 flex items-center gap-1">
+                <Maximize2 className="w-3 h-3 text-amber-300" />
+                <span>Kesesuaian Gambar (Object Fit)</span>
+              </label>
+              <div className="grid grid-cols-4 gap-1.5 text-[10px]">
+                {[
+                  { label: 'Cover (Isi Penuh)', val: 'cover' },
+                  { label: 'Contain (Pas Utuh)', val: 'contain' },
+                  { label: 'Fill (Stretch)', val: 'fill' },
+                  { label: 'Scale-down', val: 'scale-down' },
+                ].map((f) => (
+                  <button
+                    key={f.val}
+                    onClick={() => updateImageStyle('objectFit', f.val)}
+                    className={`py-1 px-1 rounded-lg border text-center font-medium transition-all ${
+                      (customImgStyle.objectFit || 'cover') === f.val
+                        ? 'bg-amber-400 text-slate-950 border-amber-400 font-bold'
+                        : 'bg-slate-900 border-slate-800 text-slate-300 hover:border-slate-700'
+                    }`}
+                  >
+                    {f.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* 3. Object Position (Fokus Pemotongan) */}
+            <div>
+              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5 flex items-center gap-1">
+                <Focus className="w-3 h-3 text-amber-300" />
+                <span>Titik Fokus Pemotongan (Object Position)</span>
+              </label>
+              <div className="grid grid-cols-5 gap-1 text-[10px]">
+                {[
+                  { label: 'Tengah', val: 'center' },
+                  { label: 'Atas', val: 'top' },
+                  { label: 'Bawah', val: 'bottom' },
+                  { label: 'Kiri', val: 'left' },
+                  { label: 'Kanan', val: 'right' },
+                ].map((p) => (
+                  <button
+                    key={p.val}
+                    onClick={() => updateImageStyle('objectPosition', p.val)}
+                    className={`py-1 px-1 rounded-lg border text-center font-medium transition-all ${
+                      (customImgStyle.objectPosition || 'center') === p.val
+                        ? 'bg-amber-400 text-slate-950 border-amber-400 font-bold'
+                        : 'bg-slate-900 border-slate-800 text-slate-300 hover:border-slate-700'
+                    }`}
+                  >
+                    {p.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* 4. Zoom / Scale Slider */}
+            <div>
+              <div className="flex items-center justify-between text-[10px] mb-1">
+                <span className="font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1">
+                  <ZoomIn className="w-3 h-3 text-amber-300" />
+                  <span>Zoom / Skala:</span>
+                </span>
+                <span className="font-mono text-amber-300">{customImgStyle.scale || '1.0'}x</span>
+              </div>
+              <input
+                type="range"
+                min="0.8"
+                max="2.0"
+                step="0.05"
+                value={customImgStyle.scale || '1'}
+                onChange={(e) => updateImageStyle('scale', e.target.value)}
+                className="w-full accent-amber-400 cursor-pointer"
+              />
+            </div>
+
+            {/* 5. Sudut Lengkung (Border Radius) */}
+            <div>
+              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5 flex items-center gap-1">
+                <Square className="w-3 h-3 text-amber-300" />
+                <span>Bentuk Sudut (Border Radius)</span>
+              </label>
+              <div className="grid grid-cols-4 gap-1.5 text-[10px]">
+                {[
+                  { label: 'Siku (0px)', val: '0px' },
+                  { label: 'Halus (8px)', val: '8px' },
+                  { label: 'Sedang (16px)', val: '16px' },
+                  { label: 'Bulat (9999px)', val: '9999px' },
+                ].map((b) => (
+                  <button
+                    key={b.val}
+                    onClick={() => updateImageStyle('borderRadius', b.val)}
+                    className={`py-1 px-1.5 rounded-lg border text-center font-medium transition-all ${
+                      (customImgStyle.borderRadius || '') === b.val
+                        ? 'bg-amber-400 text-slate-950 border-amber-400 font-bold'
+                        : 'bg-slate-900 border-slate-800 text-slate-300 hover:border-slate-700'
+                    }`}
+                  >
+                    {b.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* 6. CSS Filters (Brightness, Contrast, Grayscale) */}
+            <div className="pt-2 border-t border-slate-800 grid grid-cols-3 gap-2">
+              <div>
+                <label className="text-[9px] font-bold text-slate-400 block mb-1 flex items-center gap-1">
+                  <Sun className="w-2.5 h-2.5 text-amber-300" />
+                  <span>Kecerahan</span>
+                </label>
+                <select
+                  value={customImgStyle.filterBrightness || '1'}
+                  onChange={(e) => updateImageStyle('filterBrightness', e.target.value)}
+                  className="w-full bg-slate-900 border border-slate-800 rounded-lg py-1 px-1.5 text-[10px] text-white focus:outline-none"
+                >
+                  <option value="0.7">Gelap (70%)</option>
+                  <option value="0.85">Redup (85%)</option>
+                  <option value="1">Normal (100%)</option>
+                  <option value="1.15">Terang (115%)</option>
+                  <option value="1.3">Sangat Terang</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="text-[9px] font-bold text-slate-400 block mb-1 flex items-center gap-1">
+                  <Contrast className="w-2.5 h-2.5 text-amber-300" />
+                  <span>Kontras</span>
+                </label>
+                <select
+                  value={customImgStyle.filterContrast || '1'}
+                  onChange={(e) => updateImageStyle('filterContrast', e.target.value)}
+                  className="w-full bg-slate-900 border border-slate-800 rounded-lg py-1 px-1.5 text-[10px] text-white focus:outline-none"
+                >
+                  <option value="0.8">Lembut (80%)</option>
+                  <option value="1">Normal (100%)</option>
+                  <option value="1.2">Tegas (120%)</option>
+                  <option value="1.4">Tinggi (140%)</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="text-[9px] font-bold text-slate-400 block mb-1 flex items-center gap-1">
+                  <Sparkles className="w-2.5 h-2.5 text-amber-300" />
+                  <span>Efek Warna</span>
+                </label>
+                <select
+                  value={customImgStyle.filterGrayscale || '0%'}
+                  onChange={(e) => updateImageStyle('filterGrayscale', e.target.value)}
+                  className="w-full bg-slate-900 border border-slate-800 rounded-lg py-1 px-1.5 text-[10px] text-white focus:outline-none"
+                >
+                  <option value="0%">Warna Asli</option>
+                  <option value="50%">Semi Hitam-Putih</option>
+                  <option value="100%">Hitam-Putih (B&amp;W)</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Quick Ganti Foto Button Inside Modal */}
+            <div className="pt-2 border-t border-slate-800 flex items-center justify-between">
+              <button
+                onClick={() => fileInputRef.current?.click()}
+                className="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-amber-300 border border-amber-400/40 rounded-lg text-[10px] font-bold flex items-center gap-1.5 transition-all"
+              >
+                <Upload className="w-3 h-3" />
+                <span>Upload Foto Pengganti</span>
+              </button>
+
+              <button
+                onClick={() => setShowImageToolbar(false)}
+                className="px-4 py-1.5 bg-gradient-to-r from-gold-accent to-gold-bright text-slate-950 rounded-lg text-[10px] font-bold hover:brightness-110 transition-all"
+              >
+                Terapkan &amp; Selesai
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -532,7 +856,9 @@ export function EditableBackground({
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [isUploading, setIsUploading] = useState<boolean>(false);
+  const [showBgToolbar, setShowBgToolbar] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const bgToolbarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const checkMode = () => {
@@ -549,6 +875,20 @@ export function EditableBackground({
     window.addEventListener('message', handleMessage);
     return () => window.removeEventListener('message', handleMessage);
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (bgToolbarRef.current && !bgToolbarRef.current.contains(e.target as Node)) {
+        setShowBgToolbar(false);
+      }
+    };
+    if (showBgToolbar) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showBgToolbar]);
 
   const getValue = (): string => {
     try {
@@ -606,18 +946,72 @@ export function EditableBackground({
     }
   };
 
+  // Resolve custom background styling from content context
+  const customBgStyle = content?.styles?.[`bg.${fieldPath}`] || {};
+
+  const updateBgStyle = (prop: string, val: any) => {
+    setContent((prev: any) => {
+      const copy = JSON.parse(JSON.stringify(prev || {}));
+      if (!copy.styles) copy.styles = {};
+      const key = `bg.${fieldPath}`;
+      if (!copy.styles[key]) copy.styles[key] = {};
+      copy.styles[key][prop] = val;
+
+      try {
+        sessionStorage.setItem('seleco_live_preview_content', JSON.stringify(copy));
+        if (window.parent && window.parent !== window) {
+          window.parent.postMessage({
+            type: 'ON_ELEMENT_UPDATED',
+            content: copy,
+            fieldPath: key,
+            styleProp: prop,
+            styleVal: val,
+          }, '*');
+        }
+      } catch (err) {
+        console.error('Error posting bg style:', err);
+      }
+
+      return copy;
+    });
+  };
+
+  // Filters
+  const filterParts = [];
+  if (customBgStyle.filterBrightness) filterParts.push(`brightness(${customBgStyle.filterBrightness})`);
+  if (customBgStyle.filterContrast) filterParts.push(`contrast(${customBgStyle.filterContrast})`);
+  if (customBgStyle.filterGrayscale) filterParts.push(`grayscale(${customBgStyle.filterGrayscale})`);
+  if (customBgStyle.filterBlur) filterParts.push(`blur(${customBgStyle.filterBlur})`);
+  const filterString = filterParts.length > 0 ? filterParts.join(' ') : undefined;
+
+  // Transform
+  const transformParts = [];
+  if (customBgStyle.scale) transformParts.push(`scale(${customBgStyle.scale})`);
+  const transformString = transformParts.length > 0 ? transformParts.join(' ') : undefined;
+
+  const appliedBgStyle: React.CSSProperties = {
+    backgroundImage: `url('${currentBg}')`,
+    ...(customBgStyle.backgroundPosition ? { backgroundPosition: customBgStyle.backgroundPosition } : {}),
+    ...(customBgStyle.backgroundSize ? { backgroundSize: customBgStyle.backgroundSize } : {}),
+    ...(customBgStyle.opacity ? { opacity: customBgStyle.opacity } : {}),
+    ...(filterString ? { filter: filterString } : {}),
+    ...(transformString ? { transform: transformString } : {}),
+    transition: 'all 0.3s ease',
+  };
+
   return (
     <>
       <div 
         className={className}
-        style={{ backgroundImage: `url('${currentBg}')` }}
+        style={appliedBgStyle}
       />
 
       {isEditMode && (
         <div 
-          className="absolute top-4 left-4 z-40"
+          className="absolute top-4 left-4 z-50 pointer-events-auto"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
+          ref={bgToolbarRef}
         >
           <input 
             ref={fileInputRef}
@@ -626,21 +1020,230 @@ export function EditableBackground({
             onChange={handleFileChange}
             className="hidden"
           />
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              fileInputRef.current?.click();
-            }}
-            className="px-3.5 py-2 bg-slate-950/90 hover:bg-amber-400 hover:text-slate-950 text-amber-300 border border-amber-400/50 rounded-xl shadow-2xl flex items-center gap-2 text-xs font-bold uppercase tracking-wider backdrop-blur-md transition-all duration-200"
-            title="Klik untuk mengganti background image hero ini"
-          >
-            {isUploading ? (
-              <div className="w-4 h-4 border-2 border-amber-400 border-t-transparent rounded-full animate-spin" />
-            ) : (
-              <Upload className="w-4 h-4" />
-            )}
-            <span>{isUploading ? 'Memproses Background...' : 'Ganti Background Hero'}</span>
-          </button>
+
+          {/* Action Buttons */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowBgToolbar(!showBgToolbar);
+              }}
+              className="px-3.5 py-2 bg-amber-400 hover:brightness-110 text-slate-950 rounded-xl shadow-2xl flex items-center gap-2 text-xs font-bold uppercase tracking-wider transition-all duration-200"
+              title="Atur Posisi, Zoom, dan Efek CSS Background"
+            >
+              <SlidersHorizontal className="w-4 h-4" />
+              <span>Setting CSS Background</span>
+            </button>
+
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                fileInputRef.current?.click();
+              }}
+              className="px-3.5 py-2 bg-slate-950/90 hover:bg-slate-900 text-amber-300 border border-amber-400/50 rounded-xl shadow-2xl flex items-center gap-2 text-xs font-bold uppercase tracking-wider backdrop-blur-md transition-all duration-200"
+              title="Klik untuk mengganti background image hero ini"
+            >
+              {isUploading ? (
+                <div className="w-4 h-4 border-2 border-amber-400 border-t-transparent rounded-full animate-spin" />
+              ) : (
+                <Upload className="w-4 h-4" />
+              )}
+              <span>{isUploading ? 'Memproses...' : 'Ganti Background Hero'}</span>
+            </button>
+          </div>
+
+          {/* Modal Settings */}
+          {showBgToolbar && (
+            <div 
+              className="mt-3 w-80 bg-slate-950/95 backdrop-blur-xl border border-amber-400/70 rounded-2xl shadow-2xl p-4 text-white text-xs select-none animate-in fade-in zoom-in-95 duration-150 max-h-[80vh] overflow-y-auto custom-scrollbar"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+                <div className="flex items-center gap-2">
+                  <SlidersHorizontal className="w-4 h-4 text-amber-400" />
+                  <span className="font-bold text-amber-300 text-xs uppercase tracking-wider">
+                    Setting Background Hero
+                  </span>
+                </div>
+                <button
+                  onClick={() => setShowBgToolbar(false)}
+                  className="p-1 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800"
+                >
+                  <Check className="w-4 h-4 text-emerald-400" />
+                </button>
+              </div>
+
+              <div className="space-y-3.5">
+                {/* 1. Posisi Background (Titik Fokus) */}
+                <div>
+                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5 flex items-center gap-1">
+                    <Focus className="w-3 h-3 text-amber-300" />
+                    <span>Posisi Background (Focus Point)</span>
+                  </label>
+                  <div className="grid grid-cols-5 gap-1 text-[10px]">
+                    {[
+                      { label: 'Tengah', val: 'center center' },
+                      { label: 'Atas', val: 'center top' },
+                      { label: 'Bawah', val: 'center bottom' },
+                      { label: 'Kiri', val: 'left center' },
+                      { label: 'Kanan', val: 'right center' },
+                    ].map((p) => (
+                      <button
+                        key={p.val}
+                        onClick={() => updateBgStyle('backgroundPosition', p.val)}
+                        className={`py-1 px-1 rounded-lg border text-center font-medium transition-all ${
+                          (customBgStyle.backgroundPosition || 'center center') === p.val
+                            ? 'bg-amber-400 text-slate-950 border-amber-400 font-bold'
+                            : 'bg-slate-900 border-slate-800 text-slate-300 hover:border-slate-700'
+                        }`}
+                      >
+                        {p.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 2. Ukuran Background (Size) */}
+                <div>
+                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5 flex items-center gap-1">
+                    <Maximize2 className="w-3 h-3 text-amber-300" />
+                    <span>Ukuran Background (Size)</span>
+                  </label>
+                  <div className="grid grid-cols-3 gap-1.5 text-[10px]">
+                    {[
+                      { label: 'Cover (Penuh)', val: 'cover' },
+                      { label: 'Contain (Pas)', val: 'contain' },
+                      { label: 'Otomatis', val: 'auto' },
+                    ].map((s) => (
+                      <button
+                        key={s.val}
+                        onClick={() => updateBgStyle('backgroundSize', s.val)}
+                        className={`py-1 px-1.5 rounded-lg border text-center font-medium transition-all ${
+                          (customBgStyle.backgroundSize || 'cover') === s.val
+                            ? 'bg-amber-400 text-slate-950 border-amber-400 font-bold'
+                            : 'bg-slate-900 border-slate-800 text-slate-300 hover:border-slate-700'
+                        }`}
+                      >
+                        {s.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 3. Zoom / Scale Slider */}
+                <div>
+                  <div className="flex items-center justify-between text-[10px] mb-1">
+                    <span className="font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1">
+                      <ZoomIn className="w-3 h-3 text-amber-300" />
+                      <span>Zoom Background:</span>
+                    </span>
+                    <span className="font-mono text-amber-300">{customBgStyle.scale || '1.0'}x</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="0.9"
+                    max="2.0"
+                    step="0.05"
+                    value={customBgStyle.scale || '1'}
+                    onChange={(e) => updateBgStyle('scale', e.target.value)}
+                    className="w-full accent-amber-400 cursor-pointer"
+                  />
+                </div>
+
+                {/* 4. Opasitas & Kecerahan */}
+                <div className="pt-2 border-t border-slate-800 grid grid-cols-2 gap-2">
+                  <div>
+                    <label className="text-[9px] font-bold text-slate-400 block mb-1 flex items-center gap-1">
+                      <Sun className="w-2.5 h-2.5 text-amber-300" />
+                      <span>Kecerahan</span>
+                    </label>
+                    <select
+                      value={customBgStyle.filterBrightness || '1'}
+                      onChange={(e) => updateBgStyle('filterBrightness', e.target.value)}
+                      className="w-full bg-slate-900 border border-slate-800 rounded-lg py-1 px-1.5 text-[10px] text-white focus:outline-none"
+                    >
+                      <option value="0.5">Gelap (50%)</option>
+                      <option value="0.7">Redup (70%)</option>
+                      <option value="0.85">Sedang (85%)</option>
+                      <option value="1">Normal (100%)</option>
+                      <option value="1.2">Terang (120%)</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="text-[9px] font-bold text-slate-400 block mb-1 flex items-center gap-1">
+                      <Contrast className="w-2.5 h-2.5 text-amber-300" />
+                      <span>Kontras</span>
+                    </label>
+                    <select
+                      value={customBgStyle.filterContrast || '1'}
+                      onChange={(e) => updateBgStyle('filterContrast', e.target.value)}
+                      className="w-full bg-slate-900 border border-slate-800 rounded-lg py-1 px-1.5 text-[10px] text-white focus:outline-none"
+                    >
+                      <option value="0.8">Lembut (80%)</option>
+                      <option value="1">Normal (100%)</option>
+                      <option value="1.2">Tinggi (120%)</option>
+                      <option value="1.4">Ekstrem (140%)</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* 5. Efek Warna & Blur */}
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <label className="text-[9px] font-bold text-slate-400 block mb-1 flex items-center gap-1">
+                      <Sparkles className="w-2.5 h-2.5 text-amber-300" />
+                      <span>Filter Warna</span>
+                    </label>
+                    <select
+                      value={customBgStyle.filterGrayscale || '0%'}
+                      onChange={(e) => updateBgStyle('filterGrayscale', e.target.value)}
+                      className="w-full bg-slate-900 border border-slate-800 rounded-lg py-1 px-1.5 text-[10px] text-white focus:outline-none"
+                    >
+                      <option value="0%">Warna Penuh</option>
+                      <option value="50%">Semi Muted (50%)</option>
+                      <option value="100%">Monochrome (Hitam Putih)</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="text-[9px] font-bold text-slate-400 block mb-1 flex items-center gap-1">
+                      <span>Blur / Halus</span>
+                    </label>
+                    <select
+                      value={customBgStyle.filterBlur || '0px'}
+                      onChange={(e) => updateBgStyle('filterBlur', e.target.value)}
+                      className="w-full bg-slate-900 border border-slate-800 rounded-lg py-1 px-1.5 text-[10px] text-white focus:outline-none"
+                    >
+                      <option value="0px">Tajam (0px)</option>
+                      <option value="2px">Halus (2px)</option>
+                      <option value="4px">Sedang (4px)</option>
+                      <option value="8px">Kabur (8px)</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Footer Buttons */}
+                <div className="pt-2 border-t border-slate-800 flex items-center justify-between">
+                  <button
+                    onClick={() => fileInputRef.current?.click()}
+                    className="px-2.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-amber-300 border border-amber-400/40 rounded-lg text-[10px] font-bold flex items-center gap-1 transition-all"
+                  >
+                    <Upload className="w-3 h-3" />
+                    <span>Upload Foto</span>
+                  </button>
+
+                  <button
+                    onClick={() => setShowBgToolbar(false)}
+                    className="px-3.5 py-1.5 bg-gradient-to-r from-gold-accent to-gold-bright text-slate-950 rounded-lg text-[10px] font-bold hover:brightness-110 transition-all"
+                  >
+                    Terapkan &amp; Selesai
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </>

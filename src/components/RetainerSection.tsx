@@ -11,12 +11,12 @@ export default function RetainerSection() {
   const retainer = content?.retainer;
 
   const retainerServices = [
-    "Konsultasi Hukum Harian Korporasi",
-    "Review & Draf Perjanjian Bisnis Rutin",
-    "Advis Hukum Ketenagakerjaan & HR",
-    "Penyusunan Somasi & Teguran Legal",
-    "Pemantauan Kepatuhan OSS & Regulasi",
-    "Mitigasi & Evaluasi Risiko Transaksi",
+    "Konsultasi Legalitas & Bisnis Rutin",
+    "Review & Draf Perjanjian Kerjasama Bisnis",
+    "Penyusunan Peraturan Perusahaan & SOP HR",
+    "Pemantauan Izin Usaha & Kepatuhan OSS RBA",
+    "Audit Legalitas Dokumen & Perizinan Berkala",
+    "Mitigasi & Evaluasi Risiko Transaksi Komersial",
   ];
 
   return (
@@ -43,7 +43,7 @@ export default function RetainerSection() {
               <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
                 <EditableText
                   fieldPath="retainer.title"
-                  fallback="Departemen Hukum Eksternal Bisnis Anda."
+                  fallback="Divisi Legalitas & Kepatuhan Eksternal Bisnis Anda."
                   label="Judul Retainer"
                 />
               </h2>
@@ -53,7 +53,7 @@ export default function RetainerSection() {
               <p className="text-base text-slate-300 leading-relaxed font-normal">
                 <EditableText
                   fieldPath="retainer.subtitle"
-                  fallback="Akses pendampingan hukum berkelanjutan sesuai kebutuhan operasional perusahaan—mulai dari konsultasi harian, perancangan kontrak, HR, perizinan OSS RBA, hingga mitigasi sengketa bisnis tanpa beban tetap."
+                  fallback="Akses pendampingan legalitas dan perizinan berkelanjutan sesuai kebutuhan operasional perusahaan—mulai dari konsultasi harian, perancangan kontrak bisnis, kepatuhan ketenagakerjaan, hingga perizinan OSS RBA tanpa biaya penggajian karyawan tetap."
                   label="Subjudul Retainer"
                   multiline={true}
                 />
@@ -91,7 +91,7 @@ export default function RetainerSection() {
                   <p className="text-xs text-slate-400 mt-0.5">
                     <EditableText
                       fieldPath="retainer.ctaSubtitle"
-                      fallback="Konsultan hukum profesional siap mendampingi operasional Anda."
+                      fallback="Konsultan legalitas profesional siap mendampingi operasional bisnis Anda."
                       label="Subjudul CTA Retainer"
                     />
                   </p>
