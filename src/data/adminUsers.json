@@ -1,0 +1,11 @@
+[
+  {
+    "id": "usr-1",
+    "username": "admin",
+    "name": "Administrator SELECO",
+    "email": "admin@selecoproject.com",
+    "password": "admin",
+    "role": "superadmin",
+    "createdAt": "2026-09-01T00:00:00.000Z"
+  }
+]

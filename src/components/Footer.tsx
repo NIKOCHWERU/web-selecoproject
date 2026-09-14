@@ -127,11 +127,6 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/tentang#attorneys" className="hover:text-gold-accent transition-colors">
-                  Tim Konsultan Profesional
-                </Link>
-              </li>
-              <li>
                 <Link href="/insight" className="hover:text-gold-accent transition-colors">
                   Legal Insights & Berita
                 </Link>

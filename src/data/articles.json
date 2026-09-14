@@ -1,0 +1,215 @@
+[
+  {
+    "id": "art-1",
+    "slug": "panduan-lengkap-migrasi-izin-usaha-oss-rba-2026",
+    "title": "Panduan Lengkap Migrasi Izin Usaha ke Sistem OSS RBA Terbaru 2026",
+    "excerpt": "Langkah-langkah strategis bagi korporasi dan pelaku usaha dalam memenuhi persyaratan dasar perizinan berusaha berbasis risiko sesuai regulasi pemerintah terkini.",
+    "coverImage": "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=1200&q=80",
+    "category": "Perizinan OSS",
+    "tags": ["OSS RBA", "NIB", "KBLI", "Perizinan Usaha"],
+    "author": "Tim Regulasi SELECO",
+    "authorRole": "Regulatory Specialist",
+    "publishedAt": "2026-09-10",
+    "readTime": "5 menit baca",
+    "status": "published",
+    "featured": true,
+    "createdAt": "2026-09-10T08:00:00.000Z",
+    "updatedAt": "2026-09-10T08:00:00.000Z",
+    "blocks": [
+      {
+        "id": "b1",
+        "type": "heading",
+        "content": {
+          "level": 2,
+          "text": "Mengapa Pelaku Usaha Wajib Memperbarui Izin ke OSS RBA?",
+          "align": "left"
+        }
+      },
+      {
+        "id": "b2",
+        "type": "paragraph",
+        "content": {
+          "text": "Penerapan sistem Online Single Submission Risk Based Approach (OSS RBA) membawa transformasi signifikan dalam tata kelola perizinan berusaha di Indonesia. Melalui Peraturan Pemerintah Nomor 5 Tahun 2021, perizinan tidak lagi sekadar administratif, melainkan diklasifikasikan berdasarkan tingkat potensi risiko kegiatan usaha.",
+          "align": "justify"
+        }
+      },
+      {
+        "id": "b3",
+        "type": "callout",
+        "content": {
+          "calloutType": "info",
+          "title": "Catatan Regulasi Penting",
+          "text": "Setiap Nomor Induk Berusaha (NIB) kini berlaku sebagai identitas legalitas tunggal yang menggantikan TDP, API (Angka Pengenal Impor), dan hak akses kepabeanan."
+        }
+      },
+      {
+        "id": "b4",
+        "type": "heading",
+        "content": {
+          "level": 3,
+          "text": "Klasifikasi Tingkat Risiko Kegiatan Usaha (KBLI)",
+          "align": "left"
+        }
+      },
+      {
+        "id": "b5",
+        "type": "list",
+        "content": {
+          "listType": "bullet",
+          "items": [
+            "Tingkat Risiko Rendah: Legalitas cukup menggunakan Nomor Induk Berusaha (NIB) sebagai izin operasional langsung.",
+            "Tingkat Risiko Menengah Rendah: Membutuhkan NIB ditambah Surat Pernyataan Kesanggupan Pengelolaan dan Pemantauan Lingkungan Hidup (SPPL).",
+            "Tingkat Risiko Menengah Tinggi: Membutuhkan NIB serta Sertifikat Standar (SS) yang diverifikasi oleh instansi teknis terkait.",
+            "Tingkat Risiko Tinggi: Wajib memiliki NIB, Izin Operasional/Komersial penuh, AMDAL, dan verifikasi lapangan dari kementerian/dinas."
+          ]
+        }
+      },
+      {
+        "id": "b6",
+        "type": "quote",
+        "content": {
+          "text": "Kepatuhan perizinan bukan sekadar pemenuhan kewajiban formal hukum, melainkan fondasi perlindungan aset dan instrumen kepercayaan mitra investasi korporasi Anda.",
+          "author": "SELECO Regulatory Division"
+        }
+      },
+      {
+        "id": "b7",
+        "type": "heading",
+        "content": {
+          "level": 2,
+          "text": "Tahapan Praktis Migrasi Dokumen",
+          "align": "left"
+        }
+      },
+      {
+        "id": "b8",
+        "type": "paragraph",
+        "content": {
+          "text": "Untuk memastikan kelancaran kegiatan operasional tanpa kendala pembekuan rekening bank atau tender kemitraan, pastikan data AHU badan usaha telah disinkronkan dengan data NPWP perusahaan sebelum mengajukan validasi KBLI pada portal OSS.",
+          "align": "justify"
+        }
+      },
+      {
+        "id": "b9",
+        "type": "callout",
+        "content": {
+          "calloutType": "tip",
+          "title": "Konsultasi Pendampingan",
+          "text": "Tim SELECO siap membantu verifikasi KBLI 5 digit dan mendampingi pemenuhan persyaratan teknis perizinan OSS RBA perusahaan Anda dari hulu hingga hilir."
+        }
+      }
+    ]
+  },
+  {
+    "id": "art-2",
+    "slug": "strategi-efektif-menyusun-kontrak-bisnis-aman",
+    "title": "Strategi Efektif Menyusun Kontrak Bisnis yang Aman dan Mengikat",
+    "excerpt": "Tips praktis merancang klausul perjanjian komersial yang jelas, mitigasi risiko perselisihan, dan menjaga kesinambungan kemitraan usaha.",
+    "coverImage": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80",
+    "category": "Kontrak Bisnis",
+    "tags": ["Kontrak Komersial", "MoU", "Mitigasi Risiko", "Bisnis"],
+    "author": "Konsultan Kontrak SELECO",
+    "authorRole": "Senior Legal Counsel",
+    "publishedAt": "2026-09-04",
+    "readTime": "6 menit baca",
+    "status": "published",
+    "featured": false,
+    "createdAt": "2026-09-04T08:00:00.000Z",
+    "updatedAt": "2026-09-04T08:00:00.000Z",
+    "blocks": [
+      {
+        "id": "c1",
+        "type": "heading",
+        "content": {
+          "level": 2,
+          "text": "Pentingnya Presisi dalam Dokumen Perjanjian Komersial",
+          "align": "left"
+        }
+      },
+      {
+        "id": "c2",
+        "type": "paragraph",
+        "content": {
+          "text": "Banyak sengketa bisnis bermula bukan karena niat buruk mitra kerja sama, melainkan karena multitafsir klausul kontrak yang disusun tanpa kejelasan terminologi dan batasan tanggung jawab yang pasti.",
+          "align": "justify"
+        }
+      },
+      {
+        "id": "c3",
+        "type": "heading",
+        "content": {
+          "level": 3,
+          "text": "5 Klausul Vital yang Wajib Ada dalam Setiap Kontrak Usaha",
+          "align": "left"
+        }
+      },
+      {
+        "id": "c4",
+        "type": "list",
+        "content": {
+          "listType": "ordered",
+          "items": [
+            "Definisi Hak & Kewajiban (Scope of Work): Batasan spesifikasi pekerjaan dan indikator keberhasilan yang terukur secara kuantitatif.",
+            "Mekanisme Pembayaran & Denda Keterlambatan: Jadwal termin pembayaran, mata uang, serta penalti wanprestasi yang proporsional.",
+            "Klausul Kerahasiaan (Non-Disclosure Agreement / NDA): Perlindungan hak kekayaan intelektual, rahasia dagang, dan data pelanggan.",
+            "Keadaan Kahar (Force Majeure): Peristiwa luar biasa di luar kendali pihak (bencana alam, perubahan regulasi, perang) yang membebaskan kewajiban sementara.",
+            "Penyelesaian Perselisihan Non-Litigasi: Tahapan wajib musyawarah mufakat dan mediasi sebelum langkah hukum lanjutan."
+          ]
+        }
+      },
+      {
+        "id": "c5",
+        "type": "quote",
+        "content": {
+          "text": "Kontrak terbaik bukanlah dokumen tebal yang membingungkan, melainkan dokumen yang mampu mencegah perselisihan bahkan sebelum perselisihan itu muncul.",
+          "author": "SELECO Corporate Drafting Team"
+        }
+      }
+    ]
+  },
+  {
+    "id": "art-3",
+    "slug": "urgensi-legal-due-diligence-sebelum-akuisisi-perusahaan",
+    "title": "Urgensi Legal Due Diligence Sebelum Melakukan Akuisisi atau Investasi",
+    "excerpt": "Mengidentifikasi liabilitas tersembunyi, keabsahan perizinan, dan kepatuhan regulasi target akuisisi demi mengamankan modal investor.",
+    "coverImage": "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80",
+    "category": "Korporasi & M&A",
+    "tags": ["Due Diligence", "Investasi", "Akuisisi", "Audit Legalitas"],
+    "author": "Tim M&A SELECO",
+    "authorRole": "Corporate Consultant",
+    "publishedAt": "2026-08-28",
+    "readTime": "7 menit baca",
+    "status": "published",
+    "featured": false,
+    "createdAt": "2026-08-28T08:00:00.000Z",
+    "updatedAt": "2026-08-28T08:00:00.000Z",
+    "blocks": [
+      {
+        "id": "d1",
+        "type": "heading",
+        "content": {
+          "level": 2,
+          "text": "Mencegah 'Membeli Kucing dalam Karung' dalam Transaksi Saham",
+          "align": "left"
+        }
+      },
+      {
+        "id": "d2",
+        "type": "paragraph",
+        "content": {
+          "text": "Sebelum memutuskan menanamkan modal atau mengambil alih kepemilikan saham pada perusahaan lain, pelaksanaan Uji Tuntas Legalitas (Legal Due Diligence / LDD) merupakan langkah pencegahan mutlak guna memastikan target perusahaan tidak memikul beban utang terselubung atau perizinan bermasalah.",
+          "align": "justify"
+        }
+      },
+      {
+        "id": "d3",
+        "type": "callout",
+        "content": {
+          "calloutType": "warning",
+          "title": "Fokus Audit Risiko",
+          "text": "Pastikan memeriksa histori status kepemilikan tanah/bangunan usaha, kepatuhan pembayaran BPJS Ketenagakerjaan seluruh staf, serta kewajiban SPT pajak 5 tahun terakhir."
+        }
+      }
+    ]
+  }
+]

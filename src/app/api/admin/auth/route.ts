@@ -1,16 +1,27 @@
 import { NextResponse } from 'next/server';
+import { authenticateUser } from '@/lib/authService';
+
+export const dynamic = 'force-dynamic';
 
 export async function POST(request: Request) {
   try {
-    const { password } = await request.json();
-    const expectedPassword = process.env.ADMIN_PASSWORD || 'seleco2026';
+    const body = await request.json();
+    const { username, password } = body;
 
-    if (password === expectedPassword) {
-      return NextResponse.json({ success: true, message: 'Autentikasi berhasil' });
+    // Support both username+password and legacy single password
+    const userToAuth = username ? username : 'admin';
+    const user = authenticateUser(userToAuth, password);
+
+    if (user) {
+      return NextResponse.json({
+        success: true,
+        message: 'Login berhasil!',
+        user,
+      });
     }
 
     return NextResponse.json(
-      { success: false, error: 'Password admin salah!' },
+      { success: false, error: 'Username atau password admin salah!' },
       { status: 401 }
     );
   } catch (error: any) {

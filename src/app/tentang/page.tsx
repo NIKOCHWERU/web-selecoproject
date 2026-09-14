@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { ChevronRight, Scale, ArrowRight } from 'lucide-react';
 import AboutSection from '@/components/AboutSection';
-import TeamSection from '@/components/TeamSection';
 import RetainerSection from '@/components/RetainerSection';
 
 export const metadata: Metadata = {
@@ -38,7 +37,6 @@ export default function TentangPage() {
 
       {/* Main Sections */}
       <AboutSection />
-      <TeamSection />
       <RetainerSection />
 
       {/* CTA Footer Banner */}

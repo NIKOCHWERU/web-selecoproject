@@ -32,19 +32,26 @@ import {
   MousePointerClick,
   Sliders
 } from 'lucide-react';
+import ArticleDashboard from '@/components/admin/ArticleDashboard';
+import UserManagement from '@/components/admin/UserManagement';
 import { SiteContent, defaultSiteContent } from '@/data/defaultSiteContent';
 import { compressImageToDataUrl } from '@/lib/imageUtils';
 
 export default function AdminClient() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [usernameInput, setUsernameInput] = useState<string>('admin');
   const [passwordInput, setPasswordInput] = useState<string>('');
   const [authError, setAuthError] = useState<string>('');
   const [isAuthenticating, setIsAuthenticating] = useState<boolean>(false);
+  const [currentUser, setCurrentUser] = useState<{ id: string; username: string; name: string; role: string } | null>(null);
+
+  // Top-level Dashboard Module: 'builder' | 'articles' | 'users'
+  const [adminModule, setAdminModule] = useState<'builder' | 'articles' | 'users'>('builder');
 
   // Content state inside builder
   const [editorContent, setEditorContent] = useState<SiteContent>(defaultSiteContent);
   const [editorMode, setEditorMode] = useState<'sidebar' | 'click_to_edit'>('sidebar');
-  const [activeTab, setActiveTab] = useState<'hero' | 'about' | 'services' | 'retainer' | 'team' | 'insights' | 'faq' | 'global'>('hero');
+  const [activeTab, setActiveTab] = useState<'hero' | 'about' | 'services' | 'retainer' | 'insights' | 'faq' | 'global'>('hero');
   const [activeSection, setActiveSection] = useState<string>('hero-text');
   const [deviceView, setDeviceView] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
   const [isSaving, setIsSaving] = useState<boolean>(false);
@@ -101,8 +108,14 @@ export default function AdminClient() {
   // Check auth session on load
   useEffect(() => {
     const sessionAuth = sessionStorage.getItem('seleco_admin_auth');
+    const storedUser = sessionStorage.getItem('seleco_admin_user');
     if (sessionAuth === 'true') {
       setIsAuthenticated(true);
+      if (storedUser) {
+        try {
+          setCurrentUser(JSON.parse(storedUser));
+        } catch (e) {}
+      }
       fetchCurrentContent();
     }
   }, []);
@@ -130,16 +143,23 @@ export default function AdminClient() {
       const res = await fetch('/api/admin/auth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password: passwordInput }),
+        body: JSON.stringify({ 
+          username: usernameInput.trim(), 
+          password: passwordInput 
+        }),
       });
 
       const data = await res.json();
       if (res.ok && data.success) {
         sessionStorage.setItem('seleco_admin_auth', 'true');
+        if (data.user) {
+          sessionStorage.setItem('seleco_admin_user', JSON.stringify(data.user));
+          setCurrentUser(data.user);
+        }
         setIsAuthenticated(true);
         fetchCurrentContent();
       } else {
-        setAuthError(data.error || 'Password salah!');
+        setAuthError(data.error || 'Username atau Password salah!');
       }
     } catch (err: any) {
       setAuthError('Gagal terhubung ke server.');
@@ -150,7 +170,9 @@ export default function AdminClient() {
 
   const handleLogout = () => {
     sessionStorage.removeItem('seleco_admin_auth');
+    sessionStorage.removeItem('seleco_admin_user');
     setIsAuthenticated(false);
+    setCurrentUser(null);
   };
 
   const handleSave = async () => {
@@ -357,14 +379,14 @@ export default function AdminClient() {
               <Scale className="w-8 h-8" />
             </div>
             <h1 className="font-serif-title text-3xl font-bold text-white tracking-wide">
-              SELECO Visual Builder
+              SELECO Admin Suite
             </h1>
             <p className="text-xs text-slate-400 uppercase tracking-widest mt-1">
-              Panel Pengelola Konten Website
+              Portal Pengelola Website, Artikel &amp; Pengguna
             </p>
           </div>
 
-          <form onSubmit={handleLogin} className="space-y-5">
+          <form onSubmit={handleLogin} className="space-y-4">
             {authError && (
               <div className="flex items-center gap-2.5 p-3.5 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400 text-xs">
                 <AlertCircle className="w-4 h-4 shrink-0" />
@@ -373,8 +395,26 @@ export default function AdminClient() {
             )}
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                Password Admin
+              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                Username Admin
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  value={usernameInput}
+                  onChange={(e) => setUsernameInput(e.target.value)}
+                  placeholder="admin"
+                  className="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:border-amber-400 transition-colors"
+                  autoFocus
+                  required
+                />
+                <Users className="w-4 h-4 text-slate-500 absolute right-4 top-1/2 -translate-y-1/2" />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                Password
               </label>
               <div className="relative">
                 <input
@@ -382,28 +422,28 @@ export default function AdminClient() {
                   value={passwordInput}
                   onChange={(e) => setPasswordInput(e.target.value)}
                   placeholder="Masukkan password admin..."
-                  className="w-full px-4 py-3.5 bg-slate-950 border border-slate-700 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:border-amber-400 transition-colors"
-                  autoFocus
+                  className="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:border-amber-400 transition-colors"
                   required
                 />
                 <Lock className="w-4 h-4 text-slate-500 absolute right-4 top-1/2 -translate-y-1/2" />
               </div>
-              <p className="text-[11px] text-slate-500 mt-2">
-                *Default: <code className="text-amber-300/80 bg-slate-950 px-1.5 py-0.5 rounded">seleco2026</code>
-              </p>
+              <div className="mt-2 p-2.5 bg-slate-950/60 rounded-lg border border-slate-800 text-[11px] text-slate-400 leading-relaxed">
+                <span>Default Akun: </span>
+                <span className="text-amber-300 font-mono">admin</span> / <span className="text-amber-300 font-mono">admin</span> (atau <span className="text-amber-300 font-mono">seleco2026</span>)
+              </div>
             </div>
 
             <button
               type="submit"
               disabled={isAuthenticating}
-              className="w-full py-3.5 bg-gradient-to-r from-[#D4AF37] to-[#C9A227] hover:brightness-110 text-slate-950 font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg hover:shadow-gold flex items-center justify-center gap-2"
+              className="w-full py-3.5 bg-gradient-to-r from-[#D4AF37] to-[#C9A227] hover:brightness-110 text-slate-950 font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg hover:shadow-gold flex items-center justify-center gap-2 mt-2"
             >
               {isAuthenticating ? (
                 <span>Memverifikasi...</span>
               ) : (
                 <>
                   <Lock className="w-4 h-4" />
-                  <span>Buka Panel Editor</span>
+                  <span>Masuk Dashboard</span>
                 </>
               )}
             </button>
@@ -419,111 +459,179 @@ export default function AdminClient() {
       
       {/* TOP HEADER / TOOLBAR */}
       <header className="h-16 bg-slate-950 border-b border-slate-800 flex items-center justify-between px-4 z-40 shrink-0">
-        {/* Left: Brand */}
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2">
+        {/* Left: Brand & Module Switcher */}
+        <div className="flex items-center gap-3 md:gap-5">
+          <div className="flex items-center gap-2 shrink-0">
             <div className="w-8 h-8 rounded-lg bg-amber-400/10 border border-amber-400/30 flex items-center justify-center text-amber-300">
               <Scale className="w-4 h-4" />
             </div>
             <div>
               <span className="font-serif-title text-base font-bold text-white tracking-wider">SELECO</span>
-              <span className="text-[10px] text-amber-400 uppercase font-bold ml-1.5 px-1.5 py-0.5 bg-amber-400/10 rounded">Builder</span>
+              <span className="text-[10px] text-amber-400 uppercase font-bold ml-1.5 px-1.5 py-0.5 bg-amber-400/10 rounded">Admin</span>
             </div>
           </div>
 
-          <div className="h-5 w-[1px] bg-slate-800 hidden sm:block" />
+          <div className="h-5 w-[1px] bg-slate-800 hidden md:block" />
 
-          {/* Quick External Preview */}
+          {/* Module Switcher */}
+          <div className="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800 shrink-0">
+            <button
+              onClick={() => setAdminModule('builder')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+                adminModule === 'builder'
+                  ? 'bg-amber-400 text-slate-950 font-bold shadow-md'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+              title="Panel Visual Builder &amp; Pengatur Tampilan Web"
+            >
+              <Sliders className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Visual Builder</span>
+            </button>
+
+            <button
+              onClick={() => setAdminModule('articles')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+                adminModule === 'articles'
+                  ? 'bg-gradient-to-r from-[#D4AF37] to-[#C9A227] text-slate-950 font-bold shadow-md'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+              title="Dashboard Artikel &amp; Gutenberg Block Workspace"
+            >
+              <FileText className="w-3.5 h-3.5" />
+              <span>Artikel (Gutenberg)</span>
+            </button>
+
+            <button
+              onClick={() => setAdminModule('users')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+                adminModule === 'users'
+                  ? 'bg-amber-400 text-slate-950 font-bold shadow-md'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+              title="Kelola Akun Admin &amp; Akses Pengguna"
+            >
+              <Users className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Pengguna Admin</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Center: Builder Controls (Only visible in Visual Builder) */}
+        {adminModule === 'builder' && (
+          <div className="hidden lg:flex items-center gap-3">
+            {/* Mode Switcher */}
+            <div className="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800 shadow-inner">
+              <button
+                onClick={() => setEditorMode('sidebar')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+                  editorMode === 'sidebar'
+                    ? 'bg-gradient-to-r from-[#D4AF37] to-[#C9A227] text-slate-950 shadow-md font-bold'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+                title="Mode Panel Form Sidebar (Tradisional)"
+              >
+                <Layers className="w-3.5 h-3.5" />
+                <span>Panel (Form)</span>
+              </button>
+              <button
+                onClick={() => setEditorMode('click_to_edit')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+                  editorMode === 'click_to_edit'
+                    ? 'bg-gradient-to-r from-[#D4AF37] to-[#C9A227] text-slate-950 shadow-md font-bold'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+                title="Mode Klik Langsung di Halaman (Elementor Style)"
+              >
+                <MousePointerClick className="w-3.5 h-3.5" />
+                <span>Klik Langsung (Visual)</span>
+              </button>
+            </div>
+
+            {/* Device Switcher */}
+            <div className="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800">
+              <button
+                onClick={() => setDeviceView('desktop')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+                  deviceView === 'desktop'
+                    ? 'bg-amber-400 text-slate-950 shadow-sm'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+                title="Tampilan Desktop"
+              >
+                <Monitor className="w-3.5 h-3.5" />
+                <span className="hidden xl:inline">Desktop</span>
+              </button>
+              <button
+                onClick={() => setDeviceView('tablet')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+                  deviceView === 'tablet'
+                    ? 'bg-amber-400 text-slate-950 shadow-sm'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+                title="Tampilan Tablet"
+              >
+                <Tablet className="w-3.5 h-3.5" />
+                <span className="hidden xl:inline">Tablet</span>
+              </button>
+              <button
+                onClick={() => setDeviceView('mobile')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+                  deviceView === 'mobile'
+                    ? 'bg-amber-400 text-slate-950 shadow-sm'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+                title="Tampilan Mobile"
+              >
+                <Smartphone className="w-3.5 h-3.5" />
+                <span className="hidden xl:inline">Mobile</span>
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Right: Actions */}
+        <div className="flex items-center gap-2 sm:gap-2.5">
+          {/* User badge */}
+          <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 text-xs">
+            <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="font-mono font-medium">@{currentUser?.username || usernameInput || 'admin'}</span>
+          </div>
+
           <Link
             href="/"
             target="_blank"
-            className="hidden sm:inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-white px-2.5 py-1.5 rounded-lg hover:bg-slate-800 transition-colors"
+            className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors hidden md:inline-flex"
+            title="Buka Website Asli"
           >
-            <span>Buka Website Asli</span>
-            <ExternalLink className="w-3.5 h-3.5" />
+            <ExternalLink className="w-4 h-4" />
           </Link>
-        </div>
 
-        {/* Center: Mode Switcher & Device Switcher */}
-        <div className="flex items-center gap-3">
-          {/* Mode Switcher */}
-          <div className="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800 shadow-inner">
-            <button
-              onClick={() => setEditorMode('sidebar')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
-                editorMode === 'sidebar'
-                  ? 'bg-gradient-to-r from-[#D4AF37] to-[#C9A227] text-slate-950 shadow-md font-bold'
-                  : 'text-slate-400 hover:text-white'
-              }`}
-              title="Mode Panel Form Sidebar (Tradisional)"
-            >
-              <Layers className="w-3.5 h-3.5" />
-              <span>Mode Panel (Form)</span>
-            </button>
-            <button
-              onClick={() => setEditorMode('click_to_edit')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
-                editorMode === 'click_to_edit'
-                  ? 'bg-gradient-to-r from-[#D4AF37] to-[#C9A227] text-slate-950 shadow-md font-bold animate-pulse'
-                  : 'text-slate-400 hover:text-white'
-              }`}
-              title="Mode Klik Langsung di Halaman (Elementor Style)"
-            >
-              <MousePointerClick className="w-3.5 h-3.5" />
-              <span>Mode Klik Langsung (Visual)</span>
-            </button>
-          </div>
+          {adminModule === 'builder' && (
+            <>
+              <button
+                onClick={handleResetToDefault}
+                className="p-2 text-slate-400 hover:text-amber-400 hover:bg-slate-800 rounded-lg transition-colors"
+                title="Reset ke Default"
+              >
+                <RotateCcw className="w-4 h-4" />
+              </button>
 
-          {/* Device Switcher */}
-          <div className="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800">
-            <button
-              onClick={() => setDeviceView('desktop')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
-                deviceView === 'desktop'
-                  ? 'bg-amber-400 text-slate-950 shadow-sm'
-                  : 'text-slate-400 hover:text-white'
-              }`}
-              title="Tampilan Desktop"
-            >
-              <Monitor className="w-3.5 h-3.5" />
-              <span className="hidden md:inline">Desktop</span>
-            </button>
-            <button
-              onClick={() => setDeviceView('tablet')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
-                deviceView === 'tablet'
-                  ? 'bg-amber-400 text-slate-950 shadow-sm'
-                  : 'text-slate-400 hover:text-white'
-              }`}
-              title="Tampilan Tablet"
-            >
-              <Tablet className="w-3.5 h-3.5" />
-              <span className="hidden md:inline">Tablet</span>
-            </button>
-            <button
-              onClick={() => setDeviceView('mobile')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
-                deviceView === 'mobile'
-                  ? 'bg-amber-400 text-slate-950 shadow-sm'
-                  : 'text-slate-400 hover:text-white'
-              }`}
-              title="Tampilan Mobile"
-            >
-              <Smartphone className="w-3.5 h-3.5" />
-              <span className="hidden md:inline">Mobile</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Right: Actions */}
-        <div className="flex items-center gap-2.5">
-          <button
-            onClick={handleResetToDefault}
-            className="p-2 text-slate-400 hover:text-amber-400 hover:bg-slate-800 rounded-lg transition-colors"
-            title="Reset ke Default"
-          >
-            <RotateCcw className="w-4 h-4" />
-          </button>
+              <button
+                onClick={handleSave}
+                disabled={isSaving}
+                className="px-4 py-2 bg-gradient-to-r from-[#D4AF37] to-[#C9A227] hover:brightness-110 text-slate-950 font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md flex items-center gap-1.5"
+              >
+                {isSaving ? (
+                  <span>Menyimpan...</span>
+                ) : (
+                  <>
+                    <Save className="w-4 h-4" />
+                    <span className="hidden sm:inline">Simpan</span>
+                  </>
+                )}
+              </button>
+            </>
+          )}
 
           <button
             onClick={handleLogout}
@@ -532,26 +640,21 @@ export default function AdminClient() {
           >
             <LogOut className="w-4 h-4" />
           </button>
-
-          <button
-            onClick={handleSave}
-            disabled={isSaving}
-            className="px-5 py-2 bg-gradient-to-r from-[#D4AF37] to-[#C9A227] hover:brightness-110 text-slate-950 font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md flex items-center gap-2"
-          >
-            {isSaving ? (
-              <span>Menyimpan...</span>
-            ) : (
-              <>
-                <Save className="w-4 h-4" />
-                <span>Simpan Perubahan</span>
-              </>
-            )}
-          </button>
         </div>
       </header>
 
-      {/* BODY: DUAL PANEL (SIDEBAR + LIVE PREVIEW) */}
-      <div className="flex-grow flex overflow-hidden">
+      {/* RENDER DEDICATED ADMIN MODULES */}
+      {adminModule === 'articles' && (
+        <ArticleDashboard />
+      )}
+
+      {adminModule === 'users' && (
+        <UserManagement currentUsername={currentUser?.username || usernameInput || 'admin'} />
+      )}
+
+      {/* VISUAL BUILDER INTERFACE */}
+      {adminModule === 'builder' && (
+        <div className="flex-grow flex overflow-hidden">
         
         {/* LEFT PANEL: ELEMENTOR CONTROL SIDEBAR (W-96 / 420px) */}
         <aside className={`bg-slate-950 border-r border-slate-800 flex flex-col shrink-0 z-30 overflow-hidden transition-all duration-300 ${
@@ -597,15 +700,6 @@ export default function AdminClient() {
             >
               <ShieldCheck className="w-3.5 h-3.5" />
               <span>Retainer</span>
-            </button>
-            <button
-              onClick={() => { setActiveTab('team'); setActiveSection('team-members'); }}
-              className={`px-1.5 py-1.5 rounded-lg text-[11px] font-semibold flex flex-col items-center justify-center gap-1 transition-all ${
-                activeTab === 'team' ? 'bg-amber-400/20 text-amber-300 border border-amber-400/30' : 'text-slate-400 hover:text-white hover:bg-slate-800'
-              }`}
-            >
-              <Users className="w-3.5 h-3.5" />
-              <span>Tim</span>
             </button>
             <button
               onClick={() => { setActiveTab('insights'); setActiveSection('insights-articles'); }}
@@ -1115,118 +1209,6 @@ export default function AdminClient() {
               </div>
             )}
 
-            {/* TAB: TEAM MEMBERS */}
-            {activeTab === 'team' && (
-              <div className="space-y-5">
-                <div className="border-b border-slate-800 pb-3 flex items-center justify-between">
-                  <div>
-                    <h3 className="text-sm font-bold text-amber-300 uppercase tracking-wider flex items-center gap-2">
-                      <Users className="w-4 h-4" />
-                      <span>Tim Advokat &amp; Konsultan</span>
-                    </h3>
-                    <p className="text-xs text-slate-400 mt-1">Kelola profil advokat dan partner firma.</p>
-                  </div>
-                  <button
-                    onClick={() => {
-                      const updated = [...editorContent.team.members];
-                      updated.push({
-                        id: String(Date.now()),
-                        name: 'Nama Advokat, S.H.',
-                        role: 'Legal Consultant',
-                        specialization: 'Spesialisasi Hukum',
-                        image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80',
-                        bio: 'Profil singkat advokat...',
-                      });
-                      updateTeam('members', updated);
-                    }}
-                    className="px-2.5 py-1.5 bg-amber-400/20 text-amber-300 border border-amber-400/30 rounded-lg text-xs flex items-center gap-1 hover:bg-amber-400/30 font-semibold"
-                  >
-                    <Plus className="w-3.5 h-3.5" /> Tambah
-                  </button>
-                </div>
-
-                {editorContent.team.members.map((member, idx) => (
-                  <div key={member.id || idx} className="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl space-y-3 relative">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-amber-300">Advokat #{idx + 1}</span>
-                      <button
-                        onClick={() => {
-                          const updated = editorContent.team.members.filter((_, i) => i !== idx);
-                          updateTeam('members', updated);
-                        }}
-                        className="text-slate-500 hover:text-red-400 p-1 transition-colors"
-                        title="Hapus Advokat"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-
-                    <div className="flex gap-3">
-                      <div className="w-20 h-24 rounded-lg overflow-hidden border border-slate-700 shrink-0">
-                        <img src={member.image} alt={member.name} className="w-full h-full object-cover object-top" />
-                      </div>
-                      <div className="flex-grow space-y-2">
-                        <input
-                          type="text"
-                          value={member.name}
-                          onChange={(e) => {
-                            const updated = [...editorContent.team.members];
-                            updated[idx].name = e.target.value;
-                            updateTeam('members', updated);
-                          }}
-                          placeholder="Nama lengkap + gelar"
-                          className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white font-bold focus:outline-none focus:border-amber-400"
-                        />
-                        <input
-                          type="text"
-                          value={member.role}
-                          onChange={(e) => {
-                            const updated = [...editorContent.team.members];
-                            updated[idx].role = e.target.value;
-                            updateTeam('members', updated);
-                          }}
-                          placeholder="Jabatan (e.g. Managing Partner)"
-                          className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-amber-300 focus:outline-none focus:border-amber-400"
-                        />
-                        <label className="block py-1 bg-slate-800 hover:bg-slate-700 rounded text-[11px] text-center text-slate-200 cursor-pointer">
-                          <span>Ganti Foto</span>
-                          <input
-                            type="file"
-                            accept="image/*"
-                            className="hidden"
-                            onChange={(e) => {
-                              const file = e.target.files?.[0];
-                              if (file) {
-                                handleFileUpload(file, (url) => {
-                                  const updated = [...editorContent.team.members];
-                                  updated[idx].image = url;
-                                  updateTeam('members', updated);
-                                }, `team-${idx}`);
-                              }
-                            }}
-                          />
-                        </label>
-                      </div>
-                    </div>
-
-                    <div>
-                      <span className="text-[10px] text-slate-400">Bidang Fokus / Spesialisasi</span>
-                      <textarea
-                        rows={2}
-                        value={member.specialization || member.bio}
-                        onChange={(e) => {
-                          const updated = [...editorContent.team.members];
-                          updated[idx].specialization = e.target.value;
-                          updateTeam('members', updated);
-                        }}
-                        className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-
             {/* TAB: INSIGHT ARTICLES */}
             {activeTab === 'insights' && (
               <div className="space-y-5">
@@ -1634,6 +1616,7 @@ export default function AdminClient() {
         </main>
 
       </div>
+      )}
 
       {/* TOAST NOTIFICATION */}
       {saveToast.show && (
