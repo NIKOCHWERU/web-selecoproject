@@ -111,6 +111,14 @@ export interface SiteContent {
     description: string;
     copyright: string;
   };
+  siteMode?: {
+    status: 'maintenance' | 'live';
+    badgeText: string;
+    title: string;
+    subtitle: string;
+    estimatedDate: string;
+    whatsappText: string;
+  };
   styles?: {
     [elementKey: string]: {
       textAlign?: 'left' | 'center' | 'right' | 'justify';
@@ -336,6 +344,14 @@ export const defaultSiteContent: SiteContent = {
   footer: {
     description: "SELECO (Sedana Legal Consultant) adalah konsultan legalitas usaha dan perizinan OSS RBA terpercaya di Indonesia, mengkhususkan diri pada 34 Layanan Legalitas Bisnis & Kontrak serta pengurusan 411+ Perizinan & Legalitas Usaha OSS RBA.",
     copyright: "© 2026 SELECO (Sedana Legal Consultant). Hak Cipta Dilindungi Undang-Undang.",
+  },
+  siteMode: {
+    status: 'maintenance',
+    badgeText: 'Website Dalam Pengembangan',
+    title: 'Website Resmi SELECO Sedang Dalam Pengembangan',
+    subtitle: 'Kami sedang mempersiapkan sistem dan direktori layanan perizinan legalitas korporasi terbaik untuk Anda. Untuk konsultasi perizinan atau kebutuhan hukum mendesak, tim konsultan SELECO tetap aktif melayani Anda via WhatsApp dan Email resmi.',
+    estimatedDate: 'Segera Hadir (Coming Soon)',
+    whatsappText: 'Konsultasi Sekarang via WhatsApp',
   },
   styles: {},
 };

@@ -41,9 +41,10 @@ export const metadata: Metadata = {
   },
 };
 
-import FloatingWA from '@/components/FloatingWA';
+import React from 'react';
 import { ContentProvider } from '@/context/ContentContext';
 import { getSiteContent } from '@/lib/contentService';
+import SiteWrapper from '@/components/SiteWrapper';
 
 export default function RootLayout({
   children,
@@ -56,10 +57,9 @@ export default function RootLayout({
     <html lang="id" className="scroll-smooth">
       <body className="bg-white text-slate-900 antialiased min-h-screen flex flex-col justify-between selection:bg-gold-accent selection:text-navy-deep">
         <ContentProvider initialContent={initialContent}>
-          <Navbar />
-          <main className="flex-grow">{children}</main>
-          <FloatingWA />
-          <Footer />
+          <React.Suspense fallback={<div className="min-h-screen bg-[#0B0F19]" />}>
+            <SiteWrapper>{children}</SiteWrapper>
+          </React.Suspense>
         </ContentProvider>
       </body>
     </html>

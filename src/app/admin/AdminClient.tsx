@@ -214,6 +214,46 @@ export default function AdminClient() {
     }
   };
 
+  const handleToggleSiteMode = async (mode: 'maintenance' | 'live') => {
+    const updated = {
+      ...editorContent,
+      siteMode: {
+        ...(editorContent.siteMode || {
+          badgeText: 'Website Dalam Pengembangan',
+          title: 'Website Resmi SELECO Sedang Dalam Pengembangan',
+          subtitle: 'Kami sedang mempersiapkan sistem dan direktori layanan perizinan legalitas korporasi terbaik untuk Anda. Untuk konsultasi perizinan dan kebutuhan hukum mendesak, tim konsultan SELECO tetap aktif melayani Anda via WhatsApp dan Email resmi.',
+          estimatedDate: 'Segera Hadir (Coming Soon)',
+          whatsappText: 'Konsultasi Sekarang via WhatsApp',
+        }),
+        status: mode,
+      },
+    };
+    setEditorContent(updated);
+
+    try {
+      localStorage.setItem('seleco_site_content', JSON.stringify(updated));
+      window.dispatchEvent(new CustomEvent('seleco_content_updated', { detail: updated }));
+    } catch (e) {}
+
+    try {
+      const res = await fetch('/api/admin/content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: updated }),
+      });
+      if (res.ok) {
+        triggerToast(
+          mode === 'maintenance'
+            ? 'Status Situs: "DALAM PENGEMBANGAN". Pengunjung umum akan melihat halaman Under Construction.'
+            : 'Status Situs: "TAYANG (LIVE)"! Seluruh website sekarang dapat diakses bebas oleh publik & Google.',
+          'success'
+        );
+      }
+    } catch (e) {
+      triggerToast('Gagal memperbarui status situs', 'error');
+    }
+  };
+
   const triggerToast = (message: string, type: 'success' | 'error') => {
     setSaveToast({ show: true, message, type });
     setTimeout(() => {
@@ -591,17 +631,45 @@ export default function AdminClient() {
 
         {/* Right: Actions */}
         <div className="flex items-center gap-2 sm:gap-2.5">
+          {/* Status Website Switcher: Maintenance vs Live */}
+          <div className="flex items-center gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800">
+            <button
+              onClick={() => handleToggleSiteMode('maintenance')}
+              className={`px-2.5 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1.5 transition-all ${
+                editorContent.siteMode?.status === 'maintenance'
+                  ? 'bg-amber-400/20 text-amber-300 border border-amber-400/40 shadow-sm'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+              title="Pengunjung umum melihat halaman 'Dalam Pengembangan'"
+            >
+              <span className={`w-1.5 h-1.5 rounded-full ${editorContent.siteMode?.status === 'maintenance' ? 'bg-amber-400 animate-pulse' : 'bg-slate-600'}`} />
+              <span>Pengembangan</span>
+            </button>
+            <button
+              onClick={() => handleToggleSiteMode('live')}
+              className={`px-2.5 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1.5 transition-all ${
+                editorContent.siteMode?.status === 'live'
+                  ? 'bg-emerald-400/20 text-emerald-300 border border-emerald-400/40 shadow-sm'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+              title="Website tayang penuh untuk publik dan Google"
+            >
+              <span className={`w-1.5 h-1.5 rounded-full ${editorContent.siteMode?.status === 'live' ? 'bg-emerald-400' : 'bg-slate-600'}`} />
+              <span>Tayang (Live)</span>
+            </button>
+          </div>
+
           {/* User badge */}
-          <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 text-xs">
+          <div className="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 text-xs">
             <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span className="font-mono font-medium">@{currentUser?.username || usernameInput || 'admin'}</span>
           </div>
 
           <Link
-            href="/"
+            href="/?preview=true"
             target="_blank"
-            className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors hidden md:inline-flex"
-            title="Buka Website Asli"
+            className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors hidden sm:inline-flex"
+            title="Pratinjau Website Penuh"
           >
             <ExternalLink className="w-4 h-4" />
           </Link>
