@@ -33,7 +33,7 @@ export default function InsightsSection() {
           <p className="text-base text-slate-600 font-normal">
             <EditableText
               fieldPath="insights.subtitle"
-              fallback="Perspektif hukum praktis dari tim konsultan SELECO untuk pengambilan keputusan bisnis yang lebih terukur."
+              fallback="Perspektif strategis dan regulasi dari tim konsultan SELECO untuk pengambilan keputusan bisnis yang lebih terukur."
               label="Subjudul Insight"
               multiline={true}
             />
@@ -64,7 +64,7 @@ export default function InsightsSection() {
                   <span className="bg-amber-50 text-amber-800 font-bold px-2.5 py-1 rounded-full text-[10px] uppercase tracking-wider border border-amber-200/60">
                     <EditableText
                       fieldPath={`insights.articles.${idx}.tag`}
-                      fallback={article.tag || article.category || 'Hukum'}
+                      fallback={article.tag || article.category || 'Konsultan'}
                       label={`Tag Artikel #${idx + 1}`}
                     />
                   </span>

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Scale, Calendar, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Building2, Calendar, ArrowRight, CheckCircle2, Briefcase } from 'lucide-react';
 import { useContent } from '@/context/ContentContext';
 import { EditableText, EditableBackground, EditableSection } from './EditableElement';
 
@@ -37,10 +37,10 @@ export default function Hero() {
           >
             {/* Top Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-400/10 border border-amber-400/30 rounded-full text-amber-300 text-[11px] font-bold uppercase tracking-widest backdrop-blur-md shadow-sm">
-              <Scale className="w-3.5 h-3.5 text-amber-300" />
+              <Building2 className="w-3.5 h-3.5 text-amber-300" />
                 <EditableText
                   fieldPath="hero.topBadge"
-                  fallback="Konsultan Perizinan & Legalitas Usaha"
+                  fallback="5 Pilar Konsultan Bisnis Terpadu"
                   label="Badge Atas"
                 />
               </div>
@@ -49,7 +49,7 @@ export default function Hero() {
               <h1 className="font-serif-title text-3xl sm:text-4xl lg:text-[2.65rem] xl:text-[2.85rem] font-bold tracking-tight leading-[1.15] text-white">
                 <EditableText
                   fieldPath="hero.headlinePart1"
-                  fallback="Pendampingan Legalitas & Perizinan untuk"
+                  fallback="Konsultan Terpadu untuk Akselerasi &"
                   label="Judul Bagian 1"
                 />{' '}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F7E19C] via-[#D4AF37] to-[#C9A227] italic">
@@ -68,7 +68,7 @@ export default function Hero() {
               <p className="text-xs sm:text-sm lg:text-[15px] text-slate-200 font-normal leading-relaxed max-w-xl border-l-2 border-gold-accent/80 pl-3.5">
                 <EditableText
                   fieldPath="hero.subheadline"
-                  fallback="SELECO memberikan layanan konsultasi 34 Legalitas Bisnis & Kontrak serta pengurusan 411+ Perizinan Usaha OSS RBA secara profesional, transparan, dan terukur."
+                  fallback="SELECO menyediakan 5 pilar konsultan korporasi profesional: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM secara transparan, akurat, dan terpercaya."
                   label="Subjudul Hero"
                   multiline={true}
                 />
@@ -80,10 +80,10 @@ export default function Hero() {
                 href={hero?.ctaButton1Link || '/layanan'}
                 className="px-5 py-3 bg-gradient-to-r from-gold-accent to-gold-bright text-slate-950 font-bold text-xs uppercase tracking-wider rounded-lg hover:brightness-110 transition-all shadow-md hover:shadow-gold flex items-center gap-2 group"
               >
-                <Scale className="w-4 h-4 text-slate-950" />
+                <Briefcase className="w-4 h-4 text-slate-950" />
                 <EditableText
                   fieldPath="hero.ctaButton1Text"
-                  fallback={`Cari ${totalServices} Layanan & Perizinan`}
+                  fallback={`Cari ${totalServices} Layanan Konsultan`}
                   label="Teks Tombol 1"
                 />
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -103,7 +103,7 @@ export default function Hero() {
 
             {/* Hero Feature Pills */}
             <div className="pt-3 border-t border-white/15 flex flex-wrap gap-2.5">
-              {(hero?.featurePills || ['34 Perkara Hukum', '411 Perizinan OSS RBA', 'Retainer Corporate', 'Tax & BPN Advisory']).map((pill, idx) => (
+              {(hero?.featurePills || ['Konsultan Perizinan', 'Konsultan Imigrasi', 'Konsultan Pajak', 'Konsultan Pertanahan', 'Konsultan SDM']).map((pill, idx) => (
                 <span key={idx} className="inline-flex items-center gap-1.5 text-[11px] font-medium text-white/90 bg-white/10 backdrop-blur-md border border-white/15 px-3 py-1 rounded-full">
                   <CheckCircle2 className="w-3 h-3 text-amber-300" />
                   <EditableText
@@ -128,7 +128,7 @@ export default function Hero() {
               <div className="absolute -top-12 -right-12 w-40 h-40 bg-gold-accent/15 rounded-full blur-3xl pointer-events-none" />
 
               <div className="w-12 h-12 rounded-xl border border-amber-400/40 bg-amber-400/10 flex items-center justify-center text-amber-300 mb-4 shadow-inner">
-                <Scale className="w-6 h-6 text-amber-300" />
+                <Building2 className="w-6 h-6 text-amber-300" />
               </div>
 
               <blockquote className="font-serif-title text-xl lg:text-2xl italic text-white leading-snug mb-3">
@@ -142,7 +142,7 @@ export default function Hero() {
               <p className="text-[11px] lg:text-xs text-slate-300 leading-relaxed border-t border-white/10 pt-3 mb-5 font-light">
                 <EditableText
                   fieldPath="hero.sealDescription"
-                  fallback="Mitra konsultan legalitas usaha tepercaya di Indonesia yang berfokus pada kepatuhan regulasi, perizinan berusaha, serta perlindungan operasional bisnis."
+                  fallback="Mitra konsultan korporasi terpercaya di Indonesia yang berfokus pada perizinan berusaha, keimigrasian & TKA, perpajakan, legalitas pertanahan BPN, serta manajemen SDM."
                   label="Deskripsi Komitmen"
                   multiline={true}
                 />

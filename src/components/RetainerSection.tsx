@@ -11,12 +11,12 @@ export default function RetainerSection() {
   const retainer = content?.retainer;
 
   const retainerServices = [
-    "Konsultasi Legalitas & Bisnis Rutin",
+    "Konsultasi Korporasi & Bisnis Rutin",
     "Review & Draf Perjanjian Kerjasama Bisnis",
     "Penyusunan Peraturan Perusahaan & SOP HR",
     "Pemantauan Izin Usaha & Kepatuhan OSS RBA",
-    "Audit Legalitas Dokumen & Perizinan Berkala",
-    "Mitigasi & Evaluasi Risiko Transaksi Komersial",
+    "Pendampingan Pajak, Pertanahan & Imigrasi",
+    "Mitigasi & Evaluasi Risiko Operasional Perusahaan",
   ];
 
   return (
@@ -43,7 +43,7 @@ export default function RetainerSection() {
               <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
                 <EditableText
                   fieldPath="retainer.title"
-                  fallback="Divisi Legalitas & Kepatuhan Eksternal Bisnis Anda."
+                  fallback="Divisi Konsultan Korporasi Eksternal Bisnis Anda."
                   label="Judul Retainer"
                 />
               </h2>
@@ -53,7 +53,7 @@ export default function RetainerSection() {
               <p className="text-base text-slate-300 leading-relaxed font-normal">
                 <EditableText
                   fieldPath="retainer.subtitle"
-                  fallback="Akses pendampingan legalitas dan perizinan berkelanjutan sesuai kebutuhan operasional perusahaan—mulai dari konsultasi harian, perancangan kontrak bisnis, kepatuhan ketenagakerjaan, hingga perizinan OSS RBA tanpa biaya penggajian karyawan tetap."
+                  fallback="Akses pendampingan konsultan korporasi terpadu sesuai kebutuhan operasional perusahaan—mulai dari perizinan usaha, keimigrasian/TKA, kepatuhan pajak, pertanahan BPN, hingga manajemen SDM tanpa biaya penggajian staf internal."
                   label="Subjudul Retainer"
                   multiline={true}
                 />
@@ -84,14 +84,14 @@ export default function RetainerSection() {
                   <h4 className="font-serif-title text-xl font-bold text-white">
                     <EditableText
                       fieldPath="retainer.ctaTitle"
-                      fallback="Perkuat Perlindungan Legalitas Perusahaan"
+                      fallback="Perkuat Tata Kelola & Operasional Perusahaan"
                       label="Judul CTA Retainer"
                     />
                   </h4>
                   <p className="text-xs text-slate-400 mt-0.5">
                     <EditableText
                       fieldPath="retainer.ctaSubtitle"
-                      fallback="Konsultan legalitas profesional siap mendampingi operasional bisnis Anda."
+                      fallback="Konsultan profesional siap mendampingi operasional dan perizinan bisnis Anda."
                       label="Subjudul CTA Retainer"
                     />
                   </p>
@@ -118,14 +118,14 @@ export default function RetainerSection() {
                 <EditableImage
                   fieldPath="retainer.image"
                   fallback="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=800&q=80"
-                  alt="Ruang Konsultasi Hukum Firma SELECO"
+                  alt="Ruang Konsultasi Korporasi SELECO"
                   label="Foto Ruang Retainer"
                   className="w-full h-full object-cover filter brightness-[0.85]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent pointer-events-none" />
                 <div className="absolute bottom-5 left-5 right-5 p-5 bg-slate-900/90 backdrop-blur-md border border-amber-400/30 rounded-xl text-center pointer-events-none">
                   <span className="font-serif-title text-lg font-bold text-white block">
-                    SELECO External Legal Team
+                    SELECO External Corporate Team
                   </span>
                   <span className="text-[10px] text-amber-300 font-semibold uppercase tracking-widest mt-1 block">
                     Efisiensi Operasional &amp; Total Compliance

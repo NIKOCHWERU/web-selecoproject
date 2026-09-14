@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
 
 export const metadata = {
-  title: 'Direktori 445+ Layanan Legalitas & Perizinan | SELECO',
-  description: 'Direktori komprehensif 34 Layanan Legalitas Bisnis & Kontrak dan 411 Perizinan Usaha OSS RBA yang ditangani SELECO — Sedana Legal Consultant.',
+  title: 'Direktori 445+ Layanan Konsultan Korporasi & Perizinan | SELECO',
+  description: 'Direktori komprehensif 5 Pilar Layanan Konsultan: Perizinan OSS RBA, Imigrasi & TKA, Pajak, Pertanahan BPN, dan Manajemen SDM oleh SELECO — Sedana Corporate Consultant.',
 };
 
 export default function LayananLayout({ children }: { children: React.ReactNode }) {

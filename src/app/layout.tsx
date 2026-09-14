@@ -7,9 +7,9 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: 'SELECO | Sedana Corporate & Legal Consultant — Licensing & Corporate Services',
-  description: 'SELECO (Sedana Legal Consultant) memberikan layanan pendampingan legalitas bisnis, pendirian badan usaha, kepatuhan regulasi, serta 411+ perizinan usaha OSS RBA di Indonesia.',
-  keywords: 'konsultan perizinan usaha, corporate legal consultant, 411 perizinan usaha OSS RBA, pendirian PT CV PMA, BPOM Halal SNI, legal retainer perusahaan, konsultan perizinan Jakarta',
+  title: 'SELECO | Sedana Corporate Consultant — Perizinan, Imigrasi, Pajak, Pertanahan & SDM',
+  description: 'SELECO (Sedana Corporate Consultant) menyediakan 5 pilar konsultan profesional: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM.',
+  keywords: 'konsultan perizinan usaha, konsultan imigrasi kitas tka, konsultan pajak spt badan, konsultan pertanahan bpn, konsultan sdm ketenagakerjaan, seleco corporate consultant',
   robots: {
     index: false,
     follow: false,
@@ -24,8 +24,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'SELECO — Sedana Corporate & Legal Consultant',
-    description: 'Konsultan Legalitas & Direktorat Perizinan Usaha Indonesia (445+ Layanan & Perizinan OSS RBA)',
+    title: 'SELECO — Sedana Corporate Consultant',
+    description: '5 Pilar Konsultan Korporasi: Perizinan, Imigrasi, Pajak, Pertanahan & SDM (445+ Solusi Layanan)',
     url: `https://${process.env.NEXT_PUBLIC_DOMAIN || 'selecoproject.com'}`,
     siteName: 'SELECO Corporate Consultant',
     images: [

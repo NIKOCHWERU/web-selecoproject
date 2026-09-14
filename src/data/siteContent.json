@@ -1,36 +1,37 @@
 {
   "global": {
     "brandName": "SELECO",
-    "brandTagline": "SEDANA LEGAL CONSULTANT",
+    "brandTagline": "SEDANA CORPORATE CONSULTANT",
     "whatsappNumber": "6282211020022",
     "whatsappDisplay": "0822-1102-0022",
     "phone": "+62 822-1102-0022",
     "email": "hello@selecoproject.com",
     "address": "Jl.M.H Thamrin No. 9 Lt 12, Kebon Sirih Menteng, DKI Jakarta, 10340",
     "consultationUrl": "/kontak",
-    "badgeText": "Konsultan Legalitas & Perizinan Usaha",
+    "badgeText": "5 Pilar Konsultan Bisnis Terpadu",
     "totalServices": "445+",
     "litigationCount": "34",
     "ossLicenseCount": "411+"
   },
   "hero": {
-    "topBadge": "Konsultan Perizinan & Legalitas Usaha",
-    "headlinePart1": "Pendampingan Legalitas & Perizinan untuk",
+    "topBadge": "5 Pilar Konsultan Bisnis Terpadu",
+    "headlinePart1": "Konsultan Terpadu untuk Akselerasi &",
     "headlineItalic": "Pertumbuhan Bisnis.",
-    "subheadline": "SELECO memberikan layanan konsultasi 34 Legalitas Bisnis & Kontrak serta pengurusan 411+ Perizinan Usaha OSS RBA secara profesional, transparan, dan terukur.",
+    "subheadline": "SELECO menyediakan 5 pilar konsultan korporasi profesional: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM secara transparan, akurat, dan terpercaya.",
     "bgImage": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80",
-    "ctaButton1Text": "Cari 445+ Layanan & Perizinan",
+    "ctaButton1Text": "Cari 445+ Layanan Konsultan",
     "ctaButton1Link": "/layanan",
     "ctaButton2Text": "Jadwalkan Konsultasi",
     "ctaButton2Link": "/kontak",
     "featurePills": [
-      "34 Legalitas Bisnis",
-      "411 Perizinan OSS RBA",
-      "Retainer Corporate",
-      "Tax & BPN Advisory"
+      "Konsultan Perizinan",
+      "Konsultan Imigrasi",
+      "Konsultan Pajak",
+      "Konsultan Pertanahan",
+      "Konsultan SDM"
     ],
     "sealQuote": "“Integrity. Strategy. Corporate Excellence.”",
-    "sealDescription": "Mitra konsultan legalitas usaha tepercaya di Indonesia yang berfokus pada kepatuhan regulasi, perizinan berusaha, serta perlindungan operasional bisnis.",
+    "sealDescription": "Mitra konsultan korporasi terpercaya di Indonesia yang berfokus pada perizinan berusaha, keimigrasian & TKA, perpajakan, legalitas pertanahan BPN, serta manajemen SDM.",
     "stat1Number": "10+",
     "stat1Label": "Tahun Pengalaman",
     "stat2Number": "445+",
@@ -38,79 +39,79 @@
   },
   "about": {
     "badge": "Tentang SELECO",
-    "title": "Legalitas Usaha yang Terstruktur untuk",
+    "title": "Solusi Konsultan Terstruktur untuk",
     "titleAccent": "Pertumbuhan Bisnis.",
-    "paragraph1": "SELECO (Sedana Legal Consultant) adalah konsultan legalitas usaha dan perizinan korporasi terkemuka yang berdedikasi memberikan solusi perizinan berusaha, pendirian badan usaha, dan kepatuhan regulasi bagi pelaku usaha, korporasi, hingga UMKM.",
-    "paragraph2": "Dengan keahlian mendalam pada 34 lingkup legalitas bisnis & kontrak, serta pengurusan 411+ izin usaha OSS RBA, kami memastikan setiap langkah bisnis Anda memiliki perizinan lengkap dan patuh regulasi.",
+    "paragraph1": "SELECO (Sedana Corporate Consultant) adalah konsultan korporasi terkemuka di Indonesia yang berdedikasi memberikan solusi terpadu mencakup Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM bagi pelaku usaha, korporasi nasional, dan multinasional.",
+    "paragraph2": "Dengan keahlian mendalam pada 5 pilar layanan konsultan serta pengurusan 411+ izin usaha OSS RBA dan kepatuhan instansi teknis, kami memastikan seluruh operasional bisnis Anda berjalan lancar, aman, dan patuh regulasi.",
     "image1": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
     "image2": "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80",
     "experienceYears": "10+",
     "values": [
       {
         "title": "Integritas Tertinggi",
-        "description": "Menjunjung standar etika konsultan profesional dengan transparansi penuh dalam setiap pendampingan izin dan legalitas usaha."
+        "description": "Menjunjung standar etika konsultan profesional dengan transparansi penuh dalam setiap pendampingan dan perizinan bisnis."
       },
       {
-        "title": "Solusi Strategis & Taktis",
-        "description": "Kami merancang kepatuhan perizinan dan proteksi preventif untuk memitigasi risiko regulasi di masa depan."
+        "title": "Solusi Strategis & Terarah",
+        "description": "Kami merancang kepatuhan perizinan dan strategi mitigasi operasional untuk mendukung pertumbuhan perusahaan."
       },
       {
         "title": "Responsif & Terukur",
-        "description": "Komunikasi aktif, pembaruan proses berkala, dan kepastian biaya perizinan yang jelas tanpa biaya tersembunyi."
+        "description": "Komunikasi aktif, pembaruan proses berkala, dan kepastian biaya jasa konsultan yang jelas tanpa biaya tersembunyi."
       },
       {
         "title": "Kerahasiaan Klien Mutlak",
-        "description": "Seluruh data, dokumen rahasia perusahaan, dan informasi perizinan klien terlindungi dengan standar kerahasiaan tinggi."
+        "description": "Seluruh data, dokumen rahasia perusahaan, dan informasi operasional klien terlindungi dengan standar kerahasiaan tinggi."
       }
     ]
   },
   "services": {
-    "badge": "Layanan & Spesialisasi",
-    "title": "Solusi Legalitas & Perizinan untuk",
+    "badge": "5 Pilar Layanan Konsultan Terpadu",
+    "title": "Solusi Konsultan Terpadu untuk",
     "subtitle": "Kebutuhan Bisnis & Korporasi",
-    "ctaBannerTitle": "Membutuhkan Konsultasi Perizinan & Legalitas Usaha?",
-    "ctaBannerSubtitle": "Tim konsultan kami siap meninjau dokumen perusahaan dan memberikan panduan perizinan OSS terbaik.",
+    "ctaBannerTitle": "Membutuhkan Konsultasi Bisnis Spesifik?",
+    "ctaBannerSubtitle": "Tim konsultan kami siap meninjau kebutuhan dan memberikan panduan perizinan, imigrasi, pajak, pertanahan, serta manajemen SDM terbaik.",
     "ctaBannerButtonText": "Konsultasi WhatsApp Langsung"
   },
   "retainer": {
     "badge": "Corporate Retainer Program",
-    "title": "Mitra Legalitas & Kepatuhan In-House untuk",
-    "subtitle": "Keberlanjutan Bisnis Anda"
+    "title": "Mitra Konsultan In-House untuk",
+    "subtitle": "Keberlanjutan & Kepatuhan Bisnis Anda"
   },
   "team": {
     "badge": "Tim Konsultan Profesional",
-    "title": "Dipimpin oleh Praktisi Perizinan & Regulasi",
-    "subtitle": "Berpengalaman & Berdedikasi",
+    "title": "Dipimpin oleh Praktisi Berpengalaman",
+    "subtitle": "Berdedikasi & Terpercaya",
     "members": [
       {
         "id": "1",
         "name": "Sedana, S.H., M.H.",
-        "role": "Managing Director & Corporate Consultant",
-        "specialization": "Legalitas Korporasi, Perizinan Bisnis & Restrukturisasi Usaha",
+        "role": "Managing Partner & Corporate Consultant",
+        "specialization": "Konsultan Perizinan, Investasi PMA & Restrukturisasi Usaha",
         "image": "https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=800&q=80",
         "bio": "Berpengalaman lebih dari 12 tahun mendampingi perizinan investasi, pendirian badan usaha, dan kepatuhan regulasi korporasi nasional & multinasional."
       },
       {
         "id": "2",
         "name": "Arya Wibawa, S.H., LL.M.",
-        "role": "Partner - Regulatory & OSS Specialist",
-        "specialization": "Perizinan OSS RBA, HAKI, Merger & Akuisisi",
+        "role": "Partner - Immigration & Tax Consultant",
+        "specialization": "Konsultan Imigrasi (KITAS/VISA/TKA) & Konsultan Pajak Korporasi",
         "image": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
-        "bio": "Ahli regulasi penanaman modal dan kepatuhan perizinan usaha sektor tambang, industri manufaktur, dan teknologi."
+        "bio": "Ahli regulasi penanaman modal, perizinan tenaga kerja asing (TKA/RPTKA), serta kepatuhan perpajakan korporasi dan audit pajak."
       },
       {
         "id": "3",
         "name": "Ratna Sari, S.H., M.Kn.",
-        "role": "Senior Legal & Licensing Counsel",
-        "specialization": "Pertanahan & PBG/IMB, Perjanjian Kontrak Bisnis & Ketenagakerjaan",
+        "role": "Senior Consultant - Land & HR Specialist",
+        "specialization": "Konsultan Pertanahan (BPN/KKPR/PBG) & Konsultan SDM (PP/PKB/Upah)",
         "image": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80",
-        "bio": "Spesialis audit legalitas pertanahan & perizinan tata ruang, perancangan kontrak kerja sama bisnis, dan kepatuhan ketenagakerjaan."
+        "bio": "Spesialis audit legalitas pertanahan & perizinan tata ruang BPN, serta penyusunan Peraturan Perusahaan, PKB, dan audit ketenagakerjaan SDM."
       }
     ]
   },
   "insights": {
     "badge": "Artikel & Analisis Bisnis",
-    "title": "Insight Regulasi & Perizinan Terbaru untuk",
+    "title": "Insight Regulasi & Manajemen Terkini untuk",
     "subtitle": "Pengambilan Keputusan Cermat",
     "articles": [
       {
@@ -120,25 +121,25 @@
         "date": "10 Sep 2026",
         "readTime": "5 menit baca",
         "image": "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80",
-        "excerpt": "Langkah-langkah strategis bagi korporasi dan UMKM dalam memenuhi persyaratan dasar perizinan berusaha berbasis risiko sesuai regulasi pemerintah terkini."
+        "excerpt": "Langkah-langkah strategis bagi korporasi dan pelaku usaha dalam memenuhi persyaratan dasar perizinan berusaha berbasis risiko sesuai regulasi pemerintah terkini."
       },
       {
         "id": "2",
-        "title": "Strategi Efektif Menyusun Kontrak Bisnis yang Aman dan Mengikat Bagi Perusahaan",
-        "tag": "Kontrak Bisnis",
+        "title": "Strategi Pengelolaan Pajak dan Kepatuhan SPT Tahunan Badan yang Efisien",
+        "tag": "Konsultan Pajak",
         "date": "04 Sep 2026",
         "readTime": "7 menit baca",
         "image": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80",
-        "excerpt": "Tips praktis merancang klausul perjanjian komersial yang jelas, mitigasi risiko sengketa, dan menjaga kesinambungan kemitraan usaha."
+        "excerpt": "Tips praktis mengelola tax planning, pelaporan SPT badan secara akurat, dan mitigasi risiko sanksi denda administrasi perpajakan."
       },
       {
         "id": "3",
-        "title": "Urgensi Legal Due Diligence Sebelum Melakukan Akuisisi atau Penyertaan Modal Perusahaan",
-        "tag": "Korporasi & M&A",
+        "title": "Prosedur Pengurusan KITAS Investor dan Izin Kerja Tenaga Kerja Asing (TKA) di Indonesia",
+        "tag": "Konsultan Imigrasi",
         "date": "28 Agu 2026",
         "readTime": "6 menit baca",
         "image": "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80",
-        "excerpt": "Mengidentifikasi liabilitas tersembunyi, legalitas aset, dan kepatuhan pajak target akuisisi demi mengamankan investasi investor."
+        "excerpt": "Panduan komprehensif bagi perusahaan PMA dalam pengajuan RPTKA, notifikasi Kemenaker, serta izin tinggal KITAS dan ITAP di Ditjen Imigrasi."
       }
     ]
   },
@@ -149,29 +150,29 @@
     "items": [
       {
         "question": "Bagaimana tahapan awal konsultasi di SELECO?",
-        "answer": "Anda dapat menghubungi kami melalui WhatsApp atau formulir website. Tim kami akan melakukan penjadwalan konsultasi awal (tatap muka atau online via Zoom) untuk menelaah kebutuhan perizinan dan legalitas, meninjau dokumen legal perusahaan, dan menyusun roadmap langkah kerja terbaik."
+        "answer": "Anda dapat menghubungi kami melalui WhatsApp atau formulir website. Tim kami akan melakukan penjadwalan konsultasi awal (tatap muka atau online via Zoom) untuk menelaah kebutuhan perizinan, imigrasi, perpajakan, pertanahan, atau manajemen SDM, meninjau dokumen perusahaan, dan menyusun roadmap langkah kerja terbaik."
       },
       {
         "question": "Berapa lama estimasi pengurusan izin usaha OSS RBA?",
         "answer": "Lama pengurusan bergantung pada tingkat risiko KBLI (Rendah, Menengah Rendah, Menengah Tinggi, atau Tinggi). Untuk risiko rendah-menengah, NIB dapat terbit dalam 1-3 hari kerja. Untuk risiko tinggi dengan AMDAL/PBG/SLF, tim kami mendampingi verifikasi teknis instansi terkait hingga izin operasional terbit penuh."
       },
       {
-        "question": "Apakah SELECO melayani pengurusan perizinan di luar Jabodetabek?",
-        "answer": "Ya. Tim konsultan kami menangani pendirian badan usaha dan perizinan OSS RBA di seluruh wilayah Indonesia, berkoordinasi langsung dengan kementerian teknis dan dinas penanaman modal (DPMPTSP) di berbagai daerah."
+        "question": "Apakah SELECO melayani pengurusan perizinan dan konsultasi di luar Jabodetabek?",
+        "answer": "Ya. Tim konsultan kami menangani pendirian badan usaha, perizinan OSS RBA, serta perizinan sektoral di seluruh wilayah Indonesia, berkoordinasi langsung dengan kementerian teknis dan dinas penanaman modal (DPMPTSP) di berbagai daerah."
       },
       {
-        "question": "Apa keuntungan mengambil program Retainer Legalitas & Kepatuhan Bisnis bulanan?",
-        "answer": "Program Retainer memberikan perusahaan Anda akses ke tim konsultan legalitas in-house tanpa biaya penggajian karyawan tetap. Manfaatnya mencakup review kontrak bisnis tanpa batas, advis regulasi harian via WhatsApp/Telepon, audit kepatuhan perizinan berkala, dan pendampingan tata kelola perusahaan."
+        "question": "Apa keuntungan mengambil program Retainer Konsultan Korporasi bulanan?",
+        "answer": "Program Retainer memberikan perusahaan Anda akses ke tim konsultan profesional terpadu (perizinan, imigrasi, pajak, pertanahan, dan SDM) tanpa biaya penggajian staf internal. Manfaatnya mencakup penelaahan dokumen bisnis berkala, advis regulasi harian via WhatsApp/Telepon, audit kepatuhan berkala, dan pendampingan tata kelola perusahaan."
       },
       {
-        "question": "Bagaimana sistem transparansi biaya perizinan dan konsultasi?",
+        "question": "Bagaimana sistem transparansi biaya konsultasi dan pengurusan?",
         "answer": "Semua biaya disepakati tertulis di awal dalam Surat Penawaran & Perjanjian Kerjasama (PKS) dengan rincian biaya resmi PNBP/retribusi dan jasa konsultan yang dipertanggungjawabkan secara transparan tanpa biaya tersembunyi."
       }
     ]
   },
   "contact": {
     "badge": "Hubungi Kantor Kami",
-    "title": "Diskusikan Kebutuhan Perizinan & Legalitas Anda",
+    "title": "Diskusikan Kebutuhan Konsultan Bisnis Anda",
     "subtitle": "Bersama Tim Konsultan Kami",
     "formTitle": "Kirim Pesan & Konsultasi Singkat",
     "formSubtitle": "Pesan Anda akan langsung ditinjau oleh tim konsultan kami dengan jaminan kerahasiaan 100%.",
@@ -185,14 +186,14 @@
     ]
   },
   "footer": {
-    "description": "SELECO (Sedana Legal Consultant) adalah konsultan legalitas usaha dan perizinan OSS RBA terpercaya di Indonesia, mengkhususkan diri pada 34 Layanan Legalitas Bisnis & Kontrak serta pengurusan 411+ Perizinan & Legalitas Usaha OSS RBA.",
-    "copyright": "© 2026 SELECO (Sedana Legal Consultant). Hak Cipta Dilindungi Undang-Undang."
+    "description": "SELECO (Sedana Corporate Consultant) adalah konsultan korporasi terpercaya di Indonesia, mengkhususkan diri pada 5 pilar layanan utama: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM.",
+    "copyright": "© 2026 SELECO (Sedana Corporate Consultant). Hak Cipta Dilindungi Undang-Undang."
   },
   "siteMode": {
     "status": "maintenance",
     "badgeText": "Website Dalam Pengembangan",
     "title": "Website Resmi SELECO Sedang Dalam Pengembangan",
-    "subtitle": "Kami sedang mempersiapkan sistem dan direktori layanan perizinan legalitas korporasi terbaik untuk Anda. Untuk konsultasi perizinan dan kebutuhan hukum mendesak, tim konsultan SELECO tetap aktif melayani Anda via WhatsApp dan Email resmi.",
+    "subtitle": "Kami sedang mempersiapkan sistem dan direktori layanan konsultan korporasi terbaik untuk Anda. Untuk konsultasi perizinan, imigrasi, pajak, pertanahan, atau SDM, tim konsultan SELECO tetap aktif melayani Anda via WhatsApp dan Email resmi.",
     "estimatedDate": "Segera Hadir (Coming Soon)",
     "whatsappText": "Konsultasi Sekarang via WhatsApp"
   },

@@ -341,7 +341,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
           <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
           <div className="relative z-10">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-400/10 border border-amber-400/30 rounded-full text-amber-300 text-xs font-bold uppercase tracking-wider mb-4">
-              <ShieldCheck className="w-3.5 h-3.5" /> Konsultasi Legalitas Bisnis
+              <ShieldCheck className="w-3.5 h-3.5" /> Konsultasi Konsultan Korporasi
             </div>
             <h3 className="font-serif-title text-2xl sm:text-3xl font-bold mb-3">
               Butuh Pendampingan Izin Usaha &amp; Kepatuhan Regulasi?
@@ -351,7 +351,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
             </p>
             <div className="flex flex-wrap items-center gap-3">
               <a
-                href="https://wa.me/6281119280628?text=Halo%20SELECO,%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20hukum%20dan%20perizinan"
+                href="https://wa.me/6282211020022?text=Halo%20SELECO,%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20konsultan%20dan%20perizinan"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-6 py-3 bg-gradient-to-r from-[#D4AF37] to-[#C9A227] hover:brightness-110 text-slate-950 font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md flex items-center gap-2"

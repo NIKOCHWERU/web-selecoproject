@@ -23,7 +23,7 @@ interface MaintenancePageProps {
 
 export default function MaintenancePage({ content }: MaintenancePageProps) {
   const brandName = content?.global?.brandName || 'SELECO';
-  const brandTagline = content?.global?.brandTagline || 'SEDANA LEGAL CONSULTANT';
+  const brandTagline = content?.global?.brandTagline || 'SEDANA CORPORATE CONSULTANT';
   const whatsappNumber = content?.global?.whatsappNumber || '6282211020022';
   const whatsappDisplay = content?.global?.whatsappDisplay || '0822-1102-0022';
   const email = content?.global?.email || 'hello@selecoproject.com';
@@ -31,11 +31,11 @@ export default function MaintenancePage({ content }: MaintenancePageProps) {
   
   const siteMode = content?.siteMode;
   const title = siteMode?.title || 'Website Resmi SELECO Sedang Dalam Pengembangan';
-  const subtitle = siteMode?.subtitle || 'Kami sedang mempersiapkan sistem dan direktori layanan perizinan legalitas korporasi terbaik untuk Anda. Untuk konsultasi perizinan dan kebutuhan hukum mendesak, tim konsultan SELECO tetap aktif melayani Anda via WhatsApp dan Email resmi.';
+  const subtitle = siteMode?.subtitle || 'Kami sedang mempersiapkan sistem dan direktori layanan konsultan korporasi terbaik untuk Anda. Untuk konsultasi perizinan, imigrasi, pajak, pertanahan, atau SDM, tim konsultan SELECO tetap aktif melayani Anda via WhatsApp dan Email resmi.';
   const badgeText = siteMode?.badgeText || 'Website Dalam Pengembangan';
   const estimatedDate = siteMode?.estimatedDate || 'Segera Hadir (Coming Soon)';
 
-  const waUrl = `https://wa.me/${whatsappNumber}?text=Halo%20SELECO,%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20hukum%20dan%20perizinan%20usaha.`;
+  const waUrl = `https://wa.me/${whatsappNumber}?text=Halo%20SELECO,%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20konsultan%20dan%20perizinan%20usaha.`;
 
   return (
     <div className="min-h-screen w-full bg-[#0B0F19] text-slate-100 flex flex-col justify-between relative overflow-hidden selection:bg-amber-400 selection:text-slate-950 font-sans">

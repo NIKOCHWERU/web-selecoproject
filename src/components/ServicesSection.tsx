@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Scale, Building2, Receipt, Stethoscope, Globe, Landmark, Zap, FileCheck, Ship, ArrowRight, Search } from 'lucide-react';
+import { Scale, Building2, Receipt, Stethoscope, Globe, Landmark, Zap, FileCheck, Ship, ArrowRight, Search, Users } from 'lucide-react';
 import { SERVICE_CATEGORIES } from '@/data/layananData';
 import { useContent } from '@/context/ContentContext';
 import { EditableText, EditableSection } from './EditableElement';
@@ -12,11 +12,10 @@ export default function ServicesSection() {
   const services = content?.services;
   const global = content?.global;
   const totalServices = global?.totalServices || content?.hero?.stat2Number || '445+';
-  const litigationCount = global?.litigationCount || '34';
-  const ossLicenseCount = global?.ossLicenseCount || '411+';
 
   const getIcon = (iconName: string) => {
     switch (iconName) {
+      case 'Users': return <Users className="w-6 h-6 text-gold-accent" />;
       case 'Scale': return <Scale className="w-6 h-6 text-gold-accent" />;
       case 'Building2': return <Building2 className="w-6 h-6 text-gold-accent" />;
       case 'Receipt': return <Receipt className="w-6 h-6 text-gold-accent" />;
@@ -26,7 +25,7 @@ export default function ServicesSection() {
       case 'Zap': return <Zap className="w-6 h-6 text-gold-accent" />;
       case 'FileCheck': return <FileCheck className="w-6 h-6 text-gold-accent" />;
       case 'Ship': return <Ship className="w-6 h-6 text-gold-accent" />;
-      default: return <Scale className="w-6 h-6 text-gold-accent" />;
+      default: return <FileCheck className="w-6 h-6 text-gold-accent" />;
     }
   };
 
@@ -41,14 +40,14 @@ export default function ServicesSection() {
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-50 border border-amber-200/80 rounded-full text-amber-800 text-xs font-bold uppercase tracking-widest mb-4">
             <EditableText
               fieldPath="services.badge"
-              fallback="LAYANAN LEGALITAS & PERIZINAN USAHA"
+              fallback="5 PILAR LAYANAN KONSULTAN TERPADU"
               label="Badge Layanan"
             />
           </div>
           <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
             <EditableText
               fieldPath="services.title"
-              fallback={`${totalServices} Layanan Legalitas & Perizinan Usaha`}
+              fallback={`${totalServices} Layanan Konsultan Terpadu`}
               label="Judul Layanan"
             />
           </h2>
@@ -56,7 +55,7 @@ export default function ServicesSection() {
           <p className="text-base text-slate-600 leading-relaxed font-normal">
             <EditableText
               fieldPath="services.subtitle"
-              fallback={`Direktori komprehensif mencakup ${litigationCount} Layanan Legalitas Bisnis & Kontrak serta ${ossLicenseCount} jenis Perizinan & Legalitas OSS RBA di Indonesia.`}
+              fallback="Solusi konsultan komprehensif mencakup Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM untuk akselerasi dan kepatuhan operasional bisnis Anda."
               label="Subjudul Layanan"
               multiline={true}
             />
@@ -109,14 +108,14 @@ export default function ServicesSection() {
             <h3 className="font-serif-title text-2xl lg:text-3xl font-bold text-white">
               <EditableText
                 fieldPath="services.ctaBannerTitle"
-                fallback="Membutuhkan Perizinan Khusus atau Perkara Hukum Tertentu?"
+                fallback="Membutuhkan Solusi Konsultan Spesifik untuk Bisnis Anda?"
                 label="Judul Banner Layanan"
               />
             </h3>
             <p className="text-xs sm:text-sm text-slate-300 max-w-xl">
               <EditableText
                 fieldPath="services.ctaBannerSubtitle"
-                fallback={`Gunakan pencarian interaktif kami untuk menemukan ${ossLicenseCount} jenis perizinan dan ${litigationCount} perkara hukum secara spesifik.`}
+                fallback={`Gunakan pencarian interaktif kami untuk menemukan ${totalServices} solusi layanan Konsultan Perizinan, Imigrasi, Pajak, Pertanahan, dan SDM.`}
                 label="Subjudul Banner Layanan"
                 multiline={true}
               />

@@ -6,7 +6,7 @@ import { getArticles } from '@/lib/articleService';
 
 export const metadata: Metadata = {
   title: 'Insight & Updates | SELECO',
-  description: 'Baca insight, analisis legalitas bisnis, dan update regulasi perizinan terbaru dari SELECO.',
+  description: 'Baca insight, analisis korporasi bisnis, dan update regulasi perizinan terbaru dari SELECO.',
 };
 
 export const dynamic = 'force-dynamic';
@@ -29,11 +29,11 @@ export default function InsightPage() {
               <BookOpen className="w-3.5 h-3.5" /> PUBLIKASI EDITORIAL &amp; REGULASI
             </div>
             <h1 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
-              Insight &amp; Analisis Hukum Bisnis
+              Insight &amp; Analisis Regulasi Bisnis
             </h1>
             <div className="w-16 h-[3px] bg-gold-accent mt-3 mb-4 rounded-full" />
             <p className="text-base text-slate-600 max-w-2xl leading-relaxed">
-              Perspektif hukum praktis dari tim konsultan SELECO untuk pengambilan keputusan bisnis yang lebih terukur dan aman dari risiko regulasi.
+              Perspektif strategis dan regulasi dari tim konsultan SELECO untuk pengambilan keputusan bisnis yang lebih terukur dan aman dari risiko operasional.
             </p>
           </div>
         </div>

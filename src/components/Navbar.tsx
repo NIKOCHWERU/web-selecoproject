@@ -51,7 +51,7 @@ export default function Navbar() {
               {global?.brandName || 'SELECO'} <span className="text-gold-accent">.</span>
             </span>
             <span className="text-[10px] font-bold tracking-[0.25em] text-gold-accent uppercase -mt-1">
-              {global?.brandTagline || 'SEDANA LEGAL CONSULTANT'}
+              {global?.brandTagline || 'SEDANA CORPORATE CONSULTANT'}
             </span>
           </Link>
 
@@ -128,7 +128,7 @@ export default function Navbar() {
                       SELECO <span className="text-gold-accent">.</span>
                     </span>
                     <span className="text-[9px] font-bold tracking-widest text-gold-accent">
-                      SEDANA LEGAL CONSULTANT
+                      SEDANA CORPORATE CONSULTANT
                     </span>
                   </div>
                   <button

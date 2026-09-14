@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Scale, ArrowUp, MessageCircle, Mail, MapPin, Phone, Shield, FileText } from 'lucide-react';
+import { Building2, ArrowUp, MessageCircle, Mail, MapPin, Phone, Shield, FileText } from 'lucide-react';
 import { useContent } from '@/context/ContentContext';
 import { EditableText, EditableSection } from './EditableElement';
 
@@ -42,7 +42,7 @@ export default function Footer() {
               <span className="text-[9px] font-bold tracking-[0.2em] text-gold-accent uppercase mt-0.5">
                 <EditableText
                   fieldPath="global.brandTagline"
-                  fallback="SEDANA LEGAL CONSULTANT"
+                  fallback="SEDANA CORPORATE CONSULTANT"
                   label="Tagline Brand"
                 />
               </span>
@@ -50,7 +50,7 @@ export default function Footer() {
             <p className="text-white/60 leading-relaxed text-xs">
               <EditableText
                 fieldPath="footer.description"
-                fallback={`Konsultan legalitas usaha dan perizinan OSS RBA di Indonesia. Pendampingan ${global?.litigationCount || '34'} Layanan Legalitas Bisnis & ${global?.ossLicenseCount || '411+'} Perizinan Usaha OSS RBA.`}
+                fallback="Konsultan korporasi terpercaya di Indonesia: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM."
                 label="Deskripsi Footer"
                 multiline={true}
               />
@@ -60,7 +60,7 @@ export default function Footer() {
                 href="/layanan"
                 className="inline-flex items-center gap-2 px-3 py-1.5 bg-gold-accent/10 border border-gold-accent/30 rounded text-gold-accent text-xs font-semibold hover:bg-gold-accent hover:text-white transition-all"
               >
-                <Scale className="w-3.5 h-3.5" />
+                <Building2 className="w-3.5 h-3.5" />
                 Direktori Layanan ({global?.totalServices || '445+'})
               </Link>
             </div>
@@ -69,37 +69,32 @@ export default function Footer() {
           {/* Practice Areas */}
           <div>
             <h4 className="font-serif-title text-base font-semibold text-white mb-4 border-b border-gold-accent/30 pb-2 inline-block">
-              Bidang Layanan Utama
+              5 Pilar Konsultan
             </h4>
             <ul className="space-y-2.5">
               <li>
-                <Link href="/layanan?cat=hukum" className="hover:text-gold-accent transition-colors">
-                  34 Legalitas Bisnis & Kontrak
+                <Link href="/layanan?cat=perizinan" className="hover:text-gold-accent transition-colors">
+                  Konsultan Perizinan &amp; OSS
                 </Link>
               </li>
               <li>
-                <Link href="/layanan?cat=pendirian" className="hover:text-gold-accent transition-colors">
-                  Pendirian Badan Usaha & OSS
+                <Link href="/layanan?cat=imigrasi" className="hover:text-gold-accent transition-colors">
+                  Konsultan Imigrasi (KITAS &amp; TKA)
                 </Link>
               </li>
               <li>
-                <Link href="/layanan?cat=perpajakan" className="hover:text-gold-accent transition-colors">
-                  Perpajakan (Tax Advisory & SPT)
-                </Link>
-              </li>
-              <li>
-                <Link href="/layanan?cat=kesehatan" className="hover:text-gold-accent transition-colors">
-                  Izin Rumah Sakit, Klinik & Dokter
+                <Link href="/layanan?cat=pajak" className="hover:text-gold-accent transition-colors">
+                  Konsultan Pajak &amp; SPT Badan
                 </Link>
               </li>
               <li>
                 <Link href="/layanan?cat=pertanahan" className="hover:text-gold-accent transition-colors">
-                  Pertanahan & PBG / IMB
+                  Konsultan Pertanahan &amp; BPN
                 </Link>
               </li>
               <li>
-                <Link href="/layanan?cat=energi" className="hover:text-gold-accent transition-colors">
-                  Energi, Migas & Minerba
+                <Link href="/layanan?cat=sdm" className="hover:text-gold-accent transition-colors">
+                  Konsultan SDM &amp; Ketenagakerjaan
                 </Link>
               </li>
             </ul>
@@ -183,7 +178,7 @@ export default function Footer() {
           <div>
             <EditableText
               fieldPath="footer.copyright"
-              fallback={`© ${new Date().getFullYear()} SELECO (Sedana Legal Consultant). Hak Cipta Dilindungi Undang-Undang.`}
+              fallback={`© ${new Date().getFullYear()} SELECO (Sedana Corporate Consultant). Hak Cipta Dilindungi Undang-Undang.`}
               label="Teks Copyright"
             />
           </div>

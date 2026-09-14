@@ -36,19 +36,14 @@ export default function ContactSection() {
   };
 
   const serviceOptions = [
-    'Legalitas Korporasi & Komersial',
-    'Penyusunan & Review Kontrak',
-    'Ketenagakerjaan & HR',
-    'Corporate Legal Retainer',
-    'Penyelesaian Perselisihan Bisnis (Mediasi)',
-    'Perizinan Usaha & OSS RBA',
-    'Legal Due Diligence',
+    'Konsultan Perizinan (OSS RBA & Sektoral)',
+    'Konsultan Imigrasi (KITAS, VISA & TKA)',
+    'Konsultan Pajak (SPT Badan & Tax Advisory)',
+    'Konsultan Pertanahan (BPN, KKPR, PBG/SLF)',
+    'Konsultan SDM (Peraturan Perusahaan & Ketenagakerjaan)',
+    'Corporate Retainer Program',
+    'Pendirian PT / CV / PMA',
     'Hak Kekayaan Intelektual (HAKI)',
-    'Perpajakan & Tax Advisory',
-    'Keimigrasian & TKA',
-    'Pertanahan & PBG/IMB',
-    'Energi, Migas & Minerba',
-    'AMDAL & Lingkungan Hidup',
     'Lainnya',
   ];
 
@@ -67,7 +62,7 @@ export default function ContactSection() {
           <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
             <EditableText
               fieldPath="contact.title"
-              fallback="Mari Diskusikan Kebutuhan Hukum Anda."
+              fallback="Mari Diskusikan Kebutuhan Konsultan Bisnis Anda."
               label="Judul Kontak"
             />
           </h2>
@@ -75,7 +70,7 @@ export default function ContactSection() {
           <p className="text-base text-slate-600 font-normal">
             <EditableText
               fieldPath="contact.subtitle"
-              fallback="Sampaikan secara singkat kebutuhan hukum Anda. Tim kami akan merespons dalam 1×24 jam kerja."
+              fallback="Sampaikan secara singkat kebutuhan bisnis dan korporasi Anda. Tim kami akan merespons dalam 1×24 jam kerja."
               label="Subjudul Kontak"
               multiline={true}
             />
@@ -97,7 +92,7 @@ export default function ContactSection() {
                 {global?.brandName || 'SELECO'}
               </h3>
               <p className="text-xs text-slate-300 leading-relaxed mb-8 font-light">
-                {global?.brandTagline || 'SEDANA LEGAL CONSULTANT'} — Strategic Legal Counsel in Indonesia.
+                {global?.brandTagline || 'SEDANA CORPORATE CONSULTANT'} — Strategic Corporate Consultant in Indonesia.
               </p>
 
               <div className="space-y-6">
@@ -227,7 +222,7 @@ export default function ContactSection() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-2">Kategori Layanan Hukum *</label>
+                  <label className="block text-xs font-semibold text-slate-700 mb-2">Kategori Layanan Konsultan *</label>
                   <select
                     name="layanan"
                     required
@@ -242,12 +237,12 @@ export default function ContactSection() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-2">Deskripsi Singkat Kebutuhan Legalitas &amp; Perizinan *</label>
+                  <label className="block text-xs font-semibold text-slate-700 mb-2">Deskripsi Singkat Kebutuhan Konsultan &amp; Perizinan *</label>
                   <textarea
                     name="deskripsi"
                     required
                     rows={4}
-                    placeholder="Jelaskan secara singkat konteks kebutuhan perizinan atau legalitas bisnis Anda..."
+                    placeholder="Jelaskan secara singkat konteks kebutuhan perizinan, imigrasi, pajak, pertanahan, atau SDM bisnis Anda..."
                     className="w-full px-4 py-3 text-sm bg-slate-50 border border-gray-300 rounded-xl focus:outline-none focus:bg-white focus:border-gold-accent focus:ring-1 focus:ring-gold-accent text-slate-900 resize-none transition-all"
                   />
                 </div>
@@ -255,7 +250,7 @@ export default function ContactSection() {
                 <div className="flex items-start gap-2.5 text-xs text-slate-500 pt-1">
                   <input type="checkbox" required id="disclaimer" className="mt-0.5 accent-gold-accent rounded" />
                   <label htmlFor="disclaimer" className="cursor-pointer">
-                    Pengiriman formulir ini adalah untuk konsultasi awal perizinan dan legalitas bisnis Anda.
+                    Pengiriman formulir ini adalah untuk konsultasi awal perizinan dan operasional bisnis Anda.
                   </label>
                 </div>
 

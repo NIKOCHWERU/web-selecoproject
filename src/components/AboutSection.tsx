@@ -52,16 +52,16 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
             <div className="col-span-2 h-64 sm:h-72 rounded-2xl overflow-hidden border border-gray-200 shadow-md">
               <EditableImage
                 fieldPath="about.image1"
-                fallback="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=900&q=80"
-                alt="Patung Dewi Keadilan - Lady Justice"
+                fallback="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=80"
+                alt="Ruang Kerja Konsultan Korporasi SELECO"
                 label="Foto Utama Tentang Kami"
               />
             </div>
             <div className="h-44 sm:h-48 rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
               <EditableImage
                 fieldPath="about.image2"
-                fallback="https://images.unsplash.com/photo-1589994965851-a8f479c573a9?auto=format&fit=crop&w=600&q=80"
-                alt="Palu Sidang Hukum & Buku Undang-Undang"
+                fallback="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80"
+                alt="Gedung Perkantoran dan Korporasi"
                 label="Foto Kolase 2"
               />
             </div>
@@ -69,7 +69,7 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
               <EditableImage
                 fieldPath="about.image3"
                 fallback="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=600&q=80"
-                alt="Penandatanganan Kontrak & Dokumen Legal"
+                alt="Penandatanganan Perizinan & Kerja Sama Korporasi"
                 label="Foto Kolase 3"
               />
             </div>
@@ -94,7 +94,7 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
             <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
               <EditableText
                 fieldPath="about.title"
-                fallback="Legalitas Usaha yang Terstruktur untuk"
+                fallback="Solusi Konsultan Terstruktur untuk"
                 label="Judul Tentang"
               />{' '}
               {about?.titleAccent && (
@@ -113,7 +113,7 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
             <p className="text-base text-slate-600 leading-relaxed font-normal">
               <EditableText
                 fieldPath="about.paragraph1"
-                fallback="Legalitas dan perizinan memengaruhi setiap langkah bisnis, hubungan kemitraan, dan operasional perusahaan Anda. SELECO hadir sebagai konsultan yang menghubungkan kepatuhan regulasi dengan kebutuhan praktis secara terstruktur, terukur, dan transparan."
+                fallback="SELECO hadir sebagai konsultan korporasi terpercaya yang menyediakan solusi terpadu 5 pilar: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM secara terstruktur, terukur, dan transparan."
                 label="Paragraf 1"
                 multiline={true}
               />
@@ -122,7 +122,7 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
             <p className="text-sm text-slate-600 leading-relaxed font-normal">
               <EditableText
                 fieldPath="about.paragraph2"
-                fallback="Kami mencakup 34 lingkup legalitas bisnis & kontrak, serta mengelola pengurusan lebih dari 411 jenis perizinan usaha dan legalitas OSS RBA di seluruh wilayah Indonesia."
+                fallback="Kami mencakup 5 pilar spesialisasi konsultan bisnis, serta mengelola pengurusan lebih dari 411 jenis perizinan usaha OSS RBA dan kepatuhan instansi teknis di seluruh wilayah Indonesia."
                 label="Paragraf 2"
                 multiline={true}
               />

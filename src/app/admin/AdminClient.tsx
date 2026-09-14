@@ -221,7 +221,7 @@ export default function AdminClient() {
         ...(editorContent.siteMode || {
           badgeText: 'Website Dalam Pengembangan',
           title: 'Website Resmi SELECO Sedang Dalam Pengembangan',
-          subtitle: 'Kami sedang mempersiapkan sistem dan direktori layanan perizinan legalitas korporasi terbaik untuk Anda. Untuk konsultasi perizinan dan kebutuhan hukum mendesak, tim konsultan SELECO tetap aktif melayani Anda via WhatsApp dan Email resmi.',
+          subtitle: 'Kami sedang mempersiapkan sistem dan direktori layanan konsultan korporasi terbaik untuk Anda. Untuk konsultasi perizinan, imigrasi, pajak, pertanahan, atau SDM, tim konsultan SELECO tetap aktif melayani Anda via WhatsApp dan Email resmi.',
           estimatedDate: 'Segera Hadir (Coming Soon)',
           whatsappText: 'Konsultasi Sekarang via WhatsApp',
         }),
@@ -1069,7 +1069,7 @@ export default function AdminClient() {
                     <span>Bagian Tentang Kami (Profil)</span>
                   </h3>
                   <p className="text-xs text-slate-400 mt-1">
-                    Edit cerita firma, nilai inti, dan foto kolase hukum.
+                    Edit cerita korporasi, nilai inti, dan foto profil konsultan.
                   </p>
                 </div>
 
@@ -1115,7 +1115,7 @@ export default function AdminClient() {
 
                 {/* Kolase Foto */}
                 <div className="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl space-y-3">
-                  <span className="text-xs font-bold text-amber-300 block">Foto Kolase 1 (Patung Keadilan)</span>
+                  <span className="text-xs font-bold text-amber-300 block">Foto Kolase 1 (Gedung &amp; Kantor)</span>
                   <div className="h-24 rounded-lg overflow-hidden border border-slate-700">
                     <img src={editorContent.about.image1} alt="Preview 1" className="w-full h-full object-cover" />
                   </div>
@@ -1135,7 +1135,7 @@ export default function AdminClient() {
                 </div>
 
                 <div className="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl space-y-3">
-                  <span className="text-xs font-bold text-amber-300 block">Foto Kolase 2 (Palu Sidang)</span>
+                  <span className="text-xs font-bold text-amber-300 block">Foto Kolase 2 (Kerja Sama Korporasi)</span>
                   <div className="h-24 rounded-lg overflow-hidden border border-slate-700">
                     <img src={editorContent.about.image2} alt="Preview 2" className="w-full h-full object-cover" />
                   </div>
@@ -1162,7 +1162,7 @@ export default function AdminClient() {
                 <div className="border-b border-slate-800 pb-3">
                   <h3 className="text-sm font-bold text-amber-300 uppercase tracking-wider flex items-center gap-2">
                     <Briefcase className="w-4 h-4" />
-                    <span>Layanan &amp; Spesialisasi Hukum</span>
+                    <span>5 Pilar Layanan Konsultan</span>
                   </h3>
                   <p className="text-xs text-slate-400 mt-1">
                     Edit lencana, judul utama direktori, dan teks banner konsultasi layanan.
@@ -1238,10 +1238,10 @@ export default function AdminClient() {
                 <div className="border-b border-slate-800 pb-3">
                   <h3 className="text-sm font-bold text-amber-300 uppercase tracking-wider flex items-center gap-2">
                     <ShieldCheck className="w-4 h-4" />
-                    <span>Corporate Legal Retainer</span>
+                    <span>Corporate Retainer Program</span>
                   </h3>
                   <p className="text-xs text-slate-400 mt-1">
-                    Edit penawaran retainer korporasi untuk proteksi hukum bulanan perusahaan.
+                    Edit penawaran retainer korporasi untuk pendampingan konsultan bulanan perusahaan.
                   </p>
                 </div>
 
@@ -1286,7 +1286,7 @@ export default function AdminClient() {
                       <FileText className="w-4 h-4" />
                       <span>Publikasi Artikel Insight</span>
                     </h3>
-                    <p className="text-xs text-slate-400 mt-1">Kelola artikel editorial hukum di website.</p>
+                    <p className="text-xs text-slate-400 mt-1">Kelola artikel insight dan publikasi regulasi di website.</p>
                   </div>
                   <button
                     onClick={() => {
@@ -1294,11 +1294,11 @@ export default function AdminClient() {
                       updated.unshift({
                         id: String(Date.now()),
                         title: 'Judul Artikel Baru',
-                        tag: 'Hukum Bisnis',
+                        tag: 'Regulasi Bisnis',
                         date: 'Hari Ini',
                         readTime: '5 min',
                         image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80',
-                        excerpt: 'Ringkasan artikel hukum...',
+                        excerpt: 'Ringkasan artikel korporasi...',
                       });
                       updateInsights('articles', updated);
                     }}
@@ -1511,7 +1511,7 @@ export default function AdminClient() {
                   </div>
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <span className="text-[10px] text-slate-400">Perkara Litigasi</span>
+                      <span className="text-[10px] text-slate-400">Layanan SDM &amp; Korporasi</span>
                       <input
                         type="text"
                         value={editorContent.global.litigationCount || '34'}

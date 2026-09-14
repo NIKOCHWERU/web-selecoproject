@@ -1,9 +1,11 @@
+export type ServiceType = 'perizinan' | 'imigrasi' | 'pajak' | 'pertanahan' | 'sdm';
+
 export interface ServiceItem {
   id: number;
   title: string;
   category: string;
   subcategory?: string;
-  type: 'hukum' | 'perizinan';
+  type: ServiceType;
   description?: string;
   keywords?: string[];
 }
@@ -16,42 +18,42 @@ export interface ServiceCategory {
   description: string;
 }
 
-// 1. KONSULTASI LEGALITAS BISNIS & KONTRAK (34 Layanan Non-Litigasi)
-export const PERKARA_HUKUM_ITEMS: ServiceItem[] = [
-  { id: 1, title: "Konsultasi Legalitas & Struktur Usaha Perusahaan", category: "Legalitas Korporasi", type: "hukum" },
-  { id: 2, title: "Penyusunan & Drafting Kontrak Kerjasama Bisnis (MoU / PKS)", category: "Kontrak & Perjanjian", type: "hukum" },
-  { id: 3, title: "Review Kontrak Kerja Karyawan & Kebijakan HR (PKWT/PKWTT)", category: "Ketenagakerjaan & HR", type: "hukum" },
-  { id: 4, title: "Audit Kepatuhan Regulasi & Legal Compliance Usaha", category: "Kepatuhan Regulasi", type: "hukum" },
-  { id: 5, title: "Konsultasi Hak Usaha, Lisensi & Kemitraan Komersial", category: "Komersial & Bisnis", type: "hukum" },
-  { id: 6, title: "Penyusunan Perjanjian Kerahasiaan (Non-Disclosure Agreement / NDA)", category: "Kontrak & Perjanjian", type: "hukum" },
-  { id: 7, title: "Legalitas Perkumpulan, Yayasan & Persekutuan Perdata", category: "Badan Usaha & Organisasi", type: "hukum" },
-  { id: 8, title: "Drafting Kontrak Jual-Beli, Sewa-Menyewa & Pengadaan Barang/Jasa", category: "Kontrak Komersial", type: "hukum" },
-  { id: 9, title: "Tata Kelola Perjanjian Utang Piutang & Pembiayaan Bisnis", category: "Keuangan & Korporasi", type: "hukum" },
-  { id: 10, title: "Perencanaan Suksesi & Tata Kelola Perusahaan Keluarga (Family Governance)", category: "Tata Kelola Bisnis", type: "hukum" },
-  { id: 11, title: "Pendaftaran Hak Paten, Hak Cipta & Merek Dagang (HAKI)", category: "HAKI & Kekayaan Intelektual", type: "hukum" },
-  { id: 12, title: "Perlindungan Reputasi Brand & Kepatuhan Transaksi Elektronik", category: "Bisnis Digital & ITE", type: "hukum" },
-  { id: 13, title: "Perubahan Anggaran Dasar & Identitas Badan Usaha", category: "Legalitas Korporasi", type: "hukum" },
-  { id: 14, title: "Mitigasi Risiko Kontrak & Klausul Wanprestasi Komersial", category: "Kontrak Komersial", type: "hukum" },
-  { id: 15, title: "Advis Mediasi & Negosiasi Perselisihan Bisnis Non-Litigasi", category: "Penyelesaian Sengketa Bisnis", type: "hukum" },
-  { id: 16, title: "Perjanjian Pemisahan Harta & Struktur Kepemilikan Saham", category: "Struktur Modal & Aset", type: "hukum" },
-  { id: 17, title: "Standard Operating Procedure (SOP) Legalitas & Regulasi Internal", category: "SOP & Tata Kelola", type: "hukum" },
-  { id: 18, title: "Legal Due Diligence (Uji Tuntas Hukum) Akuisisi & Merger Usaha", category: "Merger & Akuisisi", type: "hukum" },
-  { id: 19, title: "Sistem Pencegahan Fraud & Manajemen Risiko Internal Korporasi", category: "Manajemen Risiko", type: "hukum" },
-  { id: 20, title: "Kepatuhan Perlindungan Data Pribadi (PDP) Bisnis & Platform Digital", category: "Kepatuhan Regulasi", type: "hukum" },
-  { id: 21, title: "Penyusunan Perjanjian Distribusi, Keagenan & Supply Chain", category: "Kontrak Komersial", type: "hukum" },
-  { id: 22, title: "Legalitas Waralaba (Franchise) & Surat Tanda Pendaftaran Waralaba (STPW)", category: "Waralaba & Lisensi", type: "hukum" },
-  { id: 23, title: "Good Corporate Governance (GCG) & Kebijakan Anti-Suap Korporasi", category: "Tata Kelola Bisnis", type: "hukum" },
-  { id: 24, title: "Advis Kepatuhan Pelaporan Pajak & Tax Advisory Perusahaan", category: "Perpajakan & Regulasi", type: "hukum" },
-  { id: 25, title: "Verifikasi Keabsahan Dokumen & Validasi Legalitas Rekanan Bisnis", category: "Verifikasi Legalitas", type: "hukum" },
-  { id: 26, title: "Penyusunan Peraturan Perusahaan (PP) & Perjanjian Kerja Bersama (PKB)", category: "Ketenagakerjaan & HR", type: "hukum" },
-  { id: 27, title: "Advis Tata Ruang, Kesesuaian Kegiatan Pemanfaatan Ruang (KKPR) & PBG", category: "Perizinan & Ruang Usaha", type: "hukum" },
-  { id: 28, title: "Penyusunan Pedoman Keselamatan & Kesehatan Kerja (K3) Perusahaan", category: "Kepatuhan K3 & Regulasi", type: "hukum" },
-  { id: 29, title: "Pengurusan Izin Edar & Sertifikasi Produk Industri", category: "Sertifikasi Produk", type: "hukum" },
-  { id: 30, title: "Advis Kepatuhan Peraturan Persaingan Usaha Sehat (KPPU Compliance)", category: "Kepatuhan Regulasi", type: "hukum" },
-  { id: 31, title: "Penyusunan Perjanjian Joint Venture (JV) & Konsorsium Bisnis", category: "Kontrak & Investasi", type: "hukum" },
-  { id: 32, title: "Restrukturisasi Korporasi, Pembubaran & Likuidasi Sukarela Badan Usaha", category: "Restrukturisasi Usaha", type: "hukum" },
-  { id: 33, title: "Sertifikasi Standar Usaha & Perizinan Berusaha Berbasis Risiko OSS RBA", category: "Perizinan OSS RBA", type: "hukum" },
-  { id: 34, title: "Tata Kelola Tugas & Tanggung Jawab Direksi dan Dewan Komisaris", category: "Tata Kelola Korporasi", type: "hukum" }
+// 1. KONSULTAN SDM & MANAJEMEN TATA KELOLA USAHA (34 Layanan Strategis)
+export const KONSULTAN_SDM_ITEMS: ServiceItem[] = [
+  { id: 1, title: "Konsultasi Struktur Organisasi & Tata Kelola Usaha Perusahaan", category: "Konsultan SDM", type: "sdm" },
+  { id: 2, title: "Penyusunan & Drafting Kontrak Kerjasama Bisnis (MoU / PKS)", category: "Konsultan SDM", type: "sdm" },
+  { id: 3, title: "Penyusunan Kontrak Kerja Karyawan & Kebijakan HR (PKWT/PKWTT)", category: "Konsultan SDM", type: "sdm" },
+  { id: 4, title: "Audit Kepatuhan Regulasi Ketenagakerjaan & Operasional Usaha", category: "Konsultan SDM", type: "sdm" },
+  { id: 5, title: "Konsultasi Hak Usaha, Lisensi & Kemitraan Komersial", category: "Konsultan Perizinan", type: "perizinan" },
+  { id: 6, title: "Penyusunan Perjanjian Kerahasiaan (Non-Disclosure Agreement / NDA)", category: "Konsultan SDM", type: "sdm" },
+  { id: 7, title: "Perizinan Perkumpulan, Yayasan & Badan Organisasi", category: "Konsultan Perizinan", type: "perizinan" },
+  { id: 8, title: "Drafting Perjanjian Pengadaan Barang/Jasa & Vendor Management", category: "Konsultan SDM", type: "sdm" },
+  { id: 9, title: "Tata Kelola Perjanjian Pembiayaan & Investasi Bisnis", category: "Konsultan SDM", type: "sdm" },
+  { id: 10, title: "Perencanaan Suksesi & Tata Kelola Perusahaan Keluarga (Family Governance)", category: "Konsultan SDM", type: "sdm" },
+  { id: 11, title: "Pendaftaran Hak Paten, Hak Cipta & Merek Dagang (HAKI)", category: "Konsultan Perizinan", type: "perizinan" },
+  { id: 12, title: "Perlindungan Brand & Kepatuhan Transaksi Elektronik", category: "Konsultan Perizinan", type: "perizinan" },
+  { id: 13, title: "Perubahan Anggaran Dasar & Legalitas Identitas Badan Usaha", category: "Konsultan Perizinan", type: "perizinan" },
+  { id: 14, title: "Mitigasi Risiko Kontrak Komersial & Perlindungan Operasional", category: "Konsultan SDM", type: "sdm" },
+  { id: 15, title: "Konsultasi & Negosiasi Kerjasama Bisnis Strategis", category: "Konsultan SDM", type: "sdm" },
+  { id: 16, title: "Penataan Struktur Kepemilikan Saham & Aset Korporasi", category: "Konsultan SDM", type: "sdm" },
+  { id: 17, title: "Standard Operating Procedure (SOP) Manajemen SDM & Operasional", category: "Konsultan SDM", type: "sdm" },
+  { id: 18, title: "Uji Tuntas Korporasi (Due Diligence) Akuisisi & Merger Usaha", category: "Konsultan SDM", type: "sdm" },
+  { id: 19, title: "Sistem Pencegahan Fraud & Manajemen Risiko Internal Korporasi", category: "Konsultan SDM", type: "sdm" },
+  { id: 20, title: "Kepatuhan Perlindungan Data Pribadi (PDP) Bisnis & Platform Digital", category: "Konsultan SDM", type: "sdm" },
+  { id: 21, title: "Penyusunan Perjanjian Distribusi, Keagenan & Supply Chain", category: "Konsultan SDM", type: "sdm" },
+  { id: 22, title: "Perizinan Waralaba (Franchise) & Surat Tanda Pendaftaran Waralaba (STPW)", category: "Konsultan Perizinan", type: "perizinan" },
+  { id: 23, title: "Good Corporate Governance (GCG) & Kebijakan Anti-Suap Korporasi", category: "Konsultan SDM", type: "sdm" },
+  { id: 24, title: "Advis Kepatuhan Pelaporan Pajak & Tax Planning Perusahaan", category: "Konsultan Pajak", type: "pajak" },
+  { id: 25, title: "Verifikasi Keabsahan Dokumen & Validasi Rekanan Bisnis", category: "Konsultan SDM", type: "sdm" },
+  { id: 26, title: "Penyusunan Peraturan Perusahaan (PP) & Perjanjian Kerja Bersama (PKB)", category: "Konsultan SDM", type: "sdm" },
+  { id: 27, title: "Advis Tata Ruang, Kesesuaian Kegiatan Pemanfaatan Ruang (KKPR) & PBG", category: "Konsultan Pertanahan", type: "pertanahan" },
+  { id: 28, title: "Penyusunan Pedoman Keselamatan & Kesehatan Kerja (K3) Perusahaan", category: "Konsultan SDM", type: "sdm" },
+  { id: 29, title: "Pengurusan Izin Edar BPOM, Halal & Sertifikasi Produk Industri", category: "Konsultan Perizinan", type: "perizinan" },
+  { id: 30, title: "Advis Kepatuhan Peraturan Persaingan Usaha Sehat", category: "Konsultan SDM", type: "sdm" },
+  { id: 31, title: "Penyusunan Perjanjian Joint Venture (JV) & Konsorsium Bisnis", category: "Konsultan SDM", type: "sdm" },
+  { id: 32, title: "Restrukturisasi Korporasi, Penggabungan & Pembubaran Badan Usaha", category: "Konsultan Perizinan", type: "perizinan" },
+  { id: 33, title: "Sertifikasi Standar Usaha & Perizinan Berusaha Berbasis Risiko OSS RBA", category: "Konsultan Perizinan", type: "perizinan" },
+  { id: 34, title: "Tata Kelola Tugas & Tanggung Jawab Direksi dan Dewan Komisaris", category: "Konsultan SDM", type: "sdm" }
 ];
 
 // 2. PELAYANAN PERIZINAN DAN LEGALITAS (411 Item Lengkap dari layanan.txt)
@@ -470,107 +472,79 @@ export const PERIZINAN_RAW_TITLES: string[] = [
   "Verifikasi Pemenuhan Standar Kegiatan Usaha & Produk"
 ];
 
-// Combine into PERIZINAN_ITEMS array with IDs 1 to 411
+// Combine into PERIZINAN_ITEMS array with IDs 35 to 445
 export const PERIZINAN_LEGALITAS_ITEMS: ServiceItem[] = PERIZINAN_RAW_TITLES.map((title, index) => {
-  let cat = "Perizinan Usaha & OSS";
+  let cat = "Konsultan Perizinan";
+  let sType: ServiceType = "perizinan";
   const lower = title.toLowerCase();
   
   if (lower.includes("pajak") || lower.includes("spt") || lower.includes("pph") || lower.includes("ppn") || lower.includes("faktur") || lower.includes("npwp") || lower.includes("restitusi") || lower.includes("keberatan") || lower.includes("pbk") || lower.includes("bea meterai")) {
-    cat = "Perpajakan (Tax Advisory)";
-  } else if (lower.includes("rumah sakit") || lower.includes("klinik") || lower.includes("dokter") || lower.includes("apotek") || lower.includes("bidan") || lower.includes("perawat") || lower.includes("obat") || lower.includes("medis") || lower.includes("fisioterapi") || lower.includes("laboratorium") || lower.includes("gizi") || lower.includes("sanitarian") || lower.includes("psikologi")) {
-    cat = "Kesehatan & Tenaga Medis";
+    cat = "Konsultan Pajak";
+    sType = "pajak";
   } else if (lower.includes("paspor") || lower.includes("imigrasi") || lower.includes("izin tinggal") || lower.includes("itas") || lower.includes("itap") || lower.includes("affidavit") || lower.includes("wni") || lower.includes("wna") || lower.includes("rptka") || lower.includes("asing")) {
-    cat = "Keimigrasian & TKA";
+    cat = "Konsultan Imigrasi";
+    sType = "imigrasi";
   } else if (lower.includes("tanah") || lower.includes("sertipikat") || lower.includes("hgb") || lower.includes("hgu") || lower.includes("hak milik") || lower.includes("wakaf") || lower.includes("hak tanggungan") || lower.includes("roya") || lower.includes("imb") || lower.includes("pbg") || lower.includes("bangunan")) {
-    cat = "Pertanahan & PBG/IMB";
-  } else if (lower.includes("migas") || lower.includes("listrik") || lower.includes("panas bumi") || lower.includes("tambang") || lower.includes("minerba") || lower.includes("iup") || lower.includes("bahan peledak") || lower.includes("pltp")) {
-    cat = "Energi, Migas & Minerba";
-  } else if (lower.includes("lingkungan") || lower.includes("amdal") || lower.includes("ukl-upl") || lower.includes("b3") || lower.includes("limbah") || lower.includes("emisi") || lower.includes("ipal") || lower.includes("andalalin")) {
-    cat = "Lingkungan & AMDAL";
-  } else if (lower.includes("impor") || lower.includes("ekspor") || lower.includes("sni") || lower.includes("tkdn") || lower.includes("master list") || lower.includes("rekomendasi et") || lower.includes("bukan baru")) {
-    cat = "Impor, Ekspor & Industri";
-  } else if (lower.includes("pendirian") || lower.includes("badan usaha") || lower.includes("koperasi") || lower.includes("haki") || lower.includes("halal") || lower.includes("bpom") || lower.includes("pirt") || lower.includes("waralaba") || lower.includes("konstruksi")) {
-    cat = "Pendirian Legalitas & HAKI";
+    cat = "Konsultan Pertanahan";
+    sType = "pertanahan";
+  } else if (lower.includes("sdm") || lower.includes("ketenagakerjaan") || lower.includes("karyawan") || lower.includes("upah") || lower.includes("bpjs") || lower.includes("k3") || lower.includes("pkwt")) {
+    cat = "Konsultan SDM";
+    sType = "sdm";
+  } else {
+    cat = "Konsultan Perizinan";
+    sType = "perizinan";
   }
 
   return {
-    id: index + 1,
+    id: index + 35,
     title: title,
     category: cat,
-    type: "perizinan"
+    type: sType
   };
 });
 
-// Service Categories
+// 5 Pilar Layanan Konsultan Utama SELECO
 export const SERVICE_CATEGORIES: ServiceCategory[] = [
   {
     id: "all",
     name: "Semua Layanan (445+)",
     iconName: "Grid",
     count: 445,
-    description: "Seluruh cakupan layanan legalitas bisnis, pendirian badan usaha, perizinan OSS RBA, perpajakan, keimigrasian, dan pertanahan."
+    description: "Seluruh cakupan 5 pilar layanan konsultan korporasi terpadu SELECO: Perizinan, Imigrasi, Pajak, Pertanahan, dan SDM."
   },
   {
-    id: "hukum",
-    name: "Legalitas Bisnis & Kontrak (34 Layanan)",
-    iconName: "Scale",
-    count: 34,
-    description: "Konsultasi legalitas korporasi, penyusunan kontrak komersial, audit kepatuhan regulasi usaha, dan tata kelola perusahaan (GCG)."
+    id: "perizinan",
+    name: "Konsultan Perizinan",
+    iconName: "FileCheck",
+    count: 242,
+    description: "Pendirian Badan Usaha (PT/CV/PMA), Izin Usaha Berbasis Risiko OSS RBA, NIB, Sertifikat Standar, PB UMKU, Izin Operasional Sektoral, BPOM, Halal & SNI."
   },
   {
-    id: "pendirian",
-    name: "Pendirian & Legalitas Corporate",
-    iconName: "Building2",
-    count: 38,
-    description: "Pendirian PT/CV/Koperasi, Akta Perubahan, Izin Prinsip, OSS RBA, HAKI, Sertifikasi Halal, BPOM, PIRT, dan SNI."
+    id: "imigrasi",
+    name: "Konsultan Imigrasi",
+    iconName: "Globe",
+    count: 36,
+    description: "Pengurusan VISA Bisnis/Investor, KITAS/ITAS Kerja, ITAP Izin Tinggal Tetap, RPTKA Tenaga Kerja Asing, Paspor, dan Layanan Keimigrasian WNA/WNI."
   },
   {
-    id: "perpajakan",
-    name: "Perpajakan (Tax Advisory)",
+    id: "pajak",
+    name: "Konsultan Pajak",
     iconName: "Receipt",
     count: 86,
-    description: "SPT Tahunan/Bulanan Orang Pribadi & Badan, PPh, PPN, Restitusi, Keberatan, Pemindahbukuan (Pbk), dan SKB Pajak."
-  },
-  {
-    id: "kesehatan",
-    name: "Kesehatan, Rumah Sakit & Medis",
-    iconName: "Stethoscope",
-    count: 67,
-    description: "Izin Operasional RS Kelas C/D, Klinik Pratama/Utama, Apotek, serta Izin Praktik Dokter Spesialis, Bidan, Perawat, dan Farmasi."
-  },
-  {
-    id: "keimigrasian",
-    name: "Keimigrasian & TKA",
-    iconName: "Globe",
-    count: 28,
-    description: "Paspor, ITAS, ITAP, Affidavit Anak Dwi-Kewarganegaraan, RPTKA Tenaga Kerja Asing, dan Fasilitas Diplomatik WNA."
+    description: "Tax Advisory & Planning, Kepatuhan Pajak Badan & Pribadi, Pelaporan SPT Masa & Tahunan, Restitusi Pajak, dan Pendampingan Pemeriksaan Pajak."
   },
   {
     id: "pertanahan",
-    name: "Pertanahan & BPN / PBG",
+    name: "Konsultan Pertanahan",
     iconName: "Landmark",
+    count: 45,
+    description: "Pengurusan Sertifikat Tanah BPN (SHM, HGB, HGU), Pengecekan Keabsahan Sertifikat, Balik Nama, Roya Hak Tanggungan, KKPR Tata Ruang, serta PBG & SLF."
+  },
+  {
+    id: "sdm",
+    name: "Konsultan SDM",
+    iconName: "Users",
     count: 36,
-    description: "Sertifikat Hak Milik, HGB, HGU, Wakaf, Peralihan Hak, Hak Tanggungan (Roya), Blokir/Sita BPN, dan PBG/IMB."
-  },
-  {
-    id: "energi",
-    name: "Energi, Migas & Minerba",
-    iconName: "Zap",
-    count: 32,
-    description: "IUP Pertambangan, Izin Usaha Migas, Panas Bumi, Ketenagalisrikan, PLTP, Gudang Bahan Peledak, dan KTT."
-  },
-  {
-    id: "lingkungan",
-    name: "Lingkungan & AMDAL",
-    iconName: "FileCheck",
-    count: 20,
-    description: "Persetujuan Lingkungan Hidup, AMDAL, UKL-UPL, Pertek Limbah B3 (IPL-B3), Emisi Udara, IPAL, dan Andalalin."
-  },
-  {
-    id: "imporekspor",
-    name: "Impor, Ekspor & Industri",
-    iconName: "Ship",
-    count: 104,
-    description: "Master List Impor, TKDN, SNI Wajib, Pertimbangan Teknis Industri, Surat Persetujuan Impor (SPI), dan Rekomendasi ET."
+    description: "Penyusunan Peraturan Perusahaan (PP), Perjanjian Kerja Bersama (PKB), Struktur & Skala Upah, Kontrak Kerja Karyawan PKWT/PKWTT, BPJS, dan Audit SDM."
   }
 ];
