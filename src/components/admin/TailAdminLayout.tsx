@@ -33,6 +33,8 @@ interface TailAdminLayoutProps {
   siteMode?: 'maintenance' | 'live';
   onSiteModeChange?: (mode: 'maintenance' | 'live') => void;
   fullHeight?: boolean;
+  hideSidebar?: boolean;
+  onToggleHideSidebar?: () => void;
 }
 
 export default function TailAdminLayout({
@@ -44,6 +46,8 @@ export default function TailAdminLayout({
   siteMode: propSiteMode,
   onSiteModeChange,
   fullHeight = false,
+  hideSidebar = false,
+  onToggleHideSidebar,
 }: TailAdminLayoutProps) {
   const pathname = usePathname();
   const router = useRouter();
@@ -348,7 +352,7 @@ export default function TailAdminLayout({
       <aside
         className={`fixed inset-y-0 left-0 z-50 flex flex-col bg-[#1C2434] border-r border-[#2E3A47] transition-all duration-300 ease-in-out lg:static lg:translate-x-0 ${
           mobileSidebarOpen ? 'translate-x-0 w-72' : '-translate-x-full lg:translate-x-0'
-        } ${sidebarOpen ? 'lg:w-72' : 'lg:w-20'}`}
+        } ${hideSidebar ? 'lg:hidden w-0 border-r-0 overflow-hidden' : sidebarOpen ? 'lg:w-72' : 'lg:w-20'}`}
       >
         {/* Sidebar Header / Logo */}
         <div className="flex items-center justify-between h-20 px-6 border-b border-[#2E3A47] bg-[#1C2434]">
@@ -532,7 +536,13 @@ export default function TailAdminLayout({
 
             {/* Desktop Sidebar Toggle */}
             <button
-              onClick={() => setSidebarOpen(!sidebarOpen)}
+              onClick={() => {
+                if (onToggleHideSidebar) {
+                  onToggleHideSidebar();
+                } else {
+                  setSidebarOpen(!sidebarOpen);
+                }
+              }}
               className="p-2 text-[#8A99AD] hover:text-white rounded-lg hover:bg-[#333A48] hidden lg:block"
               title="Toggle Sidebar"
             >

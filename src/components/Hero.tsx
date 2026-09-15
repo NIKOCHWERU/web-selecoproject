@@ -84,7 +84,9 @@ export default function Hero() {
                 <EditableText
                   fieldPath="hero.ctaButton1Text"
                   fallback={`Cari ${totalServices} Layanan Konsultan`}
-                  label="Teks Tombol 1"
+                  label="Tombol 1 (Teks & Link)"
+                  linkPath="hero.ctaButton1Link"
+                  fallbackLink="/layanan"
                 />
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </Link>
@@ -96,7 +98,9 @@ export default function Hero() {
                 <EditableText
                   fieldPath="hero.ctaButton2Text"
                   fallback="Jadwalkan Konsultasi"
-                  label="Teks Tombol 2"
+                  label="Tombol 2 (Teks & Link)"
+                  linkPath="hero.ctaButton2Link"
+                  fallbackLink="/kontak"
                 />
               </Link>
             </div>

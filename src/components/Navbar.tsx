@@ -7,6 +7,7 @@ import { Menu, X, Scale, Calendar, PhoneCall, ChevronRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion';
 
 import { useContent } from '@/context/ContentContext';
+import { EditableText } from '@/components/EditableElement';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -48,10 +49,19 @@ export default function Navbar() {
           {/* Logo Brand */}
           <Link href="/" className="flex flex-col group">
             <span className="font-serif-title text-2xl font-bold tracking-widest text-slate-900 transition-colors group-hover:text-gold-accent">
-              {global?.brandName || 'Seleco'} <span className="text-gold-accent">.</span>
+              <EditableText
+                fieldPath="global.brandName"
+                fallback="Seleco"
+                label="Nama Brand"
+              />{' '}
+              <span className="text-gold-accent">.</span>
             </span>
             <span className="text-[10px] font-semibold tracking-[0.2em] text-gold-accent -mt-1">
-              {global?.brandTagline || 'Sedana legal consultant'}
+              <EditableText
+                fieldPath="global.brandTagline"
+                fallback="Sedana legal consultant"
+                label="Tagline Brand"
+              />
             </span>
           </Link>
 
@@ -84,11 +94,17 @@ export default function Navbar() {
           {/* CTA Actions */}
           <div className="hidden lg:flex items-center space-x-4">
             <Link
-              href="/kontak"
+              href={global?.consultationUrl || '/kontak'}
               className="px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white bg-gold-accent rounded-lg hover:bg-gold-bright transition-all shadow-sm hover:shadow-md flex items-center gap-2"
             >
               <Calendar className="w-3.5 h-3.5" />
-              Konsultasi
+              <EditableText
+                fieldPath="global.consultationText"
+                fallback="Konsultasi"
+                label="Teks Tombol Konsultasi"
+                linkPath="global.consultationUrl"
+                fallbackLink="/kontak"
+              />
             </Link>
           </div>
 

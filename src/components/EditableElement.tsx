@@ -28,7 +28,9 @@ import {
   SlidersHorizontal,
   Square,
   RectangleHorizontal,
-  Focus
+  Focus,
+  ExternalLink,
+  Link as LinkIcon
 } from 'lucide-react';
 import { compressImageToDataUrl } from '@/lib/imageUtils';
 
@@ -39,6 +41,8 @@ interface EditableTextProps {
   className?: string;
   label?: string;
   multiline?: boolean;
+  linkPath?: string;
+  fallbackLink?: string;
 }
 
 export function EditableText({
@@ -48,6 +52,8 @@ export function EditableText({
   className = '',
   label,
   multiline = false,
+  linkPath,
+  fallbackLink,
 }: EditableTextProps) {
   const { content, setContent } = useContent();
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
@@ -157,6 +163,49 @@ export function EditableText({
     });
   };
 
+  const getLinkValue = (): string => {
+    if (!linkPath) return '';
+    try {
+      const parts = linkPath.split('.');
+      let cur: any = content;
+      for (const p of parts) {
+        if (cur === undefined || cur === null) return fallbackLink || '';
+        cur = cur[p];
+      }
+      return typeof cur === 'string' ? cur : (fallbackLink || '');
+    } catch {
+      return fallbackLink || '';
+    }
+  };
+
+  const updateLinkValue = (newLink: string) => {
+    if (!linkPath) return;
+    setContent((prev: any) => {
+      const copy = JSON.parse(JSON.stringify(prev || {}));
+      const parts = linkPath.split('.');
+      let cur = copy;
+      for (let i = 0; i < parts.length - 1; i++) {
+        if (!cur[parts[i]]) cur[parts[i]] = {};
+        cur = cur[parts[i]];
+      }
+      cur[parts[parts.length - 1]] = newLink;
+
+      try {
+        sessionStorage.setItem('seleco_live_preview_content', JSON.stringify(copy));
+        if (window.parent && window.parent !== window) {
+          window.parent.postMessage({
+            type: 'ON_ELEMENT_UPDATED',
+            content: copy,
+            fieldPath: linkPath,
+            value: newLink,
+          }, '*');
+        }
+      } catch (err) {}
+
+      return copy;
+    });
+  };
+
   const updateStyleProp = (prop: string, val: any) => {
     setContent((prev: any) => {
       const copy = JSON.parse(JSON.stringify(prev || {}));
@@ -235,7 +284,10 @@ export function EditableText({
         contentEditable={isEditMode}
         suppressContentEditableWarning={true}
         onClick={(e) => {
-          e.stopPropagation();
+          if (isEditMode) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
           setShowToolbar(true);
         }}
         onBlur={(e) => {
@@ -347,6 +399,21 @@ export function EditableText({
               <option value="44px" className="bg-slate-900">44px (Hero Title)</option>
             </select>
           </div>
+
+          {/* Link / URL Editor */}
+          {linkPath && (
+            <div className="flex items-center gap-1.5 bg-slate-950/80 px-2.5 py-1 rounded-lg border border-slate-800 text-[11px]">
+              <ExternalLink className="w-3 h-3 text-amber-300 shrink-0" />
+              <input
+                type="text"
+                value={getLinkValue()}
+                onChange={(e) => updateLinkValue(e.target.value)}
+                placeholder="Link URL (/kontak atau https://...)"
+                className="bg-transparent text-amber-300 w-36 sm:w-48 text-[11px] focus:outline-none border-b border-transparent focus:border-amber-400 placeholder:text-slate-500"
+                title="URL Tujuan Tombol"
+              />
+            </div>
+          )}
 
           {/* Close Toolbar */}
           <button

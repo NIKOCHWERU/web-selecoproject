@@ -30,7 +30,9 @@ import {
   Briefcase,
   ShieldCheck,
   MousePointerClick,
-  Sliders
+  Sliders,
+  Maximize2,
+  Minimize2
 } from 'lucide-react';
 import TailAdminLayout from '@/components/admin/TailAdminLayout';
 import { SiteContent, defaultSiteContent } from '@/data/defaultSiteContent';
@@ -41,6 +43,7 @@ export default function AdminClient() {
   // Content state inside builder
   const [editorContent, setEditorContent] = useState<SiteContent>(defaultSiteContent);
   const [editorMode, setEditorMode] = useState<'sidebar' | 'click_to_edit'>('sidebar');
+  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<'hero' | 'about' | 'services' | 'retainer' | 'insights' | 'faq' | 'global'>('hero');
   const [activeSection, setActiveSection] = useState<string>('hero-text');
   const [deviceView, setDeviceView] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
@@ -356,6 +359,8 @@ export default function AdminClient() {
       title="Editor Web"
       subtitle="Visual Page Builder & Pengaturan Konten Website"
       fullHeight={true}
+      hideSidebar={editorMode === 'click_to_edit' || isFullscreen}
+      onToggleHideSidebar={() => setIsFullscreen(!isFullscreen)}
       siteMode={editorContent.siteMode?.status || 'maintenance'}
       onSiteModeChange={handleToggleSiteMode}
       headerActions={
@@ -363,7 +368,10 @@ export default function AdminClient() {
           {/* Mode Switcher */}
           <div className="hidden lg:flex items-center bg-[#1C2434] p-1 rounded-xl border border-[#2E3A47]">
             <button
-              onClick={() => setEditorMode('sidebar')}
+              onClick={() => {
+                setEditorMode('sidebar');
+                setIsFullscreen(false);
+              }}
               className={`px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
                 editorMode === 'sidebar'
                   ? 'bg-[#333A48] text-[#D4AF37] font-bold shadow-sm'
@@ -375,13 +383,16 @@ export default function AdminClient() {
               <span>Form</span>
             </button>
             <button
-              onClick={() => setEditorMode('click_to_edit')}
+              onClick={() => {
+                setEditorMode('click_to_edit');
+                setIsFullscreen(true);
+              }}
               className={`px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
                 editorMode === 'click_to_edit'
                   ? 'bg-[#333A48] text-[#D4AF37] font-bold shadow-sm'
                   : 'text-[#8A99AD] hover:text-white'
               }`}
-              title="Mode Klik Langsung Visual"
+              title="Mode Klik Langsung Visual (Layar Penuh)"
             >
               <MousePointerClick className="w-3.5 h-3.5" />
               <span>Visual</span>
@@ -395,7 +406,7 @@ export default function AdminClient() {
               className={`p-1.5 rounded-lg transition-all ${
                 deviceView === 'desktop' ? 'bg-[#333A48] text-[#D4AF37]' : 'text-[#8A99AD] hover:text-white'
               }`}
-              title="Desktop"
+              title="Desktop (100% Full Width)"
             >
               <Monitor className="w-3.5 h-3.5" />
             </button>
@@ -404,7 +415,7 @@ export default function AdminClient() {
               className={`p-1.5 rounded-lg transition-all ${
                 deviceView === 'tablet' ? 'bg-[#333A48] text-[#D4AF37]' : 'text-[#8A99AD] hover:text-white'
               }`}
-              title="Tablet"
+              title="Tablet (768px)"
             >
               <Tablet className="w-3.5 h-3.5" />
             </button>
@@ -413,11 +424,28 @@ export default function AdminClient() {
               className={`p-1.5 rounded-lg transition-all ${
                 deviceView === 'mobile' ? 'bg-[#333A48] text-[#D4AF37]' : 'text-[#8A99AD] hover:text-white'
               }`}
-              title="Mobile"
+              title="Mobile (375px)"
             >
               <Smartphone className="w-3.5 h-3.5" />
             </button>
           </div>
+
+          {/* Full Screen Toggle Button */}
+          <button
+            onClick={() => setIsFullscreen(!isFullscreen)}
+            className={`p-2 rounded-lg transition-colors ${
+              isFullscreen || editorMode === 'click_to_edit'
+                ? 'text-[#D4AF37] bg-[#333A48]'
+                : 'text-[#8A99AD] hover:text-white hover:bg-[#1C2434]'
+            }`}
+            title={isFullscreen ? 'Tutup Layar Penuh' : 'Mode Layar Penuh (Full Screen)'}
+          >
+            {isFullscreen ? (
+              <Minimize2 className="w-4 h-4" />
+            ) : (
+              <Maximize2 className="w-4 h-4" />
+            )}
+          </button>
 
           {/* Reset to Default */}
           <button
@@ -1331,34 +1359,34 @@ export default function AdminClient() {
         </aside>
 
         {/* RIGHT PANEL: LIVE RESPONSIVE CANVAS PREVIEW (AUTHENTIC IFRAME VIEWPORT) */}
-        <main className="flex-grow bg-slate-950 flex flex-col items-center justify-center overflow-hidden p-2 sm:p-4 md:p-5 relative">
+        <main className={`flex-grow bg-[#1A222C] flex flex-col items-center justify-center overflow-hidden relative transition-all duration-300 ${
+          deviceView === 'desktop' ? 'p-0' : 'p-2 sm:p-4 md:p-6'
+        }`}>
           
           {/* Viewport Dimension & Mode Info Badge */}
           <div className="absolute top-2 left-4 right-4 z-20 flex items-center justify-between pointer-events-none">
             {editorMode === 'click_to_edit' ? (
-              <div className="flex items-center gap-2 text-xs bg-amber-400 text-slate-950 font-bold px-4 py-1.5 rounded-full shadow-xl pointer-events-auto animate-bounce">
-                <MousePointerClick className="w-4 h-4" />
-                <span>Mode Klik Langsung Aktif: Klik teks untuk edit & atur format (align/warna/ukuran), klik foto untuk ganti gambar!</span>
+              <div className="flex items-center gap-2 text-xs bg-amber-400 text-slate-950 font-bold px-3.5 py-1 rounded-full shadow-lg pointer-events-auto opacity-95">
+                <MousePointerClick className="w-3.5 h-3.5" />
+                <span>Mode Visual: Klik teks/tombol untuk mengedit. Navigasi link dinonaktifkan.</span>
               </div>
-            ) : (
-              <div className="text-[11px] text-slate-400 hidden sm:block">
-                Edit teks dan foto melalui panel form di sebelah kiri.
+            ) : null}
+
+            {deviceView !== 'desktop' && (
+              <div className="hidden md:flex items-center gap-2 text-[10px] text-slate-400 bg-slate-900/90 px-3 py-1 rounded-full border border-slate-800 shadow-md">
+                <span>Resolusi Layar:</span>
+                <span className="font-mono text-amber-300 font-semibold">
+                  {deviceView === 'tablet' ? '768px (Tablet)' : '375px (Mobile)'}
+                </span>
               </div>
             )}
-
-            <div className="hidden md:flex items-center gap-2 text-[10px] text-slate-400 bg-slate-900/90 px-3 py-1 rounded-full border border-slate-800 shadow-md">
-              <span>Resolusi Layar:</span>
-              <span className="font-mono text-amber-300 font-semibold">
-                {deviceView === 'desktop' ? 'Desktop (100% Viewport)' : deviceView === 'tablet' ? '768px (iPad / Tablet Viewport)' : '375px (iPhone / Mobile Viewport)'}
-              </span>
-            </div>
           </div>
 
           {/* Device Mockup Frame */}
           <div 
             className={`transition-all duration-300 relative flex flex-col items-center justify-center ${
               deviceView === 'desktop'
-                ? 'w-full h-full max-w-full rounded-2xl shadow-2xl border border-slate-800/80 bg-white overflow-hidden'
+                ? 'w-full h-full max-w-full rounded-none border-0 bg-white overflow-hidden'
                 : deviceView === 'tablet'
                 ? 'w-[768px] max-w-full h-full max-h-[92vh] bg-slate-900 p-3 rounded-[36px] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] border-4 border-slate-800 flex flex-col items-center'
                 : 'w-[375px] max-w-full h-full max-h-[92vh] bg-slate-900 p-2.5 rounded-[48px] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] border-4 border-slate-800 flex flex-col items-center'
@@ -1384,7 +1412,9 @@ export default function AdminClient() {
             )}
 
             {/* Genuine Responsive Iframe */}
-            <div className="w-full h-full overflow-hidden flex-grow relative rounded-xl bg-white">
+            <div className={`w-full h-full overflow-hidden flex-grow relative bg-white ${
+              deviceView === 'desktop' ? 'rounded-none' : 'rounded-xl'
+            }`}>
               <iframe
                 ref={iframeRef}
                 src="/admin/preview"
