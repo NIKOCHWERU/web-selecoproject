@@ -1,7 +1,7 @@
 {
   "global": {
-    "brandName": "SELECO",
-    "brandTagline": "SEDANA CORPORATE CONSULTANT",
+    "brandName": "Seleco",
+    "brandTagline": "Sedana legal consultant",
     "whatsappNumber": "6282211020022",
     "whatsappDisplay": "0822-1102-0022",
     "phone": "+62 822-1102-0022",
@@ -186,14 +186,14 @@
     ]
   },
   "footer": {
-    "description": "SELECO (Sedana Corporate Consultant) adalah konsultan korporasi terpercaya di Indonesia, mengkhususkan diri pada 5 pilar layanan utama: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM.",
-    "copyright": "© 2026 SELECO (Sedana Corporate Consultant). Hak Cipta Dilindungi Undang-Undang."
+    "description": "Seleco (Sedana legal consultant) adalah konsultan terpercaya di Indonesia, mengkhususkan diri pada 5 pilar layanan utama: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM.",
+    "copyright": "© 2026 Seleco (Sedana legal consultant). Hak Cipta Dilindungi Undang-Undang."
   },
   "siteMode": {
     "status": "maintenance",
     "badgeText": "Website Dalam Pengembangan",
-    "title": "Website Resmi SELECO Sedang Dalam Pengembangan",
-    "subtitle": "Kami sedang mempersiapkan sistem dan direktori layanan konsultan korporasi terbaik untuk Anda. Untuk konsultasi perizinan, imigrasi, pajak, pertanahan, atau SDM, tim konsultan SELECO tetap aktif melayani Anda via WhatsApp dan Email resmi.",
+    "title": "Website Resmi Seleco Sedang Dalam Pengembangan",
+    "subtitle": "Kami sedang mempersiapkan sistem dan direktori layanan konsultan terbaik untuk Anda. Untuk konsultasi perizinan, imigrasi, pajak, pertanahan, atau SDM, tim konsultan Seleco tetap aktif melayani Anda via WhatsApp dan Email resmi.",
     "estimatedDate": "Segera Hadir (Coming Soon)",
     "whatsappText": "Konsultasi Sekarang via WhatsApp"
   },

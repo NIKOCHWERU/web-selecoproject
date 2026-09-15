@@ -67,7 +67,7 @@ export default function DevPortalPage() {
             </div>
             <div>
               <h1 className="font-serif-title text-xl sm:text-2xl font-bold text-white tracking-wide">
-                SELECO Developer Portal
+                Seleco Developer Portal
               </h1>
               <p className="text-xs text-amber-400/90 font-medium">
                 Akses Internal &amp; Bypass Mode Pengembangan
@@ -232,7 +232,7 @@ export default function DevPortalPage() {
 
         {/* Footer info */}
         <div className="text-center text-xs text-slate-500 pt-4 border-t border-slate-800/80">
-          <p>© {new Date().getFullYear()} SELECO (Sedana Corporate Consultant) — Internal Developer Mode</p>
+          <p>© {new Date().getFullYear()} Seleco (Sedana legal consultant) — Internal Developer Mode</p>
         </div>
 
       </div>

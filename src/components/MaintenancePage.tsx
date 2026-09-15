@@ -22,20 +22,20 @@ interface MaintenancePageProps {
 }
 
 export default function MaintenancePage({ content }: MaintenancePageProps) {
-  const brandName = content?.global?.brandName || 'SELECO';
-  const brandTagline = content?.global?.brandTagline || 'SEDANA CORPORATE CONSULTANT';
+  const brandName = content?.global?.brandName || 'Seleco';
+  const brandTagline = content?.global?.brandTagline || 'Sedana legal consultant';
   const whatsappNumber = content?.global?.whatsappNumber || '6282211020022';
   const whatsappDisplay = content?.global?.whatsappDisplay || '0822-1102-0022';
   const email = content?.global?.email || 'hello@selecoproject.com';
   const address = content?.global?.address || 'Jl.M.H Thamrin No. 9 Lt 12, Kebon Sirih Menteng, DKI Jakarta, 10340';
   
   const siteMode = content?.siteMode;
-  const title = siteMode?.title || 'Website Resmi SELECO Sedang Dalam Pengembangan';
-  const subtitle = siteMode?.subtitle || 'Kami sedang mempersiapkan sistem dan direktori layanan konsultan korporasi terbaik untuk Anda. Untuk konsultasi perizinan, imigrasi, pajak, pertanahan, atau SDM, tim konsultan SELECO tetap aktif melayani Anda via WhatsApp dan Email resmi.';
+  const title = siteMode?.title || 'Website Resmi Seleco Sedang Dalam Pengembangan';
+  const subtitle = siteMode?.subtitle || 'Kami sedang mempersiapkan sistem dan direktori layanan konsultan korporasi terbaik untuk Anda. Untuk konsultasi perizinan, imigrasi, pajak, pertanahan, atau SDM, tim konsultan Seleco tetap aktif melayani Anda via WhatsApp dan Email resmi.';
   const badgeText = siteMode?.badgeText || 'Website Dalam Pengembangan';
   const estimatedDate = siteMode?.estimatedDate || 'Segera Hadir (Coming Soon)';
 
-  const waUrl = `https://wa.me/${whatsappNumber}?text=Halo%20SELECO,%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20konsultan%20dan%20perizinan%20usaha.`;
+  const waUrl = `https://wa.me/${whatsappNumber}?text=Halo%20Seleco,%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20konsultan%20dan%20perizinan%20usaha.`;
 
   return (
     <div className="min-h-screen w-full bg-[#0B0F19] text-slate-100 flex flex-col justify-between relative overflow-hidden selection:bg-amber-400 selection:text-slate-950 font-sans">
@@ -64,21 +64,11 @@ export default function MaintenancePage({ content }: MaintenancePageProps) {
             <div className="font-serif-title text-xl font-bold tracking-wider text-white">
               {brandName}
             </div>
-            <div className="text-[10px] uppercase font-bold tracking-widest text-amber-400/80">
+            <div className="text-[10px] font-semibold tracking-widest text-amber-400/80">
               {brandTagline}
             </div>
           </div>
         </div>
-
-        {/* Admin Login Shortcut */}
-        <Link
-          href="/admin"
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-slate-800 hover:border-amber-400/40 text-xs text-slate-400 hover:text-amber-300 transition-all shadow-sm"
-          title="Login ke Dashboard Pengelola"
-        >
-          <Lock className="w-3.5 h-3.5" />
-          <span className="hidden sm:inline">Portal Admin</span>
-        </Link>
       </header>
 
       {/* Main Center Content */}
@@ -177,12 +167,8 @@ export default function MaintenancePage({ content }: MaintenancePageProps) {
             </a>
           </div>
 
-          <div className="text-slate-500 text-[11px] flex items-center gap-2">
-            <span>© {new Date().getFullYear()} {brandName}. Hak Cipta Dilindungi.</span>
-            <span>•</span>
-            <Link href="/dev" className="text-slate-600 hover:text-amber-400 transition-colors">
-              Dev Portal
-            </Link>
+          <div className="text-slate-500 text-[11px]">
+            © {new Date().getFullYear()} {brandName}. Hak Cipta Dilindungi.
           </div>
         </div>
       </footer>

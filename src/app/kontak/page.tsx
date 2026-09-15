@@ -5,8 +5,8 @@ import ContactSection from '@/components/ContactSection';
 import FAQSection from '@/components/FAQSection';
 
 export const metadata: Metadata = {
-  title: 'Kontak & Konsultasi | SELECO — Sedana Corporate Consultant',
-  description: 'Hubungi konsultan korporasi SELECO Jakarta. Konsultasi perizinan usaha OSS RBA, keimigrasian/TKA, perpajakan badan, pertanahan BPN, dan manajemen SDM via formulir atau WhatsApp.',
+  title: 'Kontak & Konsultasi | Seleco — Sedana legal consultant',
+  description: 'Hubungi konsultan Seleco Jakarta. Konsultasi perizinan usaha OSS RBA, keimigrasian/TKA, perpajakan badan, pertanahan BPN, dan manajemen SDM via formulir atau WhatsApp.',
 };
 
 export default function KontakPage() {
@@ -29,7 +29,7 @@ export default function KontakPage() {
             </h1>
             <div className="w-16 h-[3px] bg-gold-accent mt-3 mb-4 rounded-full" />
             <p className="text-base text-slate-600 max-w-2xl leading-relaxed font-normal">
-              Diskusikan perizinan usaha, keimigrasian, perpajakan, pertanahan, atau manajemen SDM perusahaan Anda bersama konsultan profesional SELECO.
+              Diskusikan perizinan usaha, keimigrasian, perpajakan, pertanahan, atau manajemen SDM perusahaan Anda bersama konsultan profesional Seleco.
             </p>
           </div>
         </div>

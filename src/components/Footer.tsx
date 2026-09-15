@@ -35,14 +35,14 @@ export default function Footer() {
               <span className="font-serif-title text-2xl font-bold tracking-widest text-white">
                 <EditableText
                   fieldPath="global.brandName"
-                  fallback="SELECO"
+                  fallback="Seleco"
                   label="Nama Brand"
                 /> <span className="text-gold-accent">.</span>
               </span>
-              <span className="text-[9px] font-bold tracking-[0.2em] text-gold-accent uppercase mt-0.5">
+              <span className="text-[9px] font-semibold tracking-[0.2em] text-gold-accent mt-0.5">
                 <EditableText
                   fieldPath="global.brandTagline"
-                  fallback="SEDANA CORPORATE CONSULTANT"
+                  fallback="Sedana legal consultant"
                   label="Tagline Brand"
                 />
               </span>
@@ -50,7 +50,7 @@ export default function Footer() {
             <p className="text-white/60 leading-relaxed text-xs">
               <EditableText
                 fieldPath="footer.description"
-                fallback="Konsultan korporasi terpercaya di Indonesia: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM."
+                fallback="Seleco (Sedana legal consultant) adalah konsultan terpercaya di Indonesia: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM."
                 label="Deskripsi Footer"
                 multiline={true}
               />
@@ -178,7 +178,7 @@ export default function Footer() {
           <div>
             <EditableText
               fieldPath="footer.copyright"
-              fallback={`© ${new Date().getFullYear()} SELECO (Sedana Corporate Consultant). Hak Cipta Dilindungi Undang-Undang.`}
+              fallback={`© ${new Date().getFullYear()} Seleco (Sedana legal consultant). Hak Cipta Dilindungi Undang-Undang.`}
               label="Teks Copyright"
             />
           </div>

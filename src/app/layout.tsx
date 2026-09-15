@@ -7,9 +7,9 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: 'SELECO | Sedana Corporate Consultant — Perizinan, Imigrasi, Pajak, Pertanahan & SDM',
-  description: 'SELECO (Sedana Corporate Consultant) menyediakan 5 pilar konsultan profesional: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM.',
-  keywords: 'konsultan perizinan usaha, konsultan imigrasi kitas tka, konsultan pajak spt badan, konsultan pertanahan bpn, konsultan sdm ketenagakerjaan, seleco corporate consultant',
+  title: 'Seleco | Sedana legal consultant — Perizinan, Imigrasi, Pajak, Pertanahan & SDM',
+  description: 'Seleco (Sedana legal consultant) menyediakan 5 pilar konsultan profesional: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM.',
+  keywords: 'konsultan perizinan usaha, konsultan imigrasi kitas tka, konsultan pajak spt badan, konsultan pertanahan bpn, konsultan sdm ketenagakerjaan, seleco sedana legal consultant',
   robots: {
     index: false,
     follow: false,
@@ -24,10 +24,10 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'SELECO — Sedana Corporate Consultant',
-    description: '5 Pilar Konsultan Korporasi: Perizinan, Imigrasi, Pajak, Pertanahan & SDM (445+ Solusi Layanan)',
+    title: 'Seleco — Sedana legal consultant',
+    description: '5 Pilar Konsultan: Perizinan, Imigrasi, Pajak, Pertanahan & SDM (445+ Solusi Layanan)',
     url: `https://${process.env.NEXT_PUBLIC_DOMAIN || 'selecoproject.com'}`,
-    siteName: 'SELECO Corporate Consultant',
+    siteName: 'Seleco',
     images: [
       {
         url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80',

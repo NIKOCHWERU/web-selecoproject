@@ -48,10 +48,10 @@ export default function Navbar() {
           {/* Logo Brand */}
           <Link href="/" className="flex flex-col group">
             <span className="font-serif-title text-2xl font-bold tracking-widest text-slate-900 transition-colors group-hover:text-gold-accent">
-              {global?.brandName || 'SELECO'} <span className="text-gold-accent">.</span>
+              {global?.brandName || 'Seleco'} <span className="text-gold-accent">.</span>
             </span>
-            <span className="text-[10px] font-bold tracking-[0.25em] text-gold-accent uppercase -mt-1">
-              {global?.brandTagline || 'SEDANA CORPORATE CONSULTANT'}
+            <span className="text-[10px] font-semibold tracking-[0.2em] text-gold-accent -mt-1">
+              {global?.brandTagline || 'Sedana legal consultant'}
             </span>
           </Link>
 
@@ -125,10 +125,10 @@ export default function Navbar() {
                 <div className="flex items-center justify-between pb-6 border-b border-gray-100">
                   <div className="flex flex-col">
                     <span className="font-serif-title text-xl font-bold text-slate-900 tracking-widest">
-                      SELECO <span className="text-gold-accent">.</span>
+                      Seleco <span className="text-gold-accent">.</span>
                     </span>
-                    <span className="text-[9px] font-bold tracking-widest text-gold-accent">
-                      SEDANA CORPORATE CONSULTANT
+                    <span className="text-[9px] font-semibold tracking-widest text-gold-accent">
+                      Sedana legal consultant
                     </span>
                   </div>
                   <button
