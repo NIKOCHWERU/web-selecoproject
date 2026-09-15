@@ -32,11 +32,16 @@ import {
   MousePointerClick,
   Sliders,
   Maximize2,
-  Minimize2
+  Minimize2,
+  Home,
+  Compass,
+  Building2
 } from 'lucide-react';
 import TailAdminLayout from '@/components/admin/TailAdminLayout';
 import { SiteContent, defaultSiteContent } from '@/data/defaultSiteContent';
 import { compressImageToDataUrl } from '@/lib/imageUtils';
+
+export type PreviewPageOption = 'home' | 'about' | 'services' | 'insight' | 'contact';
 
 export default function AdminClient() {
 
@@ -44,6 +49,9 @@ export default function AdminClient() {
   const [editorContent, setEditorContent] = useState<SiteContent>(defaultSiteContent);
   const [editorMode, setEditorMode] = useState<'sidebar' | 'click_to_edit'>('sidebar');
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
+  const [activePage, setActivePage] = useState<PreviewPageOption>('home');
+  const [pageDropdownOpen, setPageDropdownOpen] = useState<boolean>(false);
+  const pageDropdownRef = useRef<HTMLDivElement>(null);
   const [activeTab, setActiveTab] = useState<'hero' | 'about' | 'services' | 'retainer' | 'insights' | 'faq' | 'global'>('hero');
   const [activeSection, setActiveSection] = useState<string>('hero-text');
   const [deviceView, setDeviceView] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
@@ -59,6 +67,45 @@ export default function AdminClient() {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [iframeLoaded, setIframeLoaded] = useState<boolean>(false);
 
+  const sendPageToIframe = (page: PreviewPageOption) => {
+    if (iframeRef.current?.contentWindow) {
+      iframeRef.current.contentWindow.postMessage({
+        type: 'SET_PREVIEW_PAGE',
+        page: page,
+      }, '*');
+    }
+  };
+
+  const handleSelectPage = (page: PreviewPageOption) => {
+    setActivePage(page);
+    setPageDropdownOpen(false);
+    sendPageToIframe(page);
+
+    // Also auto-switch form tab to relevant section for seamless experience
+    if (page === 'home') {
+      setActiveTab('hero');
+    } else if (page === 'about') {
+      setActiveTab('about');
+    } else if (page === 'services') {
+      setActiveTab('services');
+    } else if (page === 'insight') {
+      setActiveTab('insights');
+    } else if (page === 'contact') {
+      setActiveTab('global');
+    }
+  };
+
+  // Close dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (pageDropdownRef.current && !pageDropdownRef.current.contains(e.target as Node)) {
+        setPageDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const sendContentToIframe = (contentToSend: SiteContent) => {
     try {
       sessionStorage.setItem('seleco_live_preview_content', JSON.stringify(contentToSend));
@@ -71,6 +118,10 @@ export default function AdminClient() {
         iframeRef.current.contentWindow.postMessage({
           type: 'SET_EDITOR_MODE',
           mode: editorMode,
+        }, '*');
+        iframeRef.current.contentWindow.postMessage({
+          type: 'SET_PREVIEW_PAGE',
+          page: activePage,
         }, '*');
       }
     } catch (e) {
@@ -89,6 +140,7 @@ export default function AdminClient() {
       if (e.data?.type === 'PREVIEW_IFRAME_READY') {
         setIframeLoaded(true);
         sendContentToIframe(editorContent);
+        sendPageToIframe(activePage);
       }
       if (e.data?.type === 'ON_ELEMENT_UPDATED' && e.data.content) {
         setEditorContent(e.data.content);
@@ -96,7 +148,7 @@ export default function AdminClient() {
     };
     window.addEventListener('message', handleIframeMessage);
     return () => window.removeEventListener('message', handleIframeMessage);
-  }, [editorContent, editorMode]);
+  }, [editorContent, editorMode, activePage]);
 
   // Load content on mount
   useEffect(() => {
@@ -365,6 +417,62 @@ export default function AdminClient() {
       onSiteModeChange={handleToggleSiteMode}
       headerActions={
         <div className="flex items-center gap-2">
+          {/* Pilih Halaman Menu Dropdown */}
+          <div className="relative" ref={pageDropdownRef}>
+            <button
+              onClick={() => setPageDropdownOpen(!pageDropdownOpen)}
+              className="flex items-center gap-2 px-3 py-1.5 bg-[#1C2434] hover:bg-[#24303F] border border-[#2E3A47] hover:border-[#D4AF37]/50 rounded-xl text-xs font-semibold text-white transition-all shadow-sm"
+              title="Pilih Halaman Menu yang Ingin Diedit"
+            >
+              <Compass className="w-4 h-4 text-[#D4AF37]" />
+              <span className="hidden sm:inline text-[#8A99AD] text-[11px] uppercase tracking-wider">Halaman:</span>
+              <span className="text-[#D4AF37] font-bold">
+                {activePage === 'home' && '🏠 Beranda'}
+                {activePage === 'about' && '🏢 Tentang Kami'}
+                {activePage === 'services' && '💼 Layanan'}
+                {activePage === 'insight' && '📰 Insight'}
+                {activePage === 'contact' && '📞 Kontak'}
+              </span>
+              <ChevronDown className={`w-3.5 h-3.5 text-[#8A99AD] transition-transform duration-200 ${pageDropdownOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            {/* Dropdown Menu */}
+            {pageDropdownOpen && (
+              <div className="absolute left-0 mt-2 w-56 bg-[#1C2434] border border-[#2E3A47] rounded-xl shadow-2xl py-1.5 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+                <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-[#8A99AD] border-b border-[#2E3A47]/60">
+                  Pilih Halaman Menu
+                </div>
+                {[
+                  { id: 'home', label: 'Beranda (Home)', icon: Home, route: '/' },
+                  { id: 'about', label: 'Tentang Kami', icon: Building2, route: '/tentang' },
+                  { id: 'services', label: '5 Pilar Layanan', icon: Briefcase, route: '/layanan' },
+                  { id: 'insight', label: 'Insight & Regulasi', icon: FileText, route: '/insight' },
+                  { id: 'contact', label: 'Kontak & Konsultasi', icon: Phone, route: '/kontak' },
+                ].map((item) => {
+                  const Icon = item.icon;
+                  const isSelected = activePage === item.id;
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={() => handleSelectPage(item.id as PreviewPageOption)}
+                      className={`w-full flex items-center justify-between px-3 py-2.5 text-xs text-left transition-colors ${
+                        isSelected
+                          ? 'bg-[#333A48] text-[#D4AF37] font-bold border-l-2 border-[#D4AF37]'
+                          : 'text-[#CBD5E1] hover:bg-[#24303F] hover:text-white'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <Icon className={`w-4 h-4 ${isSelected ? 'text-[#D4AF37]' : 'text-[#8A99AD]'}`} />
+                        <span>{item.label}</span>
+                      </div>
+                      <span className="text-[10px] text-[#64748B] font-mono">{item.route}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
           {/* Mode Switcher */}
           <div className="hidden lg:flex items-center bg-[#1C2434] p-1 rounded-xl border border-[#2E3A47]">
             <button
