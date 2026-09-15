@@ -32,21 +32,11 @@ import {
   MousePointerClick,
   Sliders
 } from 'lucide-react';
-import ArticleDashboard from '@/components/admin/ArticleDashboard';
-import UserManagement from '@/components/admin/UserManagement';
+import TailAdminLayout from '@/components/admin/TailAdminLayout';
 import { SiteContent, defaultSiteContent } from '@/data/defaultSiteContent';
 import { compressImageToDataUrl } from '@/lib/imageUtils';
 
 export default function AdminClient() {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [usernameInput, setUsernameInput] = useState<string>('admin');
-  const [passwordInput, setPasswordInput] = useState<string>('');
-  const [authError, setAuthError] = useState<string>('');
-  const [isAuthenticating, setIsAuthenticating] = useState<boolean>(false);
-  const [currentUser, setCurrentUser] = useState<{ id: string; username: string; name: string; role: string } | null>(null);
-
-  // Top-level Dashboard Module: 'builder' | 'articles' | 'users'
-  const [adminModule, setAdminModule] = useState<'builder' | 'articles' | 'users'>('builder');
 
   // Content state inside builder
   const [editorContent, setEditorContent] = useState<SiteContent>(defaultSiteContent);
@@ -105,19 +95,15 @@ export default function AdminClient() {
     return () => window.removeEventListener('message', handleIframeMessage);
   }, [editorContent, editorMode]);
 
-  // Check auth session on load
+  // Load content on mount
   useEffect(() => {
-    const sessionAuth = sessionStorage.getItem('seleco_admin_auth');
-    const storedUser = sessionStorage.getItem('seleco_admin_user');
-    if (sessionAuth === 'true') {
-      setIsAuthenticated(true);
-      if (storedUser) {
-        try {
-          setCurrentUser(JSON.parse(storedUser));
-        } catch (e) {}
+    try {
+      const cached = localStorage.getItem('seleco_site_content');
+      if (cached) {
+        setEditorContent(JSON.parse(cached));
       }
-      fetchCurrentContent();
-    }
+    } catch (e) {}
+    fetchCurrentContent();
   }, []);
 
   const fetchCurrentContent = async () => {
@@ -132,47 +118,6 @@ export default function AdminClient() {
     } catch (err) {
       console.error('Error loading content in admin:', err);
     }
-  };
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsAuthenticating(true);
-    setAuthError('');
-
-    try {
-      const res = await fetch('/api/admin/auth', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          username: usernameInput.trim(), 
-          password: passwordInput 
-        }),
-      });
-
-      const data = await res.json();
-      if (res.ok && data.success) {
-        sessionStorage.setItem('seleco_admin_auth', 'true');
-        if (data.user) {
-          sessionStorage.setItem('seleco_admin_user', JSON.stringify(data.user));
-          setCurrentUser(data.user);
-        }
-        setIsAuthenticated(true);
-        fetchCurrentContent();
-      } else {
-        setAuthError(data.error || 'Username atau Password salah!');
-      }
-    } catch (err: any) {
-      setAuthError('Gagal terhubung ke server.');
-    } finally {
-      setIsAuthenticating(false);
-    }
-  };
-
-  const handleLogout = () => {
-    sessionStorage.removeItem('seleco_admin_auth');
-    sessionStorage.removeItem('seleco_admin_user');
-    setIsAuthenticated(false);
-    setCurrentUser(null);
   };
 
   const handleSave = async () => {
@@ -405,324 +350,103 @@ export default function AdminClient() {
     }));
   };
 
-  // Login Gate
-  if (!isAuthenticated) {
-    return (
-      <div className="fixed inset-0 z-[999] bg-slate-950 flex items-center justify-center p-4 overflow-hidden">
-        {/* Ambient Glows */}
-        <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-1/4 right-1/3 w-96 h-96 bg-amber-600/10 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="bg-slate-900 border border-amber-400/30 rounded-3xl p-8 sm:p-10 max-w-md w-full shadow-2xl relative z-10 backdrop-blur-xl">
-          <div className="text-center mb-8">
-            <div className="w-16 h-16 rounded-2xl bg-amber-400/10 border border-amber-400/30 flex items-center justify-center mx-auto mb-4 text-amber-300 shadow-inner">
-              <Scale className="w-8 h-8" />
-            </div>
-            <h1 className="font-serif-title text-3xl font-bold text-white tracking-wide">
-              SELECO Admin Suite
-            </h1>
-            <p className="text-xs text-slate-400 uppercase tracking-widest mt-1">
-              Portal Pengelola Website, Artikel &amp; Pengguna
-            </p>
-          </div>
-
-          <form onSubmit={handleLogin} className="space-y-4">
-            {authError && (
-              <div className="flex items-center gap-2.5 p-3.5 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400 text-xs">
-                <AlertCircle className="w-4 h-4 shrink-0" />
-                <span>{authError}</span>
-              </div>
-            )}
-
-            <div>
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
-                Username Admin
-              </label>
-              <div className="relative">
-                <input
-                  type="text"
-                  value={usernameInput}
-                  onChange={(e) => setUsernameInput(e.target.value)}
-                  placeholder="admin"
-                  className="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:border-amber-400 transition-colors"
-                  autoFocus
-                  required
-                />
-                <Users className="w-4 h-4 text-slate-500 absolute right-4 top-1/2 -translate-y-1/2" />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
-                Password
-              </label>
-              <div className="relative">
-                <input
-                  type="password"
-                  value={passwordInput}
-                  onChange={(e) => setPasswordInput(e.target.value)}
-                  placeholder="Masukkan password admin..."
-                  className="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:border-amber-400 transition-colors"
-                  required
-                />
-                <Lock className="w-4 h-4 text-slate-500 absolute right-4 top-1/2 -translate-y-1/2" />
-              </div>
-              <div className="mt-2 p-2.5 bg-slate-950/60 rounded-lg border border-slate-800 text-[11px] text-slate-400 leading-relaxed">
-                <span>Default Akun: </span>
-                <span className="text-amber-300 font-mono">admin</span> / <span className="text-amber-300 font-mono">admin</span> (atau <span className="text-amber-300 font-mono">seleco2026</span>)
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              disabled={isAuthenticating}
-              className="w-full py-3.5 bg-gradient-to-r from-[#D4AF37] to-[#C9A227] hover:brightness-110 text-slate-950 font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg hover:shadow-gold flex items-center justify-center gap-2 mt-2"
-            >
-              {isAuthenticating ? (
-                <span>Memverifikasi...</span>
-              ) : (
-                <>
-                  <Lock className="w-4 h-4" />
-                  <span>Masuk Dashboard</span>
-                </>
-              )}
-            </button>
-          </form>
-        </div>
-      </div>
-    );
-  }
-
-  // ELEMENTOR BUILDER INTERFACE
   return (
-    <div className="fixed inset-0 z-[999] h-screen w-screen flex flex-col bg-slate-900 text-slate-100 overflow-hidden select-none">
-      
-      {/* TOP HEADER / TOOLBAR */}
-      <header className="h-16 bg-slate-950 border-b border-slate-800 flex items-center justify-between px-4 z-40 shrink-0">
-        {/* Left: Brand & Module Switcher */}
-        <div className="flex items-center gap-3 md:gap-5">
-          <div className="flex items-center gap-2 shrink-0">
-            <div className="w-8 h-8 rounded-lg bg-amber-400/10 border border-amber-400/30 flex items-center justify-center text-amber-300">
-              <Scale className="w-4 h-4" />
-            </div>
-            <div>
-              <span className="font-serif-title text-base font-bold text-white tracking-wider">SELECO</span>
-              <span className="text-[10px] text-amber-400 uppercase font-bold ml-1.5 px-1.5 py-0.5 bg-amber-400/10 rounded">Admin</span>
-            </div>
-          </div>
-
-          <div className="h-5 w-[1px] bg-slate-800 hidden md:block" />
-
-          {/* Module Switcher */}
-          <div className="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800 shrink-0">
+    <TailAdminLayout
+      activeNav="editor"
+      title="Editor Web"
+      subtitle="Visual Page Builder & Pengaturan Konten Website"
+      fullHeight={true}
+      siteMode={editorContent.siteMode?.status || 'maintenance'}
+      onSiteModeChange={handleToggleSiteMode}
+      headerActions={
+        <div className="flex items-center gap-2">
+          {/* Mode Switcher */}
+          <div className="hidden lg:flex items-center bg-[#1C2434] p-1 rounded-xl border border-[#2E3A47]">
             <button
-              onClick={() => setAdminModule('builder')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
-                adminModule === 'builder'
-                  ? 'bg-amber-400 text-slate-950 font-bold shadow-md'
-                  : 'text-slate-400 hover:text-white'
+              onClick={() => setEditorMode('sidebar')}
+              className={`px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+                editorMode === 'sidebar'
+                  ? 'bg-[#333A48] text-[#D4AF37] font-bold shadow-sm'
+                  : 'text-[#8A99AD] hover:text-white'
               }`}
-              title="Panel Visual Builder &amp; Pengatur Tampilan Web"
+              title="Mode Form Sidebar"
             >
               <Sliders className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Visual Builder</span>
-            </button>
-
-            <button
-              onClick={() => setAdminModule('articles')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
-                adminModule === 'articles'
-                  ? 'bg-gradient-to-r from-[#D4AF37] to-[#C9A227] text-slate-950 font-bold shadow-md'
-                  : 'text-slate-400 hover:text-white'
-              }`}
-              title="Dashboard Artikel &amp; Gutenberg Block Workspace"
-            >
-              <FileText className="w-3.5 h-3.5" />
-              <span>Artikel (Gutenberg)</span>
-            </button>
-
-            <button
-              onClick={() => setAdminModule('users')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
-                adminModule === 'users'
-                  ? 'bg-amber-400 text-slate-950 font-bold shadow-md'
-                  : 'text-slate-400 hover:text-white'
-              }`}
-              title="Kelola Akun Admin &amp; Akses Pengguna"
-            >
-              <Users className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Pengguna Admin</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Center: Builder Controls (Only visible in Visual Builder) */}
-        {adminModule === 'builder' && (
-          <div className="hidden lg:flex items-center gap-3">
-            {/* Mode Switcher */}
-            <div className="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800 shadow-inner">
-              <button
-                onClick={() => setEditorMode('sidebar')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
-                  editorMode === 'sidebar'
-                    ? 'bg-gradient-to-r from-[#D4AF37] to-[#C9A227] text-slate-950 shadow-md font-bold'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-                title="Mode Panel Form Sidebar (Tradisional)"
-              >
-                <Layers className="w-3.5 h-3.5" />
-                <span>Panel (Form)</span>
-              </button>
-              <button
-                onClick={() => setEditorMode('click_to_edit')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
-                  editorMode === 'click_to_edit'
-                    ? 'bg-gradient-to-r from-[#D4AF37] to-[#C9A227] text-slate-950 shadow-md font-bold'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-                title="Mode Klik Langsung di Halaman (Elementor Style)"
-              >
-                <MousePointerClick className="w-3.5 h-3.5" />
-                <span>Klik Langsung (Visual)</span>
-              </button>
-            </div>
-
-            {/* Device Switcher */}
-            <div className="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800">
-              <button
-                onClick={() => setDeviceView('desktop')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
-                  deviceView === 'desktop'
-                    ? 'bg-amber-400 text-slate-950 shadow-sm'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-                title="Tampilan Desktop"
-              >
-                <Monitor className="w-3.5 h-3.5" />
-                <span className="hidden xl:inline">Desktop</span>
-              </button>
-              <button
-                onClick={() => setDeviceView('tablet')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
-                  deviceView === 'tablet'
-                    ? 'bg-amber-400 text-slate-950 shadow-sm'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-                title="Tampilan Tablet"
-              >
-                <Tablet className="w-3.5 h-3.5" />
-                <span className="hidden xl:inline">Tablet</span>
-              </button>
-              <button
-                onClick={() => setDeviceView('mobile')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
-                  deviceView === 'mobile'
-                    ? 'bg-amber-400 text-slate-950 shadow-sm'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-                title="Tampilan Mobile"
-              >
-                <Smartphone className="w-3.5 h-3.5" />
-                <span className="hidden xl:inline">Mobile</span>
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Right: Actions */}
-        <div className="flex items-center gap-2 sm:gap-2.5">
-          {/* Status Website Switcher: Maintenance vs Live */}
-          <div className="flex items-center gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800">
-            <button
-              onClick={() => handleToggleSiteMode('maintenance')}
-              className={`px-2.5 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1.5 transition-all ${
-                editorContent.siteMode?.status === 'maintenance'
-                  ? 'bg-amber-400/20 text-amber-300 border border-amber-400/40 shadow-sm'
-                  : 'text-slate-400 hover:text-white'
-              }`}
-              title="Pengunjung umum melihat halaman 'Dalam Pengembangan'"
-            >
-              <span className={`w-1.5 h-1.5 rounded-full ${editorContent.siteMode?.status === 'maintenance' ? 'bg-amber-400 animate-pulse' : 'bg-slate-600'}`} />
-              <span>Pengembangan</span>
+              <span>Form</span>
             </button>
             <button
-              onClick={() => handleToggleSiteMode('live')}
-              className={`px-2.5 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1.5 transition-all ${
-                editorContent.siteMode?.status === 'live'
-                  ? 'bg-emerald-400/20 text-emerald-300 border border-emerald-400/40 shadow-sm'
-                  : 'text-slate-400 hover:text-white'
+              onClick={() => setEditorMode('click_to_edit')}
+              className={`px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+                editorMode === 'click_to_edit'
+                  ? 'bg-[#333A48] text-[#D4AF37] font-bold shadow-sm'
+                  : 'text-[#8A99AD] hover:text-white'
               }`}
-              title="Website tayang penuh untuk publik dan Google"
+              title="Mode Klik Langsung Visual"
             >
-              <span className={`w-1.5 h-1.5 rounded-full ${editorContent.siteMode?.status === 'live' ? 'bg-emerald-400' : 'bg-slate-600'}`} />
-              <span>Tayang (Live)</span>
+              <MousePointerClick className="w-3.5 h-3.5" />
+              <span>Visual</span>
             </button>
           </div>
 
-          {/* User badge */}
-          <div className="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 text-xs">
-            <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-mono font-medium">@{currentUser?.username || usernameInput || 'admin'}</span>
+          {/* Device Switcher */}
+          <div className="hidden md:flex items-center bg-[#1C2434] p-1 rounded-xl border border-[#2E3A47]">
+            <button
+              onClick={() => setDeviceView('desktop')}
+              className={`p-1.5 rounded-lg transition-all ${
+                deviceView === 'desktop' ? 'bg-[#333A48] text-[#D4AF37]' : 'text-[#8A99AD] hover:text-white'
+              }`}
+              title="Desktop"
+            >
+              <Monitor className="w-3.5 h-3.5" />
+            </button>
+            <button
+              onClick={() => setDeviceView('tablet')}
+              className={`p-1.5 rounded-lg transition-all ${
+                deviceView === 'tablet' ? 'bg-[#333A48] text-[#D4AF37]' : 'text-[#8A99AD] hover:text-white'
+              }`}
+              title="Tablet"
+            >
+              <Tablet className="w-3.5 h-3.5" />
+            </button>
+            <button
+              onClick={() => setDeviceView('mobile')}
+              className={`p-1.5 rounded-lg transition-all ${
+                deviceView === 'mobile' ? 'bg-[#333A48] text-[#D4AF37]' : 'text-[#8A99AD] hover:text-white'
+              }`}
+              title="Mobile"
+            >
+              <Smartphone className="w-3.5 h-3.5" />
+            </button>
           </div>
 
-          <Link
-            href="/?preview=true"
-            target="_blank"
-            className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors hidden sm:inline-flex"
-            title="Pratinjau Website Penuh"
-          >
-            <ExternalLink className="w-4 h-4" />
-          </Link>
-
-          {adminModule === 'builder' && (
-            <>
-              <button
-                onClick={handleResetToDefault}
-                className="p-2 text-slate-400 hover:text-amber-400 hover:bg-slate-800 rounded-lg transition-colors"
-                title="Reset ke Default"
-              >
-                <RotateCcw className="w-4 h-4" />
-              </button>
-
-              <button
-                onClick={handleSave}
-                disabled={isSaving}
-                className="px-4 py-2 bg-gradient-to-r from-[#D4AF37] to-[#C9A227] hover:brightness-110 text-slate-950 font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md flex items-center gap-1.5"
-              >
-                {isSaving ? (
-                  <span>Menyimpan...</span>
-                ) : (
-                  <>
-                    <Save className="w-4 h-4" />
-                    <span className="hidden sm:inline">Simpan</span>
-                  </>
-                )}
-              </button>
-            </>
-          )}
-
+          {/* Reset to Default */}
           <button
-            onClick={handleLogout}
-            className="p-2 text-slate-400 hover:text-red-400 hover:bg-slate-800 rounded-lg transition-colors"
-            title="Keluar (Logout)"
+            onClick={handleResetToDefault}
+            className="p-2 text-[#8A99AD] hover:text-amber-400 hover:bg-[#1C2434] rounded-lg transition-colors"
+            title="Reset Konten ke Template Bawaan"
           >
-            <LogOut className="w-4 h-4" />
+            <RotateCcw className="w-4 h-4" />
+          </button>
+
+          {/* Save Button */}
+          <button
+            onClick={handleSave}
+            disabled={isSaving}
+            className="px-4 py-2 bg-gradient-to-r from-[#D4AF37] to-[#C9A227] hover:brightness-110 text-[#1C2434] font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md shadow-[#D4AF37]/20 flex items-center gap-1.5"
+          >
+            {isSaving ? (
+              <span>Menyimpan...</span>
+            ) : (
+              <>
+                <Save className="w-4 h-4" />
+                <span className="hidden sm:inline">Simpan</span>
+              </>
+            )}
           </button>
         </div>
-      </header>
-
-      {/* RENDER DEDICATED ADMIN MODULES */}
-      {adminModule === 'articles' && (
-        <ArticleDashboard />
-      )}
-
-      {adminModule === 'users' && (
-        <UserManagement currentUsername={currentUser?.username || usernameInput || 'admin'} />
-      )}
-
-      {/* VISUAL BUILDER INTERFACE */}
-      {adminModule === 'builder' && (
-        <div className="flex-grow flex overflow-hidden">
+      }
+    >
+      <div className="flex-grow flex h-full overflow-hidden">
         
         {/* LEFT PANEL: ELEMENTOR CONTROL SIDEBAR (W-96 / 420px) */}
         <aside className={`bg-slate-950 border-r border-slate-800 flex flex-col shrink-0 z-30 overflow-hidden transition-all duration-300 ${
@@ -1684,7 +1408,6 @@ export default function AdminClient() {
         </main>
 
       </div>
-      )}
 
       {/* TOAST NOTIFICATION */}
       {saveToast.show && (
@@ -1702,6 +1425,6 @@ export default function AdminClient() {
         </div>
       )}
 
-    </div>
+    </TailAdminLayout>
   );
 }
