@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { 
-  Scale, 
+  Building2, 
   MessageCircle, 
   Mail, 
   Phone, 
@@ -58,7 +58,7 @@ export default function MaintenancePage({ content }: MaintenancePageProps) {
       <header className="relative z-10 max-w-6xl w-full mx-auto px-6 py-8 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-400/20 to-amber-500/5 border border-amber-400/30 flex items-center justify-center text-amber-300 shadow-lg shadow-amber-500/10">
-            <Scale className="w-6 h-6" />
+            <Building2 className="w-6 h-6" />
           </div>
           <div>
             <div className="font-serif-title text-xl font-bold tracking-wider text-white">
@@ -177,8 +177,12 @@ export default function MaintenancePage({ content }: MaintenancePageProps) {
             </a>
           </div>
 
-          <div className="text-slate-500 text-[11px]">
-            © {new Date().getFullYear()} {brandName}. Hak Cipta Dilindungi.
+          <div className="text-slate-500 text-[11px] flex items-center gap-2">
+            <span>© {new Date().getFullYear()} {brandName}. Hak Cipta Dilindungi.</span>
+            <span>•</span>
+            <Link href="/dev" className="text-slate-600 hover:text-amber-400 transition-colors">
+              Dev Portal
+            </Link>
           </div>
         </div>
       </footer>
