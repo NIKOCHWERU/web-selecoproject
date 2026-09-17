@@ -21,73 +21,63 @@ export default function SiteWrapper({ children }: SiteWrapperProps) {
   const router = useRouter();
 
   const [isAdminOrPreview, setIsAdminOrPreview] = useState<boolean>(false);
-  const [isDevAccess, setIsDevAccess] = useState<boolean>(false);
   const [mounted, setMounted] = useState<boolean>(false);
 
   useEffect(() => {
     setMounted(true);
     const hasAdminSession = sessionStorage.getItem('seleco_admin_auth') === 'true';
     const hasPreviewParam = searchParams.get('preview') === 'true';
-    const hasDevStorage = localStorage.getItem('seleco_dev_mode') === 'true';
 
-    if (hasDevStorage) {
-      setIsDevAccess(true);
-    }
-    if (hasAdminSession || hasPreviewParam || hasDevStorage) {
+    // Only allow full website access if explicitly in preview mode or with active admin session
+    if (hasAdminSession || hasPreviewParam) {
       setIsAdminOrPreview(true);
+    } else {
+      setIsAdminOrPreview(false);
     }
   }, [searchParams]);
 
-  const handleExitDevMode = () => {
-    localStorage.removeItem('seleco_dev_mode');
-    setIsDevAccess(false);
-    setIsAdminOrPreview(false);
-    window.location.href = '/';
-  };
-
-  // Always render children directly for admin, api, and dev routes
-  if (pathname.startsWith('/admin') || pathname.startsWith('/api') || pathname.startsWith('/dev')) {
+  // Always render children directly for admin, edit-view, and api routes
+  if (
+    pathname.startsWith('/admin') || 
+    pathname.startsWith('/edit-view') || 
+    pathname.startsWith('/api')
+  ) {
     return <>{children}</>;
   }
 
-  const isMaintenance = content?.siteMode?.status === 'maintenance';
+  // Site is in maintenance mode unless explicitly set to 'live'
+  const isMaintenance = content?.siteMode?.status !== 'live';
 
-  // If in maintenance mode and user is not admin/developer previewing
+  // If in maintenance mode and user is not admin previewing
   if (isMaintenance && !isAdminOrPreview) {
     return <MaintenancePage content={content} />;
   }
 
-  // If in maintenance mode BUT user is previewing as admin or developer
+  // If in maintenance mode BUT user is previewing as admin
   return (
     <>
       {isMaintenance && isAdminOrPreview && (
         <div className="bg-amber-400 text-slate-950 px-4 py-2 text-xs font-bold flex flex-wrap items-center justify-between gap-2 sticky top-0 z-[100] shadow-md">
           <div className="flex items-center gap-2">
-            {isDevAccess ? <Code2 className="w-4 h-4 text-slate-950" /> : <ShieldAlert className="w-4 h-4 text-slate-950" />}
+            <ShieldAlert className="w-4 h-4 text-slate-950 shrink-0" />
             <span>
-              {isDevAccess
-                ? 'MODE DEVELOPER AKTIF: Anda sedang melihat website penuh. Pengunjung publik melihat halaman "Dalam Pengembangan".'
-                : 'MODE PRATINJAU: Situs berstatus "Dalam Pengembangan" untuk publik. Hanya Anda yang dapat melihat pratinjau ini.'}
+              MODE PRATINJAU ADMIN: Situs berstatus &quot;Dalam Pengembangan&quot; untuk publik. Pengunjung biasa melihat halaman pemeliharaan.
             </span>
           </div>
           <div className="flex items-center gap-2 shrink-0">
             <Link
-              href="/admin"
+              href="/edit-view"
               className="px-2.5 py-1 bg-slate-950 text-amber-300 rounded text-[11px] font-bold hover:brightness-125 transition-all flex items-center gap-1"
             >
-              <Sliders className="w-3 h-3" />
+              <span>Editor Visual (/edit-view)</span>
+            </Link>
+            <Link
+              href="/admin"
+              className="px-2.5 py-1 bg-slate-900 text-white rounded text-[11px] font-bold hover:brightness-125 transition-all flex items-center gap-1"
+            >
+              <Sliders className="w-3 h-3 text-amber-300" />
               <span>Dashboard Admin</span>
             </Link>
-            {isDevAccess && (
-              <button
-                onClick={handleExitDevMode}
-                className="px-2.5 py-1 bg-amber-500 hover:bg-amber-600 text-slate-950 border border-slate-950/20 rounded text-[11px] font-bold transition-all flex items-center gap-1"
-                title="Keluar dari Developer Mode dan lihat halaman publik"
-              >
-                <EyeOff className="w-3 h-3" />
-                <span>Kunci / Keluar Dev Mode</span>
-              </button>
-            )}
           </div>
         </div>
       )}

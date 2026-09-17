@@ -50,6 +50,12 @@ export default function EditViewClient() {
 
   // 1. Initial Load: Read from cache or fetch from /api/admin/content
   useEffect(() => {
+    const auth = sessionStorage.getItem('seleco_admin_auth');
+    if (auth !== 'true') {
+      window.location.href = '/admin';
+      return;
+    }
+
     // Ensure click_to_edit mode is stored
     sessionStorage.setItem('seleco_editor_mode', 'click_to_edit');
 
@@ -345,11 +351,11 @@ export default function EditViewClient() {
 
           {/* View Live Website in New Tab */}
           <Link
-            href="/"
+            href="/?preview=true"
             target="_blank"
             rel="noopener noreferrer"
             className="p-1.5 sm:px-2.5 sm:py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-medium transition-colors border border-slate-700 flex items-center gap-1.5"
-            title="Buka Website Publik di Tab Baru"
+            title="Buka Pratinjau Website Publik di Tab Baru"
           >
             <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
             <span className="hidden xl:inline">Live Web</span>
