@@ -1356,6 +1356,42 @@ export default function AdminClient() {
                   />
                 </div>
 
+                {/* Logo Brand Uploader */}
+                <div className="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl space-y-3">
+                  <span className="text-xs font-bold text-amber-300 block">Logo Brand Resmi (Navbar, Footer, Admin)</span>
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 rounded-xl bg-white p-1 border border-amber-400/40 flex items-center justify-center shrink-0 shadow-md">
+                      <img
+                        src={editorContent.global.logo || '/logo-seleco.png'}
+                        alt="Logo Preview"
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <label className="inline-flex items-center gap-2 px-3 py-1.5 bg-amber-400/10 hover:bg-amber-400/20 text-amber-300 border border-amber-400/30 rounded-lg text-xs font-semibold cursor-pointer transition-all">
+                        <Upload className="w-3.5 h-3.5" />
+                        <span>Ganti Logo</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              handleFileUpload(
+                                file,
+                                (url) => updateGlobal('logo' as any, url),
+                                'global.logo'
+                              );
+                            }
+                          }}
+                        />
+                      </label>
+                      <p className="text-[10px] text-slate-400 mt-1">Format PNG/JPEG/SVG. Otomatis dikompres & diterapkan secara langsung.</p>
+                    </div>
+                  </div>
+                </div>
+
                 {/* Global Key Stats & Numbers */}
                 <div className="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl space-y-3">
                   <span className="text-xs font-bold text-amber-300 block">Statistik Layanan Global Website</span>

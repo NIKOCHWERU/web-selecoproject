@@ -47,22 +47,31 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
           {/* Logo Brand */}
-          <Link href="/" className="flex flex-col group">
-            <span className="font-serif-title text-2xl font-bold tracking-widest text-slate-900 transition-colors group-hover:text-gold-accent">
-              <EditableText
-                fieldPath="global.brandName"
-                fallback="Seleco"
-                label="Nama Brand"
-              />{' '}
-              <span className="text-gold-accent">.</span>
-            </span>
-            <span className="text-[10px] font-semibold tracking-[0.2em] text-gold-accent -mt-1">
-              <EditableText
-                fieldPath="global.brandTagline"
-                fallback="Sedana legal consultant"
-                label="Tagline Brand"
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="relative w-11 h-11 sm:w-12 sm:h-12 shrink-0 rounded-xl overflow-hidden bg-white flex items-center justify-center p-0.5 border border-amber-400/30 group-hover:border-amber-400 transition-all shadow-sm">
+              <img
+                src={global?.logo || '/logo-seleco.png'}
+                alt={global?.brandName || 'Seleco'}
+                className="w-full h-full object-contain group-hover:scale-105 transition-transform"
               />
-            </span>
+            </div>
+            <div className="flex flex-col">
+              <span className="font-serif-title text-xl sm:text-2xl font-bold tracking-wider text-slate-900 transition-colors group-hover:text-gold-accent leading-tight">
+                <EditableText
+                  fieldPath="global.brandName"
+                  fallback="Seleco"
+                  label="Nama Brand"
+                />{' '}
+                <span className="text-gold-accent">.</span>
+              </span>
+              <span className="text-[9px] sm:text-[10px] font-semibold tracking-[0.2em] text-gold-accent mt-0.5">
+                <EditableText
+                  fieldPath="global.brandTagline"
+                  fallback="Sedana legal consultant"
+                  label="Tagline Brand"
+                />
+              </span>
+            </div>
           </Link>
 
           {/* Desktop Nav Links */}

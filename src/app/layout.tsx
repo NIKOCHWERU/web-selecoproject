@@ -39,6 +39,11 @@ export const metadata: Metadata = {
     locale: 'id_ID',
     type: 'website',
   },
+  icons: {
+    icon: '/logo-seleco.png',
+    shortcut: '/logo-seleco.png',
+    apple: '/logo-seleco.png',
+  },
 };
 
 import React from 'react';

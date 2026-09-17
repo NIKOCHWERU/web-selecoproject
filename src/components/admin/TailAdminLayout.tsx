@@ -216,8 +216,12 @@ export default function TailAdminLayout({
         <div className="w-full max-w-md bg-[#24303F] border border-[#2E3A47] rounded-2xl shadow-2xl p-8">
           {/* Logo & Brand */}
           <div className="text-center mb-8">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#D4AF37] to-[#C9A227] flex items-center justify-center mx-auto mb-4 shadow-lg shadow-[#D4AF37]/20">
-              <ShieldCheck className="w-8 h-8 text-[#1C2434]" />
+            <div className="w-16 h-16 rounded-2xl bg-white p-1 border border-[#D4AF37]/50 flex items-center justify-center mx-auto mb-4 shadow-xl shadow-[#D4AF37]/20">
+              <img
+                src="/logo-seleco.png"
+                alt="Seleco Project"
+                className="w-full h-full object-contain"
+              />
             </div>
             <h1 className="font-serif-title text-2xl font-bold text-white tracking-wide">
               Seleco
@@ -357,8 +361,12 @@ export default function TailAdminLayout({
         {/* Sidebar Header / Logo */}
         <div className="flex items-center justify-between h-20 px-6 border-b border-[#2E3A47] bg-[#1C2434]">
           <Link href="/admin" className="flex items-center gap-3 overflow-hidden">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#D4AF37] to-[#C9A227] flex items-center justify-center shrink-0 shadow-md shadow-[#D4AF37]/20">
-              <ShieldCheck className="w-6 h-6 text-[#1C2434]" />
+            <div className="w-10 h-10 rounded-xl bg-white p-0.5 border border-[#D4AF37]/50 flex items-center justify-center shrink-0 shadow-md shadow-[#D4AF37]/20">
+              <img
+                src="/logo-seleco.png"
+                alt="Seleco"
+                className="w-full h-full object-contain"
+              />
             </div>
             {sidebarOpen && (
               <div className="flex flex-col min-w-0">

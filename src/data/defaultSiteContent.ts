@@ -2,6 +2,7 @@ export interface SiteContent {
   global: {
     brandName: string;
     brandTagline: string;
+    logo?: string;
     whatsappNumber: string;
     whatsappDisplay: string;
     phone: string;
@@ -159,6 +160,7 @@ export const defaultSiteContent: SiteContent = {
   global: {
     brandName: "Seleco",
     brandTagline: "Sedana legal consultant",
+    logo: "/logo-seleco.png",
     whatsappNumber: "6282211020022",
     whatsappDisplay: "0822-1102-0022",
     phone: "+62 822-1102-0022",

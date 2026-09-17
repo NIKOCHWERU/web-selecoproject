@@ -31,21 +31,30 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/10">
           {/* Brand Info */}
           <div className="space-y-4">
-            <Link href="/" className="flex flex-col">
-              <span className="font-serif-title text-2xl font-bold tracking-widest text-white">
-                <EditableText
-                  fieldPath="global.brandName"
-                  fallback="Seleco"
-                  label="Nama Brand"
-                /> <span className="text-gold-accent">.</span>
-              </span>
-              <span className="text-[9px] font-semibold tracking-[0.2em] text-gold-accent mt-0.5">
-                <EditableText
-                  fieldPath="global.brandTagline"
-                  fallback="Sedana legal consultant"
-                  label="Tagline Brand"
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="relative w-12 h-12 shrink-0 rounded-xl overflow-hidden bg-white p-1 border border-gold-accent/40 shadow-md">
+                <img
+                  src={global?.logo || '/logo-seleco.png'}
+                  alt={global?.brandName || 'Seleco'}
+                  className="w-full h-full object-contain"
                 />
-              </span>
+              </div>
+              <div className="flex flex-col">
+                <span className="font-serif-title text-xl sm:text-2xl font-bold tracking-wider text-white leading-tight">
+                  <EditableText
+                    fieldPath="global.brandName"
+                    fallback="Seleco"
+                    label="Nama Brand"
+                  /> <span className="text-gold-accent">.</span>
+                </span>
+                <span className="text-[9px] font-semibold tracking-[0.2em] text-gold-accent mt-0.5">
+                  <EditableText
+                    fieldPath="global.brandTagline"
+                    fallback="Sedana legal consultant"
+                    label="Tagline Brand"
+                  />
+                </span>
+              </div>
             </Link>
             <p className="text-white/60 leading-relaxed text-xs">
               <EditableText
