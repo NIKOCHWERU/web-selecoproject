@@ -1,17 +1,35 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Scale, Building2, Receipt, Stethoscope, Globe, Landmark, Zap, FileCheck, Ship, ArrowRight, Search, Users } from 'lucide-react';
 import { SERVICE_CATEGORIES } from '@/data/layananData';
 import { useContent } from '@/context/ContentContext';
-import { EditableText, EditableSection } from './EditableElement';
+import { EditableText, EditableSection, EditableIcon } from './EditableElement';
 
 export default function ServicesSection() {
   const { content } = useContent();
+  const [isEditMode, setIsEditMode] = useState(false);
   const services = content?.services;
   const global = content?.global;
   const totalServices = global?.totalServices || content?.hero?.stat2Number || '445+';
+
+  useEffect(() => {
+    const checkMode = () => {
+      const mode = sessionStorage.getItem('seleco_editor_mode');
+      setIsEditMode(mode === 'click_to_edit');
+    };
+    checkMode();
+
+    const handleMessage = (e: MessageEvent) => {
+      if (e.data?.type === 'SET_EDITOR_MODE') {
+        setIsEditMode(e.data.mode === 'click_to_edit');
+      }
+    };
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
 
   const getIcon = (iconName: string) => {
     switch (iconName) {
@@ -128,7 +146,12 @@ export default function ServicesSection() {
                 <div>
                   <div className="flex items-center justify-between mb-5">
                     <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200/60 flex items-center justify-center group-hover:scale-110 group-hover:bg-amber-100 transition-all">
-                      {getIcon(cat.iconName || 'FileCheck')}
+                      <EditableIcon
+                        iconKey={`services.pillars.${idx}.icon`}
+                        fallbackIcon={cat.iconName || 'FileCheck'}
+                        className="w-6 h-6 text-gold-accent"
+                        label={`Ikon Pilar ${idx + 1}`}
+                      />
                     </div>
                     <span className="text-xs font-bold text-amber-800 bg-amber-50 border border-amber-200/70 px-3 py-1 rounded-full">
                       <EditableText
@@ -159,6 +182,12 @@ export default function ServicesSection() {
 
                 <Link
                   href={currentLink}
+                  onClick={(e) => {
+                    if (isEditMode) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                    }
+                  }}
                   className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-800 group-hover:text-gold-accent border-t border-gray-100 pt-4 transition-colors"
                 >
                   <EditableText
@@ -197,9 +226,20 @@ export default function ServicesSection() {
           </div>
           <Link
             href="/layanan"
+            onClick={(e) => {
+              if (isEditMode) {
+                e.preventDefault();
+                e.stopPropagation();
+              }
+            }}
             className="px-7 py-4 bg-gradient-to-r from-gold-accent to-gold-bright text-slate-950 font-bold text-xs uppercase tracking-wider rounded-lg hover:brightness-110 transition-all whitespace-nowrap flex items-center gap-2.5 shadow-lg shrink-0 z-10"
           >
-            <Search className="w-4 h-4 text-slate-950" />
+            <EditableIcon
+              iconKey="services.ctaBannerIcon"
+              fallbackIcon="Search"
+              className="w-4 h-4 text-slate-950"
+              label="Ikon Tombol Banner"
+            />
             <EditableText
               fieldPath="services.ctaBannerButtonText"
               fallback={`Buka Direktori Lengkap ${totalServices} Layanan`}

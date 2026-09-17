@@ -82,6 +82,16 @@ function PreviewContent() {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
       }
+      if (event.data?.type === 'SCROLL_TO_SECTION' && event.data.sectionId) {
+        const sec = document.getElementById(event.data.sectionId);
+        if (sec) {
+          sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          sec.classList.add('ring-4', 'ring-amber-400', 'ring-offset-4', 'transition-all', 'duration-500');
+          setTimeout(() => {
+            sec.classList.remove('ring-4', 'ring-amber-400', 'ring-offset-4');
+          }, 2500);
+        }
+      }
     };
 
     window.addEventListener('message', handleMessage);
@@ -116,6 +126,7 @@ function PreviewContent() {
         target.closest('textarea') ||
         target.closest('select') ||
         target.closest('[data-action]') ||
+        target.closest('.group\\/editable-icon') ||
         target.getAttribute('contenteditable') === 'true'
       ) {
         return;
@@ -128,7 +139,7 @@ function PreviewContent() {
         e.preventDefault();
 
         // If target is an editable element or inside one, let it bubble so the toolbar opens and text focuses!
-        const editableChild = target.closest('.group\\/editable') || target.querySelector?.('.group\\/editable');
+        const editableChild = target.closest('.group\\/editable') || target.closest('.group\\/editable-icon') || target.querySelector?.('.group\\/editable') || target.querySelector?.('.group\\/editable-icon');
         if (!editableChild) {
           e.stopPropagation();
         }
@@ -138,7 +149,7 @@ function PreviewContent() {
       // If clicked element is a button (not inside toolbar)
       const button = target.closest('button');
       if (button && !button.closest('[data-toolbar]')) {
-        const editableChild = target.closest('.group\\/editable') || target.querySelector?.('.group\\/editable');
+        const editableChild = target.closest('.group\\/editable') || target.closest('.group\\/editable-icon') || target.querySelector?.('.group\\/editable') || target.querySelector?.('.group\\/editable-icon');
         if (!editableChild) {
           e.preventDefault();
           e.stopPropagation();

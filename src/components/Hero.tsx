@@ -1,16 +1,34 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Building2, Calendar, ArrowRight, CheckCircle2, Briefcase } from 'lucide-react';
 import { useContent } from '@/context/ContentContext';
-import { EditableText, EditableBackground, EditableSection } from './EditableElement';
+import { EditableText, EditableBackground, EditableSection, EditableIcon } from './EditableElement';
 
 export default function Hero() {
   const { content } = useContent();
+  const [isEditMode, setIsEditMode] = useState(false);
   const hero = content?.hero;
   const global = content?.global;
   const totalServices = global?.totalServices || hero?.stat2Number || '445+';
+
+  useEffect(() => {
+    const checkMode = () => {
+      const mode = sessionStorage.getItem('seleco_editor_mode');
+      setIsEditMode(mode === 'click_to_edit');
+    };
+    checkMode();
+
+    const handleMessage = (e: MessageEvent) => {
+      if (e.data?.type === 'SET_EDITOR_MODE') {
+        setIsEditMode(e.data.mode === 'click_to_edit');
+      }
+    };
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
 
   return (
     <EditableSection id="hero" name="Hero Banner Section" className="relative lg:h-[calc(100vh-5rem)] min-h-[580px] flex items-center justify-center overflow-hidden py-8 lg:py-0 bg-slate-950 text-white">
@@ -37,50 +55,66 @@ export default function Hero() {
           >
             {/* Top Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-400/10 border border-amber-400/30 rounded-full text-amber-300 text-[11px] font-bold uppercase tracking-widest backdrop-blur-md shadow-sm">
-              <Building2 className="w-3.5 h-3.5 text-amber-300" />
+              <EditableIcon
+                iconKey="hero.topBadgeIcon"
+                fallbackIcon="Building2"
+                className="w-3.5 h-3.5 text-amber-300"
+                label="Ikon Badge Hero"
+              />
+              <EditableText
+                fieldPath="hero.topBadge"
+                fallback="5 Pilar Konsultan Bisnis Terpadu"
+                label="Badge Atas"
+              />
+            </div>
+
+            {/* Main Headline */}
+            <h1 className="font-serif-title text-3xl sm:text-4xl lg:text-[2.65rem] xl:text-[2.85rem] font-bold tracking-tight leading-[1.15] text-white">
+              <EditableText
+                fieldPath="hero.headlinePart1"
+                fallback="Konsultan Terpadu untuk Akselerasi &"
+                label="Judul Bagian 1"
+              />{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F7E19C] via-[#D4AF37] to-[#C9A227] italic">
                 <EditableText
-                  fieldPath="hero.topBadge"
-                  fallback="5 Pilar Konsultan Bisnis Terpadu"
-                  label="Badge Atas"
+                  fieldPath="hero.headlineItalic"
+                  fallback="Pertumbuhan Bisnis."
+                  label="Judul Miring Gold"
                 />
-              </div>
+              </span>
+            </h1>
 
-              {/* Main Headline */}
-              <h1 className="font-serif-title text-3xl sm:text-4xl lg:text-[2.65rem] xl:text-[2.85rem] font-bold tracking-tight leading-[1.15] text-white">
-                <EditableText
-                  fieldPath="hero.headlinePart1"
-                  fallback="Konsultan Terpadu untuk Akselerasi &"
-                  label="Judul Bagian 1"
-                />{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F7E19C] via-[#D4AF37] to-[#C9A227] italic">
-                  <EditableText
-                    fieldPath="hero.headlineItalic"
-                    fallback="Pertumbuhan Bisnis."
-                    label="Judul Miring Gold"
-                  />
-                </span>
-              </h1>
+            {/* Gold Accent Line */}
+            <div className="w-16 h-[2.5px] bg-gradient-to-r from-gold-accent to-gold-bright rounded-full" />
 
-              {/* Gold Accent Line */}
-              <div className="w-16 h-[2.5px] bg-gradient-to-r from-gold-accent to-gold-bright rounded-full" />
-
-              {/* Subheadline Paragraph */}
-              <p className="text-xs sm:text-sm lg:text-[15px] text-slate-200 font-normal leading-relaxed max-w-xl border-l-2 border-gold-accent/80 pl-3.5">
-                <EditableText
-                  fieldPath="hero.subheadline"
-                  fallback="SELECO menyediakan 5 pilar konsultan korporasi profesional: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM secara transparan, akurat, dan terpercaya."
-                  label="Subjudul Hero"
-                  multiline={true}
-                />
-              </p>
+            {/* Subheadline Paragraph */}
+            <p className="text-xs sm:text-sm lg:text-[15px] text-slate-200 font-normal leading-relaxed max-w-xl border-l-2 border-gold-accent/80 pl-3.5">
+              <EditableText
+                fieldPath="hero.subheadline"
+                fallback="SELECO menyediakan 5 pilar konsultan korporasi profesional: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM secara transparan, akurat, dan terpercaya."
+                label="Subjudul Hero"
+                multiline={true}
+              />
+            </p>
 
             {/* CTA Group */}
             <div className="flex flex-wrap gap-3 pt-1">
               <Link
                 href={hero?.ctaButton1Link || '/layanan'}
+                onClick={(e) => {
+                  if (isEditMode) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }
+                }}
                 className="px-5 py-3 bg-gradient-to-r from-gold-accent to-gold-bright text-slate-950 font-bold text-xs uppercase tracking-wider rounded-lg hover:brightness-110 transition-all shadow-md hover:shadow-gold flex items-center gap-2 group"
               >
-                <Briefcase className="w-4 h-4 text-slate-950" />
+                <EditableIcon
+                  iconKey="hero.cta1Icon"
+                  fallbackIcon="Briefcase"
+                  className="w-4 h-4 text-slate-950"
+                  label="Ikon Tombol 1"
+                />
                 <EditableText
                   fieldPath="hero.ctaButton1Text"
                   fallback={`Cari ${totalServices} Layanan Konsultan`}
@@ -92,9 +126,20 @@ export default function Hero() {
               </Link>
               <Link
                 href={hero?.ctaButton2Link || '/kontak'}
+                onClick={(e) => {
+                  if (isEditMode) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }
+                }}
                 className="px-5 py-3 bg-white/10 hover:bg-white text-white hover:text-slate-950 border border-white/30 hover:border-white font-bold text-xs uppercase tracking-wider rounded-lg transition-all backdrop-blur-sm flex items-center gap-2 shadow-sm"
               >
-                <Calendar className="w-4 h-4" />
+                <EditableIcon
+                  iconKey="hero.cta2Icon"
+                  fallbackIcon="Calendar"
+                  className="w-4 h-4"
+                  label="Ikon Tombol 2"
+                />
                 <EditableText
                   fieldPath="hero.ctaButton2Text"
                   fallback="Jadwalkan Konsultasi"
@@ -132,7 +177,12 @@ export default function Hero() {
               <div className="absolute -top-12 -right-12 w-40 h-40 bg-gold-accent/15 rounded-full blur-3xl pointer-events-none" />
 
               <div className="w-12 h-12 rounded-xl border border-amber-400/40 bg-amber-400/10 flex items-center justify-center text-amber-300 mb-4 shadow-inner">
-                <Building2 className="w-6 h-6 text-amber-300" />
+                <EditableIcon
+                  iconKey="hero.sealIcon"
+                  fallbackIcon="Building2"
+                  className="w-6 h-6 text-amber-300"
+                  label="Ikon Komitmen"
+                />
               </div>
 
               <blockquote className="font-serif-title text-xl lg:text-2xl italic text-white leading-snug mb-3">

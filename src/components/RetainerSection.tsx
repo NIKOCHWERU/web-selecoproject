@@ -1,14 +1,32 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ShieldCheck, CheckCircle2, Handshake } from 'lucide-react';
 import { useContent } from '@/context/ContentContext';
-import { EditableText, EditableImage, EditableSection } from './EditableElement';
+import { EditableText, EditableImage, EditableSection, EditableIcon } from './EditableElement';
 
 export default function RetainerSection() {
   const { content } = useContent();
+  const [isEditMode, setIsEditMode] = useState(false);
   const retainer = content?.retainer;
+
+  useEffect(() => {
+    const checkMode = () => {
+      const mode = sessionStorage.getItem('seleco_editor_mode');
+      setIsEditMode(mode === 'click_to_edit');
+    };
+    checkMode();
+
+    const handleMessage = (e: MessageEvent) => {
+      if (e.data?.type === 'SET_EDITOR_MODE') {
+        setIsEditMode(e.data.mode === 'click_to_edit');
+      }
+    };
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
 
   const retainerServices = [
     "Konsultasi Korporasi & Bisnis Rutin",
@@ -32,7 +50,12 @@ export default function RetainerSection() {
             {/* Left Content */}
             <div className="lg:col-span-7 space-y-7">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-400/10 border border-amber-400/30 rounded-full text-amber-300 text-xs font-bold uppercase tracking-widest backdrop-blur-md">
-                <ShieldCheck className="w-4 h-4 text-amber-300" />
+                <EditableIcon
+                  iconKey="retainer.badgeIcon"
+                  fallbackIcon="ShieldCheck"
+                  className="w-4 h-4 text-amber-300"
+                  label="Ikon Badge Retainer"
+                />
                 <EditableText
                   fieldPath="retainer.badge"
                   fallback="RETAINER KORPORASI"
@@ -98,9 +121,20 @@ export default function RetainerSection() {
                 </div>
                 <Link
                   href="/kontak"
+                  onClick={(e) => {
+                    if (isEditMode) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                    }
+                  }}
                   className="px-7 py-3.5 bg-gradient-to-r from-gold-accent to-gold-bright text-slate-950 font-bold text-xs uppercase tracking-wider rounded-lg hover:brightness-110 transition-all shadow-md flex items-center gap-2"
                 >
-                  <Handshake className="w-4 h-4" />
+                  <EditableIcon
+                    iconKey="retainer.ctaIcon"
+                    fallbackIcon="Handshake"
+                    className="w-4 h-4 text-slate-950"
+                    label="Ikon Tombol Retainer"
+                  />
                   <span>
                     <EditableText
                       fieldPath="retainer.ctaButtonText"

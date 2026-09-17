@@ -18,6 +18,7 @@ import {
   Maximize2,
   Image as ImageIcon,
   Layout,
+  Scale,
   Paintbrush,
   Move,
   Crop,
@@ -42,6 +43,7 @@ import {
   ChevronDown
 } from 'lucide-react';
 import { compressImageToDataUrl } from '@/lib/imageUtils';
+import { IconPicker, ICON_MAP } from './IconPicker';
 
 interface EditableTextProps {
   fieldPath: string; // e.g., 'hero.headlinePart1'
@@ -1756,4 +1758,189 @@ export function EditableSection({
     </Tag>
   );
 }
+
+/* ========================================================================= */
+/* EDITABLE ICON COMPONENT (WITH EMOTE-STYLE PALETTE)                       */
+/* ========================================================================= */
+
+interface EditableIconProps {
+  iconKey: string; // e.g. 'navbar.ctaIcon', 'hero.cta1Icon', 'services.pillars.0.icon'
+  fallbackIcon?: string; // e.g. 'Calendar', 'Briefcase', 'Scale'
+  className?: string;
+  label?: string;
+  containerClassName?: string;
+}
+
+export function EditableIcon({
+  iconKey,
+  fallbackIcon = 'Scale',
+  className = 'w-5 h-5 text-gold-accent',
+  label,
+  containerClassName = '',
+}: EditableIconProps) {
+  const { content, setContent } = useContent();
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [showPicker, setShowPicker] = useState<boolean>(false);
+  const pickerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const checkMode = () => {
+      const mode = sessionStorage.getItem('seleco_editor_mode');
+      setIsEditMode(mode === 'click_to_edit');
+    };
+    checkMode();
+
+    const handleMessage = (e: MessageEvent) => {
+      if (e.data?.type === 'SET_EDITOR_MODE') {
+        setIsEditMode(e.data.mode === 'click_to_edit');
+      }
+    };
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (pickerRef.current && !pickerRef.current.contains(e.target as Node)) {
+        setShowPicker(false);
+      }
+    };
+    if (showPicker) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showPicker]);
+
+  // Read current icon name
+  const currentIconName = (content?.icons && content.icons[iconKey]) || fallbackIcon;
+
+  // Custom icon style (color, fontSize)
+  const customStyle = content?.styles?.[`icon.${iconKey}`] || {};
+
+  const handleSelectIcon = (newIconName: string) => {
+    setContent((prev: any) => {
+      const copy = JSON.parse(JSON.stringify(prev || {}));
+      if (!copy.icons) copy.icons = {};
+      copy.icons[iconKey] = newIconName;
+
+      try {
+        sessionStorage.setItem('seleco_live_preview_content', JSON.stringify(copy));
+        if (window.parent && window.parent !== window) {
+          window.parent.postMessage({
+            type: 'ON_ELEMENT_UPDATED',
+            content: copy,
+            fieldPath: `icons.${iconKey}`,
+            value: newIconName,
+          }, '*');
+        }
+      } catch (err) {}
+
+      return copy;
+    });
+  };
+
+  const handleUpdateIconStyle = (prop: string, val: any) => {
+    setContent((prev: any) => {
+      const copy = JSON.parse(JSON.stringify(prev || {}));
+      if (!copy.styles) copy.styles = {};
+      const styleKey = `icon.${iconKey}`;
+      if (!copy.styles[styleKey]) copy.styles[styleKey] = {};
+      copy.styles[styleKey][prop] = val;
+
+      try {
+        sessionStorage.setItem('seleco_live_preview_content', JSON.stringify(copy));
+        if (window.parent && window.parent !== window) {
+          window.parent.postMessage({
+            type: 'ON_ELEMENT_UPDATED',
+            content: copy,
+            fieldPath: styleKey,
+            styleProp: prop,
+            styleVal: val,
+          }, '*');
+        }
+      } catch (err) {}
+
+      return copy;
+    });
+  };
+
+  const IconComp = ICON_MAP[currentIconName] || ICON_MAP[fallbackIcon] || ICON_MAP['Scale'] || Scale;
+
+  const appliedStyle: React.CSSProperties = {
+    ...(customStyle.color ? { color: customStyle.color } : {}),
+    ...(customStyle.size ? { width: customStyle.size, height: customStyle.size } : {}),
+  };
+
+  if (!isEditMode) {
+    return (
+      <span className={`inline-flex items-center justify-center shrink-0 ${containerClassName}`} style={appliedStyle}>
+        <IconComp className={className} style={customStyle.color ? { color: customStyle.color } : undefined} />
+      </span>
+    );
+  }
+
+  return (
+    <span
+      className={`relative inline-flex items-center justify-center cursor-pointer group/editable-icon select-none ${containerClassName}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      ref={pickerRef}
+      data-action="true"
+      data-toolbar="true"
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setShowPicker(!showPicker);
+      }}
+    >
+      {/* Visual outline on hover in edit mode */}
+      <span
+        className={`absolute -inset-1 rounded-lg pointer-events-none transition-all duration-150 z-20 ${
+          showPicker
+            ? 'border-2 border-amber-400 bg-amber-400/20 shadow-[0_0_12px_rgba(212,175,55,0.4)]'
+            : isHovered
+            ? 'border-2 border-dashed border-amber-400/90 bg-amber-400/10'
+            : 'border border-transparent'
+        }`}
+      />
+
+      {/* Hover tooltip */}
+      {isHovered && !showPicker && (
+        <span className="absolute -top-7 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1 bg-slate-950 text-white text-[10px] px-2 py-0.5 rounded shadow-xl border border-amber-400/50 pointer-events-none whitespace-nowrap animate-fade-in">
+          <Edit3 className="w-2.5 h-2.5 text-amber-400" />
+          <span className="font-bold text-amber-300">{label || currentIconName}</span>
+          <span className="text-slate-400 text-[9px]">(Ganti Ikon)</span>
+        </span>
+      )}
+
+      <IconComp 
+        className={`${className} transition-transform group-hover/editable-icon:scale-110`} 
+        style={customStyle.color ? { color: customStyle.color } : undefined} 
+      />
+
+      {/* Emote Icon Picker Popover */}
+      {showPicker && (
+        <div 
+          className="absolute left-1/2 -translate-x-1/2 top-full mt-2 z-50 pointer-events-auto"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <IconPicker
+            currentIconName={currentIconName}
+            onSelectIcon={handleSelectIcon}
+            onClose={() => setShowPicker(false)}
+            customColor={customStyle.color}
+            onChangeColor={(c) => handleUpdateIconStyle('color', c)}
+            customSize={customStyle.size}
+            onChangeSize={(s) => handleUpdateIconStyle('size', s)}
+            title={`Pilih Ikon: ${label || iconKey}`}
+          />
+        </div>
+      )}
+    </span>
+  );
+}
+
 

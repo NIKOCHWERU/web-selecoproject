@@ -121,6 +121,16 @@ export interface SiteContent {
     description: string;
     copyright: string;
   };
+  navbar?: {
+    links?: Array<{
+      name: string;
+      href: string;
+      icon?: string;
+    }>;
+  };
+  icons?: {
+    [iconKey: string]: string;
+  };
   siteMode?: {
     status: 'maintenance' | 'live';
     badgeText: string;
@@ -163,6 +173,7 @@ export interface SiteContent {
       [prop: string]: any;
     };
   };
+  [key: string]: any;
 }
 
 export const defaultSiteContent: SiteContent = {

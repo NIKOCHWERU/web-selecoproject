@@ -1,8 +1,7 @@
 'use client';
 
-import { Scale, ShieldCheck, Users, Award } from 'lucide-react';
 import { useContent } from '@/context/ContentContext';
-import { EditableText, EditableSection } from './EditableElement';
+import { EditableText, EditableSection, EditableIcon } from './EditableElement';
 
 export default function TrustStatsBanner() {
   const { content } = useContent();
@@ -16,7 +15,12 @@ export default function TrustStatsBanner() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 text-center">
           <div className="p-7 bg-slate-50 border border-gray-200/80 rounded-2xl shadow-sm hover:shadow-md hover:border-gold-accent/70 transition-all duration-300">
             <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200/70 flex items-center justify-center mx-auto mb-4 text-gold-accent">
-              <Scale className="w-6 h-6" />
+              <EditableIcon
+                iconKey="stats.icon1"
+                fallbackIcon="Scale"
+                className="w-6 h-6"
+                label="Ikon Legalitas Bisnis"
+              />
             </div>
             <p className="font-serif-title text-4xl lg:text-5xl font-bold text-slate-900">
               <EditableText
@@ -36,7 +40,12 @@ export default function TrustStatsBanner() {
 
           <div className="p-7 bg-slate-50 border border-gray-200/80 rounded-2xl shadow-sm hover:shadow-md hover:border-gold-accent/70 transition-all duration-300">
             <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200/70 flex items-center justify-center mx-auto mb-4 text-gold-accent">
-              <ShieldCheck className="w-6 h-6" />
+              <EditableIcon
+                iconKey="stats.icon2"
+                fallbackIcon="ShieldCheck"
+                className="w-6 h-6"
+                label="Ikon Perizinan OSS"
+              />
             </div>
             <p className="font-serif-title text-4xl lg:text-5xl font-bold text-slate-900">
               <EditableText
@@ -56,7 +65,12 @@ export default function TrustStatsBanner() {
 
           <div className="p-7 bg-slate-50 border border-gray-200/80 rounded-2xl shadow-sm hover:shadow-md hover:border-gold-accent/70 transition-all duration-300">
             <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200/70 flex items-center justify-center mx-auto mb-4 text-gold-accent">
-              <Users className="w-6 h-6" />
+              <EditableIcon
+                iconKey="stats.icon3"
+                fallbackIcon="Users"
+                className="w-6 h-6"
+                label="Ikon Kerahasiaan"
+              />
             </div>
             <p className="font-serif-title text-4xl lg:text-5xl font-bold text-slate-900">
               <EditableText
@@ -76,7 +90,12 @@ export default function TrustStatsBanner() {
 
           <div className="p-7 bg-slate-50 border border-gray-200/80 rounded-2xl shadow-sm hover:shadow-md hover:border-gold-accent/70 transition-all duration-300">
             <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200/70 flex items-center justify-center mx-auto mb-4 text-gold-accent">
-              <Award className="w-6 h-6" />
+              <EditableIcon
+                iconKey="stats.icon4"
+                fallbackIcon="Award"
+                className="w-6 h-6"
+                label="Ikon Jangkauan Wilayah"
+              />
             </div>
             <p className="font-serif-title text-4xl lg:text-5xl font-bold text-slate-900">
               <EditableText

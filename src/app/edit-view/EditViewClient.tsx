@@ -17,7 +17,8 @@ import {
   Sparkles, 
   Layers,
   FileText,
-  AlertCircle
+  AlertCircle,
+  Target
 } from 'lucide-react';
 import { defaultSiteContent, SiteContent } from '@/data/defaultSiteContent';
 
@@ -28,6 +29,7 @@ export default function EditViewClient() {
   const [activePage, setActivePage] = useState<PreviewPageOption>('home');
   const [deviceMode, setDeviceMode] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
   const [pageDropdownOpen, setPageDropdownOpen] = useState<boolean>(false);
+  const [sectionDropdownOpen, setSectionDropdownOpen] = useState<boolean>(false);
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState<boolean>(false);
   const [saveSuccessMessage, setSaveSuccessMessage] = useState<string | null>(null);
@@ -35,13 +37,53 @@ export default function EditViewClient() {
 
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const pageDropdownRef = useRef<HTMLDivElement>(null);
+  const sectionDropdownRef = useRef<HTMLDivElement>(null);
   const importInputRef = useRef<HTMLInputElement>(null);
+
+  const sectionsList = [
+    { id: 'navbar', label: 'Navbar Navigasi Section', icon: '📌', page: 'home' },
+    { id: 'hero', label: 'Hero Banner Section', icon: '🚀', page: 'home' },
+    { id: 'trust-stats', label: 'Statistik Kepercayaan', icon: '📊', page: 'home' },
+    { id: 'about', label: 'Profil Tentang SELECO', icon: '🏢', page: 'home' },
+    { id: 'services', label: '5 Pilar Layanan Konsultan', icon: '💼', page: 'home' },
+    { id: 'retainer', label: 'Corporate Retainer Program', icon: '🛡️', page: 'home' },
+    { id: 'attorneys', label: 'Tim Konsultan Profesional', icon: '👥', page: 'home' },
+    { id: 'insights', label: 'Insight & Artikel Hukum', icon: '📰', page: 'home' },
+    { id: 'faq', label: 'Tanya Jawab (FAQ)', icon: '❓', page: 'home' },
+    { id: 'contact', label: 'Kontak & Formulir Konsultasi', icon: '📞', page: 'home' },
+    { id: 'footer', label: 'Footer Website & Navigasi', icon: '📑', page: 'home' },
+  ];
+
+  const handleSelectSection = (sec: typeof sectionsList[0]) => {
+    setSectionDropdownOpen(false);
+    if (activePage !== sec.page) {
+      setActivePage(sec.page as PreviewPageOption);
+      sendPageToIframe(sec.page as PreviewPageOption);
+      setTimeout(() => {
+        sendSectionToIframe(sec.id);
+      }, 400);
+    } else {
+      sendSectionToIframe(sec.id);
+    }
+  };
+
+  const sendSectionToIframe = (sectionId: string) => {
+    if (iframeRef.current?.contentWindow) {
+      iframeRef.current.contentWindow.postMessage({
+        type: 'SCROLL_TO_SECTION',
+        sectionId,
+      }, '*');
+    }
+  };
 
   // Close dropdown on click outside
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (pageDropdownRef.current && !pageDropdownRef.current.contains(e.target as Node)) {
         setPageDropdownOpen(false);
+      }
+      if (sectionDropdownRef.current && !sectionDropdownRef.current.contains(e.target as Node)) {
+        setSectionDropdownOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -278,6 +320,43 @@ export default function EditViewClient() {
                   >
                     <span>{pageNames[p]}</span>
                     {activePage === p && <Check className="w-3.5 h-3.5 shrink-0" />}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Section Switcher Dropdown */}
+          <div className="relative" ref={sectionDropdownRef}>
+            <button
+              onClick={() => setSectionDropdownOpen(!sectionDropdownOpen)}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800/90 hover:bg-slate-700 border border-slate-700 hover:border-amber-400/40 text-slate-200 hover:text-amber-300 text-xs font-bold transition-all shadow-sm"
+              title="Lompat Langsung ke Section yang Ingin Diedit (Navbar, Hero, Layanan, Kontak, dll)"
+            >
+              <Target className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+              <span className="hidden sm:inline">Pilih Section</span>
+              <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform ${sectionDropdownOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            {sectionDropdownOpen && (
+              <div className="absolute top-full left-0 mt-1.5 w-72 bg-slate-900 border border-amber-400/50 rounded-xl shadow-2xl py-1.5 z-50 animate-in fade-in zoom-in-95 duration-150 max-h-[75vh] overflow-y-auto custom-scrollbar">
+                <div className="px-3 py-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-800 flex items-center justify-between">
+                  <span>Lompat ke Section:</span>
+                  <span className="text-amber-300 text-[9px] font-normal">Auto Scroll &amp; Focus</span>
+                </div>
+                {sectionsList.map((sec) => (
+                  <button
+                    key={sec.id}
+                    onClick={() => handleSelectSection(sec)}
+                    className="w-full text-left px-3 py-2 text-xs flex items-center justify-between transition-colors text-slate-300 hover:bg-amber-400/20 hover:text-amber-300 group"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm group-hover:scale-125 transition-transform">{sec.icon}</span>
+                      <span className="font-medium">{sec.label}</span>
+                    </div>
+                    <span className="text-[10px] font-mono text-slate-500 group-hover:text-amber-400">
+                      #{sec.id}
+                    </span>
                   </button>
                 ))}
               </div>
