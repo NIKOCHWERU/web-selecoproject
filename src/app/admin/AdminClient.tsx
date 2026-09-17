@@ -35,7 +35,11 @@ import {
   Minimize2,
   Home,
   Compass,
-  Building2
+  Building2,
+  Download,
+  UploadCloud,
+  FileJson,
+  CheckSquare
 } from 'lucide-react';
 import TailAdminLayout from '@/components/admin/TailAdminLayout';
 import { SiteContent, defaultSiteContent } from '@/data/defaultSiteContent';
@@ -212,6 +216,67 @@ export default function AdminClient() {
       } catch (e) {}
       triggerToast('Konten dikembalikan ke default. Klik "Simpan" jika ingin menerapkannya ke website.', 'success');
     }
+  };
+
+  // Export seluruh konten website ke file JSON (dapat dibuka/diedit di Text Editor / Word)
+  const handleExportContent = () => {
+    try {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(editorContent, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `seleco-konten-lengkap-${new Date().toISOString().slice(0, 10)}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      triggerToast('File template konten website berhasil didownload!', 'success');
+    } catch (e) {
+      triggerToast('Gagal mengekspor file konten', 'error');
+    }
+  };
+
+  // Import file JSON untuk mengisi seluruh konten website secara instan
+  const handleImportContent = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      try {
+        const parsed = JSON.parse(event.target?.result as string);
+        if (!parsed || typeof parsed !== 'object') {
+          throw new Error('Format file tidak valid');
+        }
+
+        // Validate structure
+        const merged = { ...defaultSiteContent, ...parsed };
+        setEditorContent(merged);
+
+        // Instantly sync
+        try {
+          localStorage.setItem('seleco_site_content', JSON.stringify(merged));
+          window.dispatchEvent(new CustomEvent('seleco_content_updated', { detail: merged }));
+        } catch (err) {}
+
+        // Auto-save to server
+        const res = await fetch('/api/admin/content', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ content: merged }),
+        });
+
+        if (res.ok) {
+          triggerToast('Seluruh konten website berhasil di-import & langsung aktif!', 'success');
+        } else {
+          triggerToast('Konten berhasil dimuat ke editor. Klik "Simpan" untuk menerapkan.', 'success');
+        }
+      } catch (err: any) {
+        console.error('Import error:', err);
+        triggerToast('Gagal memproses file JSON. Pastikan file berformat JSON yang valid.', 'error');
+      }
+    };
+    reader.readAsText(file);
+    // Reset file input value so user can upload again if desired
+    e.target.value = '';
   };
 
   const handleToggleSiteMode = async (mode: 'maintenance' | 'live') => {
@@ -555,6 +620,31 @@ export default function AdminClient() {
             )}
           </button>
 
+          {/* Export & Import Konten Lengkap */}
+          <div className="hidden sm:flex items-center gap-1 bg-[#1C2434] p-1 rounded-xl border border-[#2E3A47]">
+            <button
+              onClick={handleExportContent}
+              className="px-2.5 py-1 text-[#CBD5E1] hover:text-[#D4AF37] hover:bg-[#24303F] rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors"
+              title="Download Template Seluruh Konten Web (.json)"
+            >
+              <Download className="w-3.5 h-3.5 text-[#D4AF37]" />
+              <span className="hidden xl:inline">Export</span>
+            </button>
+            <label
+              className="px-2.5 py-1 text-[#CBD5E1] hover:text-emerald-400 hover:bg-[#24303F] rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition-colors"
+              title="Import File Konten Website (.json) untuk update instan tanpa coding"
+            >
+              <UploadCloud className="w-3.5 h-3.5 text-emerald-400" />
+              <span className="hidden xl:inline">Import</span>
+              <input
+                type="file"
+                accept=".json,application/json"
+                className="hidden"
+                onChange={handleImportContent}
+              />
+            </label>
+          </div>
+
           {/* Reset to Default */}
           <button
             onClick={handleResetToDefault}
@@ -655,6 +745,15 @@ export default function AdminClient() {
             >
               <Phone className="w-3.5 h-3.5" />
               <span>Kontak</span>
+            </button>
+            <button
+              onClick={() => { setActiveTab('import_export' as any); }}
+              className={`px-1.5 py-1.5 rounded-lg text-[11px] font-semibold flex flex-col items-center justify-center gap-1 transition-all ${
+                activeTab === ('import_export' as any) ? 'bg-emerald-400/20 text-emerald-300 border border-emerald-400/30' : 'text-slate-400 hover:text-white hover:bg-slate-800'
+              }`}
+            >
+              <FileJson className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Import/Export</span>
             </button>
           </div>
 
@@ -1481,6 +1580,73 @@ export default function AdminClient() {
                     onChange={(e) => updateFooter('copyright', e.target.value)}
                     className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-400 text-xs focus:outline-none focus:border-amber-400"
                   />
+                </div>
+              </div>
+            )}
+
+            {/* TAB: IMPORT & EXPORT KONTEN LENGKAP */}
+            {(activeTab as string) === 'import_export' && (
+              <div className="space-y-6">
+                <div className="border-b border-slate-800 pb-3">
+                  <h3 className="text-sm font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
+                    <FileJson className="w-4 h-4 text-emerald-400" />
+                    <span>Import &amp; Export Konten Lengkap</span>
+                  </h3>
+                  <p className="text-xs text-slate-400 mt-1">
+                    Kelola seluruh tulisan, teks header, isi bagian, nomor telepon, dan link website dalam satu file JSON tanpa perlu menyentuh kode program.
+                  </p>
+                </div>
+
+                {/* Card Export */}
+                <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-4 space-y-3">
+                  <div className="flex items-center gap-2 text-amber-300 font-bold text-xs uppercase tracking-wider">
+                    <Download className="w-4 h-4" />
+                    <span>1. Download Template / Backup Konten</span>
+                  </div>
+                  <p className="text-xs text-slate-400 leading-relaxed">
+                    Download seluruh data website saat ini menjadi 1 file <strong className="text-white font-mono">seleco-konten-lengkap.json</strong>. Anda dapat mengedit teksnya dengan mudah menggunakan Microsoft Word, Notepad, VS Code, atau Text Editor lainnya.
+                  </p>
+                  <button
+                    onClick={handleExportContent}
+                    className="w-full py-2.5 px-4 bg-[#1C2434] hover:bg-[#24303F] border border-[#2E3A47] hover:border-[#D4AF37]/60 text-[#D4AF37] font-bold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-2 shadow-sm"
+                  >
+                    <Download className="w-4 h-4" />
+                    <span>Download File Template (.json)</span>
+                  </button>
+                </div>
+
+                {/* Card Import */}
+                <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-4 space-y-3">
+                  <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase tracking-wider">
+                    <UploadCloud className="w-4 h-4" />
+                    <span>2. Unggah &amp; Terapkan Konten (Import)</span>
+                  </div>
+                  <p className="text-xs text-slate-400 leading-relaxed">
+                    Pilih file JSON yang sudah Anda edit isinya. Seluruh teks mulai dari header, subjudul, direktori, FAQ, tentang kami, hingga kontak akan otomatis langsung terisi dan diperbarui di website.
+                  </p>
+                  <label className="w-full py-2.5 px-4 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm">
+                    <UploadCloud className="w-4 h-4" />
+                    <span>Pilih &amp; Import File Konten (.json)</span>
+                    <input
+                      type="file"
+                      accept=".json,application/json"
+                      className="hidden"
+                      onChange={handleImportContent}
+                    />
+                  </label>
+                </div>
+
+                {/* Petunjuk Penggunaan Seperti Word */}
+                <div className="bg-slate-900/50 border border-slate-800/80 rounded-xl p-4 space-y-2.5 text-xs text-slate-400">
+                  <span className="text-[11px] font-bold text-white uppercase tracking-wider block">
+                    💡 Cara Pengisian Sangat Mudah:
+                  </span>
+                  <ul className="space-y-1.5 list-disc list-inside">
+                    <li>Download file dengan klik tombol <strong>"Download File Template"</strong> di atas.</li>
+                    <li>Buka file tersebut dengan Text Editor / Word. Anda akan melihat bagian-bagian teks yang sangat jelas seperti <code className="text-amber-300 font-mono">"title"</code>, <code className="text-amber-300 font-mono">"subtitle"</code>, <code className="text-amber-300 font-mono">"description"</code>.</li>
+                    <li>Ganti tulisan di dalam tanda kutip sesuai konten baru yang Anda inginkan.</li>
+                    <li>Simpan file, lalu klik <strong>"Pilih &amp; Import File Konten"</strong>. Website akan seketika terisi otomatis!</li>
+                  </ul>
                 </div>
               </div>
             )}

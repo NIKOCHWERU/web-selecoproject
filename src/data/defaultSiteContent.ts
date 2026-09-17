@@ -158,8 +158,8 @@ export interface SiteContent {
 
 export const defaultSiteContent: SiteContent = {
   global: {
-    brandName: "Seleco",
-    brandTagline: "Sedana legal consultant",
+    brandName: "SELECO",
+    brandTagline: "SEDANA LEGAL CONSULTANT",
     logo: "/logo-seleco.png",
     whatsappNumber: "6282211020022",
     whatsappDisplay: "0822-1102-0022",

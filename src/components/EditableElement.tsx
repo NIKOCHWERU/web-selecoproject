@@ -30,7 +30,16 @@ import {
   RectangleHorizontal,
   Focus,
   ExternalLink,
-  Link as LinkIcon
+  Link as LinkIcon,
+  Bold,
+  Italic,
+  Underline,
+  Strikethrough,
+  Baseline,
+  Space,
+  Box,
+  ChevronUp,
+  ChevronDown
 } from 'lucide-react';
 import { compressImageToDataUrl } from '@/lib/imageUtils';
 
@@ -232,12 +241,20 @@ export function EditableText({
     });
   };
 
-  // Applied inline styles
+  // Applied inline styles (Word-Style Formatting)
   const appliedStyle: React.CSSProperties = {
     ...(customStyle.textAlign ? { textAlign: customStyle.textAlign as any } : {}),
     ...(customStyle.color ? { color: customStyle.color } : {}),
     ...(customStyle.fontSize ? { fontSize: customStyle.fontSize } : {}),
     ...(customStyle.fontWeight ? { fontWeight: customStyle.fontWeight } : {}),
+    ...(customStyle.fontStyle ? { fontStyle: customStyle.fontStyle } : {}),
+    ...(customStyle.textDecoration ? { textDecoration: customStyle.textDecoration } : {}),
+    ...(customStyle.lineHeight ? { lineHeight: customStyle.lineHeight } : {}),
+    ...(customStyle.letterSpacing ? { letterSpacing: customStyle.letterSpacing } : {}),
+    ...(customStyle.margin ? { margin: customStyle.margin } : {}),
+    ...(customStyle.padding ? { padding: customStyle.padding } : {}),
+    ...(customStyle.backgroundColor ? { backgroundColor: customStyle.backgroundColor } : {}),
+    ...(customStyle.borderRadius ? { borderRadius: customStyle.borderRadius } : {}),
   };
 
   if (!isEditMode) {
@@ -320,7 +337,38 @@ export function EditableText({
             </span>
           </div>
 
-          {/* Text Alignments */}
+          {/* Word Style: Bold, Italic, Underline */}
+          <div className="flex items-center gap-0.5 bg-slate-950/80 p-0.5 rounded-lg border border-slate-800">
+            <button
+              onClick={() => updateStyleProp('fontWeight', customStyle.fontWeight === 'bold' ? 'normal' : 'bold')}
+              className={`p-1.5 rounded hover:bg-amber-400 hover:text-slate-950 transition-colors ${
+                customStyle.fontWeight === 'bold' ? 'bg-amber-400 text-slate-950 font-bold' : 'text-slate-300'
+              }`}
+              title="Tebal (Bold)"
+            >
+              <Bold className="w-3.5 h-3.5" />
+            </button>
+            <button
+              onClick={() => updateStyleProp('fontStyle', customStyle.fontStyle === 'italic' ? 'normal' : 'italic')}
+              className={`p-1.5 rounded hover:bg-amber-400 hover:text-slate-950 transition-colors ${
+                customStyle.fontStyle === 'italic' ? 'bg-amber-400 text-slate-950' : 'text-slate-300'
+              }`}
+              title="Miring (Italic)"
+            >
+              <Italic className="w-3.5 h-3.5" />
+            </button>
+            <button
+              onClick={() => updateStyleProp('textDecoration', customStyle.textDecoration === 'underline' ? 'none' : 'underline')}
+              className={`p-1.5 rounded hover:bg-amber-400 hover:text-slate-950 transition-colors ${
+                customStyle.textDecoration === 'underline' ? 'bg-amber-400 text-slate-950' : 'text-slate-300'
+              }`}
+              title="Garis Bawah (Underline)"
+            >
+              <Underline className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
+          {/* Text Alignments (Left, Center, Right, Justify) */}
           <div className="flex items-center gap-0.5 bg-slate-950/80 p-0.5 rounded-lg border border-slate-800">
             <button
               onClick={() => updateStyleProp('textAlign', 'left')}
@@ -354,7 +402,7 @@ export function EditableText({
               className={`p-1.5 rounded hover:bg-amber-400 hover:text-slate-950 transition-colors ${
                 customStyle.textAlign === 'justify' ? 'bg-amber-400 text-slate-950' : 'text-slate-300'
               }`}
-              title="Rata Kanan-Kiri (Justify)"
+              title="Rata Kanan-Kiri Penuh (Justify)"
             >
               <AlignJustify className="w-3.5 h-3.5" />
             </button>
@@ -369,7 +417,7 @@ export function EditableText({
                 onClick={() => updateStyleProp('color', c)}
                 style={{ backgroundColor: c }}
                 className="w-4 h-4 rounded-full border border-slate-700 hover:scale-125 transition-transform"
-                title={`Warna ${c}`}
+                title={`Warna Teks ${c}`}
               />
             ))}
             <input
@@ -389,14 +437,76 @@ export function EditableText({
               onChange={(e) => updateStyleProp('fontSize', e.target.value)}
               className="bg-transparent text-white text-[11px] focus:outline-none cursor-pointer"
             >
-              <option value="" className="bg-slate-900">Ukuran Normal</option>
+              <option value="" className="bg-slate-900">Font Normal</option>
+              <option value="11px" className="bg-slate-900">11px (Sangat Kecil)</option>
               <option value="12px" className="bg-slate-900">12px (Kecil)</option>
               <option value="14px" className="bg-slate-900">14px (Reguler)</option>
               <option value="16px" className="bg-slate-900">16px (Medium)</option>
-              <option value="20px" className="bg-slate-900">20px (Besar)</option>
+              <option value="18px" className="bg-slate-900">18px (Paragraf Tebal)</option>
+              <option value="20px" className="bg-slate-900">20px (Subjudul Kecil)</option>
               <option value="24px" className="bg-slate-900">24px (Subjudul)</option>
-              <option value="32px" className="bg-slate-900">32px (Judul)</option>
-              <option value="44px" className="bg-slate-900">44px (Hero Title)</option>
+              <option value="30px" className="bg-slate-900">30px (Judul Section)</option>
+              <option value="36px" className="bg-slate-900">36px (Header Besar)</option>
+              <option value="48px" className="bg-slate-900">48px (Hero Title)</option>
+            </select>
+          </div>
+
+          {/* Margin & Spacing (Word MS Format) */}
+          <div className="flex items-center gap-1 bg-slate-950/80 px-2 py-1 rounded-lg border border-slate-800 text-[11px]">
+            <Space className="w-3 h-3 text-amber-300" />
+            <select
+              value={customStyle.margin || ''}
+              onChange={(e) => updateStyleProp('margin', e.target.value)}
+              className="bg-transparent text-white text-[11px] focus:outline-none cursor-pointer"
+              title="Margin / Jarak Luar Elemen"
+            >
+              <option value="" className="bg-slate-900">Margin Default</option>
+              <option value="0px" className="bg-slate-900">Margin 0px</option>
+              <option value="4px" className="bg-slate-900">Margin 4px</option>
+              <option value="8px" className="bg-slate-900">Margin 8px</option>
+              <option value="12px" className="bg-slate-900">Margin 12px</option>
+              <option value="16px" className="bg-slate-900">Margin 16px</option>
+              <option value="24px" className="bg-slate-900">Margin 24px</option>
+              <option value="32px" className="bg-slate-900">Margin 32px</option>
+              <option value="8px 0" className="bg-slate-900">Margin Vertikal (8px)</option>
+              <option value="16px 0" className="bg-slate-900">Margin Vertikal (16px)</option>
+              <option value="0 auto" className="bg-slate-900">Margin Auto (Center Block)</option>
+            </select>
+          </div>
+
+          {/* Padding (Jarak Dalam) */}
+          <div className="flex items-center gap-1 bg-slate-950/80 px-2 py-1 rounded-lg border border-slate-800 text-[11px]">
+            <Box className="w-3 h-3 text-amber-300" />
+            <select
+              value={customStyle.padding || ''}
+              onChange={(e) => updateStyleProp('padding', e.target.value)}
+              className="bg-transparent text-white text-[11px] focus:outline-none cursor-pointer"
+              title="Padding / Ruang Dalam Elemen"
+            >
+              <option value="" className="bg-slate-900">Padding Default</option>
+              <option value="0px" className="bg-slate-900">Padding 0px</option>
+              <option value="4px 8px" className="bg-slate-900">Padding Kecil (4px 8px)</option>
+              <option value="8px 12px" className="bg-slate-900">Padding Sedang (8px 12px)</option>
+              <option value="12px 16px" className="bg-slate-900">Padding Longgar (12px 16px)</option>
+              <option value="16px 24px" className="bg-slate-900">Padding Tombol/Banner (16px 24px)</option>
+            </select>
+          </div>
+
+          {/* Line Height & Letter Spacing */}
+          <div className="flex items-center gap-1 bg-slate-950/80 px-2 py-1 rounded-lg border border-slate-800 text-[11px]">
+            <Baseline className="w-3 h-3 text-amber-300" />
+            <select
+              value={customStyle.lineHeight || ''}
+              onChange={(e) => updateStyleProp('lineHeight', e.target.value)}
+              className="bg-transparent text-white text-[11px] focus:outline-none cursor-pointer"
+              title="Spasi Baris (Line Height)"
+            >
+              <option value="" className="bg-slate-900">Spasi Normal (1.5)</option>
+              <option value="1.1" className="bg-slate-900">Rapat (1.1)</option>
+              <option value="1.25" className="bg-slate-900">Judul (1.25)</option>
+              <option value="1.6" className="bg-slate-900">Paragraf (1.6)</option>
+              <option value="1.8" className="bg-slate-900">Lebar (1.8)</option>
+              <option value="2" className="bg-slate-900">Ganda (2.0)</option>
             </select>
           </div>
 
@@ -413,6 +523,35 @@ export function EditableText({
                 title="URL Tujuan Tombol"
               />
             </div>
+          )}
+
+          {/* Reset Style Button */}
+          {Object.keys(customStyle).length > 0 && (
+            <button
+              onClick={() => {
+                setContent((prev: any) => {
+                  const copy = JSON.parse(JSON.stringify(prev || {}));
+                  if (copy.styles && copy.styles[fieldPath]) {
+                    delete copy.styles[fieldPath];
+                  }
+                  try {
+                    sessionStorage.setItem('seleco_live_preview_content', JSON.stringify(copy));
+                    if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                        type: 'ON_ELEMENT_UPDATED',
+                        content: copy,
+                        fieldPath,
+                      }, '*');
+                    }
+                  } catch (err) {}
+                  return copy;
+                });
+              }}
+              className="px-2 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-300 rounded text-[10px] transition-colors"
+              title="Reset Format Teks ke Semula"
+            >
+              Reset
+            </button>
           )}
 
           {/* Close Toolbar */}

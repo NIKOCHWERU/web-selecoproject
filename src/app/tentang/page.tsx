@@ -5,8 +5,8 @@ import AboutSection from '@/components/AboutSection';
 import RetainerSection from '@/components/RetainerSection';
 
 export const metadata: Metadata = {
-  title: 'Tentang Kami | Seleco — Sedana legal consultant',
-  description: 'Profil Seleco, visi, nilai-nilai integritas, tim konsultan profesional 5 pilar (Perizinan, Imigrasi, Pajak, Pertanahan, SDM) di Indonesia.',
+  title: 'Tentang Kami | SELECO — SEDANA LEGAL CONSULTANT',
+  description: 'Profil SELECO, visi, nilai-nilai integritas, tim konsultan profesional 5 pilar (Perizinan, Imigrasi, Pajak, Pertanahan, SDM) di Indonesia.',
 };
 
 export default function TentangPage() {
@@ -29,7 +29,7 @@ export default function TentangPage() {
             </h1>
             <div className="w-16 h-[3px] bg-gold-accent mt-3 mb-4 rounded-full" />
             <p className="text-base text-slate-600 max-w-2xl leading-relaxed font-normal">
-              Mengenal lebih dekat visi, standar profesional, dan tim konsultan di balik Seleco (Sedana legal consultant) yang siap mendampingi pertumbuhan bisnis Anda di Indonesia melalui 5 pilar layanan konsultan terpadu.
+              Mengenal lebih dekat visi, standar profesional, dan tim konsultan di balik SELECO (SEDANA LEGAL CONSULTANT) yang siap mendampingi pertumbuhan bisnis Anda di Indonesia melalui 5 pilar layanan konsultan terpadu.
             </p>
           </div>
         </div>

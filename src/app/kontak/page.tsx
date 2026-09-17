@@ -5,8 +5,8 @@ import ContactSection from '@/components/ContactSection';
 import FAQSection from '@/components/FAQSection';
 
 export const metadata: Metadata = {
-  title: 'Kontak & Konsultasi | Seleco — Sedana legal consultant',
-  description: 'Hubungi konsultan Seleco Jakarta. Konsultasi perizinan usaha OSS RBA, keimigrasian/TKA, perpajakan badan, pertanahan BPN, dan manajemen SDM via formulir atau WhatsApp.',
+  title: 'Kontak & Konsultasi | SELECO — SEDANA LEGAL CONSULTANT',
+  description: 'Hubungi konsultan SELECO Jakarta. Konsultasi perizinan usaha OSS RBA, keimigrasian/TKA, perpajakan badan, pertanahan BPN, dan manajemen SDM via formulir atau WhatsApp.',
 };
 
 export default function KontakPage() {

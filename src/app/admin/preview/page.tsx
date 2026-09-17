@@ -183,7 +183,7 @@ function PreviewContent() {
                   <p className="text-base text-slate-600 max-w-2xl leading-relaxed font-normal">
                     <EditableText
                       fieldPath="about.paragraph1"
-                      fallback="Mengenal lebih dekat visi, standar profesional, dan tim konsultan di balik Seleco (Sedana legal consultant) yang siap mendampingi pertumbuhan bisnis Anda di Indonesia melalui 5 pilar layanan konsultan terpadu."
+                      fallback="Mengenal lebih dekat visi, standar profesional, dan tim konsultan di balik SELECO (SEDANA LEGAL CONSULTANT) yang siap mendampingi pertumbuhan bisnis Anda di Indonesia melalui 5 pilar layanan konsultan terpadu."
                       label="Deskripsi Header Tentang Kami"
                       multiline={true}
                     />
