@@ -72,7 +72,54 @@
     "subtitle": "Kebutuhan Bisnis & Korporasi",
     "ctaBannerTitle": "Membutuhkan Konsultasi Bisnis Spesifik?",
     "ctaBannerSubtitle": "Tim konsultan kami siap meninjau kebutuhan dan memberikan panduan perizinan, imigrasi, pajak, pertanahan, serta manajemen SDM terbaik.",
-    "ctaBannerButtonText": "Konsultasi WhatsApp Langsung"
+    "ctaBannerButtonText": "Konsultasi WhatsApp Langsung",
+    "pillars": [
+      {
+        "id": "perizinan",
+        "name": "Konsultan Perizinan",
+        "count": "242 Items",
+        "description": "Pendirian Badan Usaha (PT/CV/PMA), Izin Usaha Berbasis Risiko OSS RBA, NIB, Sertifikat Standar, PB UMKU, Izin Operasional Sektoral, BPOM, Halal & SNI.",
+        "linkText": "Lihat Seluruh 242 Layanan",
+        "linkUrl": "/layanan?cat=perizinan",
+        "iconName": "FileCheck"
+      },
+      {
+        "id": "imigrasi",
+        "name": "Konsultan Imigrasi",
+        "count": "36 Items",
+        "description": "Pengurusan VISA Bisnis/Investor, KITAS/ITAS Kerja, ITAP Izin Tinggal Tetap, RPTKA Tenaga Kerja Asing, Paspor, dan Layanan Keimigrasian WNA/WNI.",
+        "linkText": "Lihat Seluruh 36 Layanan",
+        "linkUrl": "/layanan?cat=imigrasi",
+        "iconName": "Globe"
+      },
+      {
+        "id": "pajak",
+        "name": "Konsultan Pajak",
+        "count": "86 Items",
+        "description": "Tax Advisory & Planning, Kepatuhan Pajak Badan & Pribadi, Pelaporan SPT Masa & Tahunan, Restitusi Pajak, dan Pendampingan Pemeriksaan Pajak.",
+        "linkText": "Lihat Seluruh 86 Layanan",
+        "linkUrl": "/layanan?cat=pajak",
+        "iconName": "Receipt"
+      },
+      {
+        "id": "pertanahan",
+        "name": "Konsultan Pertanahan",
+        "count": "45 Items",
+        "description": "Pengurusan Sertifikat Tanah BPN (SHM, HGB, HGU), Pengecekan Keabsahan Sertifikat, Balik Nama, Roya Hak Tanggungan, KKPR Tata Ruang, serta PBG & SLF.",
+        "linkText": "Lihat Seluruh 45 Layanan",
+        "linkUrl": "/layanan?cat=pertanahan",
+        "iconName": "Landmark"
+      },
+      {
+        "id": "sdm",
+        "name": "Konsultan SDM",
+        "count": "36 Items",
+        "description": "Penyusunan Peraturan Perusahaan (PP), Perjanjian Kerja Bersama (PKB), Struktur & Skala Upah, Kontrak Kerja Karyawan PKWT/PKWTT, BPJS, dan Audit SDM.",
+        "linkText": "Lihat Seluruh 36 Layanan",
+        "linkUrl": "/layanan?cat=sdm",
+        "iconName": "Users"
+      }
+    ]
   },
   "retainer": {
     "badge": "Corporate Retainer Program",

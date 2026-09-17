@@ -14,7 +14,8 @@ import {
   FileText, 
   Globe, 
   ShieldCheck,
-  RefreshCw
+  RefreshCw,
+  Sparkles
 } from 'lucide-react';
 import { useContent } from '@/context/ContentContext';
 
@@ -151,6 +152,51 @@ export default function DevPortalPage() {
                 <span>Aktifkan Kembali Dev Mode</span>
               </button>
             )}
+          </div>
+        </div>
+
+        {/* Editor Shortcuts */}
+        <div className="space-y-3 mb-8">
+          <h2 className="text-xs uppercase tracking-widest text-amber-400 font-bold flex items-center gap-2">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Akses Editor Web SELECO</span>
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <Link
+              href="/edit-view"
+              className="p-4 bg-amber-500/10 hover:bg-amber-500/15 border border-amber-400/40 rounded-xl flex items-center justify-between group transition-all"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-lg bg-amber-400/20 flex items-center justify-center text-amber-300 group-hover:scale-105 transition-transform">
+                  <Sparkles className="w-4 h-4 text-amber-400" />
+                </div>
+                <div>
+                  <span className="text-xs font-bold text-amber-300 block">
+                    Mode Visual (/edit-view)
+                  </span>
+                  <span className="text-[10px] text-slate-400">Klik langsung teks, link & tombol untuk edit ala Elementor</span>
+                </div>
+              </div>
+              <ArrowRight className="w-4 h-4 text-amber-400 group-hover:translate-x-1 transition-all" />
+            </Link>
+
+            <Link
+              href="/admin"
+              className="p-4 bg-slate-900/60 hover:bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-xl flex items-center justify-between group transition-all"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center text-slate-300 group-hover:scale-105 transition-transform">
+                  <Sliders className="w-4 h-4 text-slate-400" />
+                </div>
+                <div>
+                  <span className="text-xs font-bold text-white block group-hover:text-amber-300 transition-colors">
+                    Mode Formulir (/admin)
+                  </span>
+                  <span className="text-[10px] text-slate-400">Dashboard isi web lengkap, artikel, & manajemen pengguna</span>
+                </div>
+              </div>
+              <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-amber-400 group-hover:translate-x-1 transition-all" />
+            </Link>
           </div>
         </div>
 

@@ -29,7 +29,55 @@ export default function ServicesSection() {
     }
   };
 
-  const categories = SERVICE_CATEGORIES.filter(c => c.id !== 'all');
+  const defaultPillars = [
+    {
+      id: "perizinan",
+      name: "Konsultan Perizinan",
+      count: "242 Items",
+      description: "Pendirian Badan Usaha (PT/CV/PMA), Izin Usaha Berbasis Risiko OSS RBA, NIB, Sertifikat Standar, PB UMKU, Izin Operasional Sektoral, BPOM, Halal & SNI.",
+      linkText: "Lihat Seluruh 242 Layanan",
+      linkUrl: "/layanan?cat=perizinan",
+      iconName: "FileCheck"
+    },
+    {
+      id: "imigrasi",
+      name: "Konsultan Imigrasi",
+      count: "36 Items",
+      description: "Pengurusan VISA Bisnis/Investor, KITAS/ITAS Kerja, ITAP Izin Tinggal Tetap, RPTKA Tenaga Kerja Asing, Paspor, dan Layanan Keimigrasian WNA/WNI.",
+      linkText: "Lihat Seluruh 36 Layanan",
+      linkUrl: "/layanan?cat=imigrasi",
+      iconName: "Globe"
+    },
+    {
+      id: "pajak",
+      name: "Konsultan Pajak",
+      count: "86 Items",
+      description: "Tax Advisory & Planning, Kepatuhan Pajak Badan & Pribadi, Pelaporan SPT Masa & Tahunan, Restitusi Pajak, dan Pendampingan Pemeriksaan Pajak.",
+      linkText: "Lihat Seluruh 86 Layanan",
+      linkUrl: "/layanan?cat=pajak",
+      iconName: "Receipt"
+    },
+    {
+      id: "pertanahan",
+      name: "Konsultan Pertanahan",
+      count: "45 Items",
+      description: "Pengurusan Sertifikat Tanah BPN (SHM, HGB, HGU), Pengecekan Keabsahan Sertifikat, Balik Nama, Roya Hak Tanggungan, KKPR Tata Ruang, serta PBG & SLF.",
+      linkText: "Lihat Seluruh 45 Layanan",
+      linkUrl: "/layanan?cat=pertanahan",
+      iconName: "Landmark"
+    },
+    {
+      id: "sdm",
+      name: "Konsultan SDM",
+      count: "36 Items",
+      description: "Penyusunan Peraturan Perusahaan (PP), Perjanjian Kerja Bersama (PKB), Struktur & Skala Upah, Kontrak Kerja Karyawan PKWT/PKWTT, BPJS, dan Audit SDM.",
+      linkText: "Lihat Seluruh 36 Layanan",
+      linkUrl: "/layanan?cat=sdm",
+      iconName: "Users"
+    }
+  ];
+
+  const pillars = (services?.pillars && services.pillars.length > 0) ? services.pillars : defaultPillars;
 
   return (
     <EditableSection id="services" name="Layanan & Spesialisasi Section" className="py-20 lg:py-28 bg-slate-50 border-b border-gray-200/80">
@@ -64,41 +112,67 @@ export default function ServicesSection() {
 
         {/* Categories Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {categories.map((cat, idx) => (
-            <motion.div
-              key={cat.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.04 }}
-              className="bg-white border border-gray-200/80 rounded-2xl p-7 flex flex-col justify-between hover:border-gold-accent hover:shadow-xl transition-all duration-300 group"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-5">
-                  <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200/60 flex items-center justify-center group-hover:scale-110 group-hover:bg-amber-100 transition-all">
-                    {getIcon(cat.iconName)}
-                  </div>
-                  <span className="text-xs font-bold text-amber-800 bg-amber-50 border border-amber-200/70 px-3 py-1 rounded-full">
-                    {cat.count} Items
-                  </span>
-                </div>
-                <h3 className="font-serif-title text-xl font-bold text-slate-900 mb-2.5 group-hover:text-gold-accent transition-colors">
-                  {cat.name}
-                </h3>
-                <p className="text-xs text-slate-600 leading-relaxed mb-6 font-normal">
-                  {cat.description}
-                </p>
-              </div>
+          {pillars.map((cat, idx) => {
+            const fallbackLink = cat.linkUrl || `/layanan?cat=${cat.id}`;
+            const currentLink = services?.pillars?.[idx]?.linkUrl || fallbackLink;
 
-              <Link
-                href={`/layanan?cat=${cat.id}`}
-                className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-800 group-hover:text-gold-accent border-t border-gray-100 pt-4 transition-colors"
+            return (
+              <motion.div
+                key={cat.id || idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.04 }}
+                className="bg-white border border-gray-200/80 rounded-2xl p-7 flex flex-col justify-between hover:border-gold-accent hover:shadow-xl transition-all duration-300 group"
               >
-                <span>Lihat Seluruh {cat.count} Layanan</span>
-                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </motion.div>
-          ))}
+                <div>
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200/60 flex items-center justify-center group-hover:scale-110 group-hover:bg-amber-100 transition-all">
+                      {getIcon(cat.iconName || 'FileCheck')}
+                    </div>
+                    <span className="text-xs font-bold text-amber-800 bg-amber-50 border border-amber-200/70 px-3 py-1 rounded-full">
+                      <EditableText
+                        fieldPath={`services.pillars.${idx}.count`}
+                        fallback={cat.count || '242 Items'}
+                        label={`Jumlah ${cat.name}`}
+                      />
+                    </span>
+                  </div>
+                  <h3 className="font-serif-title text-xl font-bold text-slate-900 mb-2.5 group-hover:text-gold-accent transition-colors">
+                    <EditableText
+                      fieldPath={`services.pillars.${idx}.name`}
+                      fallback={cat.name}
+                      label={`Nama Pilar ${idx + 1}`}
+                      as="span"
+                    />
+                  </h3>
+                  <div className="text-xs text-slate-600 leading-relaxed mb-6 font-normal">
+                    <EditableText
+                      fieldPath={`services.pillars.${idx}.description`}
+                      fallback={cat.description}
+                      label={`Deskripsi Pilar ${idx + 1}`}
+                      multiline={true}
+                      as="p"
+                    />
+                  </div>
+                </div>
+
+                <Link
+                  href={currentLink}
+                  className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-800 group-hover:text-gold-accent border-t border-gray-100 pt-4 transition-colors"
+                >
+                  <EditableText
+                    fieldPath={`services.pillars.${idx}.linkText`}
+                    fallback={cat.linkText || `Lihat Seluruh ${cat.count}`}
+                    label={`Teks Link Pilar ${idx + 1}`}
+                    linkPath={`services.pillars.${idx}.linkUrl`}
+                    fallbackLink={fallbackLink}
+                  />
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* Directory Banner Link */}

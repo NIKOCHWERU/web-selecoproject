@@ -551,21 +551,14 @@ export default function AdminClient() {
               <Sliders className="w-3.5 h-3.5" />
               <span>Mode Formulir</span>
             </button>
-            <button
-              onClick={() => {
-                setEditorMode('click_to_edit');
-                setIsFullscreen(true);
-              }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
-                editorMode === 'click_to_edit'
-                  ? 'bg-[#333A48] text-[#D4AF37] font-bold shadow-sm'
-                  : 'text-[#8A99AD] hover:text-white'
-              }`}
-              title="Mode Visual Langsung (Full View): Klik teks atau tombol pada website langsung untuk edit"
+            <Link
+              href="/edit-view"
+              className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all text-[#D4AF37] hover:bg-[#333A48]"
+              title="Buka Halaman Khusus Editor Visual Fullscreen (/edit-view)"
             >
-              <MousePointerClick className="w-3.5 h-3.5" />
-              <span>Mode Visual</span>
-            </button>
+              <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
+              <span>Mode Visual (/edit-view)</span>
+            </Link>
           </div>
 
           {/* Device Switcher */}
@@ -1183,6 +1176,128 @@ export default function AdminClient() {
                       className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
                     />
                   </div>
+                </div>
+
+                {/* 5 PILAR LAYANAN KONSULTAN */}
+                <div className="pt-3 border-t border-slate-800 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="text-xs font-bold text-amber-300 uppercase tracking-wider block">5 Kartu Pilar Layanan Utama</span>
+                      <span className="text-[11px] text-slate-400">Edit badge jumlah item, judul, deskripsi, dan link tiap kartu pilar</span>
+                    </div>
+                    <Link href="/edit-view" className="text-[11px] text-amber-400 hover:underline flex items-center gap-1 font-semibold">
+                      <Sparkles className="w-3 h-3" />
+                      <span>Edit Visual (/edit-view)</span>
+                    </Link>
+                  </div>
+
+                  {(editorContent.services?.pillars || [
+                    { id: 'perizinan', name: 'Konsultan Perizinan', count: '242 Items', description: 'Pendirian Badan Usaha (PT/CV/PMA), Izin Usaha Berbasis Risiko OSS RBA, NIB, Sertifikat Standar, PB UMKU, Izin Operasional Sektoral, BPOM, Halal & SNI.', linkText: 'Lihat Seluruh 242 Layanan', linkUrl: '/layanan?cat=perizinan' },
+                    { id: 'imigrasi', name: 'Konsultan Imigrasi', count: '36 Items', description: 'Pengurusan VISA Bisnis/Investor, KITAS/ITAS Kerja, ITAP Izin Tinggal Tetap, RPTKA Tenaga Kerja Asing, Paspor, dan Layanan Keimigrasian WNA/WNI.', linkText: 'Lihat Seluruh 36 Layanan', linkUrl: '/layanan?cat=imigrasi' },
+                    { id: 'pajak', name: 'Konsultan Pajak', count: '86 Items', description: 'Tax Advisory & Planning, Kepatuhan Pajak Badan & Pribadi, Pelaporan SPT Masa & Tahunan, Restitusi Pajak, dan Pendampingan Pemeriksaan Pajak.', linkText: 'Lihat Seluruh 86 Layanan', linkUrl: '/layanan?cat=pajak' },
+                    { id: 'pertanahan', name: 'Konsultan Pertanahan', count: '45 Items', description: 'Pengurusan Sertifikat Tanah BPN (SHM, HGB, HGU), Pengecekan Keabsahan Sertifikat, Balik Nama, Roya Hak Tanggungan, KKPR Tata Ruang, serta PBG & SLF.', linkText: 'Lihat Seluruh 45 Layanan', linkUrl: '/layanan?cat=pertanahan' },
+                    { id: 'sdm', name: 'Konsultan SDM', count: '36 Items', description: 'Penyusunan Peraturan Perusahaan (PP), Perjanjian Kerja Bersama (PKB), Struktur & Skala Upah, Kontrak Kerja Karyawan PKWT/PKWTT, BPJS, dan Audit SDM.', linkText: 'Lihat Seluruh 36 Layanan', linkUrl: '/layanan?cat=sdm' },
+                  ]).map((pillar, pIdx) => (
+                    <div key={pillar.id || pIdx} className="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl space-y-2.5">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold text-white flex items-center gap-1.5">
+                          <span className="w-5 h-5 rounded-full bg-amber-400/20 text-amber-400 flex items-center justify-center text-[10px]">
+                            {pIdx + 1}
+                          </span>
+                          <span>{pillar.name}</span>
+                        </span>
+                        <input
+                          type="text"
+                          value={pillar.count || ''}
+                          onChange={(e) => {
+                            const newPillars = [...(editorContent.services?.pillars || [
+                              { id: 'perizinan', name: 'Konsultan Perizinan', count: '242 Items', description: 'Pendirian Badan Usaha (PT/CV/PMA), Izin Usaha Berbasis Risiko OSS RBA, NIB, Sertifikat Standar, PB UMKU, Izin Operasional Sektoral, BPOM, Halal & SNI.', linkText: 'Lihat Seluruh 242 Layanan', linkUrl: '/layanan?cat=perizinan' },
+                              { id: 'imigrasi', name: 'Konsultan Imigrasi', count: '36 Items', description: 'Pengurusan VISA Bisnis/Investor, KITAS/ITAS Kerja, ITAP Izin Tinggal Tetap, RPTKA Tenaga Kerja Asing, Paspor, dan Layanan Keimigrasian WNA/WNI.', linkText: 'Lihat Seluruh 36 Layanan', linkUrl: '/layanan?cat=imigrasi' },
+                              { id: 'pajak', name: 'Konsultan Pajak', count: '86 Items', description: 'Tax Advisory & Planning, Kepatuhan Pajak Badan & Pribadi, Pelaporan SPT Masa & Tahunan, Restitusi Pajak, dan Pendampingan Pemeriksaan Pajak.', linkText: 'Lihat Seluruh 86 Layanan', linkUrl: '/layanan?cat=pajak' },
+                              { id: 'pertanahan', name: 'Konsultan Pertanahan', count: '45 Items', description: 'Pengurusan Sertifikat Tanah BPN (SHM, HGB, HGU), Pengecekan Keabsahan Sertifikat, Balik Nama, Roya Hak Tanggungan, KKPR Tata Ruang, serta PBG & SLF.', linkText: 'Lihat Seluruh 45 Layanan', linkUrl: '/layanan?cat=pertanahan' },
+                              { id: 'sdm', name: 'Konsultan SDM', count: '36 Items', description: 'Penyusunan Peraturan Perusahaan (PP), Perjanjian Kerja Bersama (PKB), Struktur & Skala Upah, Kontrak Kerja Karyawan PKWT/PKWTT, BPJS, dan Audit SDM.', linkText: 'Lihat Seluruh 36 Layanan', linkUrl: '/layanan?cat=sdm' },
+                            ])];
+                            newPillars[pIdx] = { ...newPillars[pIdx], count: e.target.value };
+                            setEditorContent((prev) => ({
+                              ...prev,
+                              services: { ...prev.services, pillars: newPillars },
+                            }));
+                          }}
+                          placeholder="Jumlah Item (contoh: 242 Items)"
+                          className="w-28 px-2 py-1 bg-slate-950 border border-slate-700 rounded text-[11px] text-amber-400 font-bold focus:outline-none focus:border-amber-400 text-right"
+                        />
+                      </div>
+
+                      <div>
+                        <span className="text-[10px] text-slate-400">Nama Pilar</span>
+                        <input
+                          type="text"
+                          value={pillar.name || ''}
+                          onChange={(e) => {
+                            const newPillars = [...(editorContent.services?.pillars || [])];
+                            newPillars[pIdx] = { ...newPillars[pIdx], name: e.target.value };
+                            setEditorContent((prev) => ({
+                              ...prev,
+                              services: { ...prev.services, pillars: newPillars },
+                            }));
+                          }}
+                          className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
+                        />
+                      </div>
+
+                      <div>
+                        <span className="text-[10px] text-slate-400">Deskripsi Ringkas</span>
+                        <textarea
+                          rows={2}
+                          value={pillar.description || ''}
+                          onChange={(e) => {
+                            const newPillars = [...(editorContent.services?.pillars || [])];
+                            newPillars[pIdx] = { ...newPillars[pIdx], description: e.target.value };
+                            setEditorContent((prev) => ({
+                              ...prev,
+                              services: { ...prev.services, pillars: newPillars },
+                            }));
+                          }}
+                          className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-2">
+                        <div>
+                          <span className="text-[10px] text-slate-400">Teks Link Tombol</span>
+                          <input
+                            type="text"
+                            value={pillar.linkText || ''}
+                            onChange={(e) => {
+                              const newPillars = [...(editorContent.services?.pillars || [])];
+                              newPillars[pIdx] = { ...newPillars[pIdx], linkText: e.target.value };
+                              setEditorContent((prev) => ({
+                                ...prev,
+                                services: { ...prev.services, pillars: newPillars },
+                              }));
+                            }}
+                            className="w-full px-2 py-1 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
+                          />
+                        </div>
+                        <div>
+                          <span className="text-[10px] text-slate-400">URL Tujuan Link</span>
+                          <input
+                            type="text"
+                            value={pillar.linkUrl || ''}
+                            onChange={(e) => {
+                              const newPillars = [...(editorContent.services?.pillars || [])];
+                              newPillars[pIdx] = { ...newPillars[pIdx], linkUrl: e.target.value };
+                              setEditorContent((prev) => ({
+                                ...prev,
+                                services: { ...prev.services, pillars: newPillars },
+                              }));
+                            }}
+                            className="w-full px-2 py-1 bg-slate-950 border border-slate-700 rounded text-xs text-amber-300 focus:outline-none focus:border-amber-400"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             )}

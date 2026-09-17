@@ -45,6 +45,11 @@ function PreviewContent() {
     if (pageParam) {
       setCurrentPage(pageParam);
     }
+    const modeParam = searchParams.get('mode');
+    if (modeParam === 'click_to_edit') {
+      sessionStorage.setItem('seleco_editor_mode', 'click_to_edit');
+      window.postMessage({ type: 'SET_EDITOR_MODE', mode: 'click_to_edit' }, '*');
+    }
   }, [searchParams]);
 
   const currentPageRef = useRef<PreviewPageId>(initialPage);
@@ -92,40 +97,51 @@ function PreviewContent() {
   }, [setContent]);
 
   // Global click & navigation interceptor in capture phase
-  // When in visual edit mode ('click_to_edit'), disable all link & button clicks so elements can be edited safely!
+  // When in visual edit mode ('click_to_edit'), disable all link & route navigations so elements can be edited safely!
   useEffect(() => {
     const handleCaptureClick = (e: MouseEvent) => {
-      const isEditMode = sessionStorage.getItem('seleco_editor_mode') === 'click_to_edit';
+      const isEditMode = (typeof window !== 'undefined') && (
+        sessionStorage.getItem('seleco_editor_mode') === 'click_to_edit' ||
+        new URLSearchParams(window.location.search).get('mode') === 'click_to_edit'
+      );
       if (!isEditMode) return;
 
       const target = e.target as HTMLElement;
 
-      // Allow clicks on active toolbars, popups, color pickers, inputs, textareas, and select elements
+      // Allow clicks on active toolbars, inputs, textareas, selects, and action buttons
       if (
         target.closest('[data-toolbar]') ||
         target.closest('[data-editable-toolbar]') ||
         target.closest('input') ||
         target.closest('textarea') ||
         target.closest('select') ||
-        target.closest('button[data-action]') ||
+        target.closest('[data-action]') ||
         target.getAttribute('contenteditable') === 'true'
       ) {
         return;
       }
 
-      // If clicked element is or is inside an anchor (<a>) or button (<button>)
+      // If clicked element is or is inside an anchor (<a>) or Next.js Link
       const anchor = target.closest('a');
-      const button = target.closest('button');
-
-      if (anchor || button) {
-        // PREVENT ALL NAVIGATION, JUMPING, OR SUBMIT ACTIONS
+      if (anchor) {
+        // ALWAYS PREVENT NAVIGATION IN EDIT MODE!
         e.preventDefault();
-        e.stopPropagation();
 
-        // If there's an editable text inside, focus it so the user can immediately type!
-        const editableText = (anchor || button)?.querySelector('[contenteditable="true"]') as HTMLElement;
-        if (editableText) {
-          editableText.focus();
+        // If target is an editable element or inside one, let it bubble so the toolbar opens and text focuses!
+        const editableChild = target.closest('.group\\/editable') || target.querySelector?.('.group\\/editable');
+        if (!editableChild) {
+          e.stopPropagation();
+        }
+        return;
+      }
+
+      // If clicked element is a button (not inside toolbar)
+      const button = target.closest('button');
+      if (button && !button.closest('[data-toolbar]')) {
+        const editableChild = target.closest('.group\\/editable') || target.querySelector?.('.group\\/editable');
+        if (!editableChild) {
+          e.preventDefault();
+          e.stopPropagation();
         }
       }
     };

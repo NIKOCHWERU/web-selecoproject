@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Building2, ArrowUp, MessageCircle, Mail, MapPin, Phone, Shield, FileText, Edit3, Sliders } from 'lucide-react';
+import { Building2, ArrowUp, MessageCircle, Mail, MapPin, Phone, Shield, FileText, Edit3, Sliders, Sparkles } from 'lucide-react';
 import { useContent } from '@/context/ContentContext';
 import { EditableText, EditableSection } from './EditableElement';
 
@@ -195,12 +195,20 @@ export default function Footer() {
           {/* Tombol Akses Edit Isi Web */}
           <div className="flex items-center gap-2">
             <Link
-              href="/admin"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-gold-accent/20 border border-white/10 hover:border-gold-accent/40 text-white/70 hover:text-gold-accent text-xs font-medium transition-all shadow-sm"
-              title="Akses Dashboard Editor Web (Formulir & Visual)"
+              href="/edit-view"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gold-accent/15 hover:bg-gold-accent/25 border border-gold-accent/40 text-gold-accent text-xs font-semibold transition-all shadow-sm"
+              title="Akses Langsung Editor Visual Live (/edit-view)"
             >
-              <Edit3 className="w-3.5 h-3.5 text-gold-accent" />
-              <span>Edit Isi Web</span>
+              <Sparkles className="w-3.5 h-3.5 text-gold-accent" />
+              <span>Mode Visual (/edit-view)</span>
+            </Link>
+            <Link
+              href="/admin"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white/70 hover:text-white text-xs font-medium transition-all shadow-sm"
+              title="Akses Dashboard Formulir Admin (/admin)"
+            >
+              <Sliders className="w-3.5 h-3.5 text-slate-400" />
+              <span>Mode Formulir (/admin)</span>
             </Link>
           </div>
         </div>
