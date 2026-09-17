@@ -243,7 +243,11 @@ export function EditableText({
 
   // Applied inline styles (Word-Style Formatting)
   const appliedStyle: React.CSSProperties = {
-    ...(customStyle.textAlign ? { textAlign: customStyle.textAlign as any } : {}),
+    ...(customStyle.textAlign ? { 
+      textAlign: customStyle.textAlign as any,
+      textJustify: customStyle.textAlign === 'justify' ? 'inter-word' : undefined,
+      textAlignLast: customStyle.textAlign === 'justify' ? 'left' : undefined,
+    } : {}),
     ...(customStyle.color ? { color: customStyle.color } : {}),
     ...(customStyle.fontSize ? { fontSize: customStyle.fontSize } : {}),
     ...(customStyle.fontWeight ? { fontWeight: customStyle.fontWeight } : {}),
@@ -257,9 +261,17 @@ export function EditableText({
     ...(customStyle.borderRadius ? { borderRadius: customStyle.borderRadius } : {}),
   };
 
+  const isBlock = multiline || Component === 'p' || Component === 'div' || Component === 'h1' || Component === 'h2' || Component === 'h3' || Component === 'h4' || Component === 'blockquote' || Boolean(customStyle.textAlign) || Boolean(customStyle.margin);
+
   if (!isEditMode) {
     return (
-      <Component className={className} style={appliedStyle}>
+      <Component 
+        className={className} 
+        style={{
+          ...(isBlock ? { display: 'block', width: '100%' } : {}),
+          ...appliedStyle,
+        }}
+      >
         {currentText}
       </Component>
     );
@@ -267,15 +279,21 @@ export function EditableText({
 
   // CLICK-TO-EDIT MODE ACTIVE
   return (
-    <div 
-      className="relative inline-block w-auto max-w-full group/editable"
-      style={{ display: Component === 'div' || Component === 'p' ? 'block' : 'inline-block' }}
+    <span 
+      className="relative group/editable"
+      style={{ 
+        display: isBlock ? 'block' : 'inline-block',
+        width: isBlock ? '100%' : 'auto',
+        maxWidth: '100%',
+        textAlign: customStyle.textAlign ? (customStyle.textAlign as any) : undefined,
+        ...(customStyle.margin ? { margin: customStyle.margin } : {}),
+      }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       ref={toolbarRef}
     >
       {/* Visual Outline Indicator on Hover */}
-      <div 
+      <span 
         className={`absolute -inset-1 rounded-md pointer-events-none transition-all duration-150 z-20 ${
           showToolbar 
             ? 'border-2 border-amber-400 bg-amber-400/10 shadow-[0_0_15px_rgba(212,175,55,0.3)]' 
@@ -287,17 +305,20 @@ export function EditableText({
 
       {/* Label Tooltip & Quick Action Pill on Hover */}
       {isHovered && !showToolbar && (
-        <div className="absolute -top-7 left-0 z-30 flex items-center gap-1 bg-slate-950 text-white text-[10px] px-2 py-0.5 rounded shadow-lg border border-amber-400/40 pointer-events-none whitespace-nowrap animate-fade-in">
+        <span className="absolute -top-7 left-0 z-30 flex items-center gap-1 bg-slate-950 text-white text-[10px] px-2 py-0.5 rounded shadow-lg border border-amber-400/40 pointer-events-none whitespace-nowrap animate-fade-in">
           <Edit3 className="w-2.5 h-2.5 text-amber-400" />
           <span className="font-semibold text-amber-300">{label || fieldPath}</span>
           <span className="text-slate-400 text-[9px]">(Klik untuk edit)</span>
-        </div>
+        </span>
       )}
 
       {/* Editable Component */}
       <Component
         className={`${className} cursor-text outline-none relative z-10 select-text`}
-        style={appliedStyle}
+        style={{
+          ...(isBlock ? { display: 'block', width: '100%' } : {}),
+          ...appliedStyle,
+        }}
         contentEditable={isEditMode}
         suppressContentEditableWarning={true}
         onClick={(e) => {
@@ -326,7 +347,7 @@ export function EditableText({
       {/* ELEMENTOR-STYLE FLOATING QUICK TOOLBAR (Style, Align, Color, Size) */}
       {showToolbar && (
         <div 
-          className="absolute left-0 bottom-full mb-2 z-50 bg-slate-900/95 backdrop-blur-xl border border-amber-400/60 rounded-xl shadow-2xl p-2 flex items-center gap-2 text-white text-xs select-none animate-in fade-in zoom-in-95 duration-150 whitespace-nowrap min-w-max"
+          className="absolute left-0 bottom-full mb-2 z-50 bg-slate-900/95 backdrop-blur-xl border border-amber-400/60 rounded-xl shadow-2xl p-2 flex items-center gap-2 text-white text-xs select-none animate-in fade-in zoom-in-95 duration-150 whitespace-nowrap max-w-[95vw] overflow-x-auto"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Label Header */}
@@ -337,10 +358,15 @@ export function EditableText({
             </span>
           </div>
 
-          {/* Word Style: Bold, Italic, Underline */}
+          {/* Word Style: Bold, Italic, Underline, Strikethrough */}
           <div className="flex items-center gap-0.5 bg-slate-950/80 p-0.5 rounded-lg border border-slate-800">
             <button
-              onClick={() => updateStyleProp('fontWeight', customStyle.fontWeight === 'bold' ? 'normal' : 'bold')}
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                updateStyleProp('fontWeight', customStyle.fontWeight === 'bold' ? 'normal' : 'bold');
+              }}
               className={`p-1.5 rounded hover:bg-amber-400 hover:text-slate-950 transition-colors ${
                 customStyle.fontWeight === 'bold' ? 'bg-amber-400 text-slate-950 font-bold' : 'text-slate-300'
               }`}
@@ -349,7 +375,12 @@ export function EditableText({
               <Bold className="w-3.5 h-3.5" />
             </button>
             <button
-              onClick={() => updateStyleProp('fontStyle', customStyle.fontStyle === 'italic' ? 'normal' : 'italic')}
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                updateStyleProp('fontStyle', customStyle.fontStyle === 'italic' ? 'normal' : 'italic');
+              }}
               className={`p-1.5 rounded hover:bg-amber-400 hover:text-slate-950 transition-colors ${
                 customStyle.fontStyle === 'italic' ? 'bg-amber-400 text-slate-950' : 'text-slate-300'
               }`}
@@ -358,7 +389,12 @@ export function EditableText({
               <Italic className="w-3.5 h-3.5" />
             </button>
             <button
-              onClick={() => updateStyleProp('textDecoration', customStyle.textDecoration === 'underline' ? 'none' : 'underline')}
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                updateStyleProp('textDecoration', customStyle.textDecoration === 'underline' ? 'none' : 'underline');
+              }}
               className={`p-1.5 rounded hover:bg-amber-400 hover:text-slate-950 transition-colors ${
                 customStyle.textDecoration === 'underline' ? 'bg-amber-400 text-slate-950' : 'text-slate-300'
               }`}
@@ -366,12 +402,31 @@ export function EditableText({
             >
               <Underline className="w-3.5 h-3.5" />
             </button>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                updateStyleProp('textDecoration', customStyle.textDecoration === 'line-through' ? 'none' : 'line-through');
+              }}
+              className={`p-1.5 rounded hover:bg-amber-400 hover:text-slate-950 transition-colors ${
+                customStyle.textDecoration === 'line-through' ? 'bg-amber-400 text-slate-950' : 'text-slate-300'
+              }`}
+              title="Coret Teks (Strikethrough)"
+            >
+              <Strikethrough className="w-3.5 h-3.5" />
+            </button>
           </div>
 
           {/* Text Alignments (Left, Center, Right, Justify) */}
           <div className="flex items-center gap-0.5 bg-slate-950/80 p-0.5 rounded-lg border border-slate-800">
             <button
-              onClick={() => updateStyleProp('textAlign', 'left')}
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                updateStyleProp('textAlign', 'left');
+              }}
               className={`p-1.5 rounded hover:bg-amber-400 hover:text-slate-950 transition-colors ${
                 customStyle.textAlign === 'left' ? 'bg-amber-400 text-slate-950' : 'text-slate-300'
               }`}
@@ -380,7 +435,12 @@ export function EditableText({
               <AlignLeft className="w-3.5 h-3.5" />
             </button>
             <button
-              onClick={() => updateStyleProp('textAlign', 'center')}
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                updateStyleProp('textAlign', 'center');
+              }}
               className={`p-1.5 rounded hover:bg-amber-400 hover:text-slate-950 transition-colors ${
                 customStyle.textAlign === 'center' ? 'bg-amber-400 text-slate-950' : 'text-slate-300'
               }`}
@@ -389,7 +449,12 @@ export function EditableText({
               <AlignCenter className="w-3.5 h-3.5" />
             </button>
             <button
-              onClick={() => updateStyleProp('textAlign', 'right')}
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                updateStyleProp('textAlign', 'right');
+              }}
               className={`p-1.5 rounded hover:bg-amber-400 hover:text-slate-950 transition-colors ${
                 customStyle.textAlign === 'right' ? 'bg-amber-400 text-slate-950' : 'text-slate-300'
               }`}
@@ -398,7 +463,12 @@ export function EditableText({
               <AlignRight className="w-3.5 h-3.5" />
             </button>
             <button
-              onClick={() => updateStyleProp('textAlign', 'justify')}
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                updateStyleProp('textAlign', 'justify');
+              }}
               className={`p-1.5 rounded hover:bg-amber-400 hover:text-slate-950 transition-colors ${
                 customStyle.textAlign === 'justify' ? 'bg-amber-400 text-slate-950' : 'text-slate-300'
               }`}
@@ -411,10 +481,15 @@ export function EditableText({
           {/* Color Picker Quick Palette */}
           <div className="flex items-center gap-1 bg-slate-950/80 px-1.5 py-1 rounded-lg border border-slate-800">
             <Palette className="w-3.5 h-3.5 text-amber-300 mr-0.5" />
-            {['#ffffff', '#0f172a', '#D4AF37', '#f8fafc', '#94a3b8'].map((c) => (
+            {['#ffffff', '#0f172a', '#D4AF37', '#f8fafc', '#94a3b8', '#dc2626', '#16a34a', '#2563eb'].map((c) => (
               <button
                 key={c}
-                onClick={() => updateStyleProp('color', c)}
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  updateStyleProp('color', c);
+                }}
                 style={{ backgroundColor: c }}
                 className="w-4 h-4 rounded-full border border-slate-700 hover:scale-125 transition-transform"
                 title={`Warna Teks ${c}`}
@@ -448,6 +523,41 @@ export function EditableText({
               <option value="30px" className="bg-slate-900">30px (Judul Section)</option>
               <option value="36px" className="bg-slate-900">36px (Header Besar)</option>
               <option value="48px" className="bg-slate-900">48px (Hero Title)</option>
+            </select>
+          </div>
+
+          {/* Spasi Karakter (Letter Spacing) */}
+          <div className="flex items-center gap-1 bg-slate-950/80 px-2 py-1 rounded-lg border border-slate-800 text-[11px]">
+            <Baseline className="w-3 h-3 text-amber-300" />
+            <select
+              value={customStyle.letterSpacing || ''}
+              onChange={(e) => updateStyleProp('letterSpacing', e.target.value)}
+              className="bg-transparent text-white text-[11px] focus:outline-none cursor-pointer"
+              title="Spasi Karakter (Letter Spacing)"
+            >
+              <option value="" className="bg-slate-900">Spasi Huruf Normal</option>
+              <option value="-0.05em" className="bg-slate-900">Rapat (-0.05em)</option>
+              <option value="0.05em" className="bg-slate-900">Sedikit Lebar (0.05em)</option>
+              <option value="0.1em" className="bg-slate-900">Lebar (0.1em)</option>
+              <option value="0.2em" className="bg-slate-900">Sangat Lebar (0.2em)</option>
+            </select>
+          </div>
+
+          {/* Line Height (Spasi Baris) */}
+          <div className="flex items-center gap-1 bg-slate-950/80 px-2 py-1 rounded-lg border border-slate-800 text-[11px]">
+            <span className="text-[10px] text-amber-300 font-bold">1↕</span>
+            <select
+              value={customStyle.lineHeight || ''}
+              onChange={(e) => updateStyleProp('lineHeight', e.target.value)}
+              className="bg-transparent text-white text-[11px] focus:outline-none cursor-pointer"
+              title="Spasi Baris (Line Height)"
+            >
+              <option value="" className="bg-slate-900">Spasi Baris Default</option>
+              <option value="1.1" className="bg-slate-900">Rapat (1.1)</option>
+              <option value="1.25" className="bg-slate-900">Judul (1.25)</option>
+              <option value="1.5" className="bg-slate-900">Normal (1.5)</option>
+              <option value="1.75" className="bg-slate-900">Paragraf Longgar (1.75)</option>
+              <option value="2" className="bg-slate-900">Ganda (2.0)</option>
             </select>
           </div>
 
@@ -492,24 +602,6 @@ export function EditableText({
             </select>
           </div>
 
-          {/* Line Height & Letter Spacing */}
-          <div className="flex items-center gap-1 bg-slate-950/80 px-2 py-1 rounded-lg border border-slate-800 text-[11px]">
-            <Baseline className="w-3 h-3 text-amber-300" />
-            <select
-              value={customStyle.lineHeight || ''}
-              onChange={(e) => updateStyleProp('lineHeight', e.target.value)}
-              className="bg-transparent text-white text-[11px] focus:outline-none cursor-pointer"
-              title="Spasi Baris (Line Height)"
-            >
-              <option value="" className="bg-slate-900">Spasi Normal (1.5)</option>
-              <option value="1.1" className="bg-slate-900">Rapat (1.1)</option>
-              <option value="1.25" className="bg-slate-900">Judul (1.25)</option>
-              <option value="1.6" className="bg-slate-900">Paragraf (1.6)</option>
-              <option value="1.8" className="bg-slate-900">Lebar (1.8)</option>
-              <option value="2" className="bg-slate-900">Ganda (2.0)</option>
-            </select>
-          </div>
-
           {/* Link / URL Editor */}
           {linkPath && (
             <div className="flex items-center gap-1.5 bg-slate-950/80 px-2.5 py-1 rounded-lg border border-slate-800 text-[11px]">
@@ -528,7 +620,10 @@ export function EditableText({
           {/* Reset Style Button */}
           {Object.keys(customStyle).length > 0 && (
             <button
-              onClick={() => {
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 setContent((prev: any) => {
                   const copy = JSON.parse(JSON.stringify(prev || {}));
                   if (copy.styles && copy.styles[fieldPath]) {
@@ -556,7 +651,12 @@ export function EditableText({
 
           {/* Close Toolbar */}
           <button
-            onClick={() => setShowToolbar(false)}
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setShowToolbar(false);
+            }}
             className="p-1 text-slate-400 hover:text-white rounded hover:bg-slate-800"
             title="Selesai"
           >
@@ -564,7 +664,7 @@ export function EditableText({
           </button>
         </div>
       )}
-    </div>
+    </span>
   );
 }
 

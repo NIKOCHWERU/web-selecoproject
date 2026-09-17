@@ -110,23 +110,25 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
 
             <div className="w-16 h-[3px] bg-gold-accent rounded-full" />
 
-            <p className="text-base text-slate-600 leading-relaxed font-normal">
+            <div className="text-base text-slate-600 leading-relaxed font-normal">
               <EditableText
                 fieldPath="about.paragraph1"
                 fallback="SELECO hadir sebagai konsultan korporasi terpercaya yang menyediakan solusi terpadu 5 pilar: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM secara terstruktur, terukur, dan transparan."
                 label="Paragraf 1"
                 multiline={true}
+                as="p"
               />
-            </p>
+            </div>
 
-            <p className="text-sm text-slate-600 leading-relaxed font-normal">
+            <div className="text-sm text-slate-600 leading-relaxed font-normal">
               <EditableText
                 fieldPath="about.paragraph2"
                 fallback="Kami mencakup 5 pilar spesialisasi konsultan bisnis, serta mengelola pengurusan lebih dari 411 jenis perizinan usaha OSS RBA dan kepatuhan instansi teknis di seluruh wilayah Indonesia."
                 label="Paragraf 2"
                 multiline={true}
+                as="p"
               />
-            </p>
+            </div>
 
             {/* Values Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">

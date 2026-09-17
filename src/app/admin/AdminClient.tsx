@@ -123,10 +123,6 @@ export default function AdminClient() {
           type: 'SET_EDITOR_MODE',
           mode: editorMode,
         }, '*');
-        iframeRef.current.contentWindow.postMessage({
-          type: 'SET_PREVIEW_PAGE',
-          page: activePage,
-        }, '*');
       }
     } catch (e) {
       console.error('Error broadcasting to preview iframe:', e);

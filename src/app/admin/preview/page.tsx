@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, Suspense } from 'react';
+import React, { useEffect, useState, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useContent } from '@/context/ContentContext';
 
@@ -47,6 +47,12 @@ function PreviewContent() {
     }
   }, [searchParams]);
 
+  const currentPageRef = useRef<PreviewPageId>(initialPage);
+
+  useEffect(() => {
+    currentPageRef.current = currentPage;
+  }, [currentPage]);
+
   useEffect(() => {
     // 1. Initial check from sessionStorage
     try {
@@ -65,8 +71,11 @@ function PreviewContent() {
         setContent(event.data.content);
       }
       if (event.data?.type === 'SET_PREVIEW_PAGE' && event.data.page) {
-        setCurrentPage(event.data.page as PreviewPageId);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (event.data.page !== currentPageRef.current) {
+          currentPageRef.current = event.data.page as PreviewPageId;
+          setCurrentPage(event.data.page as PreviewPageId);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
       }
     };
 
