@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Building2, ArrowUp, MessageCircle, Mail, MapPin, Phone, Shield, FileText } from 'lucide-react';
+import { Building2, ArrowUp, MessageCircle, Mail, MapPin, Phone, Shield, FileText, Edit3, Sliders } from 'lucide-react';
 import { useContent } from '@/context/ContentContext';
 import { EditableText, EditableSection } from './EditableElement';
 
@@ -183,13 +183,25 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 text-center text-white/50">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-white/50 border-t border-white/5 mt-4">
           <div>
             <EditableText
               fieldPath="footer.copyright"
-              fallback={`© ${new Date().getFullYear()} Seleco (Sedana legal consultant). Hak Cipta Dilindungi Undang-Undang.`}
+              fallback={`© ${new Date().getFullYear()} SELECO (SEDANA LEGAL CONSULTANT). Hak Cipta Dilindungi Undang-Undang.`}
               label="Teks Copyright"
             />
+          </div>
+
+          {/* Tombol Akses Edit Isi Web */}
+          <div className="flex items-center gap-2">
+            <Link
+              href="/admin"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-gold-accent/20 border border-white/10 hover:border-gold-accent/40 text-white/70 hover:text-gold-accent text-xs font-medium transition-all shadow-sm"
+              title="Akses Dashboard Editor Web (Formulir & Visual)"
+            >
+              <Edit3 className="w-3.5 h-3.5 text-gold-accent" />
+              <span>Edit Isi Web</span>
+            </Link>
           </div>
         </div>
       </div>

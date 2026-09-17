@@ -81,10 +81,10 @@ export default function DevPortalPage() {
 
           <Link
             href="/admin"
-            className="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 hover:text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm"
+            className="px-4 py-2 bg-gradient-to-r from-amber-400 to-amber-500 hover:brightness-110 text-slate-950 font-bold rounded-xl text-xs flex items-center gap-2 transition-all shadow-md shadow-amber-400/20"
           >
-            <Sliders className="w-3.5 h-3.5 text-amber-400" />
-            <span>Dashboard Admin</span>
+            <Sliders className="w-4 h-4 text-slate-950" />
+            <span>Edit Isi Web</span>
           </Link>
         </div>
 

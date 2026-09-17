@@ -56,7 +56,7 @@ export default function AdminClient() {
   const [activePage, setActivePage] = useState<PreviewPageOption>('home');
   const [pageDropdownOpen, setPageDropdownOpen] = useState<boolean>(false);
   const pageDropdownRef = useRef<HTMLDivElement>(null);
-  const [activeTab, setActiveTab] = useState<'hero' | 'about' | 'services' | 'retainer' | 'insights' | 'faq' | 'global'>('hero');
+  const [activeTab, setActiveTab] = useState<'hero' | 'about' | 'services' | 'retainer' | 'insights' | 'faq' | 'global' | 'import_export'>('hero');
   const [activeSection, setActiveSection] = useState<string>('hero-text');
   const [deviceView, setDeviceView] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
   const [isSaving, setIsSaving] = useState<boolean>(false);
@@ -545,30 +545,30 @@ export default function AdminClient() {
                 setEditorMode('sidebar');
                 setIsFullscreen(false);
               }}
-              className={`px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
                 editorMode === 'sidebar'
                   ? 'bg-[#333A48] text-[#D4AF37] font-bold shadow-sm'
                   : 'text-[#8A99AD] hover:text-white'
               }`}
-              title="Mode Form Sidebar"
+              title="Mode Formulir Lengkap: Edit seluruh teks & upload foto per bagian seperti form"
             >
               <Sliders className="w-3.5 h-3.5" />
-              <span>Form</span>
+              <span>Mode Formulir</span>
             </button>
             <button
               onClick={() => {
                 setEditorMode('click_to_edit');
                 setIsFullscreen(true);
               }}
-              className={`px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
                 editorMode === 'click_to_edit'
                   ? 'bg-[#333A48] text-[#D4AF37] font-bold shadow-sm'
                   : 'text-[#8A99AD] hover:text-white'
               }`}
-              title="Mode Klik Langsung Visual (Layar Penuh)"
+              title="Mode Visual Langsung (Full View): Klik teks atau tombol pada website langsung untuk edit"
             >
               <MousePointerClick className="w-3.5 h-3.5" />
-              <span>Visual</span>
+              <span>Mode Visual</span>
             </button>
           </div>
 
