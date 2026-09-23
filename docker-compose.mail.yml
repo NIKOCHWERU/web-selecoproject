@@ -8,8 +8,10 @@ services:
     ports:
       - "25:25"       # SMTP (Menerima email masuk dari internet)
       - "465:465"     # SMTPS (Kirim email terenkripsi SSL/TLS)
-      - "587:587"     # SMTP Submission (STARTTLS untuk klien & Roundcube)
+      - "587:587"     # SMTP Submission
       - "993:993"     # IMAPS (Akses email terenkripsi SSL/TLS)
+    expose:
+      - "143"         # IMAP port - internal Docker network saja (untuk Roundcube)
     volumes:
       - ./docker-data/dms/mail-data/:/var/mail/
       - ./docker-data/dms/mail-state/:/var/mail-state/
@@ -36,9 +38,9 @@ services:
     environment:
       - ROUNDCUBEMAIL_DB_TYPE=sqlite
       - ROUNDCUBEMAIL_SKIN=elastic
-      - ROUNDCUBEMAIL_DEFAULT_HOST=ssl://mail.selecoproject.com
-      - ROUNDCUBEMAIL_DEFAULT_PORT=993
-      - ROUNDCUBEMAIL_SMTP_SERVER=tls://mail.selecoproject.com
+      - ROUNDCUBEMAIL_DEFAULT_HOST=mailserver
+      - ROUNDCUBEMAIL_DEFAULT_PORT=143
+      - ROUNDCUBEMAIL_SMTP_SERVER=mailserver
       - ROUNDCUBEMAIL_SMTP_PORT=587
       - ROUNDCUBEMAIL_UPLOAD_MAX_FILESIZE=50M
       - ROUNDCUBEMAIL_DES_KEY=c2VsZWNvX3NlY3VyZV9kZXNfa2V5XzIwMjYhOTg=
