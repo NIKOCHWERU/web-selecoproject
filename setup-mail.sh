@@ -190,7 +190,13 @@ for i in {1..30}; do
     fi
     sleep 1
 done
-sleep 8
+sleep 10
+
+# Fix permission SQLite database di dalam container agar Roundcube bisa menulis
+echo "Memperbaiki permission database SQLite Roundcube..."
+docker exec -u root roundcube mkdir -p /var/roundcube/db 2>/dev/null || true
+docker exec -u root roundcube chown -R www-data:www-data /var/roundcube/db 2>/dev/null || true
+docker exec -u root roundcube chmod -R 775 /var/roundcube/db 2>/dev/null || true
 
 # Uji coba port 8000 lokal
 echo "Menguji akses Roundcube di port internal 8000..."
@@ -207,7 +213,7 @@ done
 
 if [ "$RC_READY" = false ]; then
     echo -e "${YELLOW}[INFO] Roundcube sedang menyelesaikan inisialisasi awal. Log container:${NC}"
-    docker logs --tail 20 roundcube || true
+    docker logs --tail 30 roundcube || true
 fi
 
 # 8. Pembuatan / Update Akun Email hello@selecoproject.com
