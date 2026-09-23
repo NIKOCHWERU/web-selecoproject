@@ -56,9 +56,9 @@ if ! command -v ufw &> /dev/null; then
     apt install -y ufw
 fi
 
-# 3. Menghentikan service mail bawaan host (Postfix / Exim) agar tidak bentrok di port 25
-echo -e "\n${BLUE}[*] Memeriksa & membebaskan port 25/465/587 dari layanan bawaan host...${NC}"
-for svc in postfix exim4 sendmail; do
+# 3. Menghentikan service mail bawaan host (Postfix / Dovecot / Exim) agar tidak bentrok
+echo -e "\n${BLUE}[*] Memeriksa & membebaskan port mail dari layanan bawaan host (Dovecot/Postfix)...${NC}"
+for svc in dovecot postfix exim4 courier-imap sendmail; do
     if systemctl is-active --quiet "$svc" 2>/dev/null; then
         echo -e "${YELLOW}Menghentikan dan menonaktifkan service $svc di host Ubuntu...${NC}"
         systemctl stop "$svc" || true
@@ -66,12 +66,14 @@ for svc in postfix exim4 sendmail; do
     fi
 done
 
-# Pastikan port 25 benar-benar bebas
-if lsof -i :25 -sTCP:LISTEN -t >/dev/null 2>&1; then
-    echo -e "${YELLOW}Membebaskan port 25 yang masih ditahan proses lain...${NC}"
-    fuser -k 25/tcp 2>/dev/null || true
-    sleep 2
-fi
+# Pastikan port 25, 143, 465, 587, 993 benar-benar bebas jika ada proses lain di host
+for p in 25 143 465 587 993; do
+    if lsof -i :$p -sTCP:LISTEN -t >/dev/null 2>&1; then
+        echo -e "${YELLOW}Membebaskan port $p yang masih ditahan proses host...${NC}"
+        fuser -k ${p}/tcp 2>/dev/null || true
+    fi
+done
+sleep 2
 
 # 4. Konfigurasi Firewall UFW
 echo -e "\n${BLUE}[2/7] Mengonfigurasi Firewall UFW (Keamanan Port Server)...${NC}"

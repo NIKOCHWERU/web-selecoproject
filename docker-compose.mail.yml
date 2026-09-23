@@ -10,7 +10,6 @@ services:
       - "465:465"     # SMTPS (Kirim email terenkripsi SSL/TLS)
       - "587:587"     # SMTP Submission (STARTTLS untuk klien & Roundcube)
       - "993:993"     # IMAPS (Akses email terenkripsi SSL/TLS)
-      - "143:143"     # IMAP (STARTTLS internal/lokal)
     volumes:
       - ./docker-data/dms/mail-data/:/var/mail/
       - ./docker-data/dms/mail-state/:/var/mail-state/
