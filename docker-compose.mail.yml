@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  mailserver:
+    image: mailserver/docker-mailserver:latest
+    container_name: mailserver
+    hostname: mail
+    domainname: selecoproject.com
+    env_file: mailserver.env
+    ports:
+      - "25:25"       # SMTP (Menerima email masuk dari internet)
+      - "465:465"     # SMTPS (Kirim email terenkripsi SSL/TLS)
+      - "587:587"     # SMTP Submission (STARTTLS untuk klien & Roundcube)
+      - "993:993"     # IMAPS (Akses email terenkripsi SSL/TLS)
+      - "143:143"     # IMAP (STARTTLS internal/lokal)
+    volumes:
+      - ./docker-data/dms/mail-data/:/var/mail/
+      - ./docker-data/dms/mail-state/:/var/mail-state/
+      - ./docker-data/dms/mail-logs/:/var/log/mail/
+      - ./docker-data/dms/config/:/tmp/docker-mailserver/
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - /etc/localtime:/etc/localtime:ro
+    restart: always
+    stop_grace_period: 1m
+    cap_add:
+      - NET_ADMIN
+    networks:
+      - seleco-mail-net
+
+  roundcube:
+    image: roundcube/roundcubemail:latest
+    container_name: roundcube
+    restart: always
+    ports:
+      - "127.0.0.1:8000:80"
+    environment:
+      - ROUNDCUBEMAIL_DEFAULT_HOST=mailserver
+      - ROUNDCUBEMAIL_DEFAULT_PORT=143
+      - ROUNDCUBEMAIL_SMTP_SERVER=mailserver
+      - ROUNDCUBEMAIL_SMTP_PORT=587
+      - ROUNDCUBEMAIL_UPLOAD_MAX_FILESIZE=50M
+      - ROUNDCUBEMAIL_DES_KEY=c2VsZWNvX3NlY3VyZV9kZXNfa2V5XzIwMjYhOTg=
+      - ROUNDCUBEMAIL_SKIN=elastic
+      - ROUNDCUBEMAIL_REQUEST_PATH=/
+    volumes:
+      - ./docker-data/roundcube/data:/var/www/html
+      - ./docker-data/roundcube/db:/var/www/db
+    depends_on:
+      - mailserver
+    networks:
+      - seleco-mail-net
+
+networks:
+  seleco-mail-net:
+    driver: bridge
