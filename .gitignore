@@ -41,3 +41,6 @@ next-env.d.ts
 
 # scratch folder
 scratch_web_nh/
+
+# docker mailserver & roundcube data
+docker-data/

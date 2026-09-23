@@ -119,14 +119,46 @@ else
     echo -e "${RED}[PERINGATAN] Sertifikat SSL belum terbit. Nginx mail belum diaktifkan.${NC}"
 fi
 
-# 7. Menjalankan Docker Mailserver & Roundcube
-echo -e "\n${BLUE}[5/7] Menjalankan Container Docker Mailserver & Roundcube...${NC}"
+# 7. Menyiapkan Direktori & Konfigurasi Eksternal
 mkdir -p docker-data/dms/mail-data
 mkdir -p docker-data/dms/mail-state
 mkdir -p docker-data/dms/mail-logs
 mkdir -p docker-data/dms/config
-mkdir -p docker-data/roundcube/data
 mkdir -p docker-data/roundcube/db
+mkdir -p docker-data/roundcube/config
+
+# Berikan hak akses write ke folder database roundcube untuk user www-data (UID 33)
+chmod -R 777 docker-data/roundcube/db
+
+# Konfigurasi kustom Roundcube untuk integrasi sempurna
+cat << 'EOF' > docker-data/roundcube/config/config.inc.php
+<?php
+$config['product_name'] = 'SELECO Webmail';
+$config['language'] = 'id_ID';
+$config['support_url'] = 'https://selecoproject.com';
+$config['plugins'] = array('archive', 'zipdownload');
+
+// Opsi koneksi internal SSL/TLS aman
+$config['imap_conn_options'] = array(
+    'ssl' => array(
+        'verify_peer'       => false,
+        'verify_peer_name'  => false,
+        'allow_self_signed' => true,
+    ),
+);
+$config['smtp_conn_options'] = array(
+    'ssl' => array(
+        'verify_peer'       => false,
+        'verify_peer_name'  => false,
+        'allow_self_signed' => true,
+    ),
+);
+EOF
+
+# Konfigurasi Dovecot override agar autentikasi internal lancar
+cat << 'EOF' > docker-data/dms/config/dovecot.cf
+disable_plaintext_auth = no
+EOF
 
 # Deteksi perintah docker compose
 if docker compose version &> /dev/null; then
@@ -139,7 +171,8 @@ else
 fi
 
 # Hentikan dan hapus kontainer lama yang mungkin gagal atau stuck
-echo "Membersihkan container lama jika ada..."
+echo -e "\n${BLUE}[5/7] Menjalankan Container Docker Mailserver & Roundcube...${NC}"
+echo "Membersihkan container lama..."
 $DOCKER_COMPOSE_CMD -f docker-compose.mail.yml down --remove-orphans 2>/dev/null || true
 docker rm -f mailserver roundcube 2>/dev/null || true
 
@@ -147,15 +180,33 @@ docker rm -f mailserver roundcube 2>/dev/null || true
 echo "Menjalankan mailserver & roundcube..."
 $DOCKER_COMPOSE_CMD -f docker-compose.mail.yml up -d
 
-echo "Menunggu container mailserver siap..."
+echo "Menunggu container mailserver dan roundcube siap..."
 for i in {1..30}; do
-    if docker ps --filter "name=mailserver" --filter "status=running" | grep -q mailserver; then
-        echo -e "${GREEN}[OK] Container mailserver sedang berjalan.${NC}"
+    if docker ps --filter "name=roundcube" --filter "status=running" | grep -q roundcube; then
+        echo -e "${GREEN}[OK] Container roundcube sedang berjalan.${NC}"
         break
     fi
     sleep 1
 done
-sleep 10
+sleep 8
+
+# Uji coba port 8000 lokal
+echo "Menguji akses Roundcube di port internal 8000..."
+RC_READY=false
+for i in {1..20}; do
+    HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8000 || true)
+    if [ "$HTTP_CODE" = "200" ] || [ "$HTTP_CODE" = "302" ]; then
+        echo -e "${GREEN}[OK] Roundcube webmail merespon dengan sukses (HTTP $HTTP_CODE)!${NC}"
+        RC_READY=true
+        break
+    fi
+    sleep 1
+done
+
+if [ "$RC_READY" = false ]; then
+    echo -e "${YELLOW}[INFO] Roundcube sedang menyelesaikan inisialisasi awal. Log container:${NC}"
+    docker logs --tail 20 roundcube || true
+fi
 
 # 8. Pembuatan / Update Akun Email hello@selecoproject.com
 echo -e "\n${BLUE}[6/7] Menyiapkan Akun Email hello@selecoproject.com...${NC}"

@@ -35,17 +35,17 @@ services:
     ports:
       - "127.0.0.1:8000:80"
     environment:
+      - ROUNDCUBEMAIL_DB_TYPE=sqlite
+      - ROUNDCUBEMAIL_SKIN=elastic
       - ROUNDCUBEMAIL_DEFAULT_HOST=ssl://mail.selecoproject.com
       - ROUNDCUBEMAIL_DEFAULT_PORT=993
       - ROUNDCUBEMAIL_SMTP_SERVER=tls://mail.selecoproject.com
       - ROUNDCUBEMAIL_SMTP_PORT=587
       - ROUNDCUBEMAIL_UPLOAD_MAX_FILESIZE=50M
       - ROUNDCUBEMAIL_DES_KEY=c2VsZWNvX3NlY3VyZV9kZXNfa2V5XzIwMjYhOTg=
-      - ROUNDCUBEMAIL_SKIN=elastic
-      - ROUNDCUBEMAIL_REQUEST_PATH=/
     volumes:
-      - ./docker-data/roundcube/data:/var/www/html
-      - ./docker-data/roundcube/db:/var/www/db
+      - ./docker-data/roundcube/db:/var/roundcube/db
+      - ./docker-data/roundcube/config:/var/roundcube/config
     depends_on:
       - mailserver
     networks:
