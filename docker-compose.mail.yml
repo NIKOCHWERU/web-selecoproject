@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   mailserver:
     image: mailserver/docker-mailserver:latest
@@ -25,7 +23,10 @@ services:
     cap_add:
       - NET_ADMIN
     networks:
-      - seleco-mail-net
+      seleco-mail-net:
+        aliases:
+          - mail.selecoproject.com
+          - mailserver
 
   roundcube:
     image: roundcube/roundcubemail:latest
@@ -34,9 +35,9 @@ services:
     ports:
       - "127.0.0.1:8000:80"
     environment:
-      - ROUNDCUBEMAIL_DEFAULT_HOST=mailserver
-      - ROUNDCUBEMAIL_DEFAULT_PORT=143
-      - ROUNDCUBEMAIL_SMTP_SERVER=mailserver
+      - ROUNDCUBEMAIL_DEFAULT_HOST=ssl://mail.selecoproject.com
+      - ROUNDCUBEMAIL_DEFAULT_PORT=993
+      - ROUNDCUBEMAIL_SMTP_SERVER=tls://mail.selecoproject.com
       - ROUNDCUBEMAIL_SMTP_PORT=587
       - ROUNDCUBEMAIL_UPLOAD_MAX_FILESIZE=50M
       - ROUNDCUBEMAIL_DES_KEY=c2VsZWNvX3NlY3VyZV9kZXNfa2V5XzIwMjYhOTg=
