@@ -129,8 +129,11 @@ mkdir -p docker-data/dms/config
 mkdir -p docker-data/roundcube/db
 mkdir -p docker-data/roundcube/config
 
-# Berikan hak akses write ke folder database roundcube untuk user www-data (UID 33)
-chmod -R 777 docker-data/roundcube/db
+# Berikan hak akses write ke folder database roundcube untuk user www-data (UID 33 di dalam container)
+chown -R 33:33 docker-data/roundcube/db
+chmod -R 775 docker-data/roundcube/db
+chown -R 33:33 docker-data/roundcube/config
+chmod -R 775 docker-data/roundcube/config
 
 # Konfigurasi kustom Roundcube untuk integrasi sempurna
 cat << 'EOF' > docker-data/roundcube/config/config.inc.php
