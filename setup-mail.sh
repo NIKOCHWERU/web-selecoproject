@@ -160,11 +160,13 @@ $config['smtp_conn_options'] = array(
 );
 EOF
 
-# Konfigurasi Dovecot override - gunakan syntax Dovecot 2.4+ yang benar
-# auth_allow_cleartext menggantikan disable_plaintext_auth yang sudah deprecated
-cat << 'EOF' > docker-data/dms/config/dovecot.cf
-auth_allow_cleartext = yes
-EOF
+# Konfigurasi Dovecot override - syntax Dovecot 2.4+ (auth_allow_cleartext)
+# Ini diperlukan agar Roundcube bisa login via IMAP plain di internal Docker network
+# Hapus dulu jika ada versi lama, lalu tulis ulang
+rm -f docker-data/dms/config/dovecot.cf
+echo "auth_allow_cleartext = yes" > docker-data/dms/config/dovecot.cf
+chmod 644 docker-data/dms/config/dovecot.cf
+echo -e "${GREEN}[OK] dovecot.cf dibuat: $(cat docker-data/dms/config/dovecot.cf)${NC}"
 
 # Deteksi perintah docker compose
 if docker compose version &> /dev/null; then
