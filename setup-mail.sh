@@ -160,9 +160,10 @@ $config['smtp_conn_options'] = array(
 );
 EOF
 
-# Konfigurasi Dovecot override agar autentikasi internal lancar
+# Konfigurasi Dovecot override - gunakan syntax Dovecot 2.4+ yang benar
+# auth_allow_cleartext menggantikan disable_plaintext_auth yang sudah deprecated
 cat << 'EOF' > docker-data/dms/config/dovecot.cf
-disable_plaintext_auth = no
+auth_allow_cleartext = yes
 EOF
 
 # Deteksi perintah docker compose
