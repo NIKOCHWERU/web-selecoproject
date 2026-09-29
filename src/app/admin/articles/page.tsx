@@ -17,6 +17,7 @@ export default function ArticlesAdminPage() {
       activeNav="articles"
       title="Dashboard Artikel"
       subtitle="Kelola publikasi dan tulis artikel dengan editor blok Gutenberg"
+      authNamespace="articles"
     >
       <ArticleDashboard />
     </TailAdminLayout>

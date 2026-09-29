@@ -35,6 +35,8 @@ interface TailAdminLayoutProps {
   fullHeight?: boolean;
   hideSidebar?: boolean;
   onToggleHideSidebar?: () => void;
+  /** Namespace kunci sesi autentikasi — pisahkan login per modul admin */
+  authNamespace?: 'editor' | 'articles' | 'users';
 }
 
 export default function TailAdminLayout({
@@ -48,9 +50,14 @@ export default function TailAdminLayout({
   fullHeight = false,
   hideSidebar = false,
   onToggleHideSidebar,
+  authNamespace = 'editor',
 }: TailAdminLayoutProps) {
   const pathname = usePathname();
   const router = useRouter();
+
+  // Auth session key per namespace — pisahkan sesi editor & artikel
+  const AUTH_KEY = `seleco_admin_auth_${authNamespace}`;
+  const USER_KEY = `seleco_admin_user_${authNamespace}`;
 
   // Auth State
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -80,8 +87,8 @@ export default function TailAdminLayout({
 
   // Check auth and initial siteMode
   useEffect(() => {
-    const auth = sessionStorage.getItem('seleco_admin_auth');
-    const storedUser = sessionStorage.getItem('seleco_admin_user');
+    const auth = sessionStorage.getItem(AUTH_KEY);
+    const storedUser = sessionStorage.getItem(USER_KEY);
     if (auth === 'true') {
       setIsAuthenticated(true);
       if (storedUser) {
@@ -101,7 +108,7 @@ export default function TailAdminLayout({
         }
       })
       .catch(() => {});
-  }, []);
+  }, [AUTH_KEY, USER_KEY]);
 
   // Sync propSiteMode if passed from parent
   useEffect(() => {
@@ -127,9 +134,9 @@ export default function TailAdminLayout({
 
       const data = await res.json();
       if (res.ok && data.success) {
-        sessionStorage.setItem('seleco_admin_auth', 'true');
+        sessionStorage.setItem(AUTH_KEY, 'true');
         if (data.user) {
-          sessionStorage.setItem('seleco_admin_user', JSON.stringify(data.user));
+          sessionStorage.setItem(USER_KEY, JSON.stringify(data.user));
           setCurrentUser(data.user);
         }
         setIsAuthenticated(true);
@@ -144,8 +151,8 @@ export default function TailAdminLayout({
   };
 
   const handleLogout = () => {
-    sessionStorage.removeItem('seleco_admin_auth');
-    sessionStorage.removeItem('seleco_admin_user');
+    sessionStorage.removeItem(AUTH_KEY);
+    sessionStorage.removeItem(USER_KEY);
     setIsAuthenticated(false);
     setCurrentUser(null);
   };
@@ -211,6 +218,12 @@ export default function TailAdminLayout({
 
   // TailAdmin Login Screen
   if (!isAuthenticated) {
+    const moduleLabel = authNamespace === 'articles'
+      ? 'Portal Artikel & Konten'
+      : authNamespace === 'users'
+      ? 'Portal Manajemen Pengguna'
+      : 'Portal Editor Website';
+
     return (
       <div className="min-h-screen bg-[#1A222C] text-[#DEE4EE] flex items-center justify-center p-4">
         <div className="w-full max-w-md bg-[#24303F] border border-[#2E3A47] rounded-2xl shadow-2xl p-8">
@@ -224,13 +237,13 @@ export default function TailAdminLayout({
               />
             </div>
             <h1 className="font-serif-title text-2xl font-bold text-white tracking-wide">
-              Seleco
+              Seleco Admin
             </h1>
             <p className="text-xs uppercase tracking-widest text-[#D4AF37] font-semibold mt-1">
-              Sedana legal consultant
+              Sedana Legal Consultant
             </p>
             <div className="mt-3 inline-block px-3 py-1 bg-[#1C2434] border border-[#2E3A47] rounded-full text-[11px] text-[#8A99AD]">
-              TailAdmin Control Portal
+              {moduleLabel}
             </div>
           </div>
 
@@ -244,14 +257,14 @@ export default function TailAdminLayout({
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
               <label className="block text-xs font-semibold text-[#8A99AD] uppercase tracking-wider mb-2">
-                Username Admin
+                Username
               </label>
               <div className="relative">
                 <input
                   type="text"
                   value={usernameInput}
                   onChange={(e) => setUsernameInput(e.target.value)}
-                  placeholder="admin"
+                  placeholder="Masukkan username..."
                   className="w-full px-4 py-3 bg-[#1C2434] border border-[#2E3A47] rounded-xl text-white placeholder-[#8A99AD] text-sm focus:outline-none focus:border-[#D4AF37] transition-colors"
                   autoFocus
                   required
@@ -269,15 +282,11 @@ export default function TailAdminLayout({
                   type="password"
                   value={passwordInput}
                   onChange={(e) => setPasswordInput(e.target.value)}
-                  placeholder="Masukkan password admin..."
+                  placeholder="Masukkan password..."
                   className="w-full px-4 py-3 bg-[#1C2434] border border-[#2E3A47] rounded-xl text-white placeholder-[#8A99AD] text-sm focus:outline-none focus:border-[#D4AF37] transition-colors"
                   required
                 />
                 <Lock className="w-4 h-4 text-[#8A99AD] absolute right-4 top-1/2 -translate-y-1/2" />
-              </div>
-              <div className="mt-2 p-2.5 bg-[#1C2434]/80 rounded-lg border border-[#2E3A47] text-[11px] text-[#8A99AD] leading-relaxed">
-                <span>Default Akun: </span>
-                <span className="text-[#D4AF37] font-mono">admin</span> / <span className="text-[#D4AF37] font-mono">admin</span> (atau <span className="text-[#D4AF37] font-mono">seleco2026</span>)
               </div>
             </div>
 
@@ -291,7 +300,7 @@ export default function TailAdminLayout({
               ) : (
                 <>
                   <Lock className="w-4 h-4" />
-                  <span>Masuk TailAdmin Portal</span>
+                  <span>Masuk {moduleLabel}</span>
                 </>
               )}
             </button>
@@ -300,6 +309,7 @@ export default function TailAdminLayout({
       </div>
     );
   }
+
 
   // Navigation Items
   const navItems = [

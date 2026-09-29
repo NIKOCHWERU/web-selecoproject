@@ -19,7 +19,7 @@
     "headlinePart1": "Konsultan Terpadu untuk Akselerasi &",
     "headlineItalic": "Pertumbuhan Bisnis.",
     "subheadline": "SELECO menyediakan 5 pilar konsultan korporasi profesional: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM secara transparan, akurat, dan terpercaya.",
-    "bgImage": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80",
+    "bgImage": "https://images.unsplash.com/photo-1505664194779-8beaceb5dd8b?auto=format&fit=crop&w=1920&q=80",
     "ctaButton1Text": "Cari 445+ Layanan Konsultan",
     "ctaButton1Link": "/layanan",
     "ctaButton2Text": "Jadwalkan Konsultasi",
@@ -31,7 +31,7 @@
       "Konsultan Pertanahan",
       "Konsultan SDM"
     ],
-    "sealQuote": "“Integrity. Strategy. Corporate Excellence.”",
+    "sealQuote": "\u201cIntegrity. Strategy. Corporate Excellence.\u201d",
     "sealDescription": "Mitra konsultan korporasi terpercaya di Indonesia yang berfokus pada perizinan berusaha, keimigrasian & TKA, perpajakan, legalitas pertanahan BPN, serta manajemen SDM.",
     "stat1Number": "10+",
     "stat1Label": "Tahun Pengalaman",
@@ -44,8 +44,8 @@
     "titleAccent": "Pertumbuhan Bisnis.",
     "paragraph1": "SELECO (Sedana Corporate Consultant) adalah konsultan korporasi terkemuka di Indonesia yang berdedikasi memberikan solusi terpadu mencakup Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM bagi pelaku usaha, korporasi nasional, dan multinasional.",
     "paragraph2": "Dengan keahlian mendalam pada 5 pilar layanan konsultan serta pengurusan 411+ izin usaha OSS RBA dan kepatuhan instansi teknis, kami memastikan seluruh operasional bisnis Anda berjalan lancar, aman, dan patuh regulasi.",
-    "image1": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
-    "image2": "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80",
+    "image1": "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=1200&q=80",
+    "image2": "https://images.unsplash.com/photo-1589994965851-a8f479c573a9?auto=format&fit=crop&w=800&q=80",
     "experienceYears": "10+",
     "values": [
       {
@@ -136,7 +136,7 @@
         "name": "Sedana, S.H., M.H.",
         "role": "Managing Partner & Corporate Consultant",
         "specialization": "Konsultan Perizinan, Investasi PMA & Restrukturisasi Usaha",
-        "image": "https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=800&q=80",
+        "image": "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=800&q=80",
         "bio": "Berpengalaman lebih dari 12 tahun mendampingi perizinan investasi, pendirian badan usaha, dan kepatuhan regulasi korporasi nasional & multinasional."
       },
       {
@@ -144,7 +144,7 @@
         "name": "Arya Wibawa, S.H., LL.M.",
         "role": "Partner - Immigration & Tax Consultant",
         "specialization": "Konsultan Imigrasi (KITAS/VISA/TKA) & Konsultan Pajak Korporasi",
-        "image": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
+        "image": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80",
         "bio": "Ahli regulasi penanaman modal, perizinan tenaga kerja asing (TKA/RPTKA), serta kepatuhan perpajakan korporasi dan audit pajak."
       },
       {
@@ -168,7 +168,7 @@
         "tag": "Perizinan OSS",
         "date": "10 Sep 2026",
         "readTime": "5 menit baca",
-        "image": "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80",
+        "image": "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=800&q=80",
         "excerpt": "Langkah-langkah strategis bagi korporasi dan pelaku usaha dalam memenuhi persyaratan dasar perizinan berusaha berbasis risiko sesuai regulasi pemerintah terkini."
       },
       {
@@ -186,7 +186,7 @@
         "tag": "Konsultan Imigrasi",
         "date": "28 Agu 2026",
         "readTime": "6 menit baca",
-        "image": "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80",
+        "image": "https://images.unsplash.com/photo-1589994965851-a8f479c573a9?auto=format&fit=crop&w=800&q=80",
         "excerpt": "Panduan komprehensif bagi perusahaan PMA dalam pengajuan RPTKA, notifikasi Kemenaker, serta izin tinggal KITAS dan ITAP di Ditjen Imigrasi."
       }
     ]
@@ -238,7 +238,7 @@
     "copyright": "© 2026 Seleco (Sedana legal consultant). Hak Cipta Dilindungi Undang-Undang."
   },
   "siteMode": {
-    "status": "maintenance",
+    "status": "live",
     "badgeText": "Website Dalam Pengembangan",
     "title": "Website Resmi Seleco Sedang Dalam Pengembangan",
     "subtitle": "Kami sedang mempersiapkan sistem dan direktori layanan konsultan terbaik untuk Anda. Untuk konsultasi perizinan, imigrasi, pajak, pertanahan, atau SDM, tim konsultan Seleco tetap aktif melayani Anda via WhatsApp dan Email resmi.",

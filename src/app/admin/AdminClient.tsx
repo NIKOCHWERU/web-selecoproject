@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { 
   Save, 
@@ -39,7 +39,9 @@ import {
   Download,
   UploadCloud,
   FileJson,
-  CheckSquare
+  CheckSquare,
+  Undo2,
+  Clock
 } from 'lucide-react';
 import TailAdminLayout from '@/components/admin/TailAdminLayout';
 import { SiteContent, defaultSiteContent } from '@/data/defaultSiteContent';
@@ -50,7 +52,7 @@ export type PreviewPageOption = 'home' | 'about' | 'services' | 'insight' | 'con
 export default function AdminClient() {
 
   // Content state inside builder
-  const [editorContent, setEditorContent] = useState<SiteContent>(defaultSiteContent);
+  const [editorContent, setEditorContentRaw] = useState<SiteContent>(defaultSiteContent);
   const [editorMode, setEditorMode] = useState<'sidebar' | 'click_to_edit'>('sidebar');
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
   const [activePage, setActivePage] = useState<PreviewPageOption>('home');
@@ -67,9 +69,86 @@ export default function AdminClient() {
   });
   const [uploadingField, setUploadingField] = useState<string | null>(null);
 
+  // ── UNDO HISTORY ────────────────────────────────────────────────────────────
+  const [history, setHistory] = useState<SiteContent[]>([]);
+  const [historyIndex, setHistoryIndex] = useState<number>(-1);
+  const isUndoingRef = useRef<boolean>(false); // flag to skip pushing during undo
+
+  // Wrapper that also pushes to history stack
+  const setEditorContent = useCallback((updater: SiteContent | ((prev: SiteContent) => SiteContent)) => {
+    setEditorContentRaw((prev) => {
+      const next = typeof updater === 'function' ? updater(prev) : updater;
+      if (!isUndoingRef.current) {
+        setHistory((h) => {
+          const sliced = h.slice(0, historyIndex + 1);
+          const newHistory = [...sliced, prev];
+          return newHistory.slice(-40); // keep max 40 snapshots
+        });
+        setHistoryIndex((i) => Math.min(i + 1, 39));
+      }
+      return next;
+    });
+  }, [historyIndex]);
+
+  const canUndo = history.length > 0 && historyIndex >= 0;
+
+  const handleUndo = useCallback(() => {
+    if (!canUndo) return;
+    isUndoingRef.current = true;
+    const prevContent = history[historyIndex];
+    setEditorContentRaw(prevContent);
+    setHistoryIndex((i) => i - 1);
+    setTimeout(() => { isUndoingRef.current = false; }, 50);
+    triggerToast('Perubahan di-Undo ↩', 'success');
+  }, [canUndo, history, historyIndex]);
+
+  // Keyboard shortcut Ctrl+Z / Cmd+Z
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey) {
+        e.preventDefault();
+        handleUndo();
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [handleUndo]);
+
+  // ── AUTO-SAVE (debounced 4 seconds after last change) ────────────────────────
+  const [autoSaveStatus, setAutoSaveStatus] = useState<'idle' | 'pending' | 'saving' | 'saved'>('idle');
+  const autoSaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isFirstRenderRef = useRef<boolean>(true);
+
+  useEffect(() => {
+    if (isFirstRenderRef.current) {
+      isFirstRenderRef.current = false;
+      return;
+    }
+    setAutoSaveStatus('pending');
+    if (autoSaveTimerRef.current) clearTimeout(autoSaveTimerRef.current);
+    autoSaveTimerRef.current = setTimeout(async () => {
+      setAutoSaveStatus('saving');
+      try {
+        localStorage.setItem('seleco_site_content', JSON.stringify(editorContent));
+        window.dispatchEvent(new CustomEvent('seleco_content_updated', { detail: editorContent }));
+        await fetch('/api/admin/content', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ content: editorContent }),
+        });
+        setAutoSaveStatus('saved');
+        setTimeout(() => setAutoSaveStatus('idle'), 3000);
+      } catch {
+        setAutoSaveStatus('idle');
+      }
+    }, 4000);
+    return () => { if (autoSaveTimerRef.current) clearTimeout(autoSaveTimerRef.current); };
+  }, [editorContent]);
+
   // Responsive Iframe Reference & Sync
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [iframeLoaded, setIframeLoaded] = useState<boolean>(false);
+
 
   const sendPageToIframe = (page: PreviewPageOption) => {
     if (iframeRef.current?.contentWindow) {
@@ -634,6 +713,16 @@ export default function AdminClient() {
             </label>
           </div>
 
+          {/* Undo Button */}
+          <button
+            onClick={handleUndo}
+            disabled={!canUndo}
+            className={`p-2 rounded-lg transition-colors ${canUndo ? 'text-[#8A99AD] hover:text-blue-400 hover:bg-[#1C2434]' : 'text-[#3A4A5A] cursor-not-allowed'}`}
+            title={canUndo ? `Undo (Ctrl+Z) — ${historyIndex + 1} langkah tersimpan` : 'Tidak ada riwayat untuk di-Undo'}
+          >
+            <Undo2 className="w-4 h-4" />
+          </button>
+
           {/* Reset to Default */}
           <button
             onClick={handleResetToDefault}
@@ -642,6 +731,23 @@ export default function AdminClient() {
           >
             <RotateCcw className="w-4 h-4" />
           </button>
+
+          {/* Auto-save Status Indicator */}
+          {autoSaveStatus !== 'idle' && (
+            <div className={`hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-semibold transition-all ${
+              autoSaveStatus === 'saved'
+                ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                : 'bg-slate-800 text-slate-400 border border-slate-700'
+            }`}>
+              {autoSaveStatus === 'saving' ? (
+                <><Clock className="w-3 h-3 animate-spin" /><span>Menyimpan...</span></>
+              ) : autoSaveStatus === 'pending' ? (
+                <><Clock className="w-3 h-3" /><span>Menunggu...</span></>
+              ) : (
+                <><CheckCircle2 className="w-3 h-3" /><span>Auto-saved ✓</span></>
+              )}
+            </div>
+          )}
 
           {/* Save Button */}
           <button
@@ -749,6 +855,24 @@ export default function AdminClient() {
           {/* Form Scroll Area */}
           <div className="flex-grow overflow-y-auto p-4 space-y-6 select-text custom-scrollbar">
             
+            {/* PANDUAN CEPAT: Selalu tampil di atas sebagai panduan untuk pengguna awam */}
+            <div className="bg-gradient-to-br from-amber-400/10 to-amber-600/5 border border-amber-400/20 rounded-xl p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-amber-300 text-sm">✨</span>
+                <h3 className="text-xs font-bold text-amber-300 uppercase tracking-wider">Cara Edit Website</h3>
+              </div>
+              <ol className="text-[11px] text-slate-300 space-y-1.5 list-decimal list-inside leading-relaxed">
+                <li>Pilih bagian yang ingin diedit dari tab di atas (Hero, Tentang, Layanan, dst.)</li>
+                <li>Ubah teks di kotak input, atau klik <strong className="text-amber-300">📷 Upload Foto</strong> untuk ganti gambar</li>
+                <li>Preview perubahan langsung tampil di layar kanan secara real-time</li>
+                <li>Klik tombol <strong className="text-amber-300">💾 Simpan</strong> (kanan atas) agar perubahan tersimpan permanen</li>
+              </ol>
+              <div className="mt-3 flex items-center gap-2 text-[11px]">
+                <span className="px-2 py-0.5 bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 rounded-full font-semibold">TIP</span>
+                <span className="text-slate-400">Gunakan tombol <strong className="text-white">Export/Import</strong> di atas untuk backup atau restore seluruh konten website.</span>
+              </div>
+            </div>
+
             {/* TAB: HERO SECTION */}
             {activeTab === 'hero' && (
               <div className="space-y-5">
@@ -761,6 +885,7 @@ export default function AdminClient() {
                     Edit tulisan, background gambar, tombol, dan statistik di layar pertama.
                   </p>
                 </div>
+
 
                 {/* Badge */}
                 <div>
