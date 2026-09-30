@@ -16,23 +16,23 @@ export default function FAQSection() {
     <EditableSection id="faq" name="FAQ Pertanyaan Umum Section" className="py-20 lg:py-28 bg-slate-50 border-b border-gray-200/80">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-50 border border-amber-200/80 rounded-full text-amber-800 text-xs font-bold uppercase tracking-widest mb-4">
+        <div className="text-center mb-12">
+          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#b88917] mb-3">
             <EditableText
               fieldPath="faq.badge"
-              fallback="PERTANYAAN UMUM"
+              fallback="Pertanyaan Umum"
               label="Badge FAQ"
             />
-          </div>
-          <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
+          </p>
+          <h2 className="font-serif-title text-3xl sm:text-4xl font-bold text-[#0f2034] leading-tight">
             <EditableText
               fieldPath="faq.title"
               fallback="Frequently Asked Questions"
               label="Judul FAQ"
             />
           </h2>
-          <div className="w-16 h-[3px] bg-gold-accent mx-auto my-4 rounded-full" />
-          <p className="text-base text-slate-600 font-normal mt-3">
+          <div className="w-10 h-[2px] bg-[#b88917] mx-auto my-5" />
+          <p className="text-sm text-slate-500 font-normal">
             <EditableText
               fieldPath="faq.subtitle"
               fallback={faq?.subtitle || 'Pertanyaan yang sering diajukan seputar layanan kami'}

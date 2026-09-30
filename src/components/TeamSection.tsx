@@ -13,23 +13,23 @@ export default function TeamSection() {
     <EditableSection id="attorneys" name="Tim Konsultan Section" className="py-20 lg:py-28 bg-slate-50 border-b border-gray-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-50 border border-amber-200/80 rounded-full text-amber-800 text-xs font-bold uppercase tracking-widest mb-4">
+        <div className="text-center max-w-2xl mx-auto mb-14">
+          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#b88917] mb-3">
             <EditableText
               fieldPath="team.badge"
-              fallback="TIM KONSULTAN PROFESIONAL"
+              fallback="Tim Konsultan Profesional"
               label="Badge Tim"
             />
-          </div>
-          <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
+          </p>
+          <h2 className="font-serif-title text-3xl sm:text-4xl font-bold text-[#0f2034] leading-tight">
             <EditableText
               fieldPath="team.title"
               fallback="Profil Tim Konsultan"
               label="Judul Tim"
             />
           </h2>
-          <div className="w-16 h-[3px] bg-gold-accent mx-auto my-4 rounded-full" />
-          <p className="text-base text-slate-600 font-normal">
+          <div className="w-10 h-[2px] bg-[#b88917] mx-auto my-5" />
+          <p className="text-sm text-slate-500 font-normal">
             <EditableText
               fieldPath="team.subtitle"
               fallback="Tenaga profesional berpengalaman dengan integritas tinggi dan fokus pada solusi legalitas serta kepatuhan izin usaha."

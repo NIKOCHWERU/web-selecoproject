@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ChevronRight } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import { useContent } from '@/context/ContentContext';
@@ -19,11 +19,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 40) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 40);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -63,14 +59,14 @@ export default function Navbar() {
         tag="header"
         className={`sticky top-0 left-0 right-0 h-20 z-50 transition-all duration-300 ${
           scrolled
-            ? 'bg-white/95 backdrop-blur-md border-b border-gray-200/90 shadow-sm'
-            : 'bg-white border-b border-gray-100 shadow-sm'
+            ? 'bg-[#0f2034]/98 backdrop-blur-md border-b border-white/10 shadow-lg shadow-[#0f2034]/30'
+            : 'bg-[#0f2034] border-b border-white/10'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
           {/* Logo Brand */}
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             onClick={(e) => {
               if (isEditMode) {
                 e.preventDefault();
@@ -79,26 +75,26 @@ export default function Navbar() {
             }}
             className="flex items-center gap-3 group"
           >
-            <div className="relative w-11 h-11 sm:w-12 sm:h-12 shrink-0 rounded-xl overflow-hidden bg-white flex items-center justify-center p-0.5 border border-amber-400/30 group-hover:border-amber-400 transition-all shadow-sm">
+            <div className="relative w-10 h-10 sm:w-11 sm:h-11 shrink-0 rounded-lg overflow-hidden bg-white flex items-center justify-center p-0.5 border border-white/20 group-hover:border-[#b88917]/60 transition-all">
               <img
                 src={global?.logo || '/logo-seleco.png'}
                 alt={global?.brandName || 'Seleco'}
-                className="w-full h-full object-contain group-hover:scale-105 transition-transform"
+                className="w-full h-full object-contain"
               />
             </div>
             <div className="flex flex-col">
-              <span className="font-serif-title text-xl sm:text-2xl font-bold tracking-wider text-slate-900 transition-colors group-hover:text-gold-accent leading-tight">
+              <span className="font-serif-title text-lg sm:text-xl font-bold tracking-wider text-white leading-tight group-hover:text-[#b88917] transition-colors">
                 <EditableText
                   fieldPath="global.brandName"
                   fallback="Seleco"
                   label="Nama Brand"
                 />{' '}
-                <span className="text-gold-accent">.</span>
+                <span className="text-[#b88917]">.</span>
               </span>
-              <span className="text-[9px] sm:text-[10px] font-semibold tracking-[0.2em] text-gold-accent mt-0.5">
+              <span className="text-[8px] sm:text-[9px] font-semibold tracking-[0.18em] text-white/50 mt-0.5 uppercase">
                 <EditableText
                   fieldPath="global.brandTagline"
-                  fallback="Sedana legal consultant"
+                  fallback="Sedana Legal Consultant"
                   label="Tagline Brand"
                 />
               </span>
@@ -106,21 +102,12 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex items-center space-x-6">
+          <nav className="hidden lg:flex items-center space-x-7" aria-label="Main navigation">
             {navLinks.map((link: any, idx: number) => {
               const linkUrl = link.href || '/';
               const isActive = pathname === linkUrl;
               return (
-                <div
-                  key={idx}
-                  className="flex items-center gap-1.5 relative py-1.5"
-                >
-                  <EditableIcon
-                    iconKey={`navbar.links.${idx}.icon`}
-                    fallbackIcon={link.icon || 'Compass'}
-                    className="w-3.5 h-3.5 text-gold-accent hover:scale-125 transition-transform"
-                    label={`Ikon ${link.name}`}
-                  />
+                <div key={idx} className="relative">
                   <Link
                     href={linkUrl}
                     onClick={(e) => {
@@ -129,10 +116,10 @@ export default function Navbar() {
                         e.stopPropagation();
                       }
                     }}
-                    className={`text-xs uppercase tracking-wider font-semibold transition-colors relative py-1 ${
+                    className={`text-[11px] uppercase tracking-widest font-semibold transition-colors py-1 ${
                       isActive
-                        ? 'text-gold-accent font-bold'
-                        : 'text-slate-700 hover:text-gold-accent'
+                        ? 'text-[#b88917]'
+                        : 'text-white/75 hover:text-white'
                     }`}
                   >
                     <EditableText
@@ -142,20 +129,20 @@ export default function Navbar() {
                       linkPath={`navbar.links.${idx}.href`}
                       fallbackLink={linkUrl}
                     />
-                    {isActive && (
-                      <motion.span
-                        layoutId="activeIndicator"
-                        className="absolute bottom-0 left-0 right-0 h-[2px] bg-gold-accent rounded-full"
-                      />
-                    )}
                   </Link>
+                  {isActive && (
+                    <motion.span
+                      layoutId="activeIndicator"
+                      className="absolute -bottom-1 left-0 right-0 h-[2px] bg-[#b88917] rounded-full"
+                    />
+                  )}
                 </div>
               );
             })}
           </nav>
 
           {/* CTA Actions */}
-          <div className="hidden lg:flex items-center space-x-4">
+          <div className="hidden lg:flex items-center space-x-3">
             <Link
               href={global?.consultationUrl || '/kontak'}
               onClick={(e) => {
@@ -164,7 +151,7 @@ export default function Navbar() {
                   e.stopPropagation();
                 }
               }}
-              className="px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white bg-gold-accent rounded-lg hover:bg-gold-bright transition-all shadow-sm hover:shadow-md flex items-center gap-2"
+              className="px-5 py-2.5 text-[11px] font-bold uppercase tracking-wider text-[#0f2034] bg-[#b88917] hover:bg-[#d4a024] rounded transition-all flex items-center gap-2"
             >
               <EditableIcon
                 iconKey="navbar.ctaIcon"
@@ -185,15 +172,16 @@ export default function Navbar() {
           {/* Mobile Hamburger Toggle */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden p-2 text-slate-800 hover:text-gold-accent focus:outline-none"
+            className="lg:hidden p-2 text-white/80 hover:text-white focus:outline-none focus:ring-2 focus:ring-[#b88917] focus:ring-offset-2 focus:ring-offset-[#0f2034] rounded"
             aria-label="Toggle navigation menu"
+            aria-expanded={mobileOpen}
           >
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
       </EditableSection>
 
-      {/* Mobile Drawer Overlay */}
+      {/* Mobile Drawer */}
       <AnimatePresence>
         {mobileOpen && (
           <>
@@ -202,36 +190,38 @@ export default function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobileOpen(false)}
-              className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 lg:hidden"
+              className="fixed inset-0 bg-black/60 z-50 lg:hidden"
             />
             <motion.aside
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 w-80 max-w-[85vw] h-full bg-white border-l border-gray-200 z-50 p-6 flex flex-col justify-between text-slate-800 shadow-2xl lg:hidden"
+              transition={{ type: 'spring', damping: 28, stiffness: 220 }}
+              className="fixed top-0 right-0 w-72 max-w-[85vw] h-full bg-[#0f2034] border-l border-white/10 z-50 p-6 flex flex-col justify-between lg:hidden"
             >
               <div>
-                <div className="flex items-center justify-between pb-6 border-b border-gray-100">
+                <div className="flex items-center justify-between pb-5 border-b border-white/10">
                   <div className="flex flex-col">
-                    <span className="font-serif-title text-xl font-bold text-slate-900 tracking-widest">
-                      Seleco <span className="text-gold-accent">.</span>
+                    <span className="font-serif-title text-lg font-bold text-white tracking-widest">
+                      Seleco <span className="text-[#b88917]">.</span>
                     </span>
-                    <span className="text-[9px] font-semibold tracking-widest text-gold-accent">
-                      Sedana legal consultant
+                    <span className="text-[8px] font-semibold tracking-widest text-white/40 uppercase mt-0.5">
+                      Sedana Legal Consultant
                     </span>
                   </div>
                   <button
                     onClick={() => setMobileOpen(false)}
-                    className="p-1 text-slate-700 hover:text-gold-accent"
+                    className="p-1.5 text-white/60 hover:text-white focus:outline-none focus:ring-1 focus:ring-[#b88917] rounded"
+                    aria-label="Close menu"
                   >
-                    <X className="w-6 h-6" />
+                    <X className="w-5 h-5" />
                   </button>
                 </div>
 
-                <nav className="mt-8 flex flex-col space-y-3">
+                <nav className="mt-6 flex flex-col space-y-1" aria-label="Mobile navigation">
                   {navLinks.map((link: any, idx: number) => {
                     const linkUrl = link.href || '/';
+                    const isActive = pathname === linkUrl;
                     return (
                       <Link
                         key={idx}
@@ -244,31 +234,24 @@ export default function Navbar() {
                             setMobileOpen(false);
                           }
                         }}
-                        className="text-sm font-medium text-slate-700 hover:text-gold-accent flex items-center justify-between py-2.5 border-b border-gray-100"
+                        className={`text-sm font-medium flex items-center py-3 border-b border-white/5 transition-colors ${
+                          isActive ? 'text-[#b88917]' : 'text-white/70 hover:text-white'
+                        }`}
                       >
-                        <div className="flex items-center gap-2">
-                          <EditableIcon
-                            iconKey={`navbar.links.${idx}.icon`}
-                            fallbackIcon={link.icon || 'Compass'}
-                            className="w-4 h-4 text-gold-accent"
-                            label={`Ikon ${link.name}`}
-                          />
-                          <EditableText
-                            fieldPath={`navbar.links.${idx}.name`}
-                            fallback={link.name}
-                            label={`Nav #${idx + 1}`}
-                            linkPath={`navbar.links.${idx}.href`}
-                            fallbackLink={linkUrl}
-                          />
-                        </div>
-                        <ChevronRight className="w-4 h-4 text-gold-accent/70" />
+                        <EditableText
+                          fieldPath={`navbar.links.${idx}.name`}
+                          fallback={link.name}
+                          label={`Nav #${idx + 1}`}
+                          linkPath={`navbar.links.${idx}.href`}
+                          fallbackLink={linkUrl}
+                        />
                       </Link>
                     );
                   })}
                 </nav>
               </div>
 
-              <div className="pt-6 border-t border-gray-100 space-y-3">
+              <div className="pt-5 border-t border-white/10">
                 <Link
                   href={global?.consultationUrl || '/kontak'}
                   onClick={(e) => {
@@ -279,7 +262,7 @@ export default function Navbar() {
                       setMobileOpen(false);
                     }
                   }}
-                  className="w-full py-3 text-xs font-bold uppercase tracking-wider text-center text-white bg-gold-accent rounded-lg flex items-center justify-center gap-2 hover:bg-gold-bright shadow-md"
+                  className="w-full py-3 text-[11px] font-bold uppercase tracking-wider text-center text-[#0f2034] bg-[#b88917] hover:bg-[#d4a024] rounded flex items-center justify-center gap-2 transition-all"
                 >
                   <EditableIcon
                     iconKey="navbar.ctaIcon"
