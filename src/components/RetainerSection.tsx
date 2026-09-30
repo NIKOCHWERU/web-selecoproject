@@ -38,7 +38,7 @@ export default function RetainerSection() {
   ];
 
   return (
-    <EditableSection id="retainer" name="Corporate Retainer Section" className="py-20 lg:py-28 bg-white border-b border-gray-200/80">
+    <EditableSection id="retainer" name="Corporate Retainer Section" className="py-20 lg:py-28 bg-[#0a1420] border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="bg-[#0f2034] text-white rounded-xl p-8 sm:p-14 shadow-2xl border border-white/10 relative overflow-hidden">

@@ -48,26 +48,26 @@ export default function ContactSection() {
   ];
 
   return (
-    <EditableSection id="contact" name="Kontak & Kantor Section" className="py-20 lg:py-28 bg-white border-b border-gray-200/80">
+    <EditableSection id="contact" name="Kontak & Kantor Section" className="py-20 lg:py-28 bg-[#0a1420] border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div className="max-w-2xl mb-14">
-          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#b88917] mb-3">
+          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#dfa82e] mb-3">
             <EditableText
               fieldPath="contact.badge"
               fallback="Hubungi Kami"
               label="Badge Kontak"
             />
           </p>
-          <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0f2034] leading-tight">
+          <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
             <EditableText
               fieldPath="contact.title"
               fallback="Mari Diskusikan Kebutuhan Konsultan Bisnis Anda."
               label="Judul Kontak"
             />
           </h2>
-          <div className="w-10 h-[2px] bg-[#b88917] my-5" />
-          <p className="text-sm text-slate-500">
+          <div className="w-10 h-[2px] bg-[#dfa82e] my-5" />
+          <p className="text-sm text-slate-300 font-normal">
             <EditableText
               fieldPath="contact.subtitle"
               fallback="Sampaikan secara singkat kebutuhan bisnis dan korporasi Anda. Tim kami akan merespons dalam 1x24 jam kerja."
@@ -164,13 +164,13 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-3 bg-white border border-gray-200 rounded-xl p-8 lg:p-10 shadow-sm"
+            className="lg:col-span-3 bg-[#0f2034] border border-white/10 rounded-xl p-8 lg:p-10 shadow-xl"
           >
             {submitted ? (
               <div className="h-full flex flex-col items-center justify-center text-center py-16 gap-4">
-                <CheckCircle2 className="w-12 h-12 text-[#b88917]" />
-                <h3 className="font-serif-title text-2xl font-bold text-[#0f2034]">Formulir Berhasil Dikirim</h3>
-                <p className="text-sm text-slate-500 max-w-md">
+                <CheckCircle2 className="w-12 h-12 text-[#dfa82e]" />
+                <h3 className="font-serif-title text-2xl font-bold text-white">Formulir Berhasil Dikirim</h3>
+                <p className="text-sm text-slate-300 max-w-md font-normal">
                   Tim SELECO akan menghubungi Anda dalam 1x24 jam kerja untuk langkah komunikasi selanjutnya.
                 </p>
               </div>
@@ -178,77 +178,77 @@ export default function ContactSection() {
               <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-600 mb-1.5">Nama Lengkap *</label>
+                    <label className="block text-xs font-semibold text-slate-300 mb-1.5">Nama Lengkap *</label>
                     <input
                       type="text"
                       name="nama"
                       required
                       placeholder="Nama lengkap Anda"
-                      className="w-full px-3.5 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded focus:outline-none focus:bg-white focus:border-[#b88917] focus:ring-1 focus:ring-[#b88917]/30 text-slate-800 transition-all"
+                      className="w-full px-3.5 py-2.5 text-sm bg-[#0a1420] border border-white/15 rounded focus:outline-none focus:bg-[#0c1826] focus:border-[#dfa82e] focus:ring-1 focus:ring-[#dfa82e]/30 text-white placeholder-white/30 transition-all"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-slate-600 mb-1.5">Nama Perusahaan</label>
+                    <label className="block text-xs font-semibold text-slate-300 mb-1.5">Nama Perusahaan</label>
                     <input
                       type="text"
                       name="perusahaan"
                       placeholder="PT / CV / nama bisnis"
-                      className="w-full px-3.5 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded focus:outline-none focus:bg-white focus:border-[#b88917] focus:ring-1 focus:ring-[#b88917]/30 text-slate-800 transition-all"
+                      className="w-full px-3.5 py-2.5 text-sm bg-[#0a1420] border border-white/15 rounded focus:outline-none focus:bg-[#0c1826] focus:border-[#dfa82e] focus:ring-1 focus:ring-[#dfa82e]/30 text-white placeholder-white/30 transition-all"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-600 mb-1.5">Alamat Email *</label>
+                    <label className="block text-xs font-semibold text-slate-300 mb-1.5">Alamat Email *</label>
                     <input
                       type="email"
                       name="email"
                       required
                       placeholder="email@perusahaan.com"
-                      className="w-full px-3.5 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded focus:outline-none focus:bg-white focus:border-[#b88917] focus:ring-1 focus:ring-[#b88917]/30 text-slate-800 transition-all"
+                      className="w-full px-3.5 py-2.5 text-sm bg-[#0a1420] border border-white/15 rounded focus:outline-none focus:bg-[#0c1826] focus:border-[#dfa82e] focus:ring-1 focus:ring-[#dfa82e]/30 text-white placeholder-white/30 transition-all"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-slate-600 mb-1.5">Telepon / WhatsApp *</label>
+                    <label className="block text-xs font-semibold text-slate-300 mb-1.5">Telepon / WhatsApp *</label>
                     <input
                       type="tel"
                       name="telepon"
                       required
                       placeholder="+62 812 XXXX XXXX"
-                      className="w-full px-3.5 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded focus:outline-none focus:bg-white focus:border-[#b88917] focus:ring-1 focus:ring-[#b88917]/30 text-slate-800 transition-all"
+                      className="w-full px-3.5 py-2.5 text-sm bg-[#0a1420] border border-white/15 rounded focus:outline-none focus:bg-[#0c1826] focus:border-[#dfa82e] focus:ring-1 focus:ring-[#dfa82e]/30 text-white placeholder-white/30 transition-all"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-600 mb-1.5">Kategori Layanan Konsultan *</label>
+                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Kategori Layanan Konsultan *</label>
                   <select
                     name="layanan"
                     required
                     defaultValue=""
-                    className="w-full px-3.5 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded focus:outline-none focus:bg-white focus:border-[#b88917] focus:ring-1 focus:ring-[#b88917]/30 text-slate-800 transition-all"
+                    className="w-full px-3.5 py-2.5 text-sm bg-[#0a1420] border border-white/15 rounded focus:outline-none focus:bg-[#0c1826] focus:border-[#dfa82e] focus:ring-1 focus:ring-[#dfa82e]/30 text-white transition-all"
                   >
-                    <option value="" disabled>Pilih kategori layanan...</option>
+                    <option value="" disabled className="bg-[#0f2034] text-white/50">Pilih kategori layanan...</option>
                     {serviceOptions.map(opt => (
-                      <option key={opt} value={opt}>{opt}</option>
+                      <option key={opt} value={opt} className="bg-[#0f2034] text-white">{opt}</option>
                     ))}
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-600 mb-1.5">Deskripsi Singkat Kebutuhan *</label>
+                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Deskripsi Singkat Kebutuhan *</label>
                   <textarea
                     name="deskripsi"
                     required
                     rows={4}
                     placeholder="Jelaskan secara singkat konteks kebutuhan perizinan, imigrasi, pajak, pertanahan, atau SDM bisnis Anda..."
-                    className="w-full px-3.5 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded focus:outline-none focus:bg-white focus:border-[#b88917] focus:ring-1 focus:ring-[#b88917]/30 text-slate-800 resize-none transition-all"
+                    className="w-full px-3.5 py-2.5 text-sm bg-[#0a1420] border border-white/15 rounded focus:outline-none focus:bg-[#0c1826] focus:border-[#dfa82e] focus:ring-1 focus:ring-[#dfa82e]/30 text-white placeholder-white/30 resize-none transition-all"
                   />
                 </div>
 
-                <div className="flex items-start gap-2.5 text-xs text-slate-500">
-                  <input type="checkbox" required id="disclaimer" className="mt-0.5 accent-[#b88917]" />
+                <div className="flex items-start gap-2.5 text-xs text-slate-400">
+                  <input type="checkbox" required id="disclaimer" className="mt-0.5 accent-[#dfa82e]" />
                   <label htmlFor="disclaimer" className="cursor-pointer">
                     Pengiriman formulir ini adalah untuk konsultasi awal perizinan dan operasional bisnis Anda.
                   </label>
@@ -256,9 +256,9 @@ export default function ContactSection() {
 
                 <button
                   type="submit"
-                  className="w-full py-3.5 bg-[#b88917] hover:bg-[#d4a024] text-[#0f2034] font-bold text-[11px] uppercase tracking-wider rounded transition-all flex items-center justify-center gap-2"
+                  className="w-full py-3.5 bg-gradient-to-r from-gold-accent to-gold-bright text-[#0a1420] font-bold text-xs uppercase tracking-wider rounded-lg hover:brightness-110 shadow-md transition-all flex items-center justify-center gap-2"
                 >
-                  <Send className="w-3.5 h-3.5" />
+                  <Send className="w-3.5 h-3.5 text-[#0a1420]" />
                   <span>Kirim via WhatsApp</span>
                 </button>
               </form>

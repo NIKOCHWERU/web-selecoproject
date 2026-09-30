@@ -37,7 +37,7 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
   ];
 
   return (
-    <EditableSection id="about" name="Tentang Kami Section" className="bg-white border-b border-gray-200/60">
+    <EditableSection id="about" name="Tentang Kami Section" className="bg-[#0a1420] border-b border-white/10">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2">
 
@@ -47,10 +47,10 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="bg-[#0f2034] p-8 lg:p-12 flex flex-col justify-between min-h-[460px] lg:min-h-[580px]"
+            className="bg-[#0f2034] p-8 lg:p-12 flex flex-col justify-between min-h-[460px] lg:min-h-[580px] border-r border-white/5"
           >
             {/* Label */}
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#b88917] mb-8">
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#dfa82e] mb-8">
               <EditableText
                 fieldPath="about.badge"
                 fallback="Tentang SELECO"
@@ -60,7 +60,7 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
 
             {/* Photo collage — primary large, two smaller */}
             <div className="flex-1 grid grid-rows-[2fr_1fr] gap-3">
-              <div className="rounded-md overflow-hidden">
+              <div className="rounded-md overflow-hidden border border-white/10 shadow-lg">
                 <EditableImage
                   fieldPath="about.image1"
                   fallback="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=80"
@@ -69,7 +69,7 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
                 />
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <div className="rounded-md overflow-hidden">
+                <div className="rounded-md overflow-hidden border border-white/10 shadow-md">
                   <EditableImage
                     fieldPath="about.image2"
                     fallback="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80"
@@ -77,7 +77,7 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
                     label="Foto Kolase 2"
                   />
                 </div>
-                <div className="rounded-md overflow-hidden">
+                <div className="rounded-md overflow-hidden border border-white/10 shadow-md">
                   <EditableImage
                     fieldPath="about.image3"
                     fallback="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=600&q=80"
@@ -89,23 +89,23 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
             </div>
           </motion.div>
 
-          {/* Right: White content column */}
+          {/* Right: Full Navy content column */}
           <motion.div
             initial={{ opacity: 0, x: 16 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="py-12 px-8 lg:px-12 flex flex-col justify-center space-y-6"
+            className="bg-[#0a1420] py-12 px-8 lg:px-12 flex flex-col justify-center space-y-6 text-white"
           >
             <div>
-              <h2 className="font-serif-title text-3xl sm:text-4xl font-bold text-[#0f2034] leading-tight">
+              <h2 className="font-serif-title text-3xl sm:text-4xl font-bold text-white leading-tight">
                 <EditableText
                   fieldPath="about.title"
                   fallback="Solusi Konsultan Terstruktur untuk"
                   label="Judul Tentang"
                 />{' '}
                 {about?.titleAccent && (
-                  <span className="text-[#b88917]">
+                  <span className="text-[#dfa82e]">
                     <EditableText
                       fieldPath="about.titleAccent"
                       fallback={about.titleAccent}
@@ -114,10 +114,10 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
                   </span>
                 )}
               </h2>
-              <div className="w-10 h-[2px] bg-[#b88917] mt-5" />
+              <div className="w-10 h-[2px] bg-[#dfa82e] mt-5" />
             </div>
 
-            <p className="text-sm text-slate-600 leading-relaxed">
+            <p className="text-sm text-slate-300 leading-relaxed font-normal">
               <EditableText
                 fieldPath="about.paragraph1"
                 fallback="SELECO hadir sebagai konsultan korporasi terpercaya yang menyediakan solusi terpadu 5 pilar: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM secara terstruktur, terukur, dan transparan."
@@ -127,7 +127,7 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
               />
             </p>
 
-            <p className="text-xs text-slate-500 leading-relaxed">
+            <p className="text-xs text-slate-400 leading-relaxed font-normal">
               <EditableText
                 fieldPath="about.paragraph2"
                 fallback="Kami mencakup 5 pilar spesialisasi konsultan bisnis, serta mengelola pengurusan lebih dari 411 jenis perizinan usaha OSS RBA dan kepatuhan instansi teknis di seluruh wilayah Indonesia."
@@ -141,18 +141,18 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
             <div className="grid grid-cols-2 gap-x-6 gap-y-4 pt-2">
               {values.map((v: any, i: number) => (
                 <div key={i} className="flex items-start gap-2.5">
-                  <div className="mt-0.5 shrink-0">
+                  <div className="mt-0.5 shrink-0 text-[#dfa82e]">
                     {valueIcons[i % valueIcons.length]}
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-[#0f2034] mb-0.5">
+                    <p className="text-xs font-bold text-white mb-0.5">
                       <EditableText
                         fieldPath={`about.values.${i}.title`}
                         fallback={v.title}
                         label={`Nilai #${i + 1} Judul`}
                       />
                     </p>
-                    <p className="text-[11px] text-slate-500 leading-relaxed">
+                    <p className="text-[11px] text-slate-400 leading-relaxed">
                       <EditableText
                         fieldPath={`about.values.${i}.description`}
                         fallback={v.description || v.desc}
@@ -169,7 +169,7 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
               <div className="pt-2">
                 <Link
                   href="/tentang"
-                  className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-[#b88917] hover:text-[#0f2034] transition-colors group"
+                  className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-[#dfa82e] hover:text-white transition-colors group"
                 >
                   <span>Pelajari Profil &amp; Tim Konsultan Kami</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />

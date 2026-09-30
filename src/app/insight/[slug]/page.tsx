@@ -70,20 +70,20 @@ function RenderGutenbergBlock({ block }: { block: GutenbergBlock }) {
       const text = block.content.text || '';
       if (level === 2) {
         return (
-          <h2 className={`font-serif-title text-2xl sm:text-3xl font-bold text-slate-900 mt-8 mb-4 leading-tight ${alignClass}`}>
+          <h2 className={`font-serif-title text-2xl sm:text-3xl font-bold text-white mt-8 mb-4 leading-tight ${alignClass}`}>
             {text}
           </h2>
         );
       }
       if (level === 3) {
         return (
-          <h3 className={`font-serif-title text-xl sm:text-2xl font-bold text-slate-800 mt-6 mb-3 leading-snug ${alignClass}`}>
+          <h3 className={`font-serif-title text-xl sm:text-2xl font-bold text-white mt-6 mb-3 leading-snug ${alignClass}`}>
             {text}
           </h3>
         );
       }
       return (
-        <h4 className={`font-serif-title text-lg font-bold text-slate-800 mt-4 mb-2 ${alignClass}`}>
+        <h4 className={`font-serif-title text-lg font-bold text-white mt-4 mb-2 ${alignClass}`}>
           {text}
         </h4>
       );
@@ -91,7 +91,7 @@ function RenderGutenbergBlock({ block }: { block: GutenbergBlock }) {
 
     case 'paragraph': {
       return (
-        <p className={`text-slate-700 text-base sm:text-lg leading-relaxed mb-6 font-normal ${alignClass} whitespace-pre-line`}>
+        <p className={`text-slate-300 text-base sm:text-lg leading-relaxed mb-6 font-normal ${alignClass} whitespace-pre-line`}>
           {block.content.text}
         </p>
       );
@@ -100,7 +100,7 @@ function RenderGutenbergBlock({ block }: { block: GutenbergBlock }) {
     case 'image': {
       return (
         <figure className="my-8">
-          <div className="overflow-hidden rounded-2xl border border-gray-200 shadow-sm bg-slate-50">
+          <div className="overflow-hidden rounded-2xl border border-white/10 shadow-lg bg-slate-900">
             <img
               src={block.content.url}
               alt={block.content.alt || 'Ilustrasi Artikel SELECO'}
@@ -108,7 +108,7 @@ function RenderGutenbergBlock({ block }: { block: GutenbergBlock }) {
             />
           </div>
           {block.content.caption && (
-            <figcaption className="text-center text-xs text-slate-500 mt-2.5 italic">
+            <figcaption className="text-center text-xs text-white/40 mt-2.5 italic">
               {block.content.caption}
             </figcaption>
           )}
@@ -118,14 +118,14 @@ function RenderGutenbergBlock({ block }: { block: GutenbergBlock }) {
 
     case 'quote': {
       return (
-        <blockquote className="my-8 p-6 sm:p-8 bg-amber-50/60 border-l-4 border-[#b88917] rounded-r-2xl shadow-sm">
-          <Quote className="w-8 h-8 text-[#b88917]/40 mb-2" />
-          <p className="font-serif-title text-lg sm:text-xl italic text-slate-900 leading-relaxed">
+        <blockquote className="my-8 p-6 sm:p-8 bg-[#0a1420] border-l-4 border-[#dfa82e] rounded-r-2xl border border-white/10 shadow-md">
+          <Quote className="w-8 h-8 text-[#dfa82e]/50 mb-2" />
+          <p className="font-serif-title text-lg sm:text-xl italic text-white leading-relaxed">
             &ldquo;{block.content.text}&rdquo;
           </p>
           {(block.content.author || block.content.cite) && (
-            <div className="mt-4 text-xs font-semibold uppercase tracking-wider text-slate-700">
-              — {block.content.author} {block.content.cite && <span className="text-slate-500 font-normal">({block.content.cite})</span>}
+            <div className="mt-4 text-xs font-semibold uppercase tracking-wider text-[#dfa82e]">
+              — {block.content.author} {block.content.cite && <span className="text-white/40 font-normal">({block.content.cite})</span>}
             </div>
           )}
         </blockquote>
@@ -136,7 +136,7 @@ function RenderGutenbergBlock({ block }: { block: GutenbergBlock }) {
       const items: string[] = block.content.items || [];
       if (block.content.listType === 'ordered') {
         return (
-          <ol className="list-decimal list-outside space-y-2.5 my-6 pl-6 text-slate-700 text-base leading-relaxed">
+          <ol className="list-decimal list-outside space-y-2.5 my-6 pl-6 text-slate-300 text-base leading-relaxed">
             {items.map((item, idx) => (
               <li key={idx} className="pl-1">
                 {item}
@@ -146,7 +146,7 @@ function RenderGutenbergBlock({ block }: { block: GutenbergBlock }) {
         );
       }
       return (
-        <ul className="list-disc list-outside space-y-2.5 my-6 pl-6 text-slate-700 text-base leading-relaxed marker:text-[#b88917]">
+        <ul className="list-disc list-outside space-y-2.5 my-6 pl-6 text-slate-300 text-base leading-relaxed marker:text-[#dfa82e]">
           {items.map((item, idx) => (
             <li key={idx} className="pl-1">
               {item}
@@ -160,29 +160,29 @@ function RenderGutenbergBlock({ block }: { block: GutenbergBlock }) {
       const type = block.content.calloutType || 'info';
       const styles = {
         info: {
-          bg: 'bg-blue-50/80 border-blue-200 text-blue-900',
-          icon: <Info className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />,
+          bg: 'bg-[#0a1420] border-blue-500/30 text-blue-200',
+          icon: <Info className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />,
         },
         warning: {
-          bg: 'bg-amber-50/80 border-amber-300 text-amber-950',
-          icon: <AlertTriangle className="w-5 h-5 text-[#b88917] shrink-0 mt-0.5" />,
+          bg: 'bg-[#0a1420] border-[#dfa82e]/40 text-amber-200',
+          icon: <AlertTriangle className="w-5 h-5 text-[#dfa82e] shrink-0 mt-0.5" />,
         },
         success: {
-          bg: 'bg-emerald-50/80 border-emerald-200 text-emerald-950',
-          icon: <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />,
+          bg: 'bg-[#0a1420] border-emerald-500/30 text-emerald-200',
+          icon: <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />,
         },
         tip: {
-          bg: 'bg-indigo-50/80 border-indigo-200 text-indigo-950',
-          icon: <Lightbulb className="w-5 h-5 text-indigo-600 shrink-0 mt-0.5" />,
+          bg: 'bg-[#0a1420] border-[#dfa82e]/30 text-amber-200',
+          icon: <Lightbulb className="w-5 h-5 text-[#dfa82e] shrink-0 mt-0.5" />,
         },
       }[type];
 
       return (
-        <div className={`my-7 p-5 sm:p-6 rounded-2xl border ${styles.bg} flex items-start gap-4 shadow-sm`}>
+        <div className={`my-7 p-5 sm:p-6 rounded-2xl border ${styles.bg} flex items-start gap-4 shadow-md`}>
           {styles.icon}
           <div>
             {block.content.title && (
-              <h5 className="font-bold text-sm sm:text-base mb-1">
+              <h5 className="font-bold text-sm sm:text-base mb-1 text-white">
                 {block.content.title}
               </h5>
             )}
@@ -198,27 +198,27 @@ function RenderGutenbergBlock({ block }: { block: GutenbergBlock }) {
       const headers: string[] = block.content.headers || ['Parameter Regulasi', 'Ketentuan / Syarat', 'Keterangan'];
       const rows: string[][] = block.content.rows || [];
       return (
-        <div className="my-8 overflow-x-auto rounded-xl border border-gray-200 shadow-sm bg-white">
+        <div className="my-8 overflow-x-auto rounded-xl border border-white/10 shadow-lg bg-[#0a1420]">
           {block.content.title && (
-            <div className="px-5 py-3 bg-[#0f2034] text-white text-xs font-bold uppercase tracking-wider">
+            <div className="px-5 py-3 bg-[#0f2034] text-[#dfa82e] text-xs font-bold uppercase tracking-wider border-b border-white/10">
               {block.content.title}
             </div>
           )}
           <table className="w-full text-left text-xs sm:text-sm">
-            <thead className="bg-slate-100 border-b border-gray-200 text-slate-800 font-bold uppercase text-[11px] tracking-wider">
+            <thead className="bg-[#0f2034] border-b border-white/10 text-white font-bold uppercase text-[11px] tracking-wider">
               <tr>
                 {headers.map((h, i) => (
-                  <th key={i} className="px-4 py-3 border-r border-gray-200 last:border-r-0">
+                  <th key={i} className="px-4 py-3 border-r border-white/10 last:border-r-0">
                     {h}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-white/5">
               {rows.map((row, rIdx) => (
-                <tr key={rIdx} className="hover:bg-slate-50/80 transition-colors">
+                <tr key={rIdx} className="hover:bg-white/5 transition-colors">
                   {row.map((cell, cIdx) => (
-                    <td key={cIdx} className="px-4 py-3 border-r border-gray-100 last:border-r-0 text-slate-700">
+                    <td key={cIdx} className="px-4 py-3 border-r border-white/5 last:border-r-0 text-slate-300">
                       {cell}
                     </td>
                   ))}
@@ -327,23 +327,23 @@ export default async function ArticleDetailPage({ params }: PageProps) {
     .slice(0, 3);
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-[#0a1420] text-slate-100">
       {/* Article Top Navigation Bar */}
-      <div className="bg-white border-b border-gray-200">
+      <div className="bg-[#0f2034] border-b border-white/10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2 text-xs text-slate-500 overflow-hidden">
-            <Link href="/" className="hover:text-amber-600 transition-colors">Home</Link>
+          <div className="flex items-center gap-2 text-xs text-white/50 overflow-hidden">
+            <Link href="/" className="hover:text-gold-accent transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3 shrink-0" />
-            <Link href="/insight" className="hover:text-amber-600 transition-colors">Insight</Link>
+            <Link href="/insight" className="hover:text-gold-accent transition-colors">Insight</Link>
             <ChevronRight className="w-3 h-3 shrink-0" />
-            <span className="text-amber-700 font-semibold truncate max-w-[200px] sm:max-w-xs">
+            <span className="text-[#dfa82e] font-semibold truncate max-w-[200px] sm:max-w-xs">
               {article.category}
             </span>
           </div>
 
           <Link
             href="/insight"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-slate-50 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-white/70 hover:text-white px-3 py-1.5 rounded-lg border border-white/15 hover:bg-white/5 transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Kembali ke Insight</span>
@@ -352,41 +352,41 @@ export default async function ArticleDetailPage({ params }: PageProps) {
       </div>
 
       {/* Article Header */}
-      <header className="bg-white border-b border-gray-200/80 pt-10 pb-12">
+      <header className="bg-[#0f2034] border-b border-white/10 pt-10 pb-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-amber-50 border border-amber-200/80 rounded-full text-amber-800 text-xs font-bold uppercase tracking-wider mb-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-[#dfa82e]/10 border border-[#dfa82e]/30 rounded-full text-[#dfa82e] text-xs font-bold uppercase tracking-wider mb-4">
             {article.category}
           </div>
 
-          <h1 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight mb-6">
+          <h1 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6">
             {article.title}
           </h1>
 
           {article.excerpt && (
-            <p className="text-lg sm:text-xl text-slate-600 leading-relaxed mb-6 font-normal">
+            <p className="text-lg sm:text-xl text-slate-300 leading-relaxed mb-6 font-normal">
               {article.excerpt}
             </p>
           )}
 
           {/* Author & Meta Row */}
-          <div className="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-gray-100 text-xs sm:text-sm text-slate-500">
+          <div className="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-white/10 text-xs sm:text-sm text-white/60">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-amber-100 border border-amber-300 flex items-center justify-center text-amber-800 font-bold">
+              <div className="w-10 h-10 rounded-full bg-[#dfa82e]/15 border border-[#dfa82e]/30 flex items-center justify-center text-[#dfa82e] font-bold">
                 <User className="w-5 h-5" />
               </div>
               <div>
-                <div className="font-bold text-slate-900">{article.author}</div>
-                <div className="text-slate-500 text-xs">{article.authorRole || 'Tim Redaksi SELECO'}</div>
+                <div className="font-bold text-white">{article.author}</div>
+                <div className="text-slate-400 text-xs">{article.authorRole || 'Tim Redaksi SELECO'}</div>
               </div>
             </div>
 
-            <div className="flex items-center gap-4 text-xs">
+            <div className="flex items-center gap-4 text-xs text-white/50">
               <div className="flex items-center gap-1.5">
-                <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                <Calendar className="w-3.5 h-3.5 text-white/40" />
                 <span>{article.publishedAt}</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5 text-slate-400" />
+                <Clock className="w-3.5 h-3.5 text-white/40" />
                 <span>{article.readTime}</span>
               </div>
             </div>
@@ -397,7 +397,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
       {/* Featured Cover Image */}
       {article.coverImage && (
         <div className="max-w-4xl mx-auto px-4 sm:px-6 -mt-4 mb-10">
-          <div className="overflow-hidden rounded-3xl border border-gray-200 shadow-lg bg-slate-900 max-h-[480px]">
+          <div className="overflow-hidden rounded-3xl border border-white/10 shadow-2xl bg-slate-900 max-h-[480px]">
             <img
               src={article.coverImage}
               alt={article.title}
@@ -409,25 +409,25 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 
       {/* Article Body: Gutenberg Blocks Canvas */}
       <main className="max-w-3xl mx-auto px-4 sm:px-6 py-6">
-        <article className="prose-container bg-white rounded-3xl p-6 sm:p-10 border border-gray-200/90 shadow-sm">
+        <article className="prose-container bg-[#0f2034] rounded-3xl p-6 sm:p-10 border border-white/10 shadow-xl text-slate-200">
           {article.blocks && article.blocks.length > 0 ? (
             article.blocks.map((block) => (
               <RenderGutenbergBlock key={block.id} block={block} />
             ))
           ) : (
-            <p className="text-slate-500 italic">Konten artikel belum ditambahkan.</p>
+            <p className="text-slate-400 italic">Konten artikel belum ditambahkan.</p>
           )}
 
           {/* Tags */}
           {article.tags && article.tags.length > 0 && (
-            <div className="mt-10 pt-6 border-t border-gray-100">
+            <div className="mt-10 pt-6 border-t border-white/10">
               <div className="flex flex-wrap items-center gap-2">
-                <Tag className="w-4 h-4 text-slate-400" />
-                <span className="text-xs font-bold text-slate-700 uppercase tracking-wider mr-1">Tags:</span>
+                <Tag className="w-4 h-4 text-[#dfa82e]" />
+                <span className="text-xs font-bold text-white uppercase tracking-wider mr-1">Tags:</span>
                 {article.tags.map((tag, idx) => (
                   <span
                     key={idx}
-                    className="text-xs px-2.5 py-1 bg-slate-100 text-slate-700 rounded-lg hover:bg-amber-50 hover:text-amber-800 transition-colors"
+                    className="text-xs px-2.5 py-1 bg-[#0a1420] border border-white/10 text-slate-300 rounded-lg hover:border-[#dfa82e]/50 hover:text-[#dfa82e] transition-colors"
                   >
                     #{tag}
                   </span>
@@ -438,13 +438,13 @@ export default async function ArticleDetailPage({ params }: PageProps) {
         </article>
 
         {/* Consultation Call To Action Banner */}
-        <section className="my-12 rounded-3xl p-8 bg-gradient-to-br from-slate-950 via-slate-900 to-[#1e1b18] border border-amber-400/30 text-white shadow-xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+        <section className="my-12 rounded-3xl p-8 bg-[#0f2034] border border-[#dfa82e]/30 text-white shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[#dfa82e]/10 rounded-full blur-3xl pointer-events-none" />
           <div className="relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-400/10 border border-amber-400/30 rounded-full text-amber-300 text-xs font-bold uppercase tracking-wider mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#dfa82e]/10 border border-[#dfa82e]/30 rounded-full text-[#dfa82e] text-xs font-bold uppercase tracking-wider mb-4">
               <ShieldCheck className="w-3.5 h-3.5" /> Konsultasi Konsultan Korporasi
             </div>
-            <h3 className="font-serif-title text-2xl sm:text-3xl font-bold mb-3">
+            <h3 className="font-serif-title text-2xl sm:text-3xl font-bold mb-3 text-white">
               Butuh Pendampingan Izin Usaha &amp; Kepatuhan Regulasi?
             </h3>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-6 max-w-xl">
@@ -455,14 +455,14 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                 href="https://wa.me/6282211020022?text=Halo%20SELECO,%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20konsultan%20dan%20perizinan"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3 bg-gradient-to-r from-[#D4AF37] to-[#C9A227] hover:brightness-110 text-slate-950 font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md flex items-center gap-2"
+                className="px-6 py-3 bg-gradient-to-r from-gold-accent to-gold-bright hover:brightness-110 text-[#0a1420] font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md flex items-center gap-2"
               >
-                <Phone className="w-4 h-4" />
+                <Phone className="w-4 h-4 text-[#0a1420]" />
                 <span>Konsultasi Sekarang</span>
               </a>
               <Link
                 href="/tentang"
-                className="px-5 py-3 border border-slate-700 hover:border-amber-400/50 hover:bg-slate-800 text-white text-xs font-semibold rounded-xl transition-all"
+                className="px-5 py-3 border border-white/20 hover:border-[#dfa82e] hover:text-[#dfa82e] text-white text-xs font-semibold rounded-xl transition-all"
               >
                 Tentang SELECO
               </Link>
@@ -473,7 +473,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
         {/* Related Articles */}
         {relatedArticles.length > 0 && (
           <section className="my-12">
-            <h3 className="font-serif-title text-2xl font-bold text-slate-900 mb-6">
+            <h3 className="font-serif-title text-2xl font-bold text-white mb-6">
               Insight Terkait Lainnya
             </h3>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
@@ -481,10 +481,10 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                 <Link
                   key={item.id}
                   href={`/insight/${item.slug}`}
-                  className="group block rounded-2xl overflow-hidden bg-white border border-gray-200 hover:border-amber-400 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
+                  className="group block rounded-2xl overflow-hidden bg-[#0f2034] border border-white/10 hover:border-[#dfa82e]/50 hover:bg-[#13263c] shadow-lg transition-all flex flex-col justify-between"
                 >
                   <div>
-                    <div className="h-40 overflow-hidden bg-slate-100">
+                    <div className="h-40 overflow-hidden bg-slate-900 border-b border-white/10">
                       <img
                         src={item.coverImage}
                         alt={item.title}
@@ -492,17 +492,17 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                       />
                     </div>
                     <div className="p-4">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-2 py-0.5 rounded">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#dfa82e] bg-[#dfa82e]/10 border border-[#dfa82e]/30 px-2 py-0.5 rounded">
                         {item.category}
                       </span>
-                      <h4 className="font-serif-title text-sm font-bold text-slate-900 mt-2 line-clamp-2 group-hover:text-amber-600 transition-colors">
+                      <h4 className="font-serif-title text-sm font-bold text-white mt-2 line-clamp-2 group-hover:text-[#dfa82e] transition-colors">
                         {item.title}
                       </h4>
                     </div>
                   </div>
-                  <div className="px-4 pb-4 pt-0 text-xs font-semibold text-slate-500 flex items-center justify-between border-t border-gray-100 pt-3">
+                  <div className="px-4 pb-4 pt-0 text-xs font-semibold text-white/50 flex items-center justify-between border-t border-white/10 pt-3">
                     <span>{item.readTime}</span>
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-amber-600" />
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-[#dfa82e]" />
                   </div>
                 </Link>
               ))}

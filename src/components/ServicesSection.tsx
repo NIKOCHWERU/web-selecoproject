@@ -81,27 +81,27 @@ export default function ServicesSection() {
   const pillars: any[] = (services?.pillars && services.pillars.length > 0) ? services.pillars : defaultPillars;
 
   return (
-    <EditableSection id="services" name="Layanan & Spesialisasi Section" className="py-20 lg:py-28 bg-white border-b border-gray-200/60">
+    <EditableSection id="services" name="Layanan & Spesialisasi Section" className="py-20 lg:py-28 bg-[#0a1420] border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Section Header — left-aligned, not centered, to break uniform rhythm */}
+        {/* Section Header */}
         <div className="max-w-2xl mb-14">
-          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#b88917] mb-3">
+          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#dfa82e] mb-3">
             <EditableText
               fieldPath="services.badge"
               fallback="5 Pilar Layanan Konsultan Terpadu"
               label="Badge Layanan"
             />
           </p>
-          <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0f2034] leading-tight">
+          <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
             <EditableText
               fieldPath="services.title"
               fallback={`${totalServices} Layanan Konsultan Terpadu`}
               label="Judul Layanan"
             />
           </h2>
-          <div className="w-10 h-[2px] bg-[#b88917] my-5" />
-          <p className="text-sm text-slate-500 leading-relaxed">
+          <div className="w-10 h-[2px] bg-[#dfa82e] my-5" />
+          <p className="text-sm text-slate-300 leading-relaxed font-normal">
             <EditableText
               fieldPath="services.subtitle"
               fallback="Solusi konsultan komprehensif mencakup Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM untuk akselerasi dan kepatuhan operasional bisnis Anda."
@@ -111,8 +111,8 @@ export default function ServicesSection() {
           </p>
         </div>
 
-        {/* Categories: 5 cards in two rows (3 + 2) — natural break since there are 5 pillars */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-gray-200/80 border border-gray-200/80 rounded-xl overflow-hidden mb-12">
+        {/* Categories: 5 cards in two rows (3 + 2) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 border border-white/10 rounded-xl overflow-hidden mb-12">
           {pillars.map((cat, idx) => {
             const fallbackLink = cat.linkUrl || `/layanan?cat=${cat.id}`;
             const currentLink = services?.pillars?.[idx]?.linkUrl || fallbackLink;
@@ -124,19 +124,19 @@ export default function ServicesSection() {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: idx * 0.04 }}
-                className="bg-white p-7 flex flex-col justify-between hover:bg-[#0f2034] group transition-colors duration-200"
+                className="bg-[#0f2034] p-7 flex flex-col justify-between hover:bg-[#152a42] group transition-all duration-200"
               >
                 <div>
                   <div className="flex items-center justify-between mb-5">
-                    <div className="w-10 h-10 flex items-center justify-center border border-[#0f2034]/20 rounded group-hover:border-[#b88917]/40 transition-colors">
+                    <div className="w-10 h-10 flex items-center justify-center border border-white/10 bg-white/5 rounded group-hover:border-[#dfa82e]/50 transition-colors">
                       <EditableIcon
                         iconKey={`services.pillars.${idx}.icon`}
                         fallbackIcon={cat.iconName || 'FileCheck'}
-                        className="w-5 h-5 text-[#0f2034] group-hover:text-[#b88917] transition-colors"
+                        className="w-5 h-5 text-[#dfa82e] group-hover:scale-110 transition-transform"
                         label={`Ikon Pilar ${idx + 1}`}
                       />
                     </div>
-                    <span className="text-[10px] font-bold text-slate-400 group-hover:text-white/40 uppercase tracking-widest transition-colors">
+                    <span className="text-[10px] font-bold text-white/50 group-hover:text-white/80 uppercase tracking-widest transition-colors">
                       <EditableText
                         fieldPath={`services.pillars.${idx}.count`}
                         fallback={cat.count || '242 Items'}
@@ -145,7 +145,7 @@ export default function ServicesSection() {
                     </span>
                   </div>
 
-                  <h3 className="font-serif-title text-lg font-bold text-[#0f2034] group-hover:text-white mb-2.5 transition-colors">
+                  <h3 className="font-serif-title text-lg font-bold text-white group-hover:text-[#dfa82e] mb-2.5 transition-colors">
                     <EditableText
                       fieldPath={`services.pillars.${idx}.name`}
                       fallback={cat.name}
@@ -153,7 +153,7 @@ export default function ServicesSection() {
                       as="span"
                     />
                   </h3>
-                  <div className="text-xs text-slate-500 group-hover:text-white/60 leading-relaxed mb-5 font-normal transition-colors">
+                  <div className="text-xs text-slate-300 group-hover:text-white/90 leading-relaxed mb-5 font-normal transition-colors">
                     <EditableText
                       fieldPath={`services.pillars.${idx}.description`}
                       fallback={cat.description}
@@ -172,7 +172,7 @@ export default function ServicesSection() {
                       e.stopPropagation();
                     }
                   }}
-                  className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#b88917] group-hover:text-[#d4a024] border-t border-gray-100 group-hover:border-white/10 pt-4 transition-colors"
+                  className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#dfa82e] group-hover:text-white border-t border-white/10 pt-4 transition-colors"
                 >
                   <EditableText
                     fieldPath={`services.pillars.${idx}.linkText`}
@@ -181,7 +181,7 @@ export default function ServicesSection() {
                     linkPath={`services.pillars.${idx}.linkUrl`}
                     fallbackLink={fallbackLink}
                   />
-                  <ArrowRight className="w-3 h-3" />
+                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </motion.div>
             );
