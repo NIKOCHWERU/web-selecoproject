@@ -49,7 +49,7 @@ export default function MaintenancePage({ content }: MaintenancePageProps) {
       <div 
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, #D4AF37 1px, transparent 0)`,
+          backgroundImage: `radial-gradient(circle at 1px 1px, #b88917 1px, transparent 0)`,
           backgroundSize: '36px 36px',
         }}
       />
@@ -103,7 +103,7 @@ export default function MaintenancePage({ content }: MaintenancePageProps) {
             href={waUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-[#D4AF37] to-[#C9A227] hover:brightness-110 text-slate-950 font-bold text-sm uppercase tracking-wider rounded-2xl transition-all shadow-xl shadow-amber-500/20 hover:scale-[1.02] flex items-center justify-center gap-2.5"
+            className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-[#d4a024] to-[#b88917] hover:brightness-110 text-slate-950 font-bold text-sm uppercase tracking-wider rounded-2xl transition-all shadow-xl shadow-amber-500/20 hover:scale-[1.02] flex items-center justify-center gap-2.5"
           >
             <MessageCircle className="w-5 h-5 fill-current" />
             <span>Konsultasi WhatsApp</span>

@@ -75,11 +75,11 @@ export default function Hero() {
                 fallback="Konsultan Terpadu untuk Akselerasi &"
                 label="Judul Bagian 1"
               />{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F7E19C] via-[#D4AF37] to-[#C9A227] italic">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#fad980] via-[#d4a024] to-[#b88917] italic">
                 <EditableText
                   fieldPath="hero.headlineItalic"
                   fallback="Pertumbuhan Bisnis."
-                  label="Judul Miring Gold"
+                  label="Judul Miring Accent"
                 />
               </span>
             </h1>

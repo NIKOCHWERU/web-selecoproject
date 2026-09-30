@@ -211,7 +211,7 @@ export default function TailAdminLayout({
   if (checkingAuth) {
     return (
       <div className="min-h-screen bg-[#1A222C] flex items-center justify-center">
-        <div className="animate-spin w-8 h-8 border-2 border-[#D4AF37] border-t-transparent rounded-full" />
+        <div className="animate-spin w-8 h-8 border-2 border-[#b88917] border-t-transparent rounded-full" />
       </div>
     );
   }
@@ -229,7 +229,7 @@ export default function TailAdminLayout({
         <div className="w-full max-w-md bg-[#24303F] border border-[#2E3A47] rounded-2xl shadow-2xl p-8">
           {/* Logo & Brand */}
           <div className="text-center mb-8">
-            <div className="w-16 h-16 rounded-2xl bg-white p-1 border border-[#D4AF37]/50 flex items-center justify-center mx-auto mb-4 shadow-xl shadow-[#D4AF37]/20">
+            <div className="w-16 h-16 rounded-2xl bg-white p-1 border border-[#b88917]/50 flex items-center justify-center mx-auto mb-4 shadow-xl shadow-[#b88917]/20">
               <img
                 src="/logo-seleco.png"
                 alt="Seleco Project"
@@ -239,7 +239,7 @@ export default function TailAdminLayout({
             <h1 className="font-serif-title text-2xl font-bold text-white tracking-wide">
               Seleco Admin
             </h1>
-            <p className="text-xs uppercase tracking-widest text-[#D4AF37] font-semibold mt-1">
+            <p className="text-xs uppercase tracking-widest text-[#b88917] font-semibold mt-1">
               Sedana Legal Consultant
             </p>
             <div className="mt-3 inline-block px-3 py-1 bg-[#1C2434] border border-[#2E3A47] rounded-full text-[11px] text-[#8A99AD]">
@@ -265,7 +265,7 @@ export default function TailAdminLayout({
                   value={usernameInput}
                   onChange={(e) => setUsernameInput(e.target.value)}
                   placeholder="Masukkan username..."
-                  className="w-full px-4 py-3 bg-[#1C2434] border border-[#2E3A47] rounded-xl text-white placeholder-[#8A99AD] text-sm focus:outline-none focus:border-[#D4AF37] transition-colors"
+                  className="w-full px-4 py-3 bg-[#1C2434] border border-[#2E3A47] rounded-xl text-white placeholder-[#8A99AD] text-sm focus:outline-none focus:border-[#b88917] transition-colors"
                   autoFocus
                   required
                 />
@@ -283,7 +283,7 @@ export default function TailAdminLayout({
                   value={passwordInput}
                   onChange={(e) => setPasswordInput(e.target.value)}
                   placeholder="Masukkan password..."
-                  className="w-full px-4 py-3 bg-[#1C2434] border border-[#2E3A47] rounded-xl text-white placeholder-[#8A99AD] text-sm focus:outline-none focus:border-[#D4AF37] transition-colors"
+                  className="w-full px-4 py-3 bg-[#1C2434] border border-[#2E3A47] rounded-xl text-white placeholder-[#8A99AD] text-sm focus:outline-none focus:border-[#b88917] transition-colors"
                   required
                 />
                 <Lock className="w-4 h-4 text-[#8A99AD] absolute right-4 top-1/2 -translate-y-1/2" />
@@ -293,7 +293,7 @@ export default function TailAdminLayout({
             <button
               type="submit"
               disabled={isAuthenticating}
-              className="w-full py-3.5 bg-gradient-to-r from-[#D4AF37] to-[#C9A227] hover:brightness-110 text-[#1C2434] font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-[#D4AF37]/20 flex items-center justify-center gap-2 mt-2"
+              className="w-full py-3.5 bg-gradient-to-r from-[#d4a024] to-[#b88917] hover:brightness-110 text-[#1C2434] font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-[#b88917]/20 flex items-center justify-center gap-2 mt-2"
             >
               {isAuthenticating ? (
                 <span>Memverifikasi...</span>
@@ -371,7 +371,7 @@ export default function TailAdminLayout({
         {/* Sidebar Header / Logo */}
         <div className="flex items-center justify-between h-20 px-6 border-b border-[#2E3A47] bg-[#1C2434]">
           <Link href="/admin" className="flex items-center gap-3 overflow-hidden">
-            <div className="w-10 h-10 rounded-xl bg-white p-0.5 border border-[#D4AF37]/50 flex items-center justify-center shrink-0 shadow-md shadow-[#D4AF37]/20">
+            <div className="w-10 h-10 rounded-xl bg-white p-0.5 border border-[#b88917]/50 flex items-center justify-center shrink-0 shadow-md shadow-[#b88917]/20">
               <img
                 src="/logo-seleco.png"
                 alt="Seleco"
@@ -383,7 +383,7 @@ export default function TailAdminLayout({
                 <span className="font-serif-title text-lg font-bold text-white tracking-wider leading-tight truncate">
                   Seleco
                 </span>
-                <span className="text-[10px] uppercase tracking-wider text-[#D4AF37] font-medium truncate">
+                <span className="text-[10px] uppercase tracking-wider text-[#b88917] font-medium truncate">
                   Sedana legal consultant
                 </span>
               </div>
@@ -421,12 +421,12 @@ export default function TailAdminLayout({
                     href={item.href}
                     className={`flex items-center gap-3.5 px-3.5 py-3 rounded-xl text-xs font-semibold transition-all ${
                       isActive
-                        ? 'bg-[#333A48] text-white shadow-sm border-l-4 border-[#D4AF37]'
+                        ? 'bg-[#333A48] text-white shadow-sm border-l-4 border-[#b88917]'
                         : 'text-[#DEE4EE] hover:bg-[#333A48]/60 hover:text-white'
                     }`}
                     title={item.title}
                   >
-                    <Icon className={`w-5 h-5 shrink-0 ${isActive ? 'text-[#D4AF37]' : 'text-[#8A99AD]'}`} />
+                    <Icon className={`w-5 h-5 shrink-0 ${isActive ? 'text-[#b88917]' : 'text-[#8A99AD]'}`} />
                     {sidebarOpen && (
                       <div className="flex flex-col truncate">
                         <span className="truncate">{item.title}</span>
@@ -497,7 +497,7 @@ export default function TailAdminLayout({
                 className="flex items-center justify-between px-3.5 py-2.5 bg-[#24303F] hover:bg-[#333A48] border border-[#2E3A47] rounded-xl text-xs font-semibold text-[#DEE4EE] transition-all group"
               >
                 <div className="flex items-center gap-2">
-                  <ExternalLink className="w-4 h-4 text-[#D4AF37]" />
+                  <ExternalLink className="w-4 h-4 text-[#b88917]" />
                   <span>Pratinjau Publik</span>
                 </div>
                 <ChevronRight className="w-3.5 h-3.5 text-[#8A99AD] group-hover:translate-x-0.5 transition-transform" />
@@ -510,7 +510,7 @@ export default function TailAdminLayout({
         <div className="p-4 border-t border-[#2E3A47] bg-[#1C2434]">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3 overflow-hidden">
-              <div className="w-9 h-9 rounded-xl bg-[#333A48] border border-[#2E3A47] flex items-center justify-center font-bold text-xs text-[#D4AF37] shrink-0">
+              <div className="w-9 h-9 rounded-xl bg-[#333A48] border border-[#2E3A47] flex items-center justify-center font-bold text-xs text-[#b88917] shrink-0">
                 {currentUser?.name ? currentUser.name.charAt(0).toUpperCase() : 'A'}
               </div>
               {sidebarOpen && (
@@ -619,7 +619,7 @@ export default function TailAdminLayout({
                 onClick={() => setUserDropdownOpen(!userDropdownOpen)}
                 className="flex items-center gap-2 p-1.5 rounded-xl hover:bg-[#333A48] transition-colors"
               >
-                <div className="w-8 h-8 rounded-lg bg-[#333A48] border border-[#2E3A47] flex items-center justify-center font-bold text-xs text-[#D4AF37]">
+                <div className="w-8 h-8 rounded-lg bg-[#333A48] border border-[#2E3A47] flex items-center justify-center font-bold text-xs text-[#b88917]">
                   {currentUser?.name ? currentUser.name.charAt(0).toUpperCase() : 'A'}
                 </div>
                 <div className="hidden xl:flex flex-col text-left">

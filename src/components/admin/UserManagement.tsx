@@ -229,7 +229,7 @@ export default function UserManagement({ currentUsername = 'admin' }: UserManage
 
           <button
             onClick={openAddModal}
-            className="px-5 py-3 bg-gradient-to-r from-[#D4AF37] to-[#C9A227] hover:brightness-110 text-slate-950 font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md hover:shadow-gold flex items-center gap-2 shrink-0"
+            className="px-5 py-3 bg-gradient-to-r from-[#d4a024] to-[#b88917] hover:brightness-110 text-slate-950 font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md hover:shadow-gold flex items-center gap-2 shrink-0"
           >
             <UserPlus className="w-4 h-4" />
             <span>Tambah Admin Baru</span>

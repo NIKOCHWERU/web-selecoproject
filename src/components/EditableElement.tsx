@@ -483,7 +483,7 @@ export function EditableText({
           {/* Color Picker Quick Palette */}
           <div className="flex items-center gap-1 bg-slate-950/80 px-1.5 py-1 rounded-lg border border-slate-800">
             <Palette className="w-3.5 h-3.5 text-amber-300 mr-0.5" />
-            {['#ffffff', '#0f172a', '#D4AF37', '#f8fafc', '#94a3b8', '#dc2626', '#16a34a', '#2563eb'].map((c) => (
+            {['#ffffff', '#0f2034', '#b88917', '#f8fafc', '#94a3b8', '#dc2626', '#16a34a', '#2563eb'].map((c) => (
               <button
                 key={c}
                 type="button"
@@ -1707,11 +1707,11 @@ export function EditableSection({
           {/* Quick Bg Color Presets */}
           <div className="flex items-center gap-1.5 bg-slate-950/80 px-2 py-1.5 rounded-xl border border-slate-800">
             {[
-              { color: '#ffffff', label: 'Putih Bersih' },
+              { color: '#ffffff', label: 'Putih (Secondary)' },
               { color: '#f8fafc', label: 'Slate Terang' },
-              { color: '#0f172a', label: 'Navy Deep' },
-              { color: '#020617', label: 'Slate Gelap' },
-              { color: '#0b1120', label: 'Midnight' },
+              { color: '#0f2034', label: 'Navy (Primary)' },
+              { color: '#b88917', label: 'Orange (Accent)' },
+              { color: '#091523', label: 'Navy Dark' },
             ].map((p) => (
               <button
                 key={p.color}

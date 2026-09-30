@@ -487,7 +487,7 @@ export function IconPicker({
             <div className="flex items-center gap-1">
               <Palette className="w-3.5 h-3.5 text-amber-300 shrink-0" />
               <div className="flex items-center gap-1">
-                {['#D4AF37', '#ffffff', '#0f172a', '#2563eb', '#16a34a', '#dc2626'].map((c) => (
+                {['#b88917', '#ffffff', '#0f2034', '#2563eb', '#16a34a', '#dc2626'].map((c) => (
                   <button
                     key={c}
                     type="button"
@@ -499,7 +499,7 @@ export function IconPicker({
                 ))}
                 <input
                   type="color"
-                  value={customColor || '#D4AF37'}
+                  value={customColor || '#b88917'}
                   onChange={(e) => onChangeColor(e.target.value)}
                   className="w-4 h-4 rounded cursor-pointer bg-transparent border-0"
                   title="Pilih Warna Ikon Custom"
