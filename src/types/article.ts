@@ -6,7 +6,10 @@ export type BlockType =
   | 'list' 
   | 'callout' 
   | 'divider'
-  | 'code';
+  | 'code'
+  | 'table'
+  | 'cta'
+  | 'fileDownload';
 
 export interface GutenbergBlock {
   id: string;
@@ -25,6 +28,19 @@ export interface GutenbergBlock {
     listType?: 'bullet' | 'ordered';
     calloutType?: 'info' | 'warning' | 'tip' | 'success';
     title?: string;
+    // Table block support
+    headers?: string[];
+    rows?: string[][];
+    // CTA block support
+    ctaTitle?: string;
+    ctaDescription?: string;
+    ctaButtonText?: string;
+    ctaButtonUrl?: string;
+    // File download block support
+    fileName?: string;
+    fileSize?: string;
+    fileType?: string;
+    downloadUrl?: string;
     [key: string]: any;
   };
 }
@@ -43,6 +59,9 @@ export interface Article {
   readTime: string;
   status: 'published' | 'draft';
   featured?: boolean;
+  metaTitle?: string;
+  metaDescription?: string;
+  focusKeyword?: string;
   blocks: GutenbergBlock[];
   createdAt: string;
   updatedAt: string;

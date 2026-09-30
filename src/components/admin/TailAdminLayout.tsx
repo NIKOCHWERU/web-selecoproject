@@ -316,8 +316,8 @@ export default function TailAdminLayout({
     {
       id: 'editor',
       title: 'Editor Web',
-      subtitle: 'Visual Builder & Konten',
-      href: '/admin',
+      subtitle: 'Visual Builder ala Elementor',
+      href: '/admin/editor',
       icon: LayoutGrid,
     },
     {

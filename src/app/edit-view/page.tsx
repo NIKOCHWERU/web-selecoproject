@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import EditViewClient from './EditViewClient';
+import ElementorEditorClient from '@/app/admin/editor/ElementorEditorClient';
 
 export const metadata: Metadata = {
   title: 'SELECO Visual Live Editor | /edit-view',
@@ -11,5 +11,5 @@ export const metadata: Metadata = {
 };
 
 export default function EditViewPage() {
-  return <EditViewClient />;
+  return <ElementorEditorClient />;
 }

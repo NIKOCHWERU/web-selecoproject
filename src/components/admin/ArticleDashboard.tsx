@@ -19,7 +19,9 @@ import {
   AlertCircle,
   Tag,
   LayoutGrid,
-  List
+  List,
+  Star,
+  Globe
 } from 'lucide-react';
 import { Article } from '@/types/article';
 import GutenbergEditor from './GutenbergEditor';
@@ -29,6 +31,7 @@ export default function ArticleDashboard() {
   const [loading, setLoading] = useState<boolean>(true);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [statusFilter, setStatusFilter] = useState<'all' | 'published' | 'draft'>('all');
+  const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [viewMode, setViewMode] = useState<'table' | 'grid'>('table');
   
   // Editor mode state
@@ -102,7 +105,7 @@ export default function ArticleDashboard() {
       });
       const data = await res.json();
       if (res.ok && data.success) {
-        triggerToast('Artikel berhasil disimpan ke sistem Gutenberg!');
+        triggerToast('Artikel berhasil diperbarui!');
         setIsEditing(false);
         fetchArticles();
       } else {
@@ -115,10 +118,21 @@ export default function ArticleDashboard() {
     }
   };
 
+  const handleToggleStatus = async (article: Article) => {
+    const newStatus = article.status === 'published' ? 'draft' : 'published';
+    const updated: Article = { ...article, status: newStatus, updatedAt: new Date().toISOString() };
+    await handleSaveArticle(updated);
+  };
+
+  const handleToggleFeatured = async (article: Article) => {
+    const updated: Article = { ...article, featured: !article.featured, updatedAt: new Date().toISOString() };
+    await handleSaveArticle(updated);
+  };
+
   // If in Gutenberg editor mode, take full height
   if (isEditing) {
     return (
-      <div className="h-full flex flex-col bg-[#1A222C]">
+      <div className="h-full flex flex-col bg-[#0c131d]">
         <GutenbergEditor
           initialArticle={currentArticle}
           onSave={handleSaveArticle}
@@ -134,11 +148,13 @@ export default function ArticleDashboard() {
       item.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
       (item.tags && item.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase())));
     const matchesStatus = statusFilter === 'all' || item.status === statusFilter;
-    return matchesSearch && matchesStatus;
+    const matchesCategory = categoryFilter === 'all' || item.category === categoryFilter;
+    return matchesSearch && matchesStatus && matchesCategory;
   });
 
   const totalPublished = articles.filter((a) => a.status === 'published').length;
   const totalDraft = articles.filter((a) => a.status === 'draft').length;
+  const totalFeatured = articles.filter((a) => a.featured).length;
   const uniqueCategories = Array.from(new Set(articles.map((a) => a.category).filter(Boolean)));
 
   return (
@@ -155,24 +171,24 @@ export default function ArticleDashboard() {
         </div>
       )}
 
-      {/* Header Banner - TailAdmin Style */}
+      {/* Header Banner */}
       <div className="bg-[#24303F] border border-[#2E3A47] rounded-2xl p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#D4AF37]/10 border border-[#D4AF37]/30 rounded-full text-[#D4AF37] text-xs font-bold uppercase tracking-wider mb-2">
-            <Sparkles className="w-3.5 h-3.5" /> Gutenberg Workspace
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#b88917]/10 border border-[#b88917]/30 rounded-full text-[#b88917] text-xs font-bold uppercase tracking-wider mb-2">
+            <Sparkles className="w-3.5 h-3.5" /> Workspace Artikel &amp; Gutenberg
           </div>
           <h1 className="font-serif-title text-2xl sm:text-3xl font-bold text-white">
-            Manajemen Artikel &amp; Berita
+            Manajemen Artikel &amp; Publikasi Regulasi
           </h1>
           <p className="text-xs sm:text-sm text-[#8A99AD] mt-1">
-            Tulis, kelola, dan terbitkan artikel regulasi dan layanan bisnis dengan Gutenberg Block Editor.
+            Tulis, kelola SEO, dan publikasikan artikel hukum &amp; bisnis dengan editor blok profesional.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
           <button
             onClick={handleCreateNew}
-            className="px-5 py-3 bg-gradient-to-r from-[#D4AF37] to-[#C9A227] hover:brightness-110 text-[#1C2434] font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md shadow-[#D4AF37]/20 flex items-center gap-2"
+            className="px-5 py-3 bg-[#b88917] hover:bg-[#d4a024] text-[#0f2034] font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md shadow-[#b88917]/20 flex items-center gap-2"
           >
             <Plus className="w-4 h-4" />
             <span>Tulis Artikel Baru</span>
@@ -180,7 +196,7 @@ export default function ArticleDashboard() {
         </div>
       </div>
 
-      {/* TAILADMIN METRIC CARDS */}
+      {/* METRIC CARDS */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Card 1: Total Articles */}
         <div className="bg-[#24303F] border border-[#2E3A47] rounded-2xl p-5 shadow-sm">
@@ -224,36 +240,48 @@ export default function ArticleDashboard() {
           </div>
         </div>
 
-        {/* Card 4: Categories */}
+        {/* Card 4: Pilihan Redaksi */}
         <div className="bg-[#24303F] border border-[#2E3A47] rounded-2xl p-5 shadow-sm">
           <div className="flex items-center justify-between">
-            <div className="w-12 h-12 rounded-xl bg-purple-500/15 flex items-center justify-center text-purple-400">
-              <Tag className="w-6 h-6" />
+            <div className="w-12 h-12 rounded-xl bg-[#b88917]/15 flex items-center justify-center text-[#b88917]">
+              <Star className="w-6 h-6 fill-current" />
             </div>
-            <span className="text-[11px] font-bold uppercase tracking-wider text-purple-400">Kategori</span>
+            <span className="text-[11px] font-bold uppercase tracking-wider text-[#b88917]">Featured</span>
           </div>
           <div className="mt-4">
-            <h4 className="text-2xl font-bold text-white">{uniqueCategories.length}</h4>
-            <span className="text-xs text-[#8A99AD]">Kategori Layanan</span>
+            <h4 className="text-2xl font-bold text-[#b88917]">{totalFeatured}</h4>
+            <span className="text-xs text-[#8A99AD]">Pilihan Redaksi Unggulan</span>
           </div>
         </div>
       </div>
 
-      {/* FILTER, SEARCH & VIEW SWITCHER - TailAdmin Bar */}
-      <div className="bg-[#24303F] border border-[#2E3A47] rounded-2xl p-4 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+      {/* FILTER, SEARCH & VIEW SWITCHER */}
+      <div className="bg-[#24303F] border border-[#2E3A47] rounded-2xl p-4 shadow-sm flex flex-col lg:flex-row items-center justify-between gap-4">
         {/* Search */}
-        <div className="relative w-full sm:w-80">
+        <div className="relative w-full lg:w-80">
           <Search className="w-4 h-4 text-[#8A99AD] absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             placeholder="Cari judul, kategori, atau tag..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 bg-[#1C2434] border border-[#2E3A47] rounded-xl text-xs text-white placeholder-[#8A99AD] focus:outline-none focus:border-[#D4AF37] transition-colors"
+            className="w-full pl-10 pr-4 py-2.5 bg-[#1C2434] border border-[#2E3A47] rounded-xl text-xs text-white placeholder-[#8A99AD] focus:outline-none focus:border-[#b88917] transition-colors"
           />
         </div>
 
-        <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
+        <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto justify-between lg:justify-end">
+          {/* Category Filter */}
+          <select
+            value={categoryFilter}
+            onChange={(e) => setCategoryFilter(e.target.value)}
+            className="bg-[#1C2434] border border-[#2E3A47] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#b88917]"
+          >
+            <option value="all">Semua Kategori ({articles.length})</option>
+            {uniqueCategories.map(cat => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+          </select>
+
           {/* Status Tabs */}
           <div className="flex items-center gap-1 bg-[#1C2434] p-1 rounded-xl border border-[#2E3A47]">
             <button
@@ -293,7 +321,7 @@ export default function ArticleDashboard() {
             <button
               onClick={() => setViewMode('table')}
               className={`p-1.5 rounded-lg transition-all ${
-                viewMode === 'table' ? 'bg-[#333A48] text-[#D4AF37]' : 'text-[#8A99AD] hover:text-white'
+                viewMode === 'table' ? 'bg-[#333A48] text-[#b88917]' : 'text-[#8A99AD] hover:text-white'
               }`}
               title="Tampilan Tabel"
             >
@@ -302,7 +330,7 @@ export default function ArticleDashboard() {
             <button
               onClick={() => setViewMode('grid')}
               className={`p-1.5 rounded-lg transition-all ${
-                viewMode === 'grid' ? 'bg-[#333A48] text-[#D4AF37]' : 'text-[#8A99AD] hover:text-white'
+                viewMode === 'grid' ? 'bg-[#333A48] text-[#b88917]' : 'text-[#8A99AD] hover:text-white'
               }`}
               title="Tampilan Grid Kartu"
             >
@@ -315,8 +343,8 @@ export default function ArticleDashboard() {
       {/* ARTICLES CONTENT (TABLE OR GRID) */}
       {loading ? (
         <div className="text-center py-20 bg-[#24303F] border border-[#2E3A47] rounded-2xl">
-          <div className="animate-spin w-8 h-8 border-2 border-[#D4AF37] border-t-transparent rounded-full mx-auto mb-3" />
-          <p className="text-xs text-[#8A99AD]">Memuat artikel Gutenberg...</p>
+          <div className="animate-spin w-8 h-8 border-2 border-[#b88917] border-t-transparent rounded-full mx-auto mb-3" />
+          <p className="text-xs text-[#8A99AD]">Memuat artikel...</p>
         </div>
       ) : filteredArticles.length === 0 ? (
         <div className="text-center py-16 bg-[#24303F] border border-[#2E3A47] rounded-2xl p-6">
@@ -325,19 +353,19 @@ export default function ArticleDashboard() {
             {searchQuery ? 'Tidak ada artikel yang cocok' : 'Belum ada artikel'}
           </h3>
           <p className="text-xs text-[#8A99AD] mt-1 max-w-sm mx-auto">
-            {searchQuery ? 'Coba ubah kata kunci pencarian Anda' : 'Klik tombol di bawah untuk membuat artikel pertama dengan editor Gutenberg'}
+            {searchQuery ? 'Coba sesuaikan kata kunci atau filter pencarian Anda' : 'Klik tombol di bawah untuk membuat artikel baru dengan editor Gutenberg'}
           </p>
           {!searchQuery && (
             <button
               onClick={handleCreateNew}
-              className="mt-4 px-4 py-2 bg-[#D4AF37] text-[#1C2434] rounded-xl text-xs font-bold hover:brightness-110 shadow-md shadow-[#D4AF37]/20"
+              className="mt-4 px-4 py-2 bg-[#b88917] text-[#0f2034] rounded-xl text-xs font-bold hover:brightness-110 shadow-md shadow-[#b88917]/20"
             >
               + Mulai Tulis Artikel
             </button>
           )}
         </div>
       ) : viewMode === 'table' ? (
-        /* TAILADMIN DATA TABLE */
+        /* DATA TABLE VIEW */
         <div className="bg-[#24303F] border border-[#2E3A47] rounded-2xl overflow-hidden shadow-sm">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
@@ -345,7 +373,7 @@ export default function ArticleDashboard() {
                 <tr className="bg-[#1C2434] border-b border-[#2E3A47] text-[11px] font-bold text-[#8A99AD] uppercase tracking-wider">
                   <th className="py-4 px-5">Artikel</th>
                   <th className="py-4 px-5">Kategori</th>
-                  <th className="py-4 px-5">Blok</th>
+                  <th className="py-4 px-5">Featured</th>
                   <th className="py-4 px-5">Tanggal &amp; Waktu</th>
                   <th className="py-4 px-5">Status</th>
                   <th className="py-4 px-5 text-right">Aksi</th>
@@ -365,7 +393,10 @@ export default function ArticleDashboard() {
                           />
                         </div>
                         <div className="min-w-0 max-w-md">
-                          <h4 className="font-bold text-white line-clamp-1 hover:text-[#D4AF37] transition-colors">
+                          <h4 
+                            onClick={() => handleEditArticle(article)}
+                            className="font-bold text-white line-clamp-1 hover:text-[#b88917] transition-colors cursor-pointer"
+                          >
                             {article.title}
                           </h4>
                           <p className="text-[11px] text-[#8A99AD] line-clamp-1 mt-0.5">
@@ -377,16 +408,24 @@ export default function ArticleDashboard() {
 
                     {/* Category */}
                     <td className="py-4 px-5 whitespace-nowrap">
-                      <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#1C2434] border border-[#2E3A47] text-[#D4AF37]">
+                      <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#1C2434] border border-[#2E3A47] text-[#b88917]">
                         {article.category}
                       </span>
                     </td>
 
-                    {/* Gutenberg Blocks Count */}
-                    <td className="py-4 px-5 whitespace-nowrap text-[#8A99AD]">
-                      <span className="px-2 py-0.5 bg-[#1C2434] rounded text-[11px] font-mono border border-[#2E3A47]">
-                        {article.blocks?.length || 0} blok
-                      </span>
+                    {/* Featured Toggle */}
+                    <td className="py-4 px-5 whitespace-nowrap">
+                      <button
+                        onClick={() => handleToggleFeatured(article)}
+                        className={`p-1.5 rounded-lg border transition-all ${
+                          article.featured
+                            ? 'bg-[#b88917]/20 border-[#b88917]/40 text-[#b88917]'
+                            : 'bg-[#1C2434] border-[#2E3A47] text-[#8A99AD] hover:text-white'
+                        }`}
+                        title={article.featured ? 'Hapus dari Pilihan Redaksi' : 'Jadikan Pilihan Redaksi'}
+                      >
+                        <Star className={`w-3.5 h-3.5 ${article.featured ? 'fill-current' : ''}`} />
+                      </button>
                     </td>
 
                     {/* Date */}
@@ -397,37 +436,39 @@ export default function ArticleDashboard() {
                       </div>
                     </td>
 
-                    {/* Status Badge */}
+                    {/* Status Badge with Quick Toggle */}
                     <td className="py-4 px-5 whitespace-nowrap">
-                      <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
-                        article.status === 'published'
-                          ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                          : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
-                      }`}>
+                      <button
+                        onClick={() => handleToggleStatus(article)}
+                        className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all hover:scale-105 ${
+                          article.status === 'published'
+                            ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20'
+                            : 'bg-amber-500/10 text-amber-400 border border-amber-500/20 hover:bg-amber-500/20'
+                        }`}
+                        title="Klik untuk ubah status tayang"
+                      >
                         <span className={`w-1.5 h-1.5 rounded-full ${
                           article.status === 'published' ? 'bg-emerald-400' : 'bg-amber-400'
                         }`} />
                         <span>{article.status === 'published' ? 'Terbit' : 'Draft'}</span>
-                      </span>
+                      </button>
                     </td>
 
                     {/* Action buttons */}
                     <td className="py-4 px-5 whitespace-nowrap text-right">
                       <div className="flex items-center justify-end gap-1.5">
-                        {article.status === 'published' && (
-                          <Link
-                            href={`/insight/${article.slug}`}
-                            target="_blank"
-                            className="p-2 text-[#8A99AD] hover:text-white hover:bg-[#1C2434] rounded-lg transition-colors"
-                            title="Pratinjau Publik"
-                          >
-                            <ExternalLink className="w-4 h-4" />
-                          </Link>
-                        )}
+                        <Link
+                          href={`/insight/${article.slug}`}
+                          target="_blank"
+                          className="p-2 text-[#8A99AD] hover:text-white hover:bg-[#1C2434] rounded-lg transition-colors"
+                          title="Pratinjau Publik"
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                        </Link>
                         <button
                           onClick={() => handleEditArticle(article)}
-                          className="px-3 py-1.5 bg-[#D4AF37]/10 hover:bg-[#D4AF37] text-[#D4AF37] hover:text-[#1C2434] border border-[#D4AF37]/30 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5"
-                          title="Buka Gutenberg Editor"
+                          className="px-3 py-1.5 bg-[#b88917]/10 hover:bg-[#b88917] text-[#b88917] hover:text-[#0f2034] border border-[#b88917]/30 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5"
+                          title="Buka Editor Gutenberg"
                         >
                           <Edit3 className="w-3.5 h-3.5" />
                           <span>Edit</span>
@@ -448,12 +489,12 @@ export default function ArticleDashboard() {
           </div>
         </div>
       ) : (
-        /* TAILADMIN GRID CARDS VIEW */
+        /* GRID CARDS VIEW */
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {filteredArticles.map((article) => (
             <div
               key={article.id}
-              className="bg-[#24303F] border border-[#2E3A47] hover:border-[#D4AF37]/40 rounded-2xl overflow-hidden shadow-sm transition-all flex flex-col justify-between group"
+              className="bg-[#24303F] border border-[#2E3A47] hover:border-[#b88917]/40 rounded-2xl overflow-hidden shadow-sm transition-all flex flex-col justify-between group"
             >
               <div>
                 {/* Thumbnail */}
@@ -463,19 +504,28 @@ export default function ArticleDashboard() {
                     alt={article.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute top-3 left-3">
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#1C2434]/80 backdrop-blur-md text-[#D4AF37] border border-[#D4AF37]/30">
+                  <div className="absolute top-3 left-3 flex items-center gap-1.5">
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#1C2434]/80 backdrop-blur-md text-[#b88917] border border-[#b88917]/30">
                       {article.category}
                     </span>
+                    {article.featured && (
+                      <span className="p-1 rounded-full bg-[#b88917] text-[#0f2034] shadow" title="Pilihan Redaksi">
+                        <Star className="w-3 h-3 fill-current" />
+                      </span>
+                    )}
                   </div>
                   <div className="absolute top-3 right-3">
-                    <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full backdrop-blur-md ${
-                      article.status === 'published'
-                        ? 'bg-emerald-950/80 text-emerald-400 border border-emerald-500/40'
-                        : 'bg-amber-950/80 text-amber-400 border border-amber-500/40'
-                    }`}>
+                    <button
+                      onClick={() => handleToggleStatus(article)}
+                      className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full backdrop-blur-md transition-transform hover:scale-105 ${
+                        article.status === 'published'
+                          ? 'bg-emerald-950/80 text-emerald-400 border border-emerald-500/40'
+                          : 'bg-amber-950/80 text-amber-400 border border-amber-500/40'
+                      }`}
+                      title="Klik untuk ubah status"
+                    >
                       {article.status === 'published' ? 'Terbit' : 'Draft'}
-                    </span>
+                    </button>
                   </div>
                   <div className="absolute bottom-2 right-2 text-[10px] text-white bg-black/60 backdrop-blur-sm px-2 py-0.5 rounded font-mono">
                     {article.blocks?.length || 0} Blok
@@ -492,7 +542,10 @@ export default function ArticleDashboard() {
                     <span>{article.readTime}</span>
                   </div>
 
-                  <h3 className="font-serif-title text-base font-bold text-white group-hover:text-[#D4AF37] transition-colors line-clamp-2">
+                  <h3 
+                    onClick={() => handleEditArticle(article)}
+                    className="font-serif-title text-base font-bold text-white group-hover:text-[#b88917] transition-colors line-clamp-2 cursor-pointer"
+                  >
                     {article.title}
                   </h3>
 
@@ -505,16 +558,23 @@ export default function ArticleDashboard() {
               {/* Card Footer */}
               <div className="p-4 pt-0 border-t border-[#2E3A47]/60 flex items-center justify-between gap-2 mt-3">
                 <div className="flex items-center gap-1">
-                  {article.status === 'published' && (
-                    <Link
-                      href={`/insight/${article.slug}`}
-                      target="_blank"
-                      className="p-2 text-[#8A99AD] hover:text-white hover:bg-[#1C2434] rounded-lg transition-colors"
-                      title="Buka Halaman Publik"
-                    >
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    </Link>
-                  )}
+                  <Link
+                    href={`/insight/${article.slug}`}
+                    target="_blank"
+                    className="p-2 text-[#8A99AD] hover:text-white hover:bg-[#1C2434] rounded-lg transition-colors"
+                    title="Buka Halaman Publik"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </Link>
+                  <button
+                    onClick={() => handleToggleFeatured(article)}
+                    className={`p-2 rounded-lg transition-colors ${
+                      article.featured ? 'text-[#b88917]' : 'text-[#8A99AD] hover:text-white'
+                    }`}
+                    title={article.featured ? 'Hapus dari Pilihan Redaksi' : 'Jadikan Pilihan Redaksi'}
+                  >
+                    <Star className={`w-3.5 h-3.5 ${article.featured ? 'fill-current' : ''}`} />
+                  </button>
                   <button
                     onClick={() => handleDeleteArticle(article.id, article.title)}
                     className="p-2 text-[#8A99AD] hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-colors"
@@ -526,10 +586,10 @@ export default function ArticleDashboard() {
 
                 <button
                   onClick={() => handleEditArticle(article)}
-                  className="px-3.5 py-1.5 bg-[#D4AF37]/10 hover:bg-[#D4AF37] text-[#D4AF37] hover:text-[#1C2434] border border-[#D4AF37]/30 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5"
+                  className="px-3.5 py-1.5 bg-[#b88917]/10 hover:bg-[#b88917] text-[#b88917] hover:text-[#0f2034] border border-[#b88917]/30 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5"
                 >
                   <Edit3 className="w-3.5 h-3.5" />
-                  <span>Edit Gutenberg</span>
+                  <span>Edit</span>
                 </button>
               </div>
             </div>
