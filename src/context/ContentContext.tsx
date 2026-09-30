@@ -50,8 +50,15 @@ export const ContentProvider = ({
       console.warn('Could not read from localStorage:', e);
     }
 
-    // Always fetch latest saved content from server API
-    reloadContent();
+    // Only fetch fresh content from server API if in admin/editor mode or if initialContent was empty
+    const isAdmin = typeof window !== 'undefined' && (
+      sessionStorage.getItem('seleco_admin_auth') === 'true' ||
+      sessionStorage.getItem('seleco_editor_mode') === 'click_to_edit' ||
+      sessionStorage.getItem('seleco_admin_auth_editor') === 'true'
+    );
+    if (isAdmin || !initialContent) {
+      reloadContent();
+    }
 
     // Listen for storage events (if user saves in /admin in another tab, update this tab immediately)
     const handleStorageChange = (e: StorageEvent) => {

@@ -1,10 +1,27 @@
 import type { Metadata } from 'next';
+import { Inter, Cormorant_Garamond } from 'next/font/google';
 import './globals.css';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import React from 'react';
+import { ContentProvider } from '@/context/ContentContext';
+import { getSiteContent } from '@/lib/contentService';
+import SiteWrapper from '@/components/SiteWrapper';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
+
+const cormorantGaramond = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  display: 'swap',
+  variable: '--font-cormorant',
+});
+
+// Incremental Static Regeneration (ISR) - Cache static pages for 60s for ultra-fast TTFB (<50ms)
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'SELECO | SEDANA LEGAL CONSULTANT — Perizinan, Imigrasi, Pajak, Pertanahan & SDM',
@@ -14,14 +31,6 @@ export const metadata: Metadata = {
     index: false,
     follow: false,
     nocache: true,
-    googleBot: {
-      index: false,
-      follow: false,
-      noimageindex: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'none',
-      'max-snippet': -1,
-    },
   },
   openGraph: {
     title: 'SELECO — SEDANA LEGAL CONSULTANT',
@@ -46,11 +55,6 @@ export const metadata: Metadata = {
   },
 };
 
-import React from 'react';
-import { ContentProvider } from '@/context/ContentContext';
-import { getSiteContent } from '@/lib/contentService';
-import SiteWrapper from '@/components/SiteWrapper';
-
 export default function RootLayout({
   children,
 }: {
@@ -59,12 +63,10 @@ export default function RootLayout({
   const initialContent = getSiteContent();
 
   return (
-    <html lang="id" className="scroll-smooth">
-      <body className="bg-white text-slate-900 antialiased min-h-screen flex flex-col justify-between selection:bg-gold-accent selection:text-navy-deep">
+    <html lang="id" className={`${inter.variable} ${cormorantGaramond.variable} scroll-smooth`}>
+      <body className={`${inter.className} bg-white text-slate-900 antialiased min-h-screen flex flex-col justify-between selection:bg-[#b88917] selection:text-white`}>
         <ContentProvider initialContent={initialContent}>
-          <React.Suspense fallback={<div className="min-h-screen bg-[#0B0F19]" />}>
-            <SiteWrapper>{children}</SiteWrapper>
-          </React.Suspense>
+          <SiteWrapper>{children}</SiteWrapper>
         </ContentProvider>
       </body>
     </html>

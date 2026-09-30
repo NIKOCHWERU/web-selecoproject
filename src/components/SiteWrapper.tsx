@@ -1,40 +1,37 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { usePathname, useSearchParams, useRouter } from 'next/navigation';
+import React, { useState, useEffect, Suspense, useCallback } from 'react';
+import { usePathname, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useContent } from '@/context/ContentContext';
 import MaintenancePage from '@/components/MaintenancePage';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import FloatingWA from '@/components/FloatingWA';
-import { Sliders, ShieldAlert, Code2, EyeOff } from 'lucide-react';
+import { Sliders, ShieldAlert } from 'lucide-react';
 
 interface SiteWrapperProps {
   children: React.ReactNode;
 }
 
+function PreviewDetector({ onDetect }: { onDetect: (isPreview: boolean) => void }) {
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    const hasAdminSession = typeof window !== 'undefined' && sessionStorage.getItem('seleco_admin_auth') === 'true';
+    const hasPreviewParam = searchParams.get('preview') === 'true';
+    onDetect(hasAdminSession || hasPreviewParam);
+  }, [searchParams, onDetect]);
+  return null;
+}
+
 export default function SiteWrapper({ children }: SiteWrapperProps) {
   const { content } = useContent();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const router = useRouter();
-
   const [isAdminOrPreview, setIsAdminOrPreview] = useState<boolean>(false);
-  const [mounted, setMounted] = useState<boolean>(false);
 
-  useEffect(() => {
-    setMounted(true);
-    const hasAdminSession = sessionStorage.getItem('seleco_admin_auth') === 'true';
-    const hasPreviewParam = searchParams.get('preview') === 'true';
-
-    // Only allow full website access if explicitly in preview mode or with active admin session
-    if (hasAdminSession || hasPreviewParam) {
-      setIsAdminOrPreview(true);
-    } else {
-      setIsAdminOrPreview(false);
-    }
-  }, [searchParams]);
+  const handleDetect = useCallback((status: boolean) => {
+    setIsAdminOrPreview(status);
+  }, []);
 
   // Always render children directly for admin, edit-view, and api routes
   if (
@@ -45,37 +42,47 @@ export default function SiteWrapper({ children }: SiteWrapperProps) {
     return <>{children}</>;
   }
 
-  // Site is in maintenance mode unless explicitly set to 'live'
-  const isMaintenance = content?.siteMode?.status !== 'live';
+  // Site is in maintenance mode only if status is explicitly 'maintenance'
+  const isMaintenance = content?.siteMode?.status === 'maintenance';
 
   // If in maintenance mode and user is not admin previewing
   if (isMaintenance && !isAdminOrPreview) {
-    return <MaintenancePage content={content} />;
+    return (
+      <>
+        <Suspense fallback={null}>
+          <PreviewDetector onDetect={handleDetect} />
+        </Suspense>
+        <MaintenancePage content={content} />
+      </>
+    );
   }
 
-  // If in maintenance mode BUT user is previewing as admin
   return (
     <>
+      <Suspense fallback={null}>
+        <PreviewDetector onDetect={handleDetect} />
+      </Suspense>
+
       {isMaintenance && isAdminOrPreview && (
-        <div className="bg-amber-400 text-slate-950 px-4 py-2 text-xs font-bold flex flex-wrap items-center justify-between gap-2 sticky top-0 z-[100] shadow-md">
+        <div className="bg-[#b88917] text-[#0f2034] px-4 py-2 text-xs font-bold flex flex-wrap items-center justify-between gap-2 sticky top-0 z-[100] shadow-md">
           <div className="flex items-center gap-2">
-            <ShieldAlert className="w-4 h-4 text-slate-950 shrink-0" />
+            <ShieldAlert className="w-4 h-4 text-[#0f2034] shrink-0" />
             <span>
               MODE PRATINJAU ADMIN: Situs berstatus &quot;Dalam Pengembangan&quot; untuk publik. Pengunjung biasa melihat halaman pemeliharaan.
             </span>
           </div>
           <div className="flex items-center gap-2 shrink-0">
             <Link
-              href="/edit-view"
-              className="px-2.5 py-1 bg-slate-950 text-amber-300 rounded text-[11px] font-bold hover:brightness-125 transition-all flex items-center gap-1"
+              href="/admin/editor"
+              className="px-2.5 py-1 bg-[#0f2034] text-white rounded text-[11px] font-bold hover:brightness-125 transition-all flex items-center gap-1"
             >
-              <span>Editor Visual (/edit-view)</span>
+              <span>Editor Web</span>
             </Link>
             <Link
               href="/admin"
-              className="px-2.5 py-1 bg-slate-900 text-white rounded text-[11px] font-bold hover:brightness-125 transition-all flex items-center gap-1"
+              className="px-2.5 py-1 bg-white/20 text-[#0f2034] rounded text-[11px] font-bold hover:brightness-125 transition-all flex items-center gap-1"
             >
-              <Sliders className="w-3 h-3 text-amber-300" />
+              <Sliders className="w-3 h-3 text-[#0f2034]" />
               <span>Dashboard Admin</span>
             </Link>
           </div>
