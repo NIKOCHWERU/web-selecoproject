@@ -81,38 +81,49 @@ export default function ServicesSection() {
   const pillars: any[] = (services?.pillars && services.pillars.length > 0) ? services.pillars : defaultPillars;
 
   return (
-    <EditableSection id="services" name="Layanan & Spesialisasi Section" className="py-20 lg:py-28 bg-[#0a1420] border-b border-white/10">
+    <EditableSection id="services" name="Layanan & Spesialisasi Section" className="py-20 lg:py-28 bg-[#0a1420] border-b border-white/10 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}
-        <div className="max-w-2xl mb-14">
-          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#dfa82e] mb-3">
-            <EditableText
-              fieldPath="services.badge"
-              fallback="5 Pilar Layanan Konsultan Terpadu"
-              label="Badge Layanan"
-            />
-          </p>
-          <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
-            <EditableText
-              fieldPath="services.title"
-              fallback={`${totalServices} Layanan Konsultan Terpadu`}
-              label="Judul Layanan"
-            />
-          </h2>
-          <div className="w-10 h-[2px] bg-[#dfa82e] my-5" />
-          <p className="text-sm text-slate-300 leading-relaxed font-normal">
-            <EditableText
-              fieldPath="services.subtitle"
-              fallback="Solusi konsultan komprehensif mencakup Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM untuk akselerasi dan kepatuhan operasional bisnis Anda."
-              label="Subjudul Layanan"
-              multiline={true}
-            />
-          </p>
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-[#dfa82e] mb-4">
+              <EditableText
+                fieldPath="services.badge"
+                fallback="5 Pilar Layanan Konsultan Terpadu"
+                label="Badge Layanan"
+              />
+            </div>
+            <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
+              <EditableText
+                fieldPath="services.title"
+                fallback={`${totalServices} Layanan Konsultan Terpadu`}
+                label="Judul Layanan"
+              />
+            </h2>
+            <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal mt-4">
+              <EditableText
+                fieldPath="services.subtitle"
+                fallback="Solusi konsultan komprehensif mencakup Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM untuk akselerasi dan kepatuhan operasional bisnis Anda."
+                label="Subjudul Layanan"
+                multiline={true}
+              />
+            </p>
+          </div>
+
+          <div className="shrink-0">
+            <Link
+              href="/layanan"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/20 hover:border-[#dfa82e]/50 text-xs font-bold uppercase tracking-wider text-white hover:text-[#dfa82e] transition-all"
+            >
+              <span>Jelajahi Seluruh Layanan</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </div>
 
-        {/* Categories: 5 cards in two rows (3 + 2) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 border border-white/10 rounded-xl overflow-hidden mb-12">
+        {/* Eventure-style 5 Modern Pillar Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {pillars.map((cat, idx) => {
             const fallbackLink = cat.linkUrl || `/layanan?cat=${cat.id}`;
             const currentLink = services?.pillars?.[idx]?.linkUrl || fallbackLink;
@@ -120,23 +131,26 @@ export default function ServicesSection() {
             return (
               <motion.div
                 key={cat.id || idx}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.35, delay: idx * 0.04 }}
-                className="bg-[#0f2034] p-7 flex flex-col justify-between hover:bg-[#152a42] group transition-all duration-200"
+                transition={{ duration: 0.4, delay: idx * 0.05 }}
+                className="rounded-3xl bg-[#0f2034]/80 border border-white/10 hover:border-[#dfa82e]/50 p-8 flex flex-col justify-between hover:-translate-y-1.5 transition-all duration-300 shadow-xl group backdrop-blur-sm relative overflow-hidden"
               >
+                {/* Subtle top ambient glow on hover */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#dfa82e]/5 rounded-full blur-2xl group-hover:bg-[#dfa82e]/10 transition-all pointer-events-none" />
+
                 <div>
-                  <div className="flex items-center justify-between mb-5">
-                    <div className="w-10 h-10 flex items-center justify-center border border-white/10 bg-white/5 rounded group-hover:border-[#dfa82e]/50 transition-colors">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white/5 border border-white/10 group-hover:bg-[#dfa82e]/15 group-hover:border-[#dfa82e]/30 transition-all">
                       <EditableIcon
                         iconKey={`services.pillars.${idx}.icon`}
                         fallbackIcon={cat.iconName || 'FileCheck'}
-                        className="w-5 h-5 text-[#dfa82e] group-hover:scale-110 transition-transform"
+                        className="w-6 h-6 text-[#dfa82e] group-hover:scale-110 transition-transform"
                         label={`Ikon Pilar ${idx + 1}`}
                       />
                     </div>
-                    <span className="text-[10px] font-bold text-white/50 group-hover:text-white/80 uppercase tracking-widest transition-colors">
+                    <span className="px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase bg-white/5 border border-white/10 text-[#dfa82e] group-hover:border-[#dfa82e]/30 transition-colors">
                       <EditableText
                         fieldPath={`services.pillars.${idx}.count`}
                         fallback={cat.count || '242 Items'}
@@ -145,7 +159,7 @@ export default function ServicesSection() {
                     </span>
                   </div>
 
-                  <h3 className="font-serif-title text-lg font-bold text-white group-hover:text-[#dfa82e] mb-2.5 transition-colors">
+                  <h3 className="font-serif-title text-xl font-bold text-white group-hover:text-[#dfa82e] mb-3 transition-colors">
                     <EditableText
                       fieldPath={`services.pillars.${idx}.name`}
                       fallback={cat.name}
@@ -153,7 +167,8 @@ export default function ServicesSection() {
                       as="span"
                     />
                   </h3>
-                  <div className="text-xs text-slate-300 group-hover:text-white/90 leading-relaxed mb-5 font-normal transition-colors">
+
+                  <div className="text-xs sm:text-sm text-slate-300 group-hover:text-white/90 leading-relaxed mb-6 font-normal transition-colors">
                     <EditableText
                       fieldPath={`services.pillars.${idx}.description`}
                       fallback={cat.description}
@@ -172,7 +187,7 @@ export default function ServicesSection() {
                       e.stopPropagation();
                     }
                   }}
-                  className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#dfa82e] group-hover:text-white border-t border-white/10 pt-4 transition-colors"
+                  className="inline-flex items-center justify-between w-full pt-4 border-t border-white/10 text-xs font-bold uppercase tracking-wider text-[#dfa82e] group-hover:text-white transition-colors"
                 >
                   <EditableText
                     fieldPath={`services.pillars.${idx}.linkText`}
@@ -181,27 +196,29 @@ export default function ServicesSection() {
                     linkPath={`services.pillars.${idx}.linkUrl`}
                     fallbackLink={fallbackLink}
                   />
-                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                  <span className="w-8 h-8 rounded-full bg-white/5 group-hover:bg-[#dfa82e] group-hover:text-[#0a1420] flex items-center justify-center transition-all">
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                  </span>
                 </Link>
               </motion.div>
             );
           })}
         </div>
 
-        {/* Directory Banner */}
-        <div className="bg-[#0f2034] text-white rounded-xl p-8 lg:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-white/10 relative overflow-hidden">
-          {/* Left accent */}
-          <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#b88917]" />
-          <div className="space-y-2 pl-4 z-10">
-            <p className="text-[10px] text-[#b88917] font-bold uppercase tracking-widest">Direktori Lengkap</p>
-            <h3 className="font-serif-title text-xl lg:text-2xl font-bold text-white">
+        {/* Directory Banner — Modern Eventure Rounded Strip */}
+        <div className="rounded-3xl bg-gradient-to-r from-[#0f2034] via-[#142940] to-[#0f2034] text-white p-8 lg:p-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 border border-white/15 shadow-2xl relative overflow-hidden">
+          <div className="space-y-3 z-10 max-w-2xl">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-widest text-[#dfa82e]">
+              Direktori Lengkap &amp; Pencarian Terpadu
+            </span>
+            <h3 className="font-serif-title text-2xl sm:text-3xl font-bold text-white">
               <EditableText
                 fieldPath="services.ctaBannerTitle"
                 fallback="Membutuhkan Solusi Konsultan Spesifik untuk Bisnis Anda?"
                 label="Judul Banner Layanan"
               />
             </h3>
-            <p className="text-xs text-white/50 max-w-xl">
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
               <EditableText
                 fieldPath="services.ctaBannerSubtitle"
                 fallback={`Gunakan pencarian interaktif kami untuk menemukan ${totalServices} solusi layanan Konsultan Perizinan, Imigrasi, Pajak, Pertanahan, dan SDM.`}
@@ -218,12 +235,12 @@ export default function ServicesSection() {
                 e.stopPropagation();
               }
             }}
-            className="px-7 py-3.5 bg-[#b88917] hover:bg-[#d4a024] text-[#0f2034] font-bold text-[11px] uppercase tracking-wider rounded transition-all whitespace-nowrap flex items-center gap-2 shrink-0 z-10"
+            className="px-8 py-4 bg-gradient-to-r from-[#dfa82e] to-[#b88917] hover:brightness-110 text-[#0a1420] font-bold text-xs uppercase tracking-wider rounded-full shadow-lg shadow-[#dfa82e]/20 transition-all whitespace-nowrap flex items-center gap-2.5 shrink-0 z-10"
           >
             <EditableIcon
               iconKey="services.ctaBannerIcon"
               fallbackIcon="Search"
-              className="w-3.5 h-3.5"
+              className="w-4 h-4"
               label="Ikon Tombol Banner"
             />
             <EditableText

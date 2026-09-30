@@ -61,20 +61,42 @@ export default function TrustStatsBanner() {
   ];
 
   return (
-    <EditableSection id="trust-stats" name="Statistik Kepercayaan Banner" className="bg-[#0f2034] py-16 border-b border-white/10">
+    <EditableSection id="trust-stats" name="Statistik Kepercayaan Banner" className="bg-[#0a1420] py-16 lg:py-20 border-b border-white/10 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-white/10">
+        {/* Eventure-style "Innovative Companies That Trust Us" trust strip */}
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-12 mb-12 border-b border-white/10">
+          <div className="max-w-md">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-[#dfa82e]">
+              Kepercayaan &amp; Akuntabilitas
+            </span>
+            <h3 className="font-serif-title text-xl sm:text-2xl font-bold text-white mt-1">
+              Dipercaya Ratusan Korporasi &amp; Pengusaha di Seluruh Indonesia
+            </h3>
+          </div>
+          <div className="flex flex-wrap items-center gap-6 sm:gap-10 text-white/50 text-xs font-semibold tracking-wider uppercase">
+            <span className="px-4 py-2 rounded-xl bg-white/5 border border-white/10">Kepatuhan OSS RBA</span>
+            <span className="px-4 py-2 rounded-xl bg-white/5 border border-white/10">Keimigrasian &amp; TKA</span>
+            <span className="px-4 py-2 rounded-xl bg-white/5 border border-white/10">Konsultasi Pajak</span>
+            <span className="px-4 py-2 rounded-xl bg-white/5 border border-white/10">Agraria &amp; BPN</span>
+          </div>
+        </div>
+
+        {/* 4 Stats Cards in Eventure Style */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
           {stats.map((stat, i) => (
-            <div key={i} className={`px-6 lg:px-10 text-center ${i === 0 ? 'lg:pl-0 pl-0' : ''} ${i === stats.length - 1 ? 'lg:pr-0' : ''} py-4`}>
-              <div className="flex items-center justify-center mb-4">
+            <div
+              key={i}
+              className="rounded-2xl p-6 bg-[#0f2034]/70 border border-white/10 hover:border-[#dfa82e]/40 transition-all duration-300 text-center flex flex-col items-center justify-center group shadow-lg"
+            >
+              <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 group-hover:bg-[#dfa82e]/10 group-hover:border-[#dfa82e]/30 flex items-center justify-center mb-4 transition-colors">
                 <EditableIcon
                   iconKey={stat.iconKey}
                   fallbackIcon={stat.fallbackIcon}
-                  className="w-5 h-5 text-[#b88917]"
+                  className="w-5 h-5 text-[#dfa82e]"
                   label={stat.iconLabel}
                 />
               </div>
-              <p className="font-serif-title text-3xl lg:text-4xl xl:text-5xl font-bold text-white tracking-tight">
+              <p className="font-serif-title text-3xl sm:text-4xl font-bold text-white tracking-tight group-hover:text-[#dfa82e] transition-colors">
                 <EditableText
                   fieldPath={stat.numberPath}
                   fallback={stat.numberFallback}
@@ -82,7 +104,7 @@ export default function TrustStatsBanner() {
                 />
                 {stat.numberSuffix}
               </p>
-              <p className="text-[10px] text-white/40 uppercase tracking-widest font-semibold mt-2">
+              <p className="text-[11px] text-slate-300 uppercase tracking-wider font-semibold mt-2">
                 <EditableText
                   fieldPath={stat.labelPath}
                   fallback={stat.labelFallback}

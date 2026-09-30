@@ -151,7 +151,7 @@ export default function Navbar() {
                   e.stopPropagation();
                 }
               }}
-              className="px-5 py-2.5 text-[11px] font-bold uppercase tracking-wider text-[#0f2034] bg-[#b88917] hover:bg-[#d4a024] rounded transition-all flex items-center gap-2"
+              className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-[#0a1420] bg-gradient-to-r from-[#dfa82e] to-[#b88917] hover:brightness-110 rounded-full shadow-md shadow-[#dfa82e]/20 transition-all flex items-center gap-2"
             >
               <EditableIcon
                 iconKey="navbar.ctaIcon"
@@ -262,7 +262,7 @@ export default function Navbar() {
                       setMobileOpen(false);
                     }
                   }}
-                  className="w-full py-3 text-[11px] font-bold uppercase tracking-wider text-center text-[#0f2034] bg-[#b88917] hover:bg-[#d4a024] rounded flex items-center justify-center gap-2 transition-all"
+                  className="w-full py-3.5 text-xs font-bold uppercase tracking-wider text-center text-[#0a1420] bg-gradient-to-r from-[#dfa82e] to-[#b88917] hover:brightness-110 rounded-full flex items-center justify-center gap-2 transition-all shadow-md shadow-[#dfa82e]/20"
                 >
                   <EditableIcon
                     iconKey="navbar.ctaIcon"

@@ -9,22 +9,22 @@ import TrustStatsBanner from '@/components/TrustStatsBanner';
 export default function HomePage() {
   return (
     <>
-      {/* 1. Hero Section with Video Background */}
+      {/* 1. Hero Section (Eventure Asymmetric Executive Layout) */}
       <Hero />
 
-      {/* 2. About Overview (White Theme) */}
-      <AboutSection showMoreLink={true} />
-
-      {/* 3. Services Overview (Clean Astra Light Theme) */}
-      <ServicesSection />
-
-      {/* 4. Trust & Stats Banner (Clean White Theme - Dynamic) */}
+      {/* 2. Trust & Stats Banner (Eventure Trust Strip & Modern Metric Cards) */}
       <TrustStatsBanner />
 
-      {/* 5. Editorial Insights (Light Theme) */}
+      {/* 3. About Overview (Eventure Collage with Legal & HRM Imagery & Elevated Cards) */}
+      <AboutSection showMoreLink={true} />
+
+      {/* 4. Services Overview (5 Pillars Modern Cards & Directory Strip) */}
+      <ServicesSection />
+
+      {/* 5. Editorial Insights */}
       <InsightsSection />
 
-      {/* 6. Call to Action Banner to Contact Page (Full Navy Theme) */}
+      {/* 6. Call to Action Banner to Contact Page */}
       <section className="py-24 bg-[#0a1420] border-t border-white/10 text-white relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#dfa82e]/10 border border-[#dfa82e]/30 rounded-full text-[#dfa82e] text-xs font-bold uppercase tracking-widest mb-4">
@@ -40,13 +40,13 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link
               href="/kontak"
-              className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-gold-accent to-gold-bright text-[#0a1420] font-bold text-xs uppercase tracking-wider rounded-lg hover:brightness-110 transition-all shadow-md flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-[#dfa82e] to-[#b88917] text-[#0a1420] font-bold text-xs uppercase tracking-wider rounded-full hover:brightness-110 transition-all shadow-lg shadow-[#dfa82e]/20 flex items-center justify-center gap-2"
             >
               <Calendar className="w-4 h-4" /> Hubungi Kami &amp; Jadwalkan Konsultasi
             </Link>
             <Link
               href="/tentang"
-              className="w-full sm:w-auto px-8 py-4 bg-white/5 border border-white/20 text-white hover:border-[#dfa82e] hover:text-[#dfa82e] font-bold text-xs uppercase tracking-wider rounded-lg transition-all flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-8 py-4 bg-white/5 border border-white/20 text-white hover:border-[#dfa82e] hover:text-[#dfa82e] font-bold text-xs uppercase tracking-wider rounded-full transition-all flex items-center justify-center gap-2"
             >
               Pelajari Profil Kami <ArrowRight className="w-4 h-4" />
             </Link>
