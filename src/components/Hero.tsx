@@ -32,23 +32,24 @@ export default function Hero() {
 
   return (
     <EditableSection id="hero" name="Hero Banner Section" className="relative min-h-[700px] lg:min-h-[780px] flex items-center justify-center overflow-hidden py-16 lg:py-24 bg-[#0a1420] text-white">
-      {/* Looping Corporate Office Background Video */}
+      {/* Looping Corporate Office Room Background Video */}
       <div className="absolute inset-0 overflow-hidden z-0">
         <video
           autoPlay
           loop
           muted
           playsInline
-          poster={hero?.bgImage || 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80'}
-          className="w-full h-full object-cover scale-105 opacity-30 transition-opacity duration-1000"
+          preload="auto"
+          poster="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80"
+          className="w-full h-full object-cover scale-105 opacity-55 lg:opacity-65 transition-opacity duration-700"
         >
-          <source src="https://assets.mixkit.co/videos/42588/42588-720.mp4" type="video/mp4" />
           <source src="https://assets.mixkit.co/videos/42884/42884-720.mp4" type="video/mp4" />
+          <source src="https://assets.mixkit.co/videos/42587/42587-720.mp4" type="video/mp4" />
+          <source src="https://assets.mixkit.co/videos/42588/42588-720.mp4" type="video/mp4" />
         </video>
-        {/* Navy High-Contrast Gradient Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0a1420]/95 via-[#0f2034]/85 to-[#0a1420]/90 z-10" />
-        <div className="absolute inset-0 bg-[#0a1420]/40 z-10" />
-        <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-[#0a1420] to-transparent z-10" />
+        {/* Balanced Navy Gradient Overlay: keeps office room clearly visible while ensuring text readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0a1420]/88 via-[#0f2034]/70 to-[#0a1420]/82 z-10" />
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#0a1420] to-transparent z-10" />
       </div>
 
       {/* Ambient Gold Radial Glow */}
