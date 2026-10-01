@@ -1,2006 +1,518 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { 
-  Save, 
-  RotateCcw, 
+  LayoutGrid, 
+  FileText, 
+  Users, 
   ExternalLink, 
-  Monitor, 
-  Tablet, 
-  Smartphone, 
-  Upload, 
-  Plus, 
-  Trash2, 
-  Eye, 
+  Radio, 
   CheckCircle2, 
   AlertCircle, 
-  ChevronDown, 
-  ChevronRight, 
   Lock, 
-  LogOut,
-  Image as ImageIcon,
+  LogOut, 
   Sparkles,
+  ArrowRight,
+  Shield,
   Layers,
-  FileText,
-  Users,
-  HelpCircle,
-  Phone,
-  Scale,
-  Briefcase,
-  ShieldCheck,
-  MousePointerClick,
+  Eye,
   Sliders,
-  Maximize2,
-  Minimize2,
-  Home,
-  Compass,
-  Building2,
-  Download,
-  UploadCloud,
-  FileJson,
-  CheckSquare,
-  Undo2,
-  Clock
+  PlaySquare,
+  Newspaper,
+  Edit3
 } from 'lucide-react';
-import TailAdminLayout from '@/components/admin/TailAdminLayout';
-import { SiteContent, defaultSiteContent } from '@/data/defaultSiteContent';
-import { compressImageToDataUrl } from '@/lib/imageUtils';
-
-export type PreviewPageOption = 'home' | 'about' | 'services' | 'insight' | 'contact';
 
 export default function AdminClient() {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [checkingAuth, setCheckingAuth] = useState<boolean>(true);
+  const [usernameInput, setUsernameInput] = useState<string>('admin');
+  const [passwordInput, setPasswordInput] = useState<string>('');
+  const [authError, setAuthError] = useState<string>('');
+  const [isAuthenticating, setIsAuthenticating] = useState<boolean>(false);
 
-  // Content state inside builder
-  const [editorContent, setEditorContentRaw] = useState<SiteContent>(defaultSiteContent);
-  const [editorMode, setEditorMode] = useState<'sidebar' | 'click_to_edit'>('sidebar');
-  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
-  const [activePage, setActivePage] = useState<PreviewPageOption>('home');
-  const [pageDropdownOpen, setPageDropdownOpen] = useState<boolean>(false);
-  const pageDropdownRef = useRef<HTMLDivElement>(null);
-  const [activeTab, setActiveTab] = useState<'hero' | 'about' | 'services' | 'retainer' | 'insights' | 'faq' | 'global' | 'import_export'>('hero');
-  const [activeSection, setActiveSection] = useState<string>('hero-text');
-  const [deviceView, setDeviceView] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
-  const [isSaving, setIsSaving] = useState<boolean>(false);
-  const [saveToast, setSaveToast] = useState<{ show: boolean; message: string; type: 'success' | 'error' }>({
-    show: false,
-    message: '',
-    type: 'success',
-  });
-  const [uploadingField, setUploadingField] = useState<string | null>(null);
+  // Site Mode state (Live vs Maintenance)
+  const [siteMode, setSiteMode] = useState<'maintenance' | 'live'>('maintenance');
+  const [isSwitchingMode, setIsSwitchingMode] = useState<boolean>(false);
+  const [toastMessage, setToastMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
 
-  // ── UNDO HISTORY ────────────────────────────────────────────────────────────
-  const [history, setHistory] = useState<SiteContent[]>([]);
-  const [historyIndex, setHistoryIndex] = useState<number>(-1);
-  const isUndoingRef = useRef<boolean>(false); // flag to skip pushing during undo
+  // Quick stats
+  const [articleCount, setArticleCount] = useState<number>(0);
 
-  // Wrapper that also pushes to history stack
-  const setEditorContent = useCallback((updater: SiteContent | ((prev: SiteContent) => SiteContent)) => {
-    setEditorContentRaw((prev) => {
-      const next = typeof updater === 'function' ? updater(prev) : updater;
-      if (!isUndoingRef.current) {
-        setHistory((h) => {
-          const sliced = h.slice(0, historyIndex + 1);
-          const newHistory = [...sliced, prev];
-          return newHistory.slice(-40); // keep max 40 snapshots
-        });
-        setHistoryIndex((i) => Math.min(i + 1, 39));
-      }
-      return next;
-    });
-  }, [historyIndex]);
-
-  const canUndo = history.length > 0 && historyIndex >= 0;
-
-  const handleUndo = useCallback(() => {
-    if (!canUndo) return;
-    isUndoingRef.current = true;
-    const prevContent = history[historyIndex];
-    setEditorContentRaw(prevContent);
-    setHistoryIndex((i) => i - 1);
-    setTimeout(() => { isUndoingRef.current = false; }, 50);
-    triggerToast('Perubahan di-Undo ↩', 'success');
-  }, [canUndo, history, historyIndex]);
-
-  // Keyboard shortcut Ctrl+Z / Cmd+Z
-  useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey) {
-        e.preventDefault();
-        handleUndo();
-      }
-    };
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
-  }, [handleUndo]);
-
-  // ── AUTO-SAVE (debounced 4 seconds after last change) ────────────────────────
-  const [autoSaveStatus, setAutoSaveStatus] = useState<'idle' | 'pending' | 'saving' | 'saved'>('idle');
-  const autoSaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const isFirstRenderRef = useRef<boolean>(true);
-
-  useEffect(() => {
-    if (isFirstRenderRef.current) {
-      isFirstRenderRef.current = false;
-      return;
-    }
-    setAutoSaveStatus('pending');
-    if (autoSaveTimerRef.current) clearTimeout(autoSaveTimerRef.current);
-    autoSaveTimerRef.current = setTimeout(async () => {
-      setAutoSaveStatus('saving');
-      try {
-        localStorage.setItem('seleco_site_content', JSON.stringify(editorContent));
-        window.dispatchEvent(new CustomEvent('seleco_content_updated', { detail: editorContent }));
-        await fetch('/api/admin/content', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ content: editorContent }),
-        });
-        setAutoSaveStatus('saved');
-        setTimeout(() => setAutoSaveStatus('idle'), 3000);
-      } catch {
-        setAutoSaveStatus('idle');
-      }
-    }, 4000);
-    return () => { if (autoSaveTimerRef.current) clearTimeout(autoSaveTimerRef.current); };
-  }, [editorContent]);
-
-  // Responsive Iframe Reference & Sync
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-  const [iframeLoaded, setIframeLoaded] = useState<boolean>(false);
-
-
-  const sendPageToIframe = (page: PreviewPageOption) => {
-    if (iframeRef.current?.contentWindow) {
-      iframeRef.current.contentWindow.postMessage({
-        type: 'SET_PREVIEW_PAGE',
-        page: page,
-      }, '*');
-    }
+  const showToast = (text: string, type: 'success' | 'error' = 'success') => {
+    setToastMessage({ text, type });
+    setTimeout(() => setToastMessage(null), 4000);
   };
 
-  const handleSelectPage = (page: PreviewPageOption) => {
-    setActivePage(page);
-    setPageDropdownOpen(false);
-    sendPageToIframe(page);
-
-    // Also auto-switch form tab to relevant section for seamless experience
-    if (page === 'home') {
-      setActiveTab('hero');
-    } else if (page === 'about') {
-      setActiveTab('about');
-    } else if (page === 'services') {
-      setActiveTab('services');
-    } else if (page === 'insight') {
-      setActiveTab('insights');
-    } else if (page === 'contact') {
-      setActiveTab('global');
-    }
-  };
-
-  // Close dropdown on click outside
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (pageDropdownRef.current && !pageDropdownRef.current.contains(e.target as Node)) {
-        setPageDropdownOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    // Check authentication
+    const auth = sessionStorage.getItem('seleco_admin_auth') || sessionStorage.getItem('seleco_admin_auth_editor');
+    if (auth === 'true') {
+      setIsAuthenticated(true);
+    }
+    setCheckingAuth(false);
+
+    // Fetch site mode & stats
+    fetchSiteStatus();
   }, []);
 
-  const sendContentToIframe = (contentToSend: SiteContent) => {
+  const fetchSiteStatus = async () => {
     try {
-      sessionStorage.setItem('seleco_live_preview_content', JSON.stringify(contentToSend));
-      sessionStorage.setItem('seleco_editor_mode', editorMode);
-      if (iframeRef.current?.contentWindow) {
-        iframeRef.current.contentWindow.postMessage({
-          type: 'UPDATE_SITE_CONTENT',
-          content: contentToSend,
-        }, '*');
-        iframeRef.current.contentWindow.postMessage({
-          type: 'SET_EDITOR_MODE',
-          mode: editorMode,
-        }, '*');
-      }
-    } catch (e) {
-      console.error('Error broadcasting to preview iframe:', e);
-    }
-  };
+      const [contentRes, articlesRes] = await Promise.all([
+        fetch('/api/admin/content', { cache: 'no-store' }),
+        fetch('/api/admin/articles', { cache: 'no-store' })
+      ]);
 
-  // Broadcast to iframe on every single keystroke / content change or mode change
-  useEffect(() => {
-    sendContentToIframe(editorContent);
-  }, [editorContent, editorMode]);
-
-  // Listen to iframe ready signal & inline edits from click-to-edit
-  useEffect(() => {
-    const handleIframeMessage = (e: MessageEvent) => {
-      if (e.data?.type === 'PREVIEW_IFRAME_READY') {
-        setIframeLoaded(true);
-        sendContentToIframe(editorContent);
-        sendPageToIframe(activePage);
-      }
-      if (e.data?.type === 'ON_ELEMENT_UPDATED' && e.data.content) {
-        setEditorContent(e.data.content);
-      }
-    };
-    window.addEventListener('message', handleIframeMessage);
-    return () => window.removeEventListener('message', handleIframeMessage);
-  }, [editorContent, editorMode, activePage]);
-
-  // Load content on mount
-  useEffect(() => {
-    try {
-      const cached = localStorage.getItem('seleco_site_content');
-      if (cached) {
-        setEditorContent(JSON.parse(cached));
-      }
-    } catch (e) {}
-    fetchCurrentContent();
-  }, []);
-
-  const fetchCurrentContent = async () => {
-    try {
-      const res = await fetch('/api/admin/content', { cache: 'no-store' });
-      if (res.ok) {
-        const data = await res.json();
-        if (data.content) {
-          setEditorContent(data.content);
+      if (contentRes.ok) {
+        const data = await contentRes.json();
+        if (data.content?.siteMode?.status) {
+          setSiteMode(data.content.siteMode.status);
         }
       }
-    } catch (err) {
-      console.error('Error loading content in admin:', err);
+
+      if (articlesRes.ok) {
+        const artData = await articlesRes.json();
+        if (artData.articles) {
+          setArticleCount(artData.articles.length);
+        }
+      }
+    } catch (e) {
+      console.error('Failed to load admin stats:', e);
     }
   };
 
-  const handleSave = async () => {
-    setIsSaving(true);
-    try {
-      // 1. Instantly save in localStorage and dispatch cross-tab sync event
-      try {
-        localStorage.setItem('seleco_site_content', JSON.stringify(editorContent));
-        window.dispatchEvent(new CustomEvent('seleco_content_updated', { detail: editorContent }));
-      } catch (e) {}
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAuthError('');
+    setIsAuthenticating(true);
 
-      // 2. Persist to server
-      const res = await fetch('/api/admin/content', {
+    try {
+      const res = await fetch('/api/admin/auth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content: editorContent }),
+        body: JSON.stringify({ username: usernameInput, password: passwordInput }),
       });
+
       const data = await res.json();
+
       if (res.ok && data.success) {
-        triggerToast('Semua perubahan berhasil disimpan dan telah aktif di website!', 'success');
+        // Set all module sessions so user never has to re-login across dashboards
+        sessionStorage.setItem('seleco_admin_auth', 'true');
+        sessionStorage.setItem('seleco_admin_auth_editor', 'true');
+        sessionStorage.setItem('seleco_admin_auth_articles', 'true');
+        sessionStorage.setItem('seleco_admin_auth_users', 'true');
+        if (data.user) {
+          sessionStorage.setItem('seleco_admin_user', JSON.stringify(data.user));
+        }
+        setIsAuthenticated(true);
       } else {
-        triggerToast(data.error || 'Gagal menyimpan perubahan', 'error');
+        setAuthError(data.error || 'Username atau password salah');
       }
-    } catch (err: any) {
-      triggerToast('Terjadi kesalahan jaringan saat menyimpan', 'error');
+    } catch (err) {
+      setAuthError('Gagal terhubung ke server autentikasi');
     } finally {
-      setIsSaving(false);
+      setIsAuthenticating(false);
     }
   };
 
-  const handleResetToDefault = () => {
-    if (confirm('Apakah Anda yakin ingin mengembalikan seluruh konten ke template bawaan (default)? Semua perubahan yang belum disimpan akan hilang.')) {
-      setEditorContent(defaultSiteContent);
-      try {
-        localStorage.setItem('seleco_site_content', JSON.stringify(defaultSiteContent));
-        window.dispatchEvent(new CustomEvent('seleco_content_updated', { detail: defaultSiteContent }));
-      } catch (e) {}
-      triggerToast('Konten dikembalikan ke default. Klik "Simpan" jika ingin menerapkannya ke website.', 'success');
-    }
+  const handleLogout = () => {
+    sessionStorage.removeItem('seleco_admin_auth');
+    sessionStorage.removeItem('seleco_admin_auth_editor');
+    sessionStorage.removeItem('seleco_admin_auth_articles');
+    sessionStorage.removeItem('seleco_admin_auth_users');
+    sessionStorage.removeItem('seleco_admin_user');
+    setIsAuthenticated(false);
   };
 
-  // Export seluruh konten website ke file JSON (dapat dibuka/diedit di Text Editor / Word)
-  const handleExportContent = () => {
+  const handleToggleMode = async (mode: 'maintenance' | 'live') => {
+    setIsSwitchingMode(true);
     try {
-      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(editorContent, null, 2));
-      const downloadAnchor = document.createElement('a');
-      downloadAnchor.setAttribute("href", dataStr);
-      downloadAnchor.setAttribute("download", `seleco-konten-lengkap-${new Date().toISOString().slice(0, 10)}.json`);
-      document.body.appendChild(downloadAnchor);
-      downloadAnchor.click();
-      downloadAnchor.remove();
-      triggerToast('File template konten website berhasil didownload!', 'success');
-    } catch (e) {
-      triggerToast('Gagal mengekspor file konten', 'error');
-    }
-  };
+      const res = await fetch('/api/admin/content', { cache: 'no-store' });
+      const data = await res.json();
+      const currentContent = data.content || {};
 
-  // Import file JSON untuk mengisi seluruh konten website secara instan
-  const handleImportContent = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+      const updated = {
+        ...currentContent,
+        siteMode: {
+          ...(currentContent.siteMode || {}),
+          status: mode,
+        },
+      };
 
-    const reader = new FileReader();
-    reader.onload = async (event) => {
-      try {
-        const parsed = JSON.parse(event.target?.result as string);
-        if (!parsed || typeof parsed !== 'object') {
-          throw new Error('Format file tidak valid');
-        }
-
-        // Validate structure
-        const merged = { ...defaultSiteContent, ...parsed };
-        setEditorContent(merged);
-
-        // Instantly sync
-        try {
-          localStorage.setItem('seleco_site_content', JSON.stringify(merged));
-          window.dispatchEvent(new CustomEvent('seleco_content_updated', { detail: merged }));
-        } catch (err) {}
-
-        // Auto-save to server
-        const res = await fetch('/api/admin/content', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ content: merged }),
-        });
-
-        if (res.ok) {
-          triggerToast('Seluruh konten website berhasil di-import & langsung aktif!', 'success');
-        } else {
-          triggerToast('Konten berhasil dimuat ke editor. Klik "Simpan" untuk menerapkan.', 'success');
-        }
-      } catch (err: any) {
-        console.error('Import error:', err);
-        triggerToast('Gagal memproses file JSON. Pastikan file berformat JSON yang valid.', 'error');
-      }
-    };
-    reader.readAsText(file);
-    // Reset file input value so user can upload again if desired
-    e.target.value = '';
-  };
-
-  const handleToggleSiteMode = async (mode: 'maintenance' | 'live') => {
-    const updated = {
-      ...editorContent,
-      siteMode: {
-        ...(editorContent.siteMode || {
-          badgeText: 'Website Dalam Pengembangan',
-          title: 'Website Resmi SELECO Sedang Dalam Pengembangan',
-          subtitle: 'Kami sedang mempersiapkan sistem dan direktori layanan konsultan korporasi terbaik untuk Anda. Untuk konsultasi perizinan, imigrasi, pajak, pertanahan, atau SDM, tim konsultan SELECO tetap aktif melayani Anda via WhatsApp dan Email resmi.',
-          estimatedDate: 'Segera Hadir (Coming Soon)',
-          whatsappText: 'Konsultasi Sekarang via WhatsApp',
-        }),
-        status: mode,
-      },
-    };
-    setEditorContent(updated);
-
-    try {
-      localStorage.setItem('seleco_site_content', JSON.stringify(updated));
-      window.dispatchEvent(new CustomEvent('seleco_content_updated', { detail: updated }));
-    } catch (e) {}
-
-    try {
-      const res = await fetch('/api/admin/content', {
+      const saveRes = await fetch('/api/admin/content', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ content: updated }),
       });
-      if (res.ok) {
-        triggerToast(
+
+      if (saveRes.ok) {
+        setSiteMode(mode);
+        try {
+          localStorage.setItem('seleco_site_content', JSON.stringify(updated));
+          window.dispatchEvent(new CustomEvent('seleco_content_updated', { detail: updated }));
+        } catch (e) {}
+
+        showToast(
           mode === 'maintenance'
-            ? 'Status Situs: "DALAM PENGEMBANGAN". Pengunjung umum akan melihat halaman Under Construction.'
-            : 'Status Situs: "TAYANG (LIVE)"! Seluruh website sekarang dapat diakses bebas oleh publik & Google.',
+            ? 'Status: Website dalam Mode Pengembangan'
+            : 'Status: Website TAYANG (LIVE) untuk publik & Google!',
           'success'
         );
+      } else {
+        showToast('Gagal mengubah status website', 'error');
       }
     } catch (e) {
-      triggerToast('Gagal memperbarui status situs', 'error');
-    }
-  };
-
-  const triggerToast = (message: string, type: 'success' | 'error') => {
-    setSaveToast({ show: true, message, type });
-    setTimeout(() => {
-      setSaveToast({ show: false, message: '', type: 'success' });
-    }, 4000);
-  };
-
-  // Image Upload Handler (100% Zero 404 Guarantee)
-  const handleFileUpload = async (file: File, onUploaded: (url: string) => void, fieldKey: string) => {
-    setUploadingField(fieldKey);
-    try {
-      // 1. Immediately compress on client to lightweight, high quality Base64 Data URL
-      // This works 100% offline, on serverless, on local dev, and NEVER throws 404!
-      const dataUrl = await compressImageToDataUrl(file);
-      onUploaded(dataUrl);
-
-      // 2. Also attempt upload to server in background to save on disk
-      try {
-        const formData = new FormData();
-        formData.append('file', file);
-        await fetch('/api/admin/upload', {
-          method: 'POST',
-          body: formData,
-        });
-      } catch (serverErr) {
-        console.warn('Server upload background notice:', serverErr);
-      }
-
-      triggerToast('Foto berhasil diproses & diterapkan secara live!', 'success');
-    } catch (err) {
-      console.error('Upload processing error:', err);
-      triggerToast('Terjadi kesalahan saat memproses gambar', 'error');
+      showToast('Terjadi kesalahan jaringan', 'error');
     } finally {
-      setUploadingField(null);
+      setIsSwitchingMode(false);
     }
   };
 
-  // Helper update functions with Auto-Propagation
-  const updateGlobal = (key: keyof SiteContent['global'], value: string) => {
-    setEditorContent((prev) => {
-      const updated = {
-        ...prev,
-        global: { ...prev.global, [key]: value },
-      };
-
-      // Auto-propagate totalServices changes
-      if (key === 'totalServices') {
-        const oldNum = prev.global?.totalServices || prev.hero?.stat2Number || '445+';
-        const newNum = value;
-        updated.hero = { ...updated.hero, stat2Number: newNum };
-        if (updated.hero.ctaButton1Text && updated.hero.ctaButton1Text.includes(oldNum)) {
-          updated.hero.ctaButton1Text = updated.hero.ctaButton1Text.replaceAll(oldNum, newNum);
-        }
-        if (updated.services.title && updated.services.title.includes(oldNum)) {
-          updated.services.title = updated.services.title.replaceAll(oldNum, newNum);
-        }
-        if (updated.services.ctaBannerButtonText && updated.services.ctaBannerButtonText.includes(oldNum)) {
-          updated.services.ctaBannerButtonText = updated.services.ctaBannerButtonText.replaceAll(oldNum, newNum);
-        }
-      }
-
-      return updated;
-    });
-  };
-
-  const updateHero = (key: keyof SiteContent['hero'], value: any) => {
-    setEditorContent((prev) => {
-      const updated = {
-        ...prev,
-        hero: { ...prev.hero, [key]: value },
-      };
-
-      // If user edits stat2Number in Hero (e.g. from 445+ to 400+), auto-propagate to all pages!
-      if (key === 'stat2Number' && typeof value === 'string') {
-        const oldNum = prev.hero?.stat2Number || prev.global?.totalServices || '445+';
-        const newNum = value;
-        updated.global = {
-          ...updated.global,
-          totalServices: newNum,
-        };
-        if (updated.hero.ctaButton1Text && updated.hero.ctaButton1Text.includes(oldNum)) {
-          updated.hero.ctaButton1Text = updated.hero.ctaButton1Text.replaceAll(oldNum, newNum);
-        }
-        if (updated.services.title && updated.services.title.includes(oldNum)) {
-          updated.services.title = updated.services.title.replaceAll(oldNum, newNum);
-        }
-        if (updated.services.ctaBannerButtonText && updated.services.ctaBannerButtonText.includes(oldNum)) {
-          updated.services.ctaBannerButtonText = updated.services.ctaBannerButtonText.replaceAll(oldNum, newNum);
-        }
-      }
-
-      return updated;
-    });
-  };
-
-  const updateAbout = (key: keyof SiteContent['about'], value: any) => {
-    setEditorContent((prev) => ({
-      ...prev,
-      about: { ...prev.about, [key]: value },
-    }));
-  };
-
-  const updateServices = (key: keyof SiteContent['services'], value: string) => {
-    setEditorContent((prev) => ({
-      ...prev,
-      services: { ...prev.services, [key]: value },
-    }));
-  };
-
-  const updateRetainer = (key: keyof SiteContent['retainer'], value: string) => {
-    setEditorContent((prev) => ({
-      ...prev,
-      retainer: { ...prev.retainer, [key]: value },
-    }));
-  };
-
-  const updateContact = (key: keyof SiteContent['contact'], value: string) => {
-    setEditorContent((prev) => ({
-      ...prev,
-      contact: { ...prev.contact, [key]: value },
-    }));
-  };
-
-  const updateTeam = (key: keyof SiteContent['team'], value: any) => {
-    setEditorContent((prev) => ({
-      ...prev,
-      team: { ...prev.team, [key]: value },
-    }));
-  };
-
-  const updateInsights = (key: keyof SiteContent['insights'], value: any) => {
-    setEditorContent((prev) => ({
-      ...prev,
-      insights: { ...prev.insights, [key]: value },
-    }));
-  };
-
-  const updateFaq = (key: keyof SiteContent['faq'], value: any) => {
-    setEditorContent((prev) => ({
-      ...prev,
-      faq: { ...prev.faq, [key]: value },
-    }));
-  };
-
-  const updateFooter = (key: keyof SiteContent['footer'], value: string) => {
-    setEditorContent((prev) => ({
-      ...prev,
-      footer: { ...prev.footer, [key]: value },
-    }));
-  };
-
-  return (
-    <TailAdminLayout
-      activeNav="editor"
-      title="Editor Web"
-      subtitle="Visual Page Builder & Pengaturan Konten Website"
-      fullHeight={true}
-      hideSidebar={editorMode === 'click_to_edit' || isFullscreen}
-      onToggleHideSidebar={() => setIsFullscreen(!isFullscreen)}
-      siteMode={editorContent.siteMode?.status || 'maintenance'}
-      onSiteModeChange={handleToggleSiteMode}
-      headerActions={
-        <div className="flex items-center gap-2">
-          {/* Pilih Halaman Menu Dropdown */}
-          <div className="relative" ref={pageDropdownRef}>
-            <button
-              onClick={() => setPageDropdownOpen(!pageDropdownOpen)}
-              className="flex items-center gap-2 px-3 py-1.5 bg-[#1C2434] hover:bg-[#24303F] border border-[#2E3A47] hover:border-[#D4AF37]/50 rounded-xl text-xs font-semibold text-white transition-all shadow-sm"
-              title="Pilih Halaman Menu yang Ingin Diedit"
-            >
-              <Compass className="w-4 h-4 text-[#D4AF37]" />
-              <span className="hidden sm:inline text-[#8A99AD] text-[11px] uppercase tracking-wider">Halaman:</span>
-              <span className="text-[#D4AF37] font-bold">
-                {activePage === 'home' && '🏠 Beranda'}
-                {activePage === 'about' && '🏢 Tentang Kami'}
-                {activePage === 'services' && '💼 Layanan'}
-                {activePage === 'insight' && '📰 Insight'}
-                {activePage === 'contact' && '📞 Kontak'}
-              </span>
-              <ChevronDown className={`w-3.5 h-3.5 text-[#8A99AD] transition-transform duration-200 ${pageDropdownOpen ? 'rotate-180' : ''}`} />
-            </button>
-
-            {/* Dropdown Menu */}
-            {pageDropdownOpen && (
-              <div className="absolute left-0 mt-2 w-56 bg-[#1C2434] border border-[#2E3A47] rounded-xl shadow-2xl py-1.5 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-                <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-[#8A99AD] border-b border-[#2E3A47]/60">
-                  Pilih Halaman Menu
-                </div>
-                {[
-                  { id: 'home', label: 'Beranda (Home)', icon: Home, route: '/' },
-                  { id: 'about', label: 'Tentang Kami', icon: Building2, route: '/tentang' },
-                  { id: 'services', label: '5 Pilar Layanan', icon: Briefcase, route: '/layanan' },
-                  { id: 'insight', label: 'Insight & Regulasi', icon: FileText, route: '/insight' },
-                  { id: 'contact', label: 'Kontak & Konsultasi', icon: Phone, route: '/kontak' },
-                ].map((item) => {
-                  const Icon = item.icon;
-                  const isSelected = activePage === item.id;
-                  return (
-                    <button
-                      key={item.id}
-                      onClick={() => handleSelectPage(item.id as PreviewPageOption)}
-                      className={`w-full flex items-center justify-between px-3 py-2.5 text-xs text-left transition-colors ${
-                        isSelected
-                          ? 'bg-[#333A48] text-[#D4AF37] font-bold border-l-2 border-[#D4AF37]'
-                          : 'text-[#CBD5E1] hover:bg-[#24303F] hover:text-white'
-                      }`}
-                    >
-                      <div className="flex items-center gap-2.5">
-                        <Icon className={`w-4 h-4 ${isSelected ? 'text-[#D4AF37]' : 'text-[#8A99AD]'}`} />
-                        <span>{item.label}</span>
-                      </div>
-                      <span className="text-[10px] text-[#64748B] font-mono">{item.route}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-
-          {/* Mode Switcher */}
-          <div className="hidden lg:flex items-center bg-[#1C2434] p-1 rounded-xl border border-[#2E3A47]">
-            <button
-              onClick={() => {
-                setEditorMode('sidebar');
-                setIsFullscreen(false);
-              }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
-                editorMode === 'sidebar'
-                  ? 'bg-[#333A48] text-[#D4AF37] font-bold shadow-sm'
-                  : 'text-[#8A99AD] hover:text-white'
-              }`}
-              title="Mode Formulir Lengkap: Edit seluruh teks & upload foto per bagian seperti form"
-            >
-              <Sliders className="w-3.5 h-3.5" />
-              <span>Mode Formulir</span>
-            </button>
-            <Link
-              href="/edit-view"
-              className="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all text-[#D4AF37] hover:bg-[#333A48]"
-              title="Buka Halaman Khusus Editor Visual Fullscreen (/edit-view)"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
-              <span>Mode Visual (/edit-view)</span>
-            </Link>
-          </div>
-
-          {/* Device Switcher */}
-          <div className="hidden md:flex items-center bg-[#1C2434] p-1 rounded-xl border border-[#2E3A47]">
-            <button
-              onClick={() => setDeviceView('desktop')}
-              className={`p-1.5 rounded-lg transition-all ${
-                deviceView === 'desktop' ? 'bg-[#333A48] text-[#D4AF37]' : 'text-[#8A99AD] hover:text-white'
-              }`}
-              title="Desktop (100% Full Width)"
-            >
-              <Monitor className="w-3.5 h-3.5" />
-            </button>
-            <button
-              onClick={() => setDeviceView('tablet')}
-              className={`p-1.5 rounded-lg transition-all ${
-                deviceView === 'tablet' ? 'bg-[#333A48] text-[#D4AF37]' : 'text-[#8A99AD] hover:text-white'
-              }`}
-              title="Tablet (768px)"
-            >
-              <Tablet className="w-3.5 h-3.5" />
-            </button>
-            <button
-              onClick={() => setDeviceView('mobile')}
-              className={`p-1.5 rounded-lg transition-all ${
-                deviceView === 'mobile' ? 'bg-[#333A48] text-[#D4AF37]' : 'text-[#8A99AD] hover:text-white'
-              }`}
-              title="Mobile (375px)"
-            >
-              <Smartphone className="w-3.5 h-3.5" />
-            </button>
-          </div>
-
-          {/* Full Screen Toggle Button */}
-          <button
-            onClick={() => setIsFullscreen(!isFullscreen)}
-            className={`p-2 rounded-lg transition-colors ${
-              isFullscreen || editorMode === 'click_to_edit'
-                ? 'text-[#D4AF37] bg-[#333A48]'
-                : 'text-[#8A99AD] hover:text-white hover:bg-[#1C2434]'
-            }`}
-            title={isFullscreen ? 'Tutup Layar Penuh' : 'Mode Layar Penuh (Full Screen)'}
-          >
-            {isFullscreen ? (
-              <Minimize2 className="w-4 h-4" />
-            ) : (
-              <Maximize2 className="w-4 h-4" />
-            )}
-          </button>
-
-          {/* Export & Import Konten Lengkap */}
-          <div className="hidden sm:flex items-center gap-1 bg-[#1C2434] p-1 rounded-xl border border-[#2E3A47]">
-            <button
-              onClick={handleExportContent}
-              className="px-2.5 py-1 text-[#CBD5E1] hover:text-[#D4AF37] hover:bg-[#24303F] rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors"
-              title="Download Template Seluruh Konten Web (.json)"
-            >
-              <Download className="w-3.5 h-3.5 text-[#D4AF37]" />
-              <span className="hidden xl:inline">Export</span>
-            </button>
-            <label
-              className="px-2.5 py-1 text-[#CBD5E1] hover:text-emerald-400 hover:bg-[#24303F] rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition-colors"
-              title="Import File Konten Website (.json) untuk update instan tanpa coding"
-            >
-              <UploadCloud className="w-3.5 h-3.5 text-emerald-400" />
-              <span className="hidden xl:inline">Import</span>
-              <input
-                type="file"
-                accept=".json,application/json"
-                className="hidden"
-                onChange={handleImportContent}
-              />
-            </label>
-          </div>
-
-          {/* Undo Button */}
-          <button
-            onClick={handleUndo}
-            disabled={!canUndo}
-            className={`p-2 rounded-lg transition-colors ${canUndo ? 'text-[#8A99AD] hover:text-blue-400 hover:bg-[#1C2434]' : 'text-[#3A4A5A] cursor-not-allowed'}`}
-            title={canUndo ? `Undo (Ctrl+Z) — ${historyIndex + 1} langkah tersimpan` : 'Tidak ada riwayat untuk di-Undo'}
-          >
-            <Undo2 className="w-4 h-4" />
-          </button>
-
-          {/* Reset to Default */}
-          <button
-            onClick={handleResetToDefault}
-            className="p-2 text-[#8A99AD] hover:text-amber-400 hover:bg-[#1C2434] rounded-lg transition-colors"
-            title="Reset Konten ke Template Bawaan"
-          >
-            <RotateCcw className="w-4 h-4" />
-          </button>
-
-          {/* Auto-save Status Indicator */}
-          {autoSaveStatus !== 'idle' && (
-            <div className={`hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-semibold transition-all ${
-              autoSaveStatus === 'saved'
-                ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                : 'bg-slate-800 text-slate-400 border border-slate-700'
-            }`}>
-              {autoSaveStatus === 'saving' ? (
-                <><Clock className="w-3 h-3 animate-spin" /><span>Menyimpan...</span></>
-              ) : autoSaveStatus === 'pending' ? (
-                <><Clock className="w-3 h-3" /><span>Menunggu...</span></>
-              ) : (
-                <><CheckCircle2 className="w-3 h-3" /><span>Auto-saved ✓</span></>
-              )}
-            </div>
-          )}
-
-          {/* Save Button */}
-          <button
-            onClick={handleSave}
-            disabled={isSaving}
-            className="px-4 py-2 bg-gradient-to-r from-[#D4AF37] to-[#C9A227] hover:brightness-110 text-[#1C2434] font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md shadow-[#D4AF37]/20 flex items-center gap-1.5"
-          >
-            {isSaving ? (
-              <span>Menyimpan...</span>
-            ) : (
-              <>
-                <Save className="w-4 h-4" />
-                <span className="hidden sm:inline">Simpan</span>
-              </>
-            )}
-          </button>
-        </div>
-      }
-    >
-      <div className="flex-grow flex h-full overflow-hidden">
-        
-        {/* LEFT PANEL: ELEMENTOR CONTROL SIDEBAR (W-96 / 420px) */}
-        <aside className={`bg-slate-950 border-r border-slate-800 flex flex-col shrink-0 z-30 overflow-hidden transition-all duration-300 ${
-          editorMode === 'click_to_edit'
-            ? 'w-0 sm:w-0 border-r-0 opacity-0 pointer-events-none'
-            : 'w-full sm:w-96 md:w-[420px] opacity-100'
-        }`}>
-          
-          {/* Main Tab Category Navigation */}
-          <div className="p-2 border-b border-slate-800 grid grid-cols-4 gap-1 bg-slate-900/60">
-            <button
-              onClick={() => { setActiveTab('hero'); setActiveSection('hero-text'); }}
-              className={`px-1.5 py-1.5 rounded-lg text-[11px] font-semibold flex flex-col items-center justify-center gap-1 transition-all ${
-                activeTab === 'hero' ? 'bg-amber-400/20 text-amber-300 border border-amber-400/30' : 'text-slate-400 hover:text-white hover:bg-slate-800'
-              }`}
-            >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Hero</span>
-            </button>
-            <button
-              onClick={() => { setActiveTab('about'); setActiveSection('about-text'); }}
-              className={`px-1.5 py-1.5 rounded-lg text-[11px] font-semibold flex flex-col items-center justify-center gap-1 transition-all ${
-                activeTab === 'about' ? 'bg-amber-400/20 text-amber-300 border border-amber-400/30' : 'text-slate-400 hover:text-white hover:bg-slate-800'
-              }`}
-            >
-              <Layers className="w-3.5 h-3.5" />
-              <span>Tentang</span>
-            </button>
-            <button
-              onClick={() => { setActiveTab('services'); setActiveSection('services-text'); }}
-              className={`px-1.5 py-1.5 rounded-lg text-[11px] font-semibold flex flex-col items-center justify-center gap-1 transition-all ${
-                activeTab === 'services' ? 'bg-amber-400/20 text-amber-300 border border-amber-400/30' : 'text-slate-400 hover:text-white hover:bg-slate-800'
-              }`}
-            >
-              <Briefcase className="w-3.5 h-3.5" />
-              <span>Layanan</span>
-            </button>
-            <button
-              onClick={() => { setActiveTab('retainer'); setActiveSection('retainer-text'); }}
-              className={`px-1.5 py-1.5 rounded-lg text-[11px] font-semibold flex flex-col items-center justify-center gap-1 transition-all ${
-                activeTab === 'retainer' ? 'bg-amber-400/20 text-amber-300 border border-amber-400/30' : 'text-slate-400 hover:text-white hover:bg-slate-800'
-              }`}
-            >
-              <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Retainer</span>
-            </button>
-            <button
-              onClick={() => { setActiveTab('insights'); setActiveSection('insights-articles'); }}
-              className={`px-1.5 py-1.5 rounded-lg text-[11px] font-semibold flex flex-col items-center justify-center gap-1 transition-all ${
-                activeTab === 'insights' ? 'bg-amber-400/20 text-amber-300 border border-amber-400/30' : 'text-slate-400 hover:text-white hover:bg-slate-800'
-              }`}
-            >
-              <FileText className="w-3.5 h-3.5" />
-              <span>Insight</span>
-            </button>
-            <button
-              onClick={() => { setActiveTab('faq'); setActiveSection('faq-items'); }}
-              className={`px-1.5 py-1.5 rounded-lg text-[11px] font-semibold flex flex-col items-center justify-center gap-1 transition-all ${
-                activeTab === 'faq' ? 'bg-amber-400/20 text-amber-300 border border-amber-400/30' : 'text-slate-400 hover:text-white hover:bg-slate-800'
-              }`}
-            >
-              <HelpCircle className="w-3.5 h-3.5" />
-              <span>FAQ</span>
-            </button>
-            <button
-              onClick={() => { setActiveTab('global'); setActiveSection('global-contacts'); }}
-              className={`px-1.5 py-1.5 rounded-lg text-[11px] font-semibold flex flex-col items-center justify-center gap-1 transition-all ${
-                activeTab === 'global' ? 'bg-amber-400/20 text-amber-300 border border-amber-400/30' : 'text-slate-400 hover:text-white hover:bg-slate-800'
-              }`}
-            >
-              <Phone className="w-3.5 h-3.5" />
-              <span>Kontak</span>
-            </button>
-            <button
-              onClick={() => { setActiveTab('import_export' as any); }}
-              className={`px-1.5 py-1.5 rounded-lg text-[11px] font-semibold flex flex-col items-center justify-center gap-1 transition-all ${
-                activeTab === ('import_export' as any) ? 'bg-emerald-400/20 text-emerald-300 border border-emerald-400/30' : 'text-slate-400 hover:text-white hover:bg-slate-800'
-              }`}
-            >
-              <FileJson className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Import/Export</span>
-            </button>
-          </div>
-
-          {/* Form Scroll Area */}
-          <div className="flex-grow overflow-y-auto p-4 space-y-6 select-text custom-scrollbar">
-            
-            {/* PANDUAN CEPAT: Selalu tampil di atas sebagai panduan untuk pengguna awam */}
-            <div className="bg-gradient-to-br from-amber-400/10 to-amber-600/5 border border-amber-400/20 rounded-xl p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-amber-300 text-sm">✨</span>
-                <h3 className="text-xs font-bold text-amber-300 uppercase tracking-wider">Cara Edit Website</h3>
-              </div>
-              <ol className="text-[11px] text-slate-300 space-y-1.5 list-decimal list-inside leading-relaxed">
-                <li>Pilih bagian yang ingin diedit dari tab di atas (Hero, Tentang, Layanan, dst.)</li>
-                <li>Ubah teks di kotak input, atau klik <strong className="text-amber-300">📷 Upload Foto</strong> untuk ganti gambar</li>
-                <li>Preview perubahan langsung tampil di layar kanan secara real-time</li>
-                <li>Klik tombol <strong className="text-amber-300">💾 Simpan</strong> (kanan atas) agar perubahan tersimpan permanen</li>
-              </ol>
-              <div className="mt-3 flex items-center gap-2 text-[11px]">
-                <span className="px-2 py-0.5 bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 rounded-full font-semibold">TIP</span>
-                <span className="text-slate-400">Gunakan tombol <strong className="text-white">Export/Import</strong> di atas untuk backup atau restore seluruh konten website.</span>
-              </div>
-            </div>
-
-            {/* TAB: HERO SECTION */}
-            {activeTab === 'hero' && (
-              <div className="space-y-5">
-                <div className="border-b border-slate-800 pb-3">
-                  <h3 className="text-sm font-bold text-amber-300 uppercase tracking-wider flex items-center gap-2">
-                    <Sparkles className="w-4 h-4" />
-                    <span>Hero Section (Layar Utama Atas)</span>
-                  </h3>
-                  <p className="text-xs text-slate-400 mt-1">
-                    Edit tulisan, background gambar, tombol, dan statistik di layar pertama.
-                  </p>
-                </div>
-
-
-                {/* Badge */}
-                <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-                    Lencana Kecil (Badge Atas)
-                  </label>
-                  <input
-                    type="text"
-                    value={editorContent.hero.topBadge}
-                    onChange={(e) => updateHero('topBadge', e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-amber-400"
-                  />
-                </div>
-
-                {/* Headline Part 1 */}
-                <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-                    Judul Utama (Teks Putih)
-                  </label>
-                  <input
-                    type="text"
-                    value={editorContent.hero.headlinePart1}
-                    onChange={(e) => updateHero('headlinePart1', e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-amber-400"
-                  />
-                </div>
-
-                {/* Headline Italic Gold */}
-                <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-                    Judul Utama (Teks Emas Miring)
-                  </label>
-                  <input
-                    type="text"
-                    value={editorContent.hero.headlineItalic}
-                    onChange={(e) => updateHero('headlineItalic', e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-amber-300 text-xs focus:outline-none focus:border-amber-400 italic"
-                  />
-                </div>
-
-                {/* Subheadline */}
-                <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-                    Paragraf Deskripsi
-                  </label>
-                  <textarea
-                    rows={3}
-                    value={editorContent.hero.subheadline}
-                    onChange={(e) => updateHero('subheadline', e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-amber-400 leading-relaxed"
-                  />
-                </div>
-
-                {/* Background Image Upload / URL */}
-                <div className="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl space-y-3">
-                  <label className="block text-xs font-bold text-amber-300 flex items-center justify-between">
-                    <span>Background Foto Kantor</span>
-                    <ImageIcon className="w-3.5 h-3.5" />
-                  </label>
-                  
-                  {/* Current Image Preview */}
-                  <div className="h-28 rounded-lg overflow-hidden border border-slate-700 relative group">
-                    <img
-                      src={editorContent.hero.bgImage}
-                      alt="Hero Background Preview"
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                      <span className="text-[10px] bg-slate-900 text-white px-2 py-1 rounded">Preview Gambar</span>
-                    </div>
-                  </div>
-
-                  {/* Upload button */}
-                  <div>
-                    <label className="w-full py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-xs text-white font-medium flex items-center justify-center gap-2 cursor-pointer transition-colors">
-                      <Upload className="w-3.5 h-3.5 text-amber-400" />
-                      <span>{uploadingField === 'hero-bg' ? 'Mengunggah...' : 'Pilih Foto dari Komputer/HP'}</span>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        className="hidden"
-                        onChange={(e) => {
-                          const file = e.target.files?.[0];
-                          if (file) handleFileUpload(file, (url) => updateHero('bgImage', url), 'hero-bg');
-                        }}
-                      />
-                    </label>
-                  </div>
-
-                  {/* Manual URL Input */}
-                  <div>
-                    <span className="text-[10px] text-slate-400">Atau masukkan URL gambar CDN langsung:</span>
-                    <input
-                      type="text"
-                      value={editorContent.hero.bgImage}
-                      onChange={(e) => updateHero('bgImage', e.target.value)}
-                      className="w-full px-3 py-1.5 mt-1 bg-slate-950 border border-slate-700 rounded text-slate-300 text-[11px] focus:outline-none focus:border-amber-400"
-                    />
-                  </div>
-                </div>
-
-                {/* CTA Buttons */}
-                <div className="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl space-y-3">
-                  <span className="text-xs font-bold text-amber-300 block">Tombol Tindakan (CTA)</span>
-                  <div className="grid grid-cols-2 gap-2">
-                    <div>
-                      <span className="text-[10px] text-slate-400">Teks Tombol 1</span>
-                      <input
-                        type="text"
-                        value={editorContent.hero.ctaButton1Text}
-                        onChange={(e) => updateHero('ctaButton1Text', e.target.value)}
-                        className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
-                      />
-                    </div>
-                    <div>
-                      <span className="text-[10px] text-slate-400">Link Tujuan 1</span>
-                      <input
-                        type="text"
-                        value={editorContent.hero.ctaButton1Link}
-                        onChange={(e) => updateHero('ctaButton1Link', e.target.value)}
-                        className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
-                      />
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-2">
-                    <div>
-                      <span className="text-[10px] text-slate-400">Teks Tombol 2</span>
-                      <input
-                        type="text"
-                        value={editorContent.hero.ctaButton2Text}
-                        onChange={(e) => updateHero('ctaButton2Text', e.target.value)}
-                        className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
-                      />
-                    </div>
-                    <div>
-                      <span className="text-[10px] text-slate-400">Link Tujuan 2</span>
-                      <input
-                        type="text"
-                        value={editorContent.hero.ctaButton2Link}
-                        onChange={(e) => updateHero('ctaButton2Link', e.target.value)}
-                        className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Feature Pills */}
-                <div className="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-amber-300">Pills / Label Keunggulan Bawah</span>
-                    <button
-                      onClick={() => {
-                        const current = [...(editorContent.hero.featurePills || [])];
-                        current.push('Keunggulan Baru');
-                        updateHero('featurePills', current);
-                      }}
-                      className="text-[10px] px-2 py-1 bg-amber-400/20 text-amber-300 border border-amber-400/30 rounded flex items-center gap-1 hover:bg-amber-400/30"
-                    >
-                      <Plus className="w-3 h-3" /> Tambah
-                    </button>
-                  </div>
-                  {editorContent.hero.featurePills.map((pill, idx) => (
-                    <div key={idx} className="flex items-center gap-2">
-                      <input
-                        type="text"
-                        value={pill}
-                        onChange={(e) => {
-                          const updated = [...editorContent.hero.featurePills];
-                          updated[idx] = e.target.value;
-                          updateHero('featurePills', updated);
-                        }}
-                        className="flex-grow px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
-                      />
-                      <button
-                        onClick={() => {
-                          const updated = editorContent.hero.featurePills.filter((_, i) => i !== idx);
-                          updateHero('featurePills', updated);
-                        }}
-                        className="p-1.5 text-slate-500 hover:text-red-400 transition-colors"
-                        title="Hapus Pill"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Right Floating Seal Box */}
-                <div className="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl space-y-3">
-                  <span className="text-xs font-bold text-amber-300 block">Kotak Segel Kanan (Stats & Kutipan)</span>
-                  <div>
-                    <span className="text-[10px] text-slate-400">Kutipan Slogan</span>
-                    <input
-                      type="text"
-                      value={editorContent.hero.sealQuote}
-                      onChange={(e) => updateHero('sealQuote', e.target.value)}
-                      className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
-                    />
-                  </div>
-                  <div>
-                    <span className="text-[10px] text-slate-400">Deskripsi Singkat Segel</span>
-                    <textarea
-                      rows={2}
-                      value={editorContent.hero.sealDescription}
-                      onChange={(e) => updateHero('sealDescription', e.target.value)}
-                      className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
-                    />
-                  </div>
-                  <div className="grid grid-cols-2 gap-2 pt-1">
-                    <div>
-                      <span className="text-[10px] text-slate-400">Statistik 1 (Angka)</span>
-                      <input
-                        type="text"
-                        value={editorContent.hero.stat1Number}
-                        onChange={(e) => updateHero('stat1Number', e.target.value)}
-                        className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-amber-300 font-bold focus:outline-none focus:border-amber-400"
-                      />
-                      <span className="text-[10px] text-slate-400 mt-1 block">Label Statistik 1</span>
-                      <input
-                        type="text"
-                        value={editorContent.hero.stat1Label}
-                        onChange={(e) => updateHero('stat1Label', e.target.value)}
-                        className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
-                      />
-                    </div>
-                    <div>
-                      <span className="text-[10px] text-slate-400">Statistik 2 (Angka)</span>
-                      <input
-                        type="text"
-                        value={editorContent.hero.stat2Number}
-                        onChange={(e) => updateHero('stat2Number', e.target.value)}
-                        className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-amber-300 font-bold focus:outline-none focus:border-amber-400"
-                      />
-                      <span className="text-[10px] text-slate-400 mt-1 block">Label Statistik 2</span>
-                      <input
-                        type="text"
-                        value={editorContent.hero.stat2Label}
-                        onChange={(e) => updateHero('stat2Label', e.target.value)}
-                        className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            )}
-
-            {/* TAB: ABOUT SECTION */}
-            {activeTab === 'about' && (
-              <div className="space-y-5">
-                <div className="border-b border-slate-800 pb-3">
-                  <h3 className="text-sm font-bold text-amber-300 uppercase tracking-wider flex items-center gap-2">
-                    <Layers className="w-4 h-4" />
-                    <span>Bagian Tentang Kami (Profil)</span>
-                  </h3>
-                  <p className="text-xs text-slate-400 mt-1">
-                    Edit cerita korporasi, nilai inti, dan foto profil konsultan.
-                  </p>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Lencana</label>
-                  <input
-                    type="text"
-                    value={editorContent.about.badge}
-                    onChange={(e) => updateAbout('badge', e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-amber-400"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Judul Utama</label>
-                  <input
-                    type="text"
-                    value={editorContent.about.title}
-                    onChange={(e) => updateAbout('title', e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-amber-400"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Paragraf 1</label>
-                  <textarea
-                    rows={3}
-                    value={editorContent.about.paragraph1}
-                    onChange={(e) => updateAbout('paragraph1', e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-amber-400"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Paragraf 2</label>
-                  <textarea
-                    rows={3}
-                    value={editorContent.about.paragraph2}
-                    onChange={(e) => updateAbout('paragraph2', e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-amber-400"
-                  />
-                </div>
-
-                {/* Kolase Foto */}
-                <div className="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl space-y-3">
-                  <span className="text-xs font-bold text-amber-300 block">Foto Kolase 1 (Gedung &amp; Kantor)</span>
-                  <div className="h-24 rounded-lg overflow-hidden border border-slate-700">
-                    <img src={editorContent.about.image1} alt="Preview 1" className="w-full h-full object-cover" />
-                  </div>
-                  <label className="w-full py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-xs text-white font-medium flex items-center justify-center gap-2 cursor-pointer">
-                    <Upload className="w-3 h-3 text-amber-400" />
-                    <span>Upload Foto 1</span>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      onChange={(e) => {
-                        const file = e.target.files?.[0];
-                        if (file) handleFileUpload(file, (url) => updateAbout('image1', url), 'about-1');
-                      }}
-                    />
-                  </label>
-                </div>
-
-                <div className="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl space-y-3">
-                  <span className="text-xs font-bold text-amber-300 block">Foto Kolase 2 (Kerja Sama Korporasi)</span>
-                  <div className="h-24 rounded-lg overflow-hidden border border-slate-700">
-                    <img src={editorContent.about.image2} alt="Preview 2" className="w-full h-full object-cover" />
-                  </div>
-                  <label className="w-full py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-xs text-white font-medium flex items-center justify-center gap-2 cursor-pointer">
-                    <Upload className="w-3 h-3 text-amber-400" />
-                    <span>Upload Foto 2</span>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      onChange={(e) => {
-                        const file = e.target.files?.[0];
-                        if (file) handleFileUpload(file, (url) => updateAbout('image2', url), 'about-2');
-                      }}
-                    />
-                  </label>
-                </div>
-              </div>
-            )}
-
-            {/* TAB: SERVICES SECTION */}
-            {activeTab === 'services' && (
-              <div className="space-y-5">
-                <div className="border-b border-slate-800 pb-3">
-                  <h3 className="text-sm font-bold text-amber-300 uppercase tracking-wider flex items-center gap-2">
-                    <Briefcase className="w-4 h-4" />
-                    <span>5 Pilar Layanan Konsultan</span>
-                  </h3>
-                  <p className="text-xs text-slate-400 mt-1">
-                    Edit lencana, judul utama direktori, dan teks banner konsultasi layanan.
-                  </p>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Lencana / Badge</label>
-                  <input
-                    type="text"
-                    value={editorContent.services?.badge || ''}
-                    onChange={(e) => updateServices('badge', e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-amber-400"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Judul Utama Layanan</label>
-                  <input
-                    type="text"
-                    value={editorContent.services?.title || ''}
-                    onChange={(e) => updateServices('title', e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-amber-400"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Subjudul / Deskripsi</label>
-                  <textarea
-                    rows={2}
-                    value={editorContent.services?.subtitle || ''}
-                    onChange={(e) => updateServices('subtitle', e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-amber-400"
-                  />
-                </div>
-
-                <div className="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl space-y-3">
-                  <span className="text-xs font-bold text-amber-300 block">Banner Direktori Bawah</span>
-                  <div>
-                    <span className="text-[10px] text-slate-400">Judul Banner</span>
-                    <input
-                      type="text"
-                      value={editorContent.services?.ctaBannerTitle || ''}
-                      onChange={(e) => updateServices('ctaBannerTitle', e.target.value)}
-                      className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
-                    />
-                  </div>
-                  <div>
-                    <span className="text-[10px] text-slate-400">Deskripsi Banner</span>
-                    <textarea
-                      rows={2}
-                      value={editorContent.services?.ctaBannerSubtitle || ''}
-                      onChange={(e) => updateServices('ctaBannerSubtitle', e.target.value)}
-                      className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
-                    />
-                  </div>
-                  <div>
-                    <span className="text-[10px] text-slate-400">Teks Tombol Banner</span>
-                    <input
-                      type="text"
-                      value={editorContent.services?.ctaBannerButtonText || ''}
-                      onChange={(e) => updateServices('ctaBannerButtonText', e.target.value)}
-                      className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
-                    />
-                  </div>
-                </div>
-
-                {/* 5 PILAR LAYANAN KONSULTAN */}
-                <div className="pt-3 border-t border-slate-800 space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <span className="text-xs font-bold text-amber-300 uppercase tracking-wider block">5 Kartu Pilar Layanan Utama</span>
-                      <span className="text-[11px] text-slate-400">Edit badge jumlah item, judul, deskripsi, dan link tiap kartu pilar</span>
-                    </div>
-                    <Link href="/edit-view" className="text-[11px] text-amber-400 hover:underline flex items-center gap-1 font-semibold">
-                      <Sparkles className="w-3 h-3" />
-                      <span>Edit Visual (/edit-view)</span>
-                    </Link>
-                  </div>
-
-                  {(editorContent.services?.pillars || [
-                    { id: 'perizinan', name: 'Konsultan Perizinan', count: '242 Items', description: 'Pendirian Badan Usaha (PT/CV/PMA), Izin Usaha Berbasis Risiko OSS RBA, NIB, Sertifikat Standar, PB UMKU, Izin Operasional Sektoral, BPOM, Halal & SNI.', linkText: 'Lihat Seluruh 242 Layanan', linkUrl: '/layanan?cat=perizinan' },
-                    { id: 'imigrasi', name: 'Konsultan Imigrasi', count: '36 Items', description: 'Pengurusan VISA Bisnis/Investor, KITAS/ITAS Kerja, ITAP Izin Tinggal Tetap, RPTKA Tenaga Kerja Asing, Paspor, dan Layanan Keimigrasian WNA/WNI.', linkText: 'Lihat Seluruh 36 Layanan', linkUrl: '/layanan?cat=imigrasi' },
-                    { id: 'pajak', name: 'Konsultan Pajak', count: '86 Items', description: 'Tax Advisory & Planning, Kepatuhan Pajak Badan & Pribadi, Pelaporan SPT Masa & Tahunan, Restitusi Pajak, dan Pendampingan Pemeriksaan Pajak.', linkText: 'Lihat Seluruh 86 Layanan', linkUrl: '/layanan?cat=pajak' },
-                    { id: 'pertanahan', name: 'Konsultan Pertanahan', count: '45 Items', description: 'Pengurusan Sertifikat Tanah BPN (SHM, HGB, HGU), Pengecekan Keabsahan Sertifikat, Balik Nama, Roya Hak Tanggungan, KKPR Tata Ruang, serta PBG & SLF.', linkText: 'Lihat Seluruh 45 Layanan', linkUrl: '/layanan?cat=pertanahan' },
-                    { id: 'sdm', name: 'Konsultan SDM', count: '36 Items', description: 'Penyusunan Peraturan Perusahaan (PP), Perjanjian Kerja Bersama (PKB), Struktur & Skala Upah, Kontrak Kerja Karyawan PKWT/PKWTT, BPJS, dan Audit SDM.', linkText: 'Lihat Seluruh 36 Layanan', linkUrl: '/layanan?cat=sdm' },
-                  ]).map((pillar, pIdx) => (
-                    <div key={pillar.id || pIdx} className="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl space-y-2.5">
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold text-white flex items-center gap-1.5">
-                          <span className="w-5 h-5 rounded-full bg-amber-400/20 text-amber-400 flex items-center justify-center text-[10px]">
-                            {pIdx + 1}
-                          </span>
-                          <span>{pillar.name}</span>
-                        </span>
-                        <input
-                          type="text"
-                          value={pillar.count || ''}
-                          onChange={(e) => {
-                            const newPillars = [...(editorContent.services?.pillars || [
-                              { id: 'perizinan', name: 'Konsultan Perizinan', count: '242 Items', description: 'Pendirian Badan Usaha (PT/CV/PMA), Izin Usaha Berbasis Risiko OSS RBA, NIB, Sertifikat Standar, PB UMKU, Izin Operasional Sektoral, BPOM, Halal & SNI.', linkText: 'Lihat Seluruh 242 Layanan', linkUrl: '/layanan?cat=perizinan' },
-                              { id: 'imigrasi', name: 'Konsultan Imigrasi', count: '36 Items', description: 'Pengurusan VISA Bisnis/Investor, KITAS/ITAS Kerja, ITAP Izin Tinggal Tetap, RPTKA Tenaga Kerja Asing, Paspor, dan Layanan Keimigrasian WNA/WNI.', linkText: 'Lihat Seluruh 36 Layanan', linkUrl: '/layanan?cat=imigrasi' },
-                              { id: 'pajak', name: 'Konsultan Pajak', count: '86 Items', description: 'Tax Advisory & Planning, Kepatuhan Pajak Badan & Pribadi, Pelaporan SPT Masa & Tahunan, Restitusi Pajak, dan Pendampingan Pemeriksaan Pajak.', linkText: 'Lihat Seluruh 86 Layanan', linkUrl: '/layanan?cat=pajak' },
-                              { id: 'pertanahan', name: 'Konsultan Pertanahan', count: '45 Items', description: 'Pengurusan Sertifikat Tanah BPN (SHM, HGB, HGU), Pengecekan Keabsahan Sertifikat, Balik Nama, Roya Hak Tanggungan, KKPR Tata Ruang, serta PBG & SLF.', linkText: 'Lihat Seluruh 45 Layanan', linkUrl: '/layanan?cat=pertanahan' },
-                              { id: 'sdm', name: 'Konsultan SDM', count: '36 Items', description: 'Penyusunan Peraturan Perusahaan (PP), Perjanjian Kerja Bersama (PKB), Struktur & Skala Upah, Kontrak Kerja Karyawan PKWT/PKWTT, BPJS, dan Audit SDM.', linkText: 'Lihat Seluruh 36 Layanan', linkUrl: '/layanan?cat=sdm' },
-                            ])];
-                            newPillars[pIdx] = { ...newPillars[pIdx], count: e.target.value };
-                            setEditorContent((prev) => ({
-                              ...prev,
-                              services: { ...prev.services, pillars: newPillars },
-                            }));
-                          }}
-                          placeholder="Jumlah Item (contoh: 242 Items)"
-                          className="w-28 px-2 py-1 bg-slate-950 border border-slate-700 rounded text-[11px] text-amber-400 font-bold focus:outline-none focus:border-amber-400 text-right"
-                        />
-                      </div>
-
-                      <div>
-                        <span className="text-[10px] text-slate-400">Nama Pilar</span>
-                        <input
-                          type="text"
-                          value={pillar.name || ''}
-                          onChange={(e) => {
-                            const newPillars = [...(editorContent.services?.pillars || [])];
-                            newPillars[pIdx] = { ...newPillars[pIdx], name: e.target.value };
-                            setEditorContent((prev) => ({
-                              ...prev,
-                              services: { ...prev.services, pillars: newPillars },
-                            }));
-                          }}
-                          className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
-                        />
-                      </div>
-
-                      <div>
-                        <span className="text-[10px] text-slate-400">Deskripsi Ringkas</span>
-                        <textarea
-                          rows={2}
-                          value={pillar.description || ''}
-                          onChange={(e) => {
-                            const newPillars = [...(editorContent.services?.pillars || [])];
-                            newPillars[pIdx] = { ...newPillars[pIdx], description: e.target.value };
-                            setEditorContent((prev) => ({
-                              ...prev,
-                              services: { ...prev.services, pillars: newPillars },
-                            }));
-                          }}
-                          className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
-                        />
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-2">
-                        <div>
-                          <span className="text-[10px] text-slate-400">Teks Link Tombol</span>
-                          <input
-                            type="text"
-                            value={pillar.linkText || ''}
-                            onChange={(e) => {
-                              const newPillars = [...(editorContent.services?.pillars || [])];
-                              newPillars[pIdx] = { ...newPillars[pIdx], linkText: e.target.value };
-                              setEditorContent((prev) => ({
-                                ...prev,
-                                services: { ...prev.services, pillars: newPillars },
-                              }));
-                            }}
-                            className="w-full px-2 py-1 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
-                          />
-                        </div>
-                        <div>
-                          <span className="text-[10px] text-slate-400">URL Tujuan Link</span>
-                          <input
-                            type="text"
-                            value={pillar.linkUrl || ''}
-                            onChange={(e) => {
-                              const newPillars = [...(editorContent.services?.pillars || [])];
-                              newPillars[pIdx] = { ...newPillars[pIdx], linkUrl: e.target.value };
-                              setEditorContent((prev) => ({
-                                ...prev,
-                                services: { ...prev.services, pillars: newPillars },
-                              }));
-                            }}
-                            className="w-full px-2 py-1 bg-slate-950 border border-slate-700 rounded text-xs text-amber-300 focus:outline-none focus:border-amber-400"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* TAB: RETAINER SECTION */}
-            {activeTab === 'retainer' && (
-              <div className="space-y-5">
-                <div className="border-b border-slate-800 pb-3">
-                  <h3 className="text-sm font-bold text-amber-300 uppercase tracking-wider flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4" />
-                    <span>Corporate Retainer Program</span>
-                  </h3>
-                  <p className="text-xs text-slate-400 mt-1">
-                    Edit penawaran retainer korporasi untuk pendampingan konsultan bulanan perusahaan.
-                  </p>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Lencana / Badge</label>
-                  <input
-                    type="text"
-                    value={editorContent.retainer?.badge || ''}
-                    onChange={(e) => updateRetainer('badge', e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-amber-400"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Judul Utama</label>
-                  <input
-                    type="text"
-                    value={editorContent.retainer?.title || ''}
-                    onChange={(e) => updateRetainer('title', e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-amber-400"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Deskripsi / Penjelasan Retainer</label>
-                  <textarea
-                    rows={4}
-                    value={editorContent.retainer?.subtitle || ''}
-                    onChange={(e) => updateRetainer('subtitle', e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-amber-400 leading-relaxed"
-                  />
-                </div>
-              </div>
-            )}
-
-            {/* TAB: INSIGHT ARTICLES */}
-            {activeTab === 'insights' && (
-              <div className="space-y-5">
-                <div className="border-b border-slate-800 pb-3 flex items-center justify-between">
-                  <div>
-                    <h3 className="text-sm font-bold text-amber-300 uppercase tracking-wider flex items-center gap-2">
-                      <FileText className="w-4 h-4" />
-                      <span>Publikasi Artikel Insight</span>
-                    </h3>
-                    <p className="text-xs text-slate-400 mt-1">Kelola artikel insight dan publikasi regulasi di website.</p>
-                  </div>
-                  <button
-                    onClick={() => {
-                      const updated = [...editorContent.insights.articles];
-                      updated.unshift({
-                        id: String(Date.now()),
-                        title: 'Judul Artikel Baru',
-                        tag: 'Regulasi Bisnis',
-                        date: 'Hari Ini',
-                        readTime: '5 min',
-                        image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80',
-                        excerpt: 'Ringkasan artikel korporasi...',
-                      });
-                      updateInsights('articles', updated);
-                    }}
-                    className="px-2.5 py-1.5 bg-amber-400/20 text-amber-300 border border-amber-400/30 rounded-lg text-xs flex items-center gap-1 hover:bg-amber-400/30 font-semibold"
-                  >
-                    <Plus className="w-3.5 h-3.5" /> Tambah Artikel
-                  </button>
-                </div>
-
-                {editorContent.insights.articles.map((art, idx) => (
-                  <div key={art.id || idx} className="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-amber-300">Artikel #{idx + 1}</span>
-                      <button
-                        onClick={() => {
-                          const updated = editorContent.insights.articles.filter((_, i) => i !== idx);
-                          updateInsights('articles', updated);
-                        }}
-                        className="text-slate-500 hover:text-red-400 p-1 transition-colors"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-
-                    <div className="flex gap-3">
-                      <div className="w-24 h-20 rounded-lg overflow-hidden border border-slate-700 shrink-0">
-                        <img src={art.image} alt={art.title} className="w-full h-full object-cover" />
-                      </div>
-                      <div className="flex-grow space-y-2">
-                        <label className="block py-1 bg-slate-800 hover:bg-slate-700 rounded text-[11px] text-center text-slate-200 cursor-pointer">
-                          <span>Ganti Gambar</span>
-                          <input
-                            type="file"
-                            accept="image/*"
-                            className="hidden"
-                            onChange={(e) => {
-                              const file = e.target.files?.[0];
-                              if (file) {
-                                handleFileUpload(file, (url) => {
-                                  const updated = [...editorContent.insights.articles];
-                                  updated[idx].image = url;
-                                  updateInsights('articles', updated);
-                                }, `art-${idx}`);
-                              }
-                            }}
-                          />
-                        </label>
-                        <input
-                          type="text"
-                          value={art.tag}
-                          onChange={(e) => {
-                            const updated = [...editorContent.insights.articles];
-                            updated[idx].tag = e.target.value;
-                            updateInsights('articles', updated);
-                          }}
-                          placeholder="Tag / Kategori"
-                          className="w-full px-2 py-1 bg-slate-950 border border-slate-700 rounded text-xs text-amber-300 focus:outline-none"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <span className="text-[10px] text-slate-400">Judul Artikel</span>
-                      <input
-                        type="text"
-                        value={art.title}
-                        onChange={(e) => {
-                          const updated = [...editorContent.insights.articles];
-                          updated[idx].title = e.target.value;
-                          updateInsights('articles', updated);
-                        }}
-                        className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white font-semibold focus:outline-none focus:border-amber-400"
-                      />
-                    </div>
-
-                    <div>
-                      <span className="text-[10px] text-slate-400">Ringkasan (Excerpt)</span>
-                      <textarea
-                        rows={2}
-                        value={art.excerpt}
-                        onChange={(e) => {
-                          const updated = [...editorContent.insights.articles];
-                          updated[idx].excerpt = e.target.value;
-                          updateInsights('articles', updated);
-                        }}
-                        className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* TAB: FAQ */}
-            {activeTab === 'faq' && (
-              <div className="space-y-5">
-                <div className="border-b border-slate-800 pb-3 flex items-center justify-between">
-                  <div>
-                    <h3 className="text-sm font-bold text-amber-300 uppercase tracking-wider flex items-center gap-2">
-                      <HelpCircle className="w-4 h-4" />
-                      <span>FAQ (Pertanyaan Umum)</span>
-                    </h3>
-                    <p className="text-xs text-slate-400 mt-1">Kelola pertanyaan &amp; jawaban seputar layanan.</p>
-                  </div>
-                  <button
-                    onClick={() => {
-                      const updated = [...editorContent.faq.items];
-                      updated.push({
-                        question: 'Pertanyaan Baru?',
-                        answer: 'Jawaban detail pertanyaan...',
-                      });
-                      updateFaq('items', updated);
-                    }}
-                    className="px-2.5 py-1.5 bg-amber-400/20 text-amber-300 border border-amber-400/30 rounded-lg text-xs flex items-center gap-1 hover:bg-amber-400/30 font-semibold"
-                  >
-                    <Plus className="w-3.5 h-3.5" /> Tambah FAQ
-                  </button>
-                </div>
-
-                {editorContent.faq.items.map((item, idx) => (
-                  <div key={idx} className="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl space-y-2.5">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-amber-300">FAQ #{idx + 1}</span>
-                      <button
-                        onClick={() => {
-                          const updated = editorContent.faq.items.filter((_, i) => i !== idx);
-                          updateFaq('items', updated);
-                        }}
-                        className="text-slate-500 hover:text-red-400 p-1 transition-colors"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-
-                    <div>
-                      <span className="text-[10px] text-slate-400">Pertanyaan</span>
-                      <input
-                        type="text"
-                        value={item.question}
-                        onChange={(e) => {
-                          const updated = [...editorContent.faq.items];
-                          updated[idx].question = e.target.value;
-                          updateFaq('items', updated);
-                        }}
-                        className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white font-semibold focus:outline-none focus:border-amber-400"
-                      />
-                    </div>
-
-                    <div>
-                      <span className="text-[10px] text-slate-400">Jawaban</span>
-                      <textarea
-                        rows={3}
-                        value={item.answer}
-                        onChange={(e) => {
-                          const updated = [...editorContent.faq.items];
-                          updated[idx].answer = e.target.value;
-                          updateFaq('items', updated);
-                        }}
-                        className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400 leading-relaxed"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* TAB: GLOBAL & CONTACT */}
-            {activeTab === 'global' && (
-              <div className="space-y-5">
-                <div className="border-b border-slate-800 pb-3">
-                  <h3 className="text-sm font-bold text-amber-300 uppercase tracking-wider flex items-center gap-2">
-                    <Phone className="w-4 h-4" />
-                    <span>Kontak, WhatsApp &amp; Identitas</span>
-                  </h3>
-                  <p className="text-xs text-slate-400 mt-1">Kelola nomor telepon, WA floating, email, dan alamat kantor.</p>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1">Nama Brand Firma</label>
-                  <input
-                    type="text"
-                    value={editorContent.global.brandName}
-                    onChange={(e) => updateGlobal('brandName', e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-amber-400"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1">Tagline Brand</label>
-                  <input
-                    type="text"
-                    value={editorContent.global.brandTagline}
-                    onChange={(e) => updateGlobal('brandTagline', e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-amber-300 text-xs focus:outline-none focus:border-amber-400 uppercase tracking-wider"
-                  />
-                </div>
-
-                {/* Logo Brand Uploader */}
-                <div className="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl space-y-3">
-                  <span className="text-xs font-bold text-amber-300 block">Logo Brand Resmi (Navbar, Footer, Admin)</span>
-                  <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-xl bg-white p-1 border border-amber-400/40 flex items-center justify-center shrink-0 shadow-md">
-                      <img
-                        src={editorContent.global.logo || '/logo-seleco.png'}
-                        alt="Logo Preview"
-                        className="w-full h-full object-contain"
-                      />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <label className="inline-flex items-center gap-2 px-3 py-1.5 bg-amber-400/10 hover:bg-amber-400/20 text-amber-300 border border-amber-400/30 rounded-lg text-xs font-semibold cursor-pointer transition-all">
-                        <Upload className="w-3.5 h-3.5" />
-                        <span>Ganti Logo</span>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          className="hidden"
-                          onChange={(e) => {
-                            const file = e.target.files?.[0];
-                            if (file) {
-                              handleFileUpload(
-                                file,
-                                (url) => updateGlobal('logo' as any, url),
-                                'global.logo'
-                              );
-                            }
-                          }}
-                        />
-                      </label>
-                      <p className="text-[10px] text-slate-400 mt-1">Format PNG/JPEG/SVG. Otomatis dikompres & diterapkan secara langsung.</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Global Key Stats & Numbers */}
-                <div className="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl space-y-3">
-                  <span className="text-xs font-bold text-amber-300 block">Statistik Layanan Global Website</span>
-                  <div>
-                    <span className="text-[10px] text-slate-400">Total Layanan &amp; Perizinan (Otomatis sinkron ke Hero, Layanan, Footer, &amp; Direktori)</span>
-                    <input
-                      type="text"
-                      value={editorContent.global.totalServices || editorContent.hero?.stat2Number || '445+'}
-                      onChange={(e) => updateGlobal('totalServices', e.target.value)}
-                      placeholder="445+ atau 400+"
-                      className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded text-xs text-amber-300 font-bold focus:outline-none focus:border-amber-400"
-                    />
-                  </div>
-                  <div className="grid grid-cols-2 gap-2">
-                    <div>
-                      <span className="text-[10px] text-slate-400">Layanan SDM &amp; Korporasi</span>
-                      <input
-                        type="text"
-                        value={editorContent.global.litigationCount || '34'}
-                        onChange={(e) => updateGlobal('litigationCount', e.target.value)}
-                        placeholder="34"
-                        className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
-                      />
-                    </div>
-                    <div>
-                      <span className="text-[10px] text-slate-400">Perizinan OSS RBA</span>
-                      <input
-                        type="text"
-                        value={editorContent.global.ossLicenseCount || '411+'}
-                        onChange={(e) => updateGlobal('ossLicenseCount', e.target.value)}
-                        placeholder="411+"
-                        className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl space-y-3">
-                  <span className="text-xs font-bold text-amber-300 block">WhatsApp Resmi (Floating Button &amp; CTA)</span>
-                  <div>
-                    <span className="text-[10px] text-slate-400">Nomor WhatsApp Teknis (Awali dengan kode negara 62)</span>
-                    <input
-                      type="text"
-                      value={editorContent.global.whatsappNumber}
-                      onChange={(e) => updateGlobal('whatsappNumber', e.target.value)}
-                      placeholder="6282211020022"
-                      className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded text-xs text-green-400 font-mono focus:outline-none focus:border-amber-400"
-                    />
-                  </div>
-                  <div>
-                    <span className="text-[10px] text-slate-400">Tampilan Nomor di Website</span>
-                    <input
-                      type="text"
-                      value={editorContent.global.whatsappDisplay}
-                      onChange={(e) => updateGlobal('whatsappDisplay', e.target.value)}
-                      placeholder="0822-1102-0022"
-                      className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-amber-400"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1">Email Kantor</label>
-                  <input
-                    type="email"
-                    value={editorContent.global.email}
-                    onChange={(e) => updateGlobal('email', e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-amber-400"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1">Alamat Kantor Utama</label>
-                  <textarea
-                    rows={2}
-                    value={editorContent.global.address}
-                    onChange={(e) => updateGlobal('address', e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-amber-400"
-                  />
-                </div>
-
-                <div className="pt-2 border-t border-slate-800">
-                  <label className="block text-xs font-semibold text-slate-300 mb-1">Teks Hak Cipta Footer</label>
-                  <input
-                    type="text"
-                    value={editorContent.footer.copyright}
-                    onChange={(e) => updateFooter('copyright', e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-400 text-xs focus:outline-none focus:border-amber-400"
-                  />
-                </div>
-              </div>
-            )}
-
-            {/* TAB: IMPORT & EXPORT KONTEN LENGKAP */}
-            {(activeTab as string) === 'import_export' && (
-              <div className="space-y-6">
-                <div className="border-b border-slate-800 pb-3">
-                  <h3 className="text-sm font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
-                    <FileJson className="w-4 h-4 text-emerald-400" />
-                    <span>Import &amp; Export Konten Lengkap</span>
-                  </h3>
-                  <p className="text-xs text-slate-400 mt-1">
-                    Kelola seluruh tulisan, teks header, isi bagian, nomor telepon, dan link website dalam satu file JSON tanpa perlu menyentuh kode program.
-                  </p>
-                </div>
-
-                {/* Card Export */}
-                <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-4 space-y-3">
-                  <div className="flex items-center gap-2 text-amber-300 font-bold text-xs uppercase tracking-wider">
-                    <Download className="w-4 h-4" />
-                    <span>1. Download Template / Backup Konten</span>
-                  </div>
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    Download seluruh data website saat ini menjadi 1 file <strong className="text-white font-mono">seleco-konten-lengkap.json</strong>. Anda dapat mengedit teksnya dengan mudah menggunakan Microsoft Word, Notepad, VS Code, atau Text Editor lainnya.
-                  </p>
-                  <button
-                    onClick={handleExportContent}
-                    className="w-full py-2.5 px-4 bg-[#1C2434] hover:bg-[#24303F] border border-[#2E3A47] hover:border-[#D4AF37]/60 text-[#D4AF37] font-bold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-2 shadow-sm"
-                  >
-                    <Download className="w-4 h-4" />
-                    <span>Download File Template (.json)</span>
-                  </button>
-                </div>
-
-                {/* Card Import */}
-                <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-4 space-y-3">
-                  <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase tracking-wider">
-                    <UploadCloud className="w-4 h-4" />
-                    <span>2. Unggah &amp; Terapkan Konten (Import)</span>
-                  </div>
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    Pilih file JSON yang sudah Anda edit isinya. Seluruh teks mulai dari header, subjudul, direktori, FAQ, tentang kami, hingga kontak akan otomatis langsung terisi dan diperbarui di website.
-                  </p>
-                  <label className="w-full py-2.5 px-4 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm">
-                    <UploadCloud className="w-4 h-4" />
-                    <span>Pilih &amp; Import File Konten (.json)</span>
-                    <input
-                      type="file"
-                      accept=".json,application/json"
-                      className="hidden"
-                      onChange={handleImportContent}
-                    />
-                  </label>
-                </div>
-
-                {/* Petunjuk Penggunaan Seperti Word */}
-                <div className="bg-slate-900/50 border border-slate-800/80 rounded-xl p-4 space-y-2.5 text-xs text-slate-400">
-                  <span className="text-[11px] font-bold text-white uppercase tracking-wider block">
-                    💡 Cara Pengisian Sangat Mudah:
-                  </span>
-                  <ul className="space-y-1.5 list-disc list-inside">
-                    <li>Download file dengan klik tombol <strong>"Download File Template"</strong> di atas.</li>
-                    <li>Buka file tersebut dengan Text Editor / Word. Anda akan melihat bagian-bagian teks yang sangat jelas seperti <code className="text-amber-300 font-mono">"title"</code>, <code className="text-amber-300 font-mono">"subtitle"</code>, <code className="text-amber-300 font-mono">"description"</code>.</li>
-                    <li>Ganti tulisan di dalam tanda kutip sesuai konten baru yang Anda inginkan.</li>
-                    <li>Simpan file, lalu klik <strong>"Pilih &amp; Import File Konten"</strong>. Website akan seketika terisi otomatis!</li>
-                  </ul>
-                </div>
-              </div>
-            )}
-
-          </div>
-
-          {/* Sidebar Bottom Quick Save */}
-          <div className="p-3 border-t border-slate-800 bg-slate-950 flex items-center justify-between">
-            <span className="text-[11px] text-slate-400">Status: Siap disimpan</span>
-            <button
-              onClick={handleSave}
-              disabled={isSaving}
-              className="px-4 py-2 bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs uppercase tracking-wider rounded-lg transition-all shadow flex items-center gap-1.5"
-            >
-              <Save className="w-3.5 h-3.5" />
-              <span>Simpan</span>
-            </button>
-          </div>
-
-        </aside>
-
-        {/* RIGHT PANEL: LIVE RESPONSIVE CANVAS PREVIEW (AUTHENTIC IFRAME VIEWPORT) */}
-        <main className={`flex-grow bg-[#1A222C] flex flex-col items-center justify-center overflow-hidden relative transition-all duration-300 ${
-          deviceView === 'desktop' ? 'p-0' : 'p-2 sm:p-4 md:p-6'
-        }`}>
-          
-          {/* Viewport Dimension & Mode Info Badge */}
-          <div className="absolute top-2 left-4 right-4 z-20 flex items-center justify-between pointer-events-none">
-            {editorMode === 'click_to_edit' ? (
-              <div className="flex items-center gap-2 text-xs bg-amber-400 text-slate-950 font-bold px-3.5 py-1 rounded-full shadow-lg pointer-events-auto opacity-95">
-                <MousePointerClick className="w-3.5 h-3.5" />
-                <span>Mode Visual: Klik teks/tombol untuk mengedit. Navigasi link dinonaktifkan.</span>
-              </div>
-            ) : null}
-
-            {deviceView !== 'desktop' && (
-              <div className="hidden md:flex items-center gap-2 text-[10px] text-slate-400 bg-slate-900/90 px-3 py-1 rounded-full border border-slate-800 shadow-md">
-                <span>Resolusi Layar:</span>
-                <span className="font-mono text-amber-300 font-semibold">
-                  {deviceView === 'tablet' ? '768px (Tablet)' : '375px (Mobile)'}
-                </span>
-              </div>
-            )}
-          </div>
-
-          {/* Device Mockup Frame */}
-          <div 
-            className={`transition-all duration-300 relative flex flex-col items-center justify-center ${
-              deviceView === 'desktop'
-                ? 'w-full h-full max-w-full rounded-none border-0 bg-white overflow-hidden'
-                : deviceView === 'tablet'
-                ? 'w-[768px] max-w-full h-full max-h-[92vh] bg-slate-900 p-3 rounded-[36px] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] border-4 border-slate-800 flex flex-col items-center'
-                : 'w-[375px] max-w-full h-full max-h-[92vh] bg-slate-900 p-2.5 rounded-[48px] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] border-4 border-slate-800 flex flex-col items-center'
-            }`}
-          >
-            {/* Tablet Camera Mockup */}
-            {deviceView === 'tablet' && (
-              <div className="w-full flex items-center justify-center pb-2 shrink-0">
-                <div className="w-2.5 h-2.5 rounded-full bg-slate-950 border border-slate-800 flex items-center justify-center">
-                  <div className="w-1 h-1 rounded-full bg-slate-700" />
-                </div>
-              </div>
-            )}
-
-            {/* Mobile Dynamic Island / Camera Mockup */}
-            {deviceView === 'mobile' && (
-              <div className="w-full flex items-center justify-center pb-2 shrink-0">
-                <div className="w-24 h-4 bg-slate-950 rounded-full flex items-center justify-center gap-2 shadow-inner border border-slate-800/50">
-                  <div className="w-2 h-2 rounded-full bg-slate-800" />
-                  <div className="w-1.5 h-1.5 rounded-full bg-slate-900" />
-                </div>
-              </div>
-            )}
-
-            {/* Genuine Responsive Iframe */}
-            <div className={`w-full h-full overflow-hidden flex-grow relative bg-white ${
-              deviceView === 'desktop' ? 'rounded-none' : 'rounded-xl'
-            }`}>
-              <iframe
-                ref={iframeRef}
-                src="/admin/preview"
-                title="SELECO Live Responsive Preview"
-                onLoad={() => {
-                  setIframeLoaded(true);
-                  sendContentToIframe(editorContent);
-                }}
-                className="w-full h-full bg-white border-0"
-              />
-            </div>
-
-            {/* Mobile Home Indicator Bar Mockup */}
-            {deviceView === 'mobile' && (
-              <div className="w-full flex items-center justify-center pt-2 shrink-0">
-                <div className="w-28 h-1 bg-slate-700 rounded-full" />
-              </div>
-            )}
-          </div>
-
-        </main>
-
+  if (checkingAuth) {
+    return (
+      <div className="min-h-screen bg-[#0a1420] flex items-center justify-center text-white">
+        <div className="w-8 h-8 border-2 border-[#dfa82e] border-t-transparent rounded-full animate-spin" />
       </div>
+    );
+  }
 
-      {/* TOAST NOTIFICATION */}
-      {saveToast.show && (
-        <div className={`fixed bottom-6 right-6 z-50 px-5 py-3.5 rounded-xl shadow-2xl flex items-center gap-3 text-xs font-semibold backdrop-blur-xl border transition-all animate-bounce ${
-          saveToast.type === 'success'
-            ? 'bg-emerald-950/90 text-emerald-300 border-emerald-500/40'
-            : 'bg-red-950/90 text-red-300 border-red-500/40'
-        }`}>
-          {saveToast.type === 'success' ? (
-            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-          ) : (
-            <AlertCircle className="w-4 h-4 text-red-400" />
+  // ── 1. LOGIN SCREEN ──────────────────────────────────────────────────────────
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-[#070e17] text-slate-100 flex items-center justify-center p-4">
+        <div className="w-full max-w-md bg-[#0f2034] border border-white/10 rounded-3xl p-8 sm:p-10 shadow-2xl relative overflow-hidden">
+          {/* Subtle Ambient Backlight */}
+          <div className="absolute top-0 right-0 w-48 h-48 bg-[#dfa82e]/10 rounded-full blur-3xl pointer-events-none" />
+
+          {/* Logo & Brand Header */}
+          <div className="text-center mb-8">
+            <div className="w-16 h-16 rounded-2xl bg-white p-2 border border-[#dfa82e]/40 flex items-center justify-center mx-auto mb-4 shadow-xl">
+              <img
+                src="/logo-seleco.png"
+                alt="Seleco Project"
+                style={{ maxWidth: '52px', maxHeight: '52px', width: 'auto', height: 'auto' }}
+                className="object-contain"
+              />
+            </div>
+            <h1 className="font-serif-title text-2xl font-bold text-white tracking-wide">
+              SELECO Admin Hub
+            </h1>
+            <p className="text-xs uppercase tracking-widest text-[#dfa82e] font-semibold mt-1">
+              Sedana Legal Consultant
+            </p>
+            <p className="text-xs text-slate-400 mt-2">
+              Masuk untuk mengelola Editor Web dan Portal Artikel
+            </p>
+          </div>
+
+          {authError && (
+            <div className="mb-6 p-4 rounded-xl bg-rose-950/60 border border-rose-500/50 text-rose-200 text-xs flex items-center gap-3">
+              <AlertCircle className="w-5 h-5 shrink-0 text-rose-400" />
+              <span>{authError}</span>
+            </div>
           )}
-          <span>{saveToast.message}</span>
+
+          <form onSubmit={handleLogin} className="space-y-4">
+            <div>
+              <label className="block text-xs font-semibold text-slate-300 mb-1.5 uppercase tracking-wider">
+                Username
+              </label>
+              <input
+                type="text"
+                value={usernameInput}
+                onChange={(e) => setUsernameInput(e.target.value)}
+                placeholder="admin"
+                required
+                className="w-full px-4 py-3 bg-[#0a1420] border border-white/15 focus:border-[#dfa82e] rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-[#dfa82e] transition-all"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-300 mb-1.5 uppercase tracking-wider">
+                Password
+              </label>
+              <input
+                type="password"
+                value={passwordInput}
+                onChange={(e) => setPasswordInput(e.target.value)}
+                placeholder="••••••••"
+                required
+                className="w-full px-4 py-3 bg-[#0a1420] border border-white/15 focus:border-[#dfa82e] rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-[#dfa82e] transition-all"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={isAuthenticating}
+              className="w-full py-3.5 mt-2 rounded-xl bg-gradient-to-r from-[#dfa82e] to-[#b88917] hover:brightness-110 text-[#0a1420] font-bold text-xs uppercase tracking-wider shadow-lg shadow-[#dfa82e]/20 transition-all flex items-center justify-center gap-2 cursor-pointer"
+            >
+              {isAuthenticating ? (
+                <div className="w-4 h-4 border-2 border-[#0a1420] border-t-transparent rounded-full animate-spin" />
+              ) : (
+                <>
+                  <Lock className="w-4 h-4" />
+                  <span>Masuk ke Dashboard</span>
+                </>
+              )}
+            </button>
+          </form>
+
+          <div className="mt-6 pt-6 border-t border-white/10 text-center text-[11px] text-slate-400">
+            Akses internal khusus tim konsultan dan editor SELECO.
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ── 2. ADMIN COMMAND CENTER (2 DASHBOARD TERPISAH) ───────────────────────────
+  return (
+    <div className="min-h-screen bg-[#070e17] text-slate-100 flex flex-col justify-between">
+      {/* Toast Notification */}
+      {toastMessage && (
+        <div className={`fixed top-5 right-5 z-[9999] px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-xs font-semibold border ${
+          toastMessage.type === 'success'
+            ? 'bg-emerald-950/90 border-emerald-500/50 text-emerald-300'
+            : 'bg-rose-950/90 border-rose-500/50 text-rose-300'
+        }`}>
+          {toastMessage.type === 'success' ? (
+            <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+          ) : (
+            <AlertCircle className="w-5 h-5 text-rose-400" />
+          )}
+          <span>{toastMessage.text}</span>
         </div>
       )}
 
-    </TailAdminLayout>
+      {/* Top Navbar Header */}
+      <header className="h-20 bg-[#0f2034] border-b border-white/10 px-6 sm:px-10 flex items-center justify-between sticky top-0 z-30 shadow-lg">
+        <div className="flex items-center gap-4">
+          <div className="w-10 h-10 rounded-xl bg-white p-1 border border-[#dfa82e]/40 flex items-center justify-center shrink-0 shadow-md">
+            <img
+              src="/logo-seleco.png"
+              alt="Seleco"
+              style={{ maxWidth: '34px', maxHeight: '34px', width: 'auto', height: 'auto' }}
+              className="object-contain"
+            />
+          </div>
+          <div>
+            <h1 className="font-serif-title text-lg sm:text-xl font-bold text-white tracking-wider leading-tight">
+              SELECO <span className="text-[#dfa82e]">Command Center</span>
+            </h1>
+            <p className="text-[10px] uppercase tracking-widest text-slate-400">
+              Pusat Manajemen Web &amp; Portal Artikel
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3 sm:gap-4">
+          <Link
+            href="/"
+            target="_blank"
+            className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/15 text-xs font-semibold text-slate-200 transition-all"
+          >
+            <Eye className="w-3.5 h-3.5 text-[#dfa82e]" />
+            <span>Lihat Web Publik</span>
+            <ExternalLink className="w-3 h-3 text-slate-400" />
+          </Link>
+
+          <button
+            onClick={handleLogout}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-xs font-semibold text-rose-300 transition-all cursor-pointer"
+          >
+            <LogOut className="w-3.5 h-3.5" />
+            <span>Keluar</span>
+          </button>
+        </div>
+      </header>
+
+      {/* Main Content Area */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 w-full flex-grow">
+        
+        {/* Welcome & Site Status Strip */}
+        <div className="mb-10 bg-[#0f2034]/70 border border-white/10 rounded-3xl p-6 sm:p-8 backdrop-blur-sm flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-xl">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dfa82e]/10 border border-[#dfa82e]/30 text-xs font-bold text-[#dfa82e] mb-2 uppercase tracking-widest">
+              Portal Terpadu
+            </div>
+            <h2 className="font-serif-title text-2xl sm:text-3xl font-bold text-white">
+              Selamat Datang di Admin SELECO
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-xl">
+              Silakan pilih dashboard yang ingin Anda kelola di bawah ini: <strong>Visual Builder Web</strong> untuk tata letak halaman, atau <strong>Dashboard Artikel</strong> untuk penulisan berita.
+            </p>
+          </div>
+
+          {/* Site Mode Switcher */}
+          <div className="bg-[#0a1420] border border-white/15 rounded-2xl p-4 flex flex-col gap-2 shrink-0">
+            <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+              <Radio className="w-3.5 h-3.5 text-[#dfa82e]" /> Status Akses Website:
+            </span>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => handleToggleMode('maintenance')}
+                disabled={isSwitchingMode}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                  siteMode === 'maintenance'
+                    ? 'bg-amber-500/20 text-amber-300 border border-amber-500/50'
+                    : 'bg-white/5 text-slate-400 hover:text-white border border-transparent'
+                }`}
+              >
+                Dev Mode
+              </button>
+              <button
+                onClick={() => handleToggleMode('live')}
+                disabled={isSwitchingMode}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                  siteMode === 'live'
+                    ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/50'
+                    : 'bg-white/5 text-slate-400 hover:text-white border border-transparent'
+                }`}
+              >
+                Live (Tayang)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* ── 2 MAJOR DEDICATED DASHBOARDS ────────────────────────────────────── */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+
+          {/* DASHBOARD 1: EDIT WEB (VISUAL BUILDER ALA ELEMENTOR) */}
+          <div className="rounded-3xl bg-gradient-to-b from-[#0f2034] to-[#0c1a2b] border border-white/15 hover:border-[#dfa82e]/50 p-8 sm:p-10 shadow-2xl transition-all duration-300 flex flex-col justify-between group relative overflow-hidden">
+            {/* Top Glow */}
+            <div className="absolute top-0 right-0 w-48 h-48 bg-[#dfa82e]/10 rounded-full blur-3xl pointer-events-none group-hover:bg-[#dfa82e]/15 transition-all" />
+
+            <div>
+              <div className="flex items-center justify-between mb-6">
+                <div className="w-14 h-14 rounded-2xl bg-[#dfa82e]/15 border border-[#dfa82e]/30 flex items-center justify-center text-[#dfa82e] group-hover:scale-110 transition-transform">
+                  <LayoutGrid className="w-7 h-7" />
+                </div>
+                <span className="px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase bg-white/5 border border-white/10 text-[#dfa82e]">
+                  Visual Builder WYSIWYG
+                </span>
+              </div>
+
+              <h3 className="font-serif-title text-2xl sm:text-3xl font-bold text-white group-hover:text-[#dfa82e] transition-colors mb-3">
+                1. Editor Web (Ala Elementor)
+              </h3>
+
+              <p className="text-sm text-slate-300 leading-relaxed mb-6">
+                Editor visual langsung seperti Elementor di WordPress. Sangat mudah digunakan oleh orang awam: klik teks langsung ganti, ubah video latar belakang ruang kantor di hero, ganti foto dokumen/kantor, ubah 5 pilar layanan, nomor kontak &amp; WhatsApp.
+              </p>
+
+              {/* Feature Checklist */}
+              <div className="space-y-2.5 mb-8 border-t border-white/10 pt-6 text-xs text-slate-300">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-[#dfa82e] shrink-0" />
+                  <span><strong>Visual Live Preview:</strong> Tampilan langsung Desktop, Tablet, dan Mobile.</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-[#dfa82e] shrink-0" />
+                  <span><strong>Ganti Video Latar:</strong> Ubah link video kantor &amp; atur tingkat kegelapan.</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-[#dfa82e] shrink-0" />
+                  <span><strong>Edit 5 Pilar:</strong> Ubah nama layanan, deskripsi, dan badge jumlah item.</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-[#dfa82e] shrink-0" />
+                  <span><strong>1-Click Publish:</strong> Sekali klik simpan, perubahan langsung aktif di web.</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Direct Entry Button */}
+            <Link
+              href="/admin/editor"
+              className="w-full py-4 rounded-2xl bg-gradient-to-r from-[#dfa82e] to-[#b88917] hover:brightness-110 text-[#0a1420] font-bold text-xs uppercase tracking-wider shadow-lg shadow-[#dfa82e]/20 transition-all flex items-center justify-center gap-3 group-hover:gap-4"
+            >
+              <span>Buka Editor Web (Visual Builder)</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          {/* DASHBOARD 2: EDIT ARTIKEL (PORTAL BERITA & KONTEN) */}
+          <div className="rounded-3xl bg-gradient-to-b from-[#0f2034] to-[#0c1a2b] border border-white/15 hover:border-emerald-500/50 p-8 sm:p-10 shadow-2xl transition-all duration-300 flex flex-col justify-between group relative overflow-hidden">
+            {/* Top Glow */}
+            <div className="absolute top-0 right-0 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-emerald-500/15 transition-all" />
+
+            <div>
+              <div className="flex items-center justify-between mb-6">
+                <div className="w-14 h-14 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                  <Newspaper className="w-7 h-7" />
+                </div>
+                <span className="px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase bg-white/5 border border-white/10 text-emerald-400">
+                  Newsroom Portal Berita
+                </span>
+              </div>
+
+              <h3 className="font-serif-title text-2xl sm:text-3xl font-bold text-white group-hover:text-emerald-400 transition-colors mb-3">
+                2. Dashboard Artikel (Portal Berita)
+              </h3>
+
+              <p className="text-sm text-slate-300 leading-relaxed mb-6">
+                Dashboard khusus editorial berita dan insight hukum/bisnis. Tulis artikel baru dengan Gutenberg block editor, unggah thumbnail berita, kategorikan ke Perizinan, Imigrasi, Pajak, Pertanahan, atau SDM, serta kelola draft dan terbitan.
+              </p>
+
+              {/* Feature Checklist */}
+              <div className="space-y-2.5 mb-8 border-t border-white/10 pt-6 text-xs text-slate-300">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span><strong>Newsroom Layout:</strong> Tabel berita lengkap dengan status, tanggal, &amp; penulis.</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span><strong>Gutenberg Block Editor:</strong> Penulisan paragraf, heading, kutipan, dan gambar.</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span><strong>Kategori 5 Pilar:</strong> Klasifikasi perizinan, imigrasi, pajak, pertanahan, &amp; SDM.</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span><strong>Total Terdata:</strong> Saat ini ada <strong>{articleCount} artikel</strong> tersimpan di sistem.</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Direct Entry Button */}
+            <Link
+              href="/admin/articles"
+              className="w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:brightness-110 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/20 transition-all flex items-center justify-center gap-3 group-hover:gap-4"
+            >
+              <span>Buka Dashboard Artikel &amp; Berita</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+        </div>
+
+        {/* ── SECONDARY CARD: USER MANAGEMENT ─────────────────────────────────── */}
+        <div className="rounded-2xl bg-[#0f2034]/60 border border-white/10 p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-300">
+              <Users className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="text-sm font-bold text-white">Kelola Pengguna &amp; Hak Akses Admin</h4>
+              <p className="text-xs text-slate-400">Atur akun administrator, ganti password login, atau tambah editor baru.</p>
+            </div>
+          </div>
+          <Link
+            href="/admin/users"
+            className="px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-xs font-semibold text-white transition-all whitespace-nowrap"
+          >
+            Buka Kelola Pengguna →
+          </Link>
+        </div>
+
+      </main>
+
+      {/* Footer */}
+      <footer className="border-t border-white/10 py-6 px-4 text-center text-xs text-slate-500 bg-[#070e17]">
+        SELECO (Sedana Legal Consultant) © 2026. Portal Administrasi Website &amp; Editorial Insight.
+      </footer>
+    </div>
   );
 }

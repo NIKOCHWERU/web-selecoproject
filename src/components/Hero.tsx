@@ -35,6 +35,7 @@ export default function Hero() {
       {/* Looping Corporate Office Room Background Video */}
       <div className="absolute inset-0 overflow-hidden z-0">
         <video
+          key={hero?.bgVideo || 'default-office-video'}
           autoPlay
           loop
           muted
@@ -43,7 +44,7 @@ export default function Hero() {
           poster="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80"
           className="w-full h-full object-cover scale-105 opacity-55 lg:opacity-65 transition-opacity duration-700"
         >
-          <source src="https://assets.mixkit.co/videos/42884/42884-720.mp4" type="video/mp4" />
+          <source src={hero?.bgVideo || 'https://assets.mixkit.co/videos/42884/42884-720.mp4'} type="video/mp4" />
           <source src="https://assets.mixkit.co/videos/42587/42587-720.mp4" type="video/mp4" />
           <source src="https://assets.mixkit.co/videos/42588/42588-720.mp4" type="video/mp4" />
         </video>

@@ -135,8 +135,13 @@ export default function TailAdminLayout({
       const data = await res.json();
       if (res.ok && data.success) {
         sessionStorage.setItem(AUTH_KEY, 'true');
+        sessionStorage.setItem('seleco_admin_auth', 'true');
+        sessionStorage.setItem('seleco_admin_auth_editor', 'true');
+        sessionStorage.setItem('seleco_admin_auth_articles', 'true');
+        sessionStorage.setItem('seleco_admin_auth_users', 'true');
         if (data.user) {
           sessionStorage.setItem(USER_KEY, JSON.stringify(data.user));
+          sessionStorage.setItem('seleco_admin_user', JSON.stringify(data.user));
           setCurrentUser(data.user);
         }
         setIsAuthenticated(true);
@@ -233,6 +238,7 @@ export default function TailAdminLayout({
               <img
                 src="/logo-seleco.png"
                 alt="Seleco Project"
+                style={{ maxWidth: '56px', maxHeight: '56px', width: 'auto', height: 'auto' }}
                 className="w-full h-full object-contain"
               />
             </div>
@@ -314,6 +320,13 @@ export default function TailAdminLayout({
   // Navigation Items
   const navItems = [
     {
+      id: 'home',
+      title: 'Portal Admin Hub',
+      subtitle: 'Pilih 2 Dashboard',
+      href: '/admin',
+      icon: Sparkles,
+    },
+    {
       id: 'editor',
       title: 'Editor Web',
       subtitle: 'Visual Builder ala Elementor',
@@ -375,6 +388,7 @@ export default function TailAdminLayout({
               <img
                 src="/logo-seleco.png"
                 alt="Seleco"
+                style={{ maxWidth: '36px', maxHeight: '36px', width: 'auto', height: 'auto' }}
                 className="w-full h-full object-contain"
               />
             </div>

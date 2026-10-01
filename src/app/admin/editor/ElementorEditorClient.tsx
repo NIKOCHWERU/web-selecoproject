@@ -766,7 +766,7 @@ export default function ElementorEditorClient() {
                   </div>
 
                   <div className="space-y-1.5 pt-1">
-                    <label className="text-[11px] font-semibold text-white/60">Foto Background Hero</label>
+                    <label className="text-[11px] font-semibold text-white/60">Foto Poster Background Hero</label>
                     <div className="flex gap-2">
                       <input
                         type="text"
@@ -780,6 +780,46 @@ export default function ElementorEditorClient() {
                         title="Upload Foto Latar"
                       >
                         <Upload className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Video Latar Belakang Ruang Kantor */}
+                  <div className="space-y-1.5 pt-2 border-t border-white/10">
+                    <label className="text-[11px] font-semibold text-white/80 flex items-center justify-between">
+                      <span className="flex items-center gap-1.5">
+                        <span className="text-[#dfa82e]">▶</span> Video Latar Belakang Kantor (MP4)
+                      </span>
+                      <span className="text-[10px] text-[#dfa82e] font-mono">Looping Otomatis</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={content?.hero?.bgVideo || ''}
+                      onChange={(e) => updateField('hero.bgVideo', e.target.value)}
+                      placeholder="https://.../video.mp4"
+                      className="w-full bg-[#1e293b] border border-white/10 rounded px-2.5 py-1.5 text-xs text-white font-mono focus:outline-none focus:border-[#dfa82e]"
+                    />
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      <button
+                        type="button"
+                        onClick={() => updateField('hero.bgVideo', 'https://assets.mixkit.co/videos/42884/42884-720.mp4')}
+                        className="px-2 py-1 rounded bg-white/5 hover:bg-[#dfa82e]/20 text-[10px] text-slate-300 hover:text-[#dfa82e] border border-white/10 transition-colors"
+                      >
+                        Pilihan 1: Rapat Kantor
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => updateField('hero.bgVideo', 'https://assets.mixkit.co/videos/42587/42587-720.mp4')}
+                        className="px-2 py-1 rounded bg-white/5 hover:bg-[#dfa82e]/20 text-[10px] text-slate-300 hover:text-[#dfa82e] border border-white/10 transition-colors"
+                      >
+                        Pilihan 2: Meja Kerja
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => updateField('hero.bgVideo', 'https://assets.mixkit.co/videos/42588/42588-720.mp4')}
+                        className="px-2 py-1 rounded bg-white/5 hover:bg-[#dfa82e]/20 text-[10px] text-slate-300 hover:text-[#dfa82e] border border-white/10 transition-colors"
+                      >
+                        Pilihan 3: Gedung Kaca
                       </button>
                     </div>
                   </div>
