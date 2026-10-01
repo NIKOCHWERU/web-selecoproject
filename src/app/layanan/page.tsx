@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Search, X, Briefcase, ChevronRight, Filter, Grid, List, Building2 } from 'lucide-react';
@@ -30,7 +30,7 @@ function getBadgeInfo(type: ServiceItem['type']) {
   }
 }
 
-export default function LayananPage() {
+function LayananContent() {
   const { content } = useContent();
   const totalServices = content?.global?.totalServices || content?.hero?.stat2Number || '445+';
   const litigationCount = content?.global?.litigationCount || '34';
@@ -306,5 +306,13 @@ export default function LayananPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function LayananPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#0a1420] text-white flex items-center justify-center">Memuat Layanan...</div>}>
+      <LayananContent />
+    </Suspense>
   );
 }

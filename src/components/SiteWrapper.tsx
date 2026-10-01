@@ -17,9 +17,13 @@ interface SiteWrapperProps {
 function PreviewDetector({ onDetect }: { onDetect: (isPreview: boolean) => void }) {
   const searchParams = useSearchParams();
   useEffect(() => {
-    const hasAdminSession = typeof window !== 'undefined' && sessionStorage.getItem('seleco_admin_auth') === 'true';
-    const hasPreviewParam = searchParams.get('preview') === 'true';
-    onDetect(hasAdminSession || hasPreviewParam);
+    const hasAdminSession = typeof window !== 'undefined' && (
+      sessionStorage.getItem('seleco_admin_auth') === 'true' ||
+      sessionStorage.getItem('seleco_admin_auth_editor') === 'true' ||
+      sessionStorage.getItem('seleco_admin_auth_articles') === 'true'
+    );
+    const hasPreviewParam = searchParams ? searchParams.get('preview') === 'true' : false;
+    onDetect(Boolean(hasAdminSession || hasPreviewParam));
   }, [searchParams, onDetect]);
   return null;
 }
@@ -33,11 +37,13 @@ export default function SiteWrapper({ children }: SiteWrapperProps) {
     setIsAdminOrPreview(status);
   }, []);
 
+  const currentPath = pathname || (typeof window !== 'undefined' ? window.location.pathname : '');
+
   // Always render children directly for admin, edit-view, and api routes
   if (
-    pathname.startsWith('/admin') || 
-    pathname.startsWith('/edit-view') || 
-    pathname.startsWith('/api')
+    currentPath.startsWith('/admin') || 
+    currentPath.startsWith('/edit-view') || 
+    currentPath.startsWith('/api')
   ) {
     return <>{children}</>;
   }
