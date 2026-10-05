@@ -802,6 +802,13 @@ export default function ElementorEditorClient() {
                     <div className="flex flex-wrap gap-1.5 pt-1">
                       <button
                         type="button"
+                        onClick={() => updateField('hero.bgVideo', '/bg_hero.mp4')}
+                        className="px-2.5 py-1 rounded bg-[#dfa82e]/20 text-[10px] text-[#dfa82e] border border-[#dfa82e]/40 font-bold hover:bg-[#dfa82e]/30 transition-colors"
+                      >
+                        Default: bg_hero.mp4
+                      </button>
+                      <button
+                        type="button"
                         onClick={() => updateField('hero.bgVideo', 'https://assets.mixkit.co/videos/42884/42884-720.mp4')}
                         className="px-2 py-1 rounded bg-white/5 hover:bg-[#dfa82e]/20 text-[10px] text-slate-300 hover:text-[#dfa82e] border border-white/10 transition-colors"
                       >

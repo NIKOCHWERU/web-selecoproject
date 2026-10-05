@@ -199,7 +199,7 @@ export const defaultSiteContent: SiteContent = {
     headlineItalic: "Pertumbuhan Bisnis.",
     subheadline: "SELECO menyediakan 5 pilar konsultan korporasi profesional: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM secara transparan, akurat, dan terpercaya.",
     bgImage: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80",
-    bgVideo: "https://assets.mixkit.co/videos/42884/42884-720.mp4",
+    bgVideo: "/bg_hero.mp4",
     ctaButton1Text: "Cari 445+ Layanan Konsultan",
     ctaButton1Link: "/layanan",
     ctaButton2Text: "Jadwalkan Konsultasi",
