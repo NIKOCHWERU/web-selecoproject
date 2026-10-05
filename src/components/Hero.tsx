@@ -31,7 +31,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <EditableSection id="hero" name="Hero Banner Section" className="relative min-h-[700px] lg:min-h-[780px] flex items-center justify-center overflow-hidden py-16 lg:py-24 bg-[#0a1420] text-white">
+    <EditableSection id="hero" name="Hero Banner Section" className="relative min-h-[calc(100vh-80px)] lg:min-h-[85vh] flex items-center justify-center overflow-hidden pt-8 pb-16 sm:py-12 lg:py-16 bg-[#0a1420] text-white">
       {/* Looping Corporate Background Video */}
       <div className="absolute inset-0 overflow-hidden z-0">
         <video
@@ -57,12 +57,12 @@ export default function Hero() {
       <div className="absolute right-1/4 top-1/4 w-[500px] h-[500px] bg-[#dfa82e]/5 rounded-full blur-3xl pointer-events-none z-10" />
 
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        {/* Spacious Wide Layout (Without Right Card) */}
+        {/* Spacious Wide Layout - Vertically Centered */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="max-w-4xl lg:max-w-5xl space-y-7"
+          className="max-w-4xl lg:max-w-5xl space-y-6 sm:space-y-7 -mt-6 sm:-mt-10 lg:-mt-14"
         >
           {/* Top Pill Eyebrow Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/15 backdrop-blur-sm text-xs font-semibold tracking-wider text-[#dfa82e]">
