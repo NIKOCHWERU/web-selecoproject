@@ -20,9 +20,6 @@ const cormorantGaramond = Cormorant_Garamond({
   variable: '--font-cormorant',
 });
 
-// Incremental Static Regeneration (ISR) - Cache static pages for 60s for ultra-fast TTFB (<50ms)
-export const revalidate = 60;
-
 export const metadata: Metadata = {
   title: 'SELECO | SEDANA LEGAL CONSULTANT — Perizinan, Imigrasi, Pajak, Pertanahan & SDM',
   description: 'SELECO (SEDANA LEGAL CONSULTANT) menyediakan 5 pilar konsultan profesional: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM.',
