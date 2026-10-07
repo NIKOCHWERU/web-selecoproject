@@ -35,7 +35,7 @@ interface TailAdminLayoutProps {
   fullHeight?: boolean;
   hideSidebar?: boolean;
   onToggleHideSidebar?: () => void;
-  /** Namespace kunci sesi autentikasi — pisahkan login per modul admin */
+  /** Namespace kunci sesi autentikasi - pisahkan login per modul admin */
   authNamespace?: 'editor' | 'articles' | 'users';
 }
 
@@ -55,7 +55,7 @@ export default function TailAdminLayout({
   const pathname = usePathname();
   const router = useRouter();
 
-  // Auth session key per namespace — pisahkan sesi editor & artikel
+  // Auth session key per namespace - pisahkan sesi editor & artikel
   const AUTH_KEY = `seleco_admin_auth_${authNamespace}`;
   const USER_KEY = `seleco_admin_user_${authNamespace}`;
 

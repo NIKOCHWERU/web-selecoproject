@@ -452,7 +452,7 @@ export default function AdminClient() {
               </h3>
 
               <p className="text-sm text-slate-300 leading-relaxed mb-6">
-                Dashboard khusus editorial berita dan insight hukum/bisnis. Tulis artikel baru dengan Gutenberg block editor, unggah thumbnail berita, kategorikan ke Perizinan, Imigrasi, Pajak, Pertanahan, atau SDM, serta kelola draft dan terbitan.
+                Dashboard khusus editorial berita dan insight regulasi, perizinan & bisnis. Tulis artikel baru dengan Gutenberg block editor, unggah thumbnail berita, kategorikan ke Perizinan, Imigrasi, Pajak, Pertanahan, atau SDM, serta kelola draft dan terbitan.
               </p>
 
               {/* Feature Checklist */}

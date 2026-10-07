@@ -5,7 +5,7 @@ import ContactSection from '@/components/ContactSection';
 import FAQSection from '@/components/FAQSection';
 
 export const metadata: Metadata = {
-  title: 'Kontak & Konsultasi | SELECO — SEDANA LEGAL CONSULTANT',
+  title: 'Kontak & Konsultasi | SELECO | SEDANA LEGAL CONSULTANT',
   description: 'Hubungi konsultan SELECO Jakarta. Konsultasi perizinan usaha OSS RBA, keimigrasian/TKA, perpajakan badan, pertanahan BPN, dan manajemen SDM via formulir atau WhatsApp.',
 };
 

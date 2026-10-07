@@ -184,7 +184,7 @@ function LayananContent() {
                 <p className="text-xs text-slate-300">{currentCatData.description}</p>
                 <p className="text-xs text-[#dfa82e] font-bold mt-2">
                   Menampilkan {filtered.length} dari {currentCatData.count} layanan
-                  {searchQuery && ` — cocok dengan "${searchQuery}"`}
+                  {searchQuery && ` - cocok dengan "${searchQuery}"`}
                 </p>
               </div>
             )}
@@ -194,7 +194,7 @@ function LayananContent() {
               {filtered.length} Layanan Ditemukan
             </p>
 
-            {/* Items — Grid Mode */}
+            {/* Items - Grid Mode */}
             {filtered.length === 0 && (
               <div className="text-center py-20 text-white/40 bg-[#0f2034] border border-white/10 rounded-2xl p-8">
                 <Search className="w-10 h-10 mx-auto mb-3 opacity-40 text-[#dfa82e]" />

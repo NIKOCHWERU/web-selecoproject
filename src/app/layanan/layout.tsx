@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 
 export const metadata = {
   title: 'Direktori 445+ Layanan Konsultan & Perizinan | Seleco',
-  description: 'Direktori komprehensif 5 Pilar Layanan Konsultan: Perizinan OSS RBA, Imigrasi & TKA, Pajak, Pertanahan BPN, dan Manajemen SDM oleh Seleco — Sedana legal consultant.',
+  description: 'Direktori komprehensif 5 Pilar Layanan Konsultan: Perizinan OSS RBA, Imigrasi & TKA, Pajak, Pertanahan BPN, dan Manajemen SDM oleh SELECO (Sedana Legal Consultant).',
 };
 
 export default function LayananLayout({ children }: { children: React.ReactNode }) {

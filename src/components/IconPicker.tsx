@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import { 
-  // Hukum & Legal
+  // Legalitas & Perizinan
   Scale, 
   Building2, 
   Building, 
@@ -107,7 +107,7 @@ import {
 } from 'lucide-react';
 
 export const ICON_MAP: Record<string, React.ComponentType<any>> = {
-  // Hukum & Legal
+  // Legalitas & Perizinan
   Scale,
   Building2,
   Building,
@@ -217,23 +217,23 @@ export interface IconRegistryItem {
 }
 
 export const ICON_REGISTRY: IconRegistryItem[] = [
-  // Hukum & Legal
-  { name: 'Scale', category: 'legal', label: 'Timbangan Keadilan', tags: ['hukum', 'timbangan', 'keadilan', 'legal', 'law', 'justice', 'peradilan'] },
+  // Legalitas & Perizinan
+  { name: 'Scale', category: 'legal', label: 'Kepatuhan Regulasi', tags: ['regulasi', 'timbangan', 'legalitas', 'kepatuhan', 'audit', 'izin'] },
   { name: 'Building2', category: 'legal', label: 'Gedung Korporasi', tags: ['gedung', 'kantor', 'instansi', 'office', 'corporate', 'perusahaan', 'lembaga'] },
   { name: 'Building', category: 'legal', label: 'Gedung Usaha', tags: ['gedung', 'usaha', 'bangunan', 'properti', 'perusahaan'] },
-  { name: 'Landmark', category: 'legal', label: 'Gedung Pengadilan/Bank', tags: ['pemerintah', 'pengadilan', 'instansi', 'kementerian', 'bank'] },
+  { name: 'Landmark', category: 'legal', label: 'Instansi Pemerintah/Bank', tags: ['pemerintah', 'instansi', 'kementerian', 'bpn', 'pajak', 'bank'] },
   { name: 'Briefcase', category: 'legal', label: 'Tas Kerja Bisnis', tags: ['bisnis', 'konsultan', 'pekerjaan', 'profesi', 'portfolio', 'briefcase'] },
   { name: 'ShieldCheck', category: 'legal', label: 'Perisai Legalitas', tags: ['perisai', 'keamanan', 'legal', 'resmi', 'sah', 'terverifikasi', 'shield'] },
   { name: 'Shield', category: 'legal', label: 'Perisai Proteksi', tags: ['proteksi', 'keamanan', 'mitigasi', 'perlindungan', 'defense'] },
-  { name: 'ShieldAlert', category: 'legal', label: 'Peringatan Hukum', tags: ['peringatan', 'waspada', 'sengketa', 'mitigasi', 'risiko'] },
+  { name: 'ShieldAlert', category: 'legal', label: 'Mitigasi Risiko', tags: ['peringatan', 'waspada', 'kepatuhan', 'mitigasi', 'risiko'] },
   { name: 'Award', category: 'legal', label: 'Sertifikat & Penghargaan', tags: ['penghargaan', 'prestasi', 'sertifikat', 'standar', 'iso', 'award'] },
   { name: 'FileCheck', category: 'legal', label: 'Dokumen Sah / Izin', tags: ['izin', 'dokumen', 'oss', 'legalitas', 'persetujuan', 'file', 'verifikasi'] },
   { name: 'FileText', category: 'legal', label: 'Kontrak / Akta', tags: ['kontrak', 'akta', 'surat', 'perjanjian', 'dokumen', 'draft'] },
   { name: 'FilePlus', category: 'legal', label: 'Tambah Dokumen', tags: ['tambah', 'pengajuan', 'berkas', 'dokumen', 'file'] },
   { name: 'FileSpreadsheet', category: 'legal', label: 'Laporan Finansial', tags: ['laporan', 'tabel', 'data', 'rekap', 'excel'] },
-  { name: 'BookOpen', category: 'legal', label: 'Buku Undang-Undang', tags: ['regulasi', 'uu', 'aturan', 'buku', 'edukasi', 'wawasan', 'hukum'] },
+  { name: 'BookOpen', category: 'legal', label: 'Buku Regulasi & UU', tags: ['regulasi', 'uu', 'aturan', 'buku', 'edukasi', 'wawasan', 'legalitas'] },
   { name: 'Scroll', category: 'legal', label: 'Piagam / Sertifikat', tags: ['piagam', 'sertifikat', 'naskah', 'resmi', 'notaris'] },
-  { name: 'Gavel', category: 'legal', label: 'Palu Hakim', tags: ['hakim', 'sidang', 'peradilan', 'litigasi', 'hukum', 'putusan'] },
+  { name: 'Gavel', category: 'legal', label: 'Legalitas Usaha', tags: ['legalitas', 'pendirian', 'izin', 'perusahaan', 'kepatuhan', 'notaris'] },
 
   // Kontak & Komunikasi
   { name: 'Phone', category: 'contact', label: 'Telepon', tags: ['telepon', 'kontak', 'hubungi', 'call', 'phone'] },
@@ -337,7 +337,7 @@ export function IconPicker({
 
   const categories = [
     { id: 'all', label: 'Semua', emoji: '⭐' },
-    { id: 'legal', label: 'Hukum & Izin', emoji: '⚖️' },
+    { id: 'legal', label: 'Legalitas & Izin', emoji: '📜' },
     { id: 'business', label: 'Bisnis & Pajak', emoji: '💼' },
     { id: 'contact', label: 'Kontak & Chat', emoji: '📞' },
     { id: 'team', label: 'SDM & Tim', emoji: '👥' },
@@ -400,7 +400,7 @@ export function IconPicker({
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Cari ikon... (mis: telepon, hukum, uang, dokumen, sdm)"
+          placeholder="Cari ikon... (mis: telepon, izin, legalitas, uang, dokumen, sdm)"
           className="w-full bg-slate-900 border border-slate-800 focus:border-amber-400 rounded-xl pl-9 pr-8 py-2 text-xs text-white placeholder:text-slate-500 focus:outline-none transition-colors"
           autoFocus
         />

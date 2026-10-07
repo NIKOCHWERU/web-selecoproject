@@ -42,7 +42,7 @@ export default function RetainerSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="bg-[#0f2034] text-white rounded-xl p-8 sm:p-14 shadow-2xl border border-white/10 relative overflow-hidden">
-          {/* Left accent bar — hierarchy function */}
+          {/* Left accent bar - hierarchy function */}
           <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#b88917]" />
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">

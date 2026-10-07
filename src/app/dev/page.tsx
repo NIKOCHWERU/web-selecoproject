@@ -282,7 +282,7 @@ export default function DevPortalPage() {
 
         {/* Footer info */}
         <div className="text-center text-xs text-slate-500 pt-4 border-t border-slate-800/80">
-          <p>© {new Date().getFullYear()} Seleco (Sedana legal consultant) — Internal Developer Mode</p>
+          <p>© {new Date().getFullYear()} SELECO (Sedana Legal Consultant) | Internal Developer Mode</p>
         </div>
 
       </div>

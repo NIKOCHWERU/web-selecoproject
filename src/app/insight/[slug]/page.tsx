@@ -125,7 +125,7 @@ function RenderGutenbergBlock({ block }: { block: GutenbergBlock }) {
           </p>
           {(block.content.author || block.content.cite) && (
             <div className="mt-4 text-xs font-semibold uppercase tracking-wider text-[#dfa82e]">
-              — {block.content.author} {block.content.cite && <span className="text-white/40 font-normal">({block.content.cite})</span>}
+              - {block.content.author} {block.content.cite && <span className="text-white/40 font-normal">({block.content.cite})</span>}
             </div>
           )}
         </blockquote>

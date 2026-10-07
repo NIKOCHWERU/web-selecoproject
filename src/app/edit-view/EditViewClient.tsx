@@ -48,7 +48,7 @@ export default function EditViewClient() {
     { id: 'services', label: '5 Pilar Layanan Konsultan', icon: '💼', page: 'home' },
     { id: 'retainer', label: 'Corporate Retainer Program', icon: '🛡️', page: 'home' },
     { id: 'attorneys', label: 'Tim Konsultan Profesional', icon: '👥', page: 'home' },
-    { id: 'insights', label: 'Insight & Artikel Hukum', icon: '📰', page: 'home' },
+    { id: 'insights', label: 'Insight Regulasi & Legalitas Usaha', icon: '📰', page: 'home' },
     { id: 'faq', label: 'Tanya Jawab (FAQ)', icon: '❓', page: 'home' },
     { id: 'contact', label: 'Kontak & Formulir Konsultasi', icon: '📞', page: 'home' },
     { id: 'footer', label: 'Footer Website & Navigasi', icon: '📑', page: 'home' },

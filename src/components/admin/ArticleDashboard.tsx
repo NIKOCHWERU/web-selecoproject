@@ -181,7 +181,7 @@ export default function ArticleDashboard() {
             Manajemen Artikel &amp; Publikasi Regulasi
           </h1>
           <p className="text-xs sm:text-sm text-[#8A99AD] mt-1">
-            Tulis, kelola SEO, dan publikasikan artikel hukum &amp; bisnis dengan editor blok profesional.
+            Tulis, kelola SEO, dan publikasikan artikel perizinan, legalitas &amp; bisnis dengan editor blok profesional.
           </p>
         </div>
 

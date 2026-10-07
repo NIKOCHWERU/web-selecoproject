@@ -92,7 +92,7 @@ export default function ContactSection() {
                 {global?.brandName || 'SELECO'}
               </h3>
               <p className="text-xs text-white/40 leading-relaxed mb-8 font-light">
-                {global?.brandTagline || 'SEDANA CORPORATE CONSULTANT'} — Strategic Corporate Consultant in Indonesia.
+                {global?.brandTagline || 'SEDANA LEGAL CONSULTANT'} | Strategic Corporate Consultant in Indonesia.
               </p>
 
               <div className="space-y-5">
@@ -150,9 +150,9 @@ export default function ContactSection() {
                 className="w-full h-full object-cover brightness-40"
               />
               <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
-                <span className="font-serif-title text-base font-bold text-white">SELECO — Thamrin, Jakarta</span>
+                <span className="font-serif-title text-base font-bold text-white">SELECO | Thamrin, Jakarta</span>
                 <span className="text-[10px] text-[#b88917] font-semibold uppercase tracking-widest mt-1">
-                  Senin–Jumat | 09:00–17:00 WIB
+                  Senin - Jumat | 09:00 - 17:00 WIB
                 </span>
               </div>
             </div>

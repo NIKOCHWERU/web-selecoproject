@@ -205,7 +205,7 @@ export default function ServicesSection() {
           })}
         </div>
 
-        {/* Directory Banner — Modern Eventure Rounded Strip */}
+        {/* Directory Banner - Modern Eventure Rounded Strip */}
         <div className="rounded-3xl bg-gradient-to-r from-[#0f2034] via-[#142940] to-[#0f2034] text-white p-8 lg:p-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 border border-white/15 shadow-2xl relative overflow-hidden">
           <div className="space-y-3 z-10 max-w-2xl">
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-widest text-[#dfa82e]">

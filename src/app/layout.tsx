@@ -21,7 +21,7 @@ const cormorantGaramond = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: 'SELECO | SEDANA LEGAL CONSULTANT — Perizinan, Imigrasi, Pajak, Pertanahan & SDM',
+  title: 'SELECO | SEDANA LEGAL CONSULTANT | Perizinan, Imigrasi, Pajak, Pertanahan & SDM',
   description: 'SELECO (SEDANA LEGAL CONSULTANT) menyediakan 5 pilar konsultan profesional: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM.',
   keywords: 'konsultan perizinan usaha, konsultan imigrasi kitas tka, konsultan pajak spt badan, konsultan pertanahan bpn, konsultan sdm ketenagakerjaan, seleco sedana legal consultant',
   robots: {
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     nocache: true,
   },
   openGraph: {
-    title: 'SELECO — SEDANA LEGAL CONSULTANT',
+    title: 'SELECO | SEDANA LEGAL CONSULTANT',
     description: '5 Pilar Konsultan: Perizinan, Imigrasi, Pajak, Pertanahan & SDM (445+ Solusi Layanan)',
     url: `https://${process.env.NEXT_PUBLIC_DOMAIN || 'selecoproject.com'}`,
     siteName: 'SELECO',

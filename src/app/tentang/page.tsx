@@ -5,7 +5,7 @@ import AboutSection from '@/components/AboutSection';
 import RetainerSection from '@/components/RetainerSection';
 
 export const metadata: Metadata = {
-  title: 'Tentang Kami | SELECO — SEDANA LEGAL CONSULTANT',
+  title: 'Tentang Kami | SELECO | SEDANA LEGAL CONSULTANT',
   description: 'Profil SELECO, visi, nilai-nilai integritas, tim konsultan profesional 5 pilar (Perizinan, Imigrasi, Pajak, Pertanahan, SDM) di Indonesia.',
 };
 

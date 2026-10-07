@@ -89,7 +89,7 @@ export default function GutenbergEditor({
           id: 'b-init-2',
           type: 'paragraph',
           content: { 
-            text: 'Tuliskan pengantar artikel Anda di sini. Jelaskan latar belakang regulasi, kewajiban hukum, dan implikasi strategis bagi operasional bisnis Anda.',
+            text: 'Tuliskan pengantar artikel Anda di sini. Jelaskan latar belakang regulasi, kewajiban kepatuhan usaha, dan implikasi strategis bagi operasional bisnis Anda.',
             align: 'justify'
           }
         }
@@ -594,7 +594,7 @@ export default function GutenbergEditor({
                             type="text"
                             value={block.content.author || ''}
                             onChange={(e) => updateBlockContent(block.id, { author: e.target.value })}
-                            placeholder="— Sumber / Penulis Kutipan (opsional)"
+                            placeholder="- Sumber / Penulis Kutipan (opsional)"
                             className="w-full bg-transparent text-xs text-[#b88917] font-semibold focus:outline-none"
                           />
                         </div>
@@ -1274,7 +1274,7 @@ export default function GutenbergEditor({
                       {b.type === 'quote' && (
                         <blockquote className="my-6 p-5 bg-amber-50/60 border-l-4 border-[#b88917] rounded-r-xl italic font-serif-title text-slate-900">
                           &ldquo;{b.content.text}&rdquo;
-                          {b.content.author && <span className="block mt-2 text-xs font-sans font-bold text-[#b88917] not-italic">— {b.content.author}</span>}
+                          {b.content.author && <span className="block mt-2 text-xs font-sans font-bold text-[#b88917] not-italic">- {b.content.author}</span>}
                         </blockquote>
                       )}
 
@@ -1382,7 +1382,7 @@ function getDefaultContentForType(type: BlockType): GutenbergBlock['content'] {
     case 'table':
       return {
         title: 'Tabel Regulasi & Biaya',
-        headers: ['Parameter / Syarat', 'Ketentuan Hukum', 'Biaya / Waktu'],
+        headers: ['Parameter / Syarat', 'Ketentuan Regulasi', 'Biaya / Waktu'],
         rows: [
           ['Contoh Syarat 1', 'Wajib melampirkan NIB & NPWP', '1-2 Hari Kerja'],
           ['Contoh Syarat 2', 'Sertifikat Standar OSS Terverifikasi', '3-5 Hari Kerja'],

@@ -34,7 +34,7 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
     },
     {
       title: 'Manajemen Risiko & SDM',
-      description: 'Perlindungan menyeluruh tata kelola tenaga kerja, ketenagakerjaan, aset pertanahan, dan kepatuhan hukum.',
+      description: 'Perlindungan menyeluruh tata kelola tenaga kerja, ketenagakerjaan, aset pertanahan, dan kepatuhan legalitas usaha.',
     },
   ];
 
@@ -57,13 +57,13 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
                 <EditableImage
                   fieldPath="about.image1"
                   fallback="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1000&q=80"
-                  alt="Penandatanganan Perizinan Dokumen Hukum dan Legalitas Korporasi"
-                  label="Foto Utama Tentang (Legal & Dokumen)"
+                  alt="Penandatanganan Perizinan Dokumen dan Legalitas Korporasi"
+                  label="Foto Utama Tentang (Legalitas & Dokumen)"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a1420]/80 via-transparent to-transparent" />
                 <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between">
                   <span className="text-xs font-semibold text-white/90 bg-black/40 px-3 py-1 rounded-full backdrop-blur-sm border border-white/10">
-                    Pemeriksaan &amp; Kepatuhan Hukum Korporasi
+                    Pemeriksaan &amp; Kepatuhan Legalitas Korporasi
                   </span>
                 </div>
               </div>
