@@ -33,26 +33,55 @@ export default function HomeDynamicSections() {
   const renderCustom = (custom: any) => {
     if (!custom) return null;
 
+    const containerStyle: React.CSSProperties = {
+      backgroundColor: custom.bg || '#ffffff',
+      color: custom.textColor || '#0f172a',
+      paddingTop: custom.paddingY || undefined,
+      paddingBottom: custom.paddingY || undefined,
+      paddingLeft: custom.paddingX || undefined,
+      paddingRight: custom.paddingX || undefined,
+      marginTop: custom.marginY || undefined,
+      marginBottom: custom.marginY || undefined,
+      textAlign: custom.textAlign || undefined,
+      borderRadius: custom.borderRadius || undefined,
+      borderWidth: custom.borderWidth ? `${custom.borderWidth}px` : undefined,
+      borderColor: custom.borderColor || undefined,
+      borderStyle: custom.borderWidth ? 'solid' : undefined,
+      boxShadow: custom.boxShadow || undefined,
+      backgroundImage: custom.bgImage ? `url(${custom.bgImage})` : undefined,
+      backgroundSize: custom.bgImage ? 'cover' : undefined,
+      backgroundPosition: custom.bgImage ? 'center' : undefined,
+    };
+
+    const titleStyle: React.CSSProperties = {
+      fontSize: custom.fontSize || undefined,
+      fontWeight: custom.fontWeight || undefined,
+      fontFamily: custom.fontFamily === 'serif' ? 'Cinzel, serif' : undefined,
+      lineHeight: custom.lineHeight || undefined,
+    };
+
+    const maxContainerWidth = custom.maxWidth || '1152px';
+
     if (custom.type === 'cta') {
       return (
         <section
           key={custom.id}
           id={custom.id}
-          className="py-20 px-6 sm:px-12 border-b border-gray-100 relative overflow-hidden"
-          style={{ backgroundColor: custom.bg || '#0a1420', color: custom.textColor || '#ffffff' }}
+          className="py-20 px-6 sm:px-12 border-b border-gray-100 relative overflow-hidden transition-all"
+          style={containerStyle}
         >
-          <div className="max-w-4xl mx-auto text-center space-y-6 relative z-10">
+          <div style={{ maxWidth: maxContainerWidth }} className="mx-auto text-center space-y-6 relative z-10">
             {custom.badge && (
               <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest bg-[#dfa82e]/20 text-[#dfa82e] border border-[#dfa82e]/40">
                 <MessageCircle className="w-3.5 h-3.5" />
                 {custom.badge}
               </span>
             )}
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif-title leading-tight">
+            <h2 style={titleStyle} className="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif-title leading-tight">
               {custom.title}
             </h2>
             {custom.subtitle && (
-              <p className="text-base sm:text-lg opacity-80 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-base sm:text-lg opacity-85 max-w-2xl mx-auto leading-relaxed">
                 {custom.subtitle}
               </p>
             )}
@@ -77,17 +106,17 @@ export default function HomeDynamicSections() {
         <section
           key={custom.id}
           id={custom.id}
-          className="py-20 px-6 sm:px-12 border-b border-gray-100"
-          style={{ backgroundColor: custom.bg || '#f8fafc', color: custom.textColor || '#0f172a' }}
+          className="py-20 px-6 sm:px-12 border-b border-gray-100 transition-all"
+          style={containerStyle}
         >
-          <div className="max-w-6xl mx-auto">
+          <div style={{ maxWidth: maxContainerWidth }} className="mx-auto">
             <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
               {custom.badge && (
                 <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-[#dfa82e]/15 text-[#b88917] uppercase tracking-wider">
                   {custom.badge}
                 </span>
               )}
-              <h2 className="text-3xl font-bold font-serif-title">{custom.title}</h2>
+              <h2 style={titleStyle} className="text-3xl font-bold font-serif-title">{custom.title}</h2>
               {custom.subtitle && (
                 <p className="text-base text-slate-600">{custom.subtitle}</p>
               )}
@@ -118,16 +147,16 @@ export default function HomeDynamicSections() {
         <section
           key={custom.id}
           id={custom.id}
-          className="py-16 px-6 sm:px-12 border-b border-gray-100"
-          style={{ backgroundColor: custom.bg || '#ffffff', color: custom.textColor || '#0f172a' }}
+          className="py-16 px-6 sm:px-12 border-b border-gray-100 transition-all"
+          style={containerStyle}
         >
-          <div className="max-w-4xl mx-auto space-y-4">
+          <div style={{ maxWidth: maxContainerWidth }} className="mx-auto space-y-4">
             {custom.badge && (
               <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-[#dfa82e]/15 text-[#b88917] uppercase tracking-wider">
                 {custom.badge}
               </span>
             )}
-            <h2 className="text-3xl font-bold font-serif-title">{custom.title}</h2>
+            <h2 style={titleStyle} className="text-3xl font-bold font-serif-title">{custom.title}</h2>
             {custom.subtitle && (
               <p className="text-lg text-slate-600 font-medium">{custom.subtitle}</p>
             )}
@@ -145,16 +174,16 @@ export default function HomeDynamicSections() {
       <section
         key={custom.id}
         id={custom.id}
-        className="py-16 px-6 sm:px-12 border-b border-gray-100 relative"
-        style={{ backgroundColor: custom.bg || '#ffffff', color: custom.textColor || '#0f172a' }}
+        className="py-16 px-6 sm:px-12 border-b border-gray-100 relative transition-all"
+        style={containerStyle}
       >
-        <div className="max-w-5xl mx-auto text-center space-y-4">
+        <div style={{ maxWidth: maxContainerWidth }} className="mx-auto text-center space-y-4">
           {custom.badge && (
             <span className="inline-block px-3.5 py-1 rounded-full text-xs font-semibold bg-[#b88917]/15 text-[#b88917]">
               {custom.badge}
             </span>
           )}
-          <h2 className="text-3xl sm:text-4xl font-bold font-serif-title">{custom.title}</h2>
+          <h2 style={titleStyle} className="text-3xl sm:text-4xl font-bold font-serif-title">{custom.title}</h2>
           {custom.subtitle && (
             <p className="text-base text-slate-600 max-w-2xl mx-auto">{custom.subtitle}</p>
           )}

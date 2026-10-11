@@ -40,7 +40,17 @@ import {
   MessageCircle,
   Palette,
   Sliders,
-  Settings
+  Settings,
+  AlignLeft,
+  AlignCenter,
+  AlignRight,
+  AlignJustify,
+  Square,
+  Box,
+  Move,
+  Baseline,
+  SlidersHorizontal,
+  ChevronRight
 } from 'lucide-react';
 import { defaultSiteContent, SiteContent, defaultSectionOrder } from '@/data/defaultSiteContent';
 
@@ -75,6 +85,11 @@ export default function ElementorEditorClient() {
   const [canvaTab, setCanvaTab] = useState<'elements' | 'pages' | 'history' | 'styles'>('elements');
   const [showHistoryModal, setShowHistoryModal] = useState<boolean>(false);
   const [searchElementQuery, setSearchElementQuery] = useState<string>('');
+
+  // Selected Section & Properties Inspector State
+  const [selectedSectionId, setSelectedSectionId] = useState<string | null>('hero');
+  const [showPropertiesPanel, setShowPropertiesPanel] = useState<boolean>(true);
+  const [propertyTab, setPropertyTab] = useState<'content' | 'background' | 'spacing' | 'typography' | 'effects'>('content');
 
   // Modal Insert Component Before Target Section
   const [insertModalTarget, setInsertModalTarget] = useState<string | null>(null);
@@ -236,12 +251,28 @@ export default function ElementorEditorClient() {
     }
   };
 
-  // Listen to messages from iframe (e.g. drop events, move up/down, delete)
+  const sendSelectedSectionToIframe = (sectionId: string | null) => {
+    if (iframeRef.current?.contentWindow && sectionId) {
+      iframeRef.current.contentWindow.postMessage({
+        type: 'SET_SELECTED_SECTION',
+        sectionId: sectionId,
+      }, '*');
+    }
+  };
+
+  // Listen to messages from iframe
   useEffect(() => {
     const handleIframeMessage = (e: MessageEvent) => {
       if (e.data?.type === 'PREVIEW_IFRAME_READY') {
         sendContentToIframe(content);
         sendPageToIframe(activePage);
+        if (selectedSectionId) {
+          sendSelectedSectionToIframe(selectedSectionId);
+        }
+      }
+      if (e.data?.type === 'SECTION_SELECTED' && e.data.sectionId) {
+        setSelectedSectionId(e.data.sectionId);
+        setShowPropertiesPanel(true);
       }
       if (e.data?.type === 'ON_ELEMENT_UPDATED' && e.data.content) {
         pushStateChange('Edit Teks / Media Elemen', e.data.content);
@@ -264,7 +295,7 @@ export default function ElementorEditorClient() {
     };
     window.addEventListener('message', handleIframeMessage);
     return () => window.removeEventListener('message', handleIframeMessage);
-  }, [content, activePage]);
+  }, [content, activePage, selectedSectionId]);
 
   // Push new state change to Undo stack
   const pushStateChange = (actionName: string, newContent: SiteContent) => {
@@ -309,6 +340,20 @@ export default function ElementorEditorClient() {
   const handleSelectPage = (page: PreviewPageOption) => {
     setActivePage(page);
     sendPageToIframe(page);
+    setSelectedSectionId(null);
+  };
+
+  // Select section handler
+  const handleSelectSection = (secId: string) => {
+    setSelectedSectionId(secId);
+    setShowPropertiesPanel(true);
+    sendSelectedSectionToIframe(secId);
+    if (iframeRef.current?.contentWindow) {
+      iframeRef.current.contentWindow.postMessage({
+        type: 'SCROLL_TO_SECTION',
+        sectionId: secId,
+      }, '*');
+    }
   };
 
   // Save to Server
@@ -357,6 +402,81 @@ export default function ElementorEditorClient() {
     return merged;
   };
 
+  // ── UPDATE SECTION PROPERTIES (PROPERTIES INSPECTOR) ─────────────────────────
+  const updateSectionProperty = (propKey: string, value: any) => {
+    if (!selectedSectionId) return;
+
+    // A. If selected section is a Custom Section
+    if (selectedSectionId.startsWith('custom-div-')) {
+      const updatedCustom = (content.customSections || []).map((sec: any) => {
+        if (sec.id === selectedSectionId) {
+          return { ...sec, [propKey]: value };
+        }
+        return sec;
+      });
+
+      const newContent: SiteContent = {
+        ...content,
+        customSections: updatedCustom,
+      };
+      pushStateChange(`Ubah properti ${propKey}`, newContent);
+      return;
+    }
+
+    // B. If selected section is a Standard Section (e.g. hero, about, services, contact)
+    // Check if the property belongs directly to the section data or styles
+    const secKey = selectedSectionId as keyof SiteContent;
+    if (content[secKey] && typeof content[secKey] === 'object' && propKey in (content[secKey] as any)) {
+      const newContent: SiteContent = {
+        ...content,
+        [secKey]: {
+          ...(content[secKey] as any),
+          [propKey]: value,
+        },
+      };
+      pushStateChange(`Ubah teks ${propKey}`, newContent);
+      return;
+    }
+
+    // Style override in content.styles
+    const currentStyles = content.styles || {};
+    const secStyle = currentStyles[selectedSectionId] || {};
+    const newContent: SiteContent = {
+      ...content,
+      styles: {
+        ...currentStyles,
+        [selectedSectionId]: {
+          ...secStyle,
+          [propKey]: value,
+        },
+      },
+    };
+    pushStateChange(`Ubah gaya ${propKey}`, newContent);
+  };
+
+  // Get current value of property for selected section
+  const getSelectedSectionProperty = (propKey: string, fallback: any = ''): any => {
+    if (!selectedSectionId) return fallback;
+
+    if (selectedSectionId.startsWith('custom-div-')) {
+      const custom: any = (content.customSections || []).find((c: any) => c.id === selectedSectionId);
+      if (custom && custom[propKey] !== undefined) return custom[propKey];
+      return fallback;
+    }
+
+    const secKey = selectedSectionId as keyof SiteContent;
+    if (content[secKey] && typeof content[secKey] === 'object' && propKey in (content[secKey] as any)) {
+      return (content[secKey] as any)[propKey];
+    }
+
+    const secStyle: any = (content.styles as any)?.[selectedSectionId];
+    if (secStyle && secStyle[propKey] !== undefined) {
+      return secStyle[propKey];
+    }
+
+    return fallback;
+  };
+
   // ── INSERT COMPONENT BEFORE TARGET SECTION ──────────────────────────────────
   const insertComponentBefore = (targetSectionId: string, type: string) => {
     const newId = `custom-div-${Date.now()}`;
@@ -366,8 +486,23 @@ export default function ElementorEditorClient() {
       type,
       title: 'Judul Komponen Baru',
       subtitle: 'Tuliskan deskripsi atau penjelasan komponen di sini.',
+      badge: 'KOMPONEN BARU',
       bg: '#ffffff',
       textColor: '#0f172a',
+      paddingY: '64px',
+      paddingX: '24px',
+      marginY: '0px',
+      maxWidth: '1152px',
+      textAlign: 'center',
+      fontSize: '36px',
+      fontWeight: '700',
+      fontFamily: 'serif',
+      borderRadius: '0px',
+      borderWidth: '0',
+      borderColor: '#e2e8f0',
+      boxShadow: 'none',
+      buttonText: 'Pelajari Selengkapnya',
+      buttonUrl: '#',
     };
 
     if (type === 'banner') {
@@ -380,23 +515,29 @@ export default function ElementorEditorClient() {
         textColor: '#ffffff',
         buttonText: 'Konsultasi Sekarang',
         buttonUrl: '#',
+        fontSize: '40px',
       };
     } else if (type === 'text') {
       newSection = {
         ...newSection,
         title: 'Ketentuan & Kebijakan Kepatuhan',
         subtitle: 'Pedoman standar operasional konsultasi hukum terpadu.',
+        badge: 'KEBIJAKAN KORPORASI',
         content: 'Klik langsung untuk mengedit teks paragraf ini sesuai kebutuhan website perusahaan Anda.',
+        textAlign: 'left',
+        fontSize: '32px',
       };
     } else if (type === 'cta') {
       newSection = {
         ...newSection,
         title: 'Siap Mengembangkan Usaha Anda Bersama SELECO?',
         subtitle: 'Hubungi tim konsultan kami via WhatsApp untuk respon cepat dan solusi terukur.',
+        badge: 'KONSULTASI GRATIS',
         buttonText: 'Chat WhatsApp Konsultan',
         buttonUrl: 'https://wa.me/6282211020022',
         bg: '#0f2034',
         textColor: '#ffffff',
+        paddingY: '80px',
       };
     } else if (type === 'columns') {
       newSection = {
@@ -418,6 +559,7 @@ export default function ElementorEditorClient() {
         ...newSection,
         title: 'Dokumentasi & Portofolio Legalitas',
         subtitle: 'Standar kerja profesional dan terverifikasi di berbagai kementerian terkait.',
+        badge: 'DOKUMENTASI RESMI',
         image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80',
       };
     }
@@ -453,6 +595,8 @@ export default function ElementorEditorClient() {
     const targetName = targetSectionId === '__end__' ? 'Paling Bawah' : (standardHomeSections[targetSectionId]?.name || 'Halaman Tujuan');
     pushStateChange(`Sisipkan ${newSection.title} (Sebelum ${targetName})`, newContent);
     setInsertModalTarget(null);
+    setSelectedSectionId(newId);
+    setShowPropertiesPanel(true);
   };
 
   // ── MOVE SECTION UP / DOWN ──────────────────────────────────────────────────
@@ -552,6 +696,7 @@ export default function ElementorEditorClient() {
         },
       };
       pushStateChange(`Hapus Komponen Kustom: ${secName}`, newContent);
+      if (selectedSectionId === sectionId) setSelectedSectionId(null);
       return;
     }
 
@@ -563,6 +708,7 @@ export default function ElementorEditorClient() {
         hiddenSections: [...currentHidden, sectionId],
       };
       pushStateChange(`Hapus / Sembunyikan: ${secName}`, newContent);
+      if (selectedSectionId === sectionId) setSelectedSectionId(null);
     }
   };
 
@@ -575,6 +721,46 @@ export default function ElementorEditorClient() {
       hiddenSections: currentHidden.filter((id: string) => id !== sectionId),
     };
     pushStateChange(`Tampilkan Kembali: ${secName}`, newContent);
+  };
+
+  // Duplicate Section
+  const handleDuplicateSection = (sectionId: string) => {
+    const isCustom = sectionId.startsWith('custom-div-');
+    if (!isCustom) {
+      alert('Seksi bawaan tidak dapat diduplikasi. Gunakan + Tambah Komponen untuk membuat seksi baru.');
+      return;
+    }
+
+    const custom = (content.customSections || []).find((c: any) => c.id === sectionId);
+    if (!custom) return;
+
+    const newId = `custom-div-${Date.now()}`;
+    const duplicated = {
+      ...custom,
+      id: newId,
+      title: `${custom.title} (Salinan)`,
+    };
+
+    const currentSections = getCurrentPageSections();
+    const index = currentSections.indexOf(sectionId);
+    const newOrder = [
+      ...currentSections.slice(0, index + 1),
+      newId,
+      ...currentSections.slice(index + 1)
+    ];
+
+    const updatedCustom = [...(content.customSections || []), duplicated];
+    const newContent = {
+      ...content,
+      customSections: updatedCustom,
+      sectionOrder: {
+        ...(content.sectionOrder || {}),
+        [activePage]: newOrder,
+      },
+    };
+
+    pushStateChange(`Duplikat Komponen: ${custom.title}`, newContent);
+    setSelectedSectionId(newId);
   };
 
   // Drag start for component card from library
@@ -604,6 +790,10 @@ export default function ElementorEditorClient() {
   }, [undoStack, redoStack, content]);
 
   const currentSections = getCurrentPageSections();
+  const selectedCustom = selectedSectionId?.startsWith('custom-div-') 
+    ? (content.customSections || []).find((c: any) => c.id === selectedSectionId) 
+    : null;
+  const selectedTitle = standardHomeSections[selectedSectionId || '']?.name || selectedCustom?.title || 'Komponen Dipilih';
 
   return (
     <div className="h-screen w-screen flex flex-col bg-[#0b0e17] text-slate-100 select-none overflow-hidden font-sans">
@@ -690,6 +880,20 @@ export default function ElementorEditorClient() {
             <span className="bg-amber-400/20 text-amber-300 text-[10px] px-1.5 py-0.2 rounded-full font-bold">
               {historySnapshots.length}
             </span>
+          </button>
+
+          {/* Toggle Properties Panel */}
+          <button
+            onClick={() => setShowPropertiesPanel(!showPropertiesPanel)}
+            className={`p-1.5 px-2.5 rounded-lg border text-xs flex items-center gap-1.5 transition-all cursor-pointer ${
+              showPropertiesPanel
+                ? 'bg-purple-600/30 border-purple-500 text-purple-200'
+                : 'bg-[#1a2236] border-[#2d3a58] text-slate-300 hover:bg-[#25304a]'
+            }`}
+            title="Buka / Tutup Panel Properti"
+          >
+            <Settings className="w-3.5 h-3.5 text-purple-400" />
+            <span className="text-[11px] font-semibold hidden md:inline">Properti</span>
           </button>
 
           {/* Autosave Status Indicator */}
@@ -797,7 +1001,7 @@ export default function ElementorEditorClient() {
         </div>
       )}
 
-      {/* ── 2. CANVA WORKSPACE BODY (LEFT DOCK + DRAWER + CANVAS) ──────────────── */}
+      {/* ── 2. CANVA WORKSPACE BODY (LEFT DOCK + DRAWER + CANVAS + RIGHT PROPERTIES) */}
       <div className="flex-1 flex overflow-hidden relative">
 
         {/* ── A. CANVA SLIM ICON DOCK (FAR LEFT) ───────────────────────────────── */}
@@ -856,7 +1060,7 @@ export default function ElementorEditorClient() {
         </aside>
 
         {/* ── B. CANVA EXPANDED DRAWER PANEL (300px) ───────────────────────────── */}
-        <aside className="w-80 bg-[#131929] border-r border-[#232c42] flex flex-col shrink-0 z-10 overflow-hidden shadow-xl">
+        <aside className="w-72 sm:w-80 bg-[#131929] border-r border-[#232c42] flex flex-col shrink-0 z-10 overflow-hidden shadow-xl">
           
           {/* TAB 1: ELEMEN & KOMPONEN (DRAG & DROP LIBRARY) */}
           {canvaTab === 'elements' && (
@@ -867,7 +1071,7 @@ export default function ElementorEditorClient() {
                   Komponen &amp; Div
                 </h3>
                 <p className="text-[11px] text-slate-400 mt-0.5">
-                  Tarik (drag) komponen ke kanvas, atau klik &quot;+ Sisipkan&quot; untuk meletakkannya sebelum halaman tertentu.
+                  Tarik komponen ke kanvas, atau klik &quot;+ Sisipkan&quot; untuk meletakkannya sebelum halaman tertentu.
                 </p>
               </div>
 
@@ -887,7 +1091,7 @@ export default function ElementorEditorClient() {
               <div className="bg-purple-950/30 border border-purple-500/30 rounded-xl p-2.5 mb-3 text-[11px] text-purple-200 flex items-start gap-2">
                 <HelpCircle className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
                 <span>
-                  <strong>Tips Canva:</strong> Tarik komponen dan lepaskan di garis batas antar halaman untuk menyisipkan div secara instan!
+                  <strong>Tips:</strong> Klik komponen mana saja di kanvas untuk membuka menu properti lengkap (warna bg, teks, ukuran, margin, font).
                 </span>
               </div>
 
@@ -949,7 +1153,7 @@ export default function ElementorEditorClient() {
                     Susunan Halaman
                   </h3>
                   <p className="text-[11px] text-slate-400 mt-0.5">
-                    Tarik kartu untuk menukar urutan seksi.
+                    Klik kartu untuk memilih &amp; edit properti.
                   </p>
                 </div>
                 <button
@@ -969,6 +1173,7 @@ export default function ElementorEditorClient() {
                   const customObj = isCustom ? (content.customSections || []).find((c: any) => c.id === secId) : null;
                   const secTitle = standardHomeSections[secId]?.name || customObj?.title || 'Komponen Kustom';
                   const secIcon = standardHomeSections[secId]?.icon || '⭐';
+                  const isSelected = selectedSectionId === secId;
 
                   return (
                     <div
@@ -977,8 +1182,11 @@ export default function ElementorEditorClient() {
                       onDragStart={(e) => handleDragStartSidebarItem(e, idx)}
                       onDragOver={handleDragOverSidebarItem}
                       onDrop={(e) => handleDropSidebarItem(e, idx)}
-                      className={`p-2.5 rounded-xl border text-xs transition-all flex flex-col gap-2 ${
-                        isHidden
+                      onClick={() => handleSelectSection(secId)}
+                      className={`p-2.5 rounded-xl border text-xs transition-all flex flex-col gap-2 cursor-pointer ${
+                        isSelected
+                          ? 'bg-purple-900/30 border-purple-500 shadow-md ring-2 ring-purple-500/50'
+                          : isHidden
                           ? 'bg-rose-950/20 border-rose-500/30 text-rose-300'
                           : isCustom
                           ? 'bg-purple-950/20 border-purple-500/40 text-purple-200 hover:border-purple-400'
@@ -986,14 +1194,18 @@ export default function ElementorEditorClient() {
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2 cursor-grab active:cursor-grabbing">
+                        <div className="flex items-center gap-2">
                           <GripVertical className="w-3.5 h-3.5 text-slate-400" />
                           <span className="text-sm">{secIcon}</span>
                           <div>
                             <span className="font-bold text-white block text-[11px]">
                               {idx + 1}. {secTitle}
                             </span>
-                            {isHidden ? (
+                            {isSelected ? (
+                              <span className="text-[10px] text-purple-300 font-bold flex items-center gap-1">
+                                <Settings className="w-2.5 h-2.5" /> Sedang Diedit
+                              </span>
+                            ) : isHidden ? (
                               <span className="text-[10px] text-rose-400 font-semibold">Tersembunyi</span>
                             ) : (
                               <span className="text-[10px] text-emerald-400 font-semibold">Aktif</span>
@@ -1002,7 +1214,7 @@ export default function ElementorEditorClient() {
                         </div>
 
                         {/* Action buttons */}
-                        <div className="flex items-center gap-1">
+                        <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
                           <button
                             onClick={() => moveSectionUp(secId)}
                             disabled={idx === 0}
@@ -1040,7 +1252,10 @@ export default function ElementorEditorClient() {
 
                       {/* Quick insert button before this section */}
                       <button
-                        onClick={() => setInsertModalTarget(secId)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setInsertModalTarget(secId);
+                        }}
                         className="w-full py-1 rounded bg-white/5 hover:bg-purple-600/20 border border-white/10 hover:border-purple-500/30 text-[10px] text-slate-300 hover:text-purple-200 font-semibold flex items-center justify-center gap-1 transition-colors"
                       >
                         <Plus className="w-3 h-3" />
@@ -1162,9 +1377,16 @@ export default function ElementorEditorClient() {
                 <span className="text-purple-400">📄</span>
                 <span>Lembar Kerja Canva: <strong className="text-[#dfa82e]">{activePage.toUpperCase()}</strong></span>
               </span>
-              <span className="text-[10px] bg-purple-900/40 text-purple-300 px-2 py-0.5 rounded border border-purple-500/30">
-                Drag &amp; Drop Komponen Aktif
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] bg-purple-900/40 text-purple-300 px-2 py-0.5 rounded border border-purple-500/30">
+                  Klik komponen untuk edit properti
+                </span>
+                {selectedSectionId && (
+                  <span className="text-[10px] bg-amber-400/20 text-amber-300 px-2 py-0.5 rounded border border-amber-400/30 font-semibold">
+                    Dipilih: {selectedTitle}
+                  </span>
+                )}
+              </div>
             </div>
 
             {/* Iframe View of Live Website Page with Dropzones */}
@@ -1177,6 +1399,649 @@ export default function ElementorEditorClient() {
           </div>
 
         </main>
+
+        {/* ── D. RIGHT PROPERTIES INSPECTOR PANEL (PANEL PROPERTI LENGKAP) ──────── */}
+        {showPropertiesPanel && (
+          <aside className="w-80 sm:w-96 bg-[#131929] border-l border-[#232c42] flex flex-col shrink-0 z-20 overflow-hidden shadow-2xl animate-in slide-in-from-right duration-200">
+            
+            {/* Properties Panel Header */}
+            <div className="p-3.5 bg-[#111624] border-b border-[#232c42] flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="w-7 h-7 rounded-lg bg-purple-600/20 text-purple-400 flex items-center justify-center border border-purple-500/30">
+                  <Sliders className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-xs font-bold text-white flex items-center gap-1.5">
+                    Properti Komponen
+                  </h3>
+                  <p className="text-[10px] text-purple-300 truncate max-w-[200px]">
+                    {selectedTitle}
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowPropertiesPanel(false)}
+                className="p-1 rounded-md text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
+                title="Tutup Panel Properti"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Properties Tabs */}
+            <div className="flex items-center border-b border-[#232c42] bg-[#0e121e] px-2 text-[11px] overflow-x-auto">
+              <button
+                onClick={() => setPropertyTab('content')}
+                className={`py-2 px-3 font-semibold transition-colors border-b-2 whitespace-nowrap cursor-pointer ${
+                  propertyTab === 'content'
+                    ? 'border-purple-500 text-purple-300'
+                    : 'border-transparent text-slate-400 hover:text-white'
+                }`}
+              >
+                📝 Konten
+              </button>
+              <button
+                onClick={() => setPropertyTab('background')}
+                className={`py-2 px-3 font-semibold transition-colors border-b-2 whitespace-nowrap cursor-pointer ${
+                  propertyTab === 'background'
+                    ? 'border-purple-500 text-purple-300'
+                    : 'border-transparent text-slate-400 hover:text-white'
+                }`}
+              >
+                🎨 Latar &amp; Warna
+              </button>
+              <button
+                onClick={() => setPropertyTab('spacing')}
+                className={`py-2 px-3 font-semibold transition-colors border-b-2 whitespace-nowrap cursor-pointer ${
+                  propertyTab === 'spacing'
+                    ? 'border-purple-500 text-purple-300'
+                    : 'border-transparent text-slate-400 hover:text-white'
+                }`}
+              >
+                📐 Ukuran &amp; Spasi
+              </button>
+              <button
+                onClick={() => setPropertyTab('typography')}
+                className={`py-2 px-3 font-semibold transition-colors border-b-2 whitespace-nowrap cursor-pointer ${
+                  propertyTab === 'typography'
+                    ? 'border-purple-500 text-purple-300'
+                    : 'border-transparent text-slate-400 hover:text-white'
+                }`}
+              >
+                🔤 Tipografi
+              </button>
+              <button
+                onClick={() => setPropertyTab('effects')}
+                className={`py-2 px-3 font-semibold transition-colors border-b-2 whitespace-nowrap cursor-pointer ${
+                  propertyTab === 'effects'
+                    ? 'border-purple-500 text-purple-300'
+                    : 'border-transparent text-slate-400 hover:text-white'
+                }`}
+              >
+                ✨ Border &amp; Efek
+              </button>
+            </div>
+
+            {/* Properties Form Content */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 text-xs">
+              {!selectedSectionId ? (
+                <div className="text-center py-12 text-slate-500 space-y-2">
+                  <Sliders className="w-8 h-8 text-slate-600 mx-auto" />
+                  <p className="font-semibold text-slate-400">Belum Ada Komponen Dipilih</p>
+                  <p className="text-[11px]">Klik salah satu komponen pada kanvas untuk mengedit propertinya.</p>
+                </div>
+              ) : (
+                <>
+                  {/* TAB 1: KONTEN & TEKS */}
+                  {propertyTab === 'content' && (
+                    <div className="space-y-3.5">
+                      {/* Badge / Label Kategori */}
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">
+                          Badge / Label Kategori
+                        </label>
+                        <input
+                          type="text"
+                          value={getSelectedSectionProperty('badge', '')}
+                          onChange={(e) => updateSectionProperty('badge', e.target.value)}
+                          placeholder="e.g. INFORMASI KHUSUS"
+                          className="w-full bg-[#0e1320] border border-[#252f47] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500"
+                        />
+                      </div>
+
+                      {/* Judul Utama (Title) */}
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">
+                          Judul Utama (Title)
+                        </label>
+                        <textarea
+                          rows={2}
+                          value={getSelectedSectionProperty('title', '')}
+                          onChange={(e) => updateSectionProperty('title', e.target.value)}
+                          placeholder="Tulis judul utama di sini..."
+                          className="w-full bg-[#0e1320] border border-[#252f47] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500 resize-none font-medium"
+                        />
+                      </div>
+
+                      {/* Subjudul (Subtitle) */}
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">
+                          Subjudul / Deskripsi Pendek
+                        </label>
+                        <textarea
+                          rows={2}
+                          value={getSelectedSectionProperty('subtitle', '')}
+                          onChange={(e) => updateSectionProperty('subtitle', e.target.value)}
+                          placeholder="Tuliskan penjelasan singkat..."
+                          className="w-full bg-[#0e1320] border border-[#252f47] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500 resize-none"
+                        />
+                      </div>
+
+                      {/* Isi Paragraf Konten */}
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">
+                          Isi Konten / Paragraf Lengkap
+                        </label>
+                        <textarea
+                          rows={4}
+                          value={getSelectedSectionProperty('content', '')}
+                          onChange={(e) => updateSectionProperty('content', e.target.value)}
+                          placeholder="Tuliskan teks isi paragraf di sini..."
+                          className="w-full bg-[#0e1320] border border-[#252f47] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500 leading-relaxed"
+                        />
+                      </div>
+
+                      {/* Teks Tombol & Link URL */}
+                      <div className="pt-2 border-t border-slate-700/60 space-y-2">
+                        <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider">
+                          Tombol Aksi (CTA)
+                        </label>
+                        <div className="grid grid-cols-2 gap-2">
+                          <div>
+                            <span className="text-[10px] text-slate-400 block mb-0.5">Teks Tombol</span>
+                            <input
+                              type="text"
+                              value={getSelectedSectionProperty('buttonText', '')}
+                              onChange={(e) => updateSectionProperty('buttonText', e.target.value)}
+                              placeholder="e.g. Chat WhatsApp"
+                              className="w-full bg-[#0e1320] border border-[#252f47] rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500"
+                            />
+                          </div>
+                          <div>
+                            <span className="text-[10px] text-slate-400 block mb-0.5">Link / URL WhatsApp</span>
+                            <input
+                              type="text"
+                              value={getSelectedSectionProperty('buttonUrl', '')}
+                              onChange={(e) => updateSectionProperty('buttonUrl', e.target.value)}
+                              placeholder="e.g. https://wa.me/..."
+                              className="w-full bg-[#0e1320] border border-[#252f47] rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* TAB 2: LATAR BELAKANG & WARNA (BACKGROUND) */}
+                  {propertyTab === 'background' && (
+                    <div className="space-y-4">
+                      {/* Warna Latar (Background Color) */}
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                          Warna Background
+                        </label>
+                        <div className="flex items-center gap-2 mb-2">
+                          <input
+                            type="color"
+                            value={getSelectedSectionProperty('bg', '#ffffff')}
+                            onChange={(e) => updateSectionProperty('bg', e.target.value)}
+                            className="w-9 h-9 rounded-lg border border-[#252f47] bg-[#0e1320] cursor-pointer"
+                          />
+                          <input
+                            type="text"
+                            value={getSelectedSectionProperty('bg', '#ffffff')}
+                            onChange={(e) => updateSectionProperty('bg', e.target.value)}
+                            placeholder="#ffffff"
+                            className="flex-1 bg-[#0e1320] border border-[#252f47] rounded-lg px-3 py-1.5 text-xs text-white font-mono focus:outline-none focus:border-purple-500"
+                          />
+                        </div>
+
+                        {/* Preset Warna SELECO */}
+                        <div className="grid grid-cols-6 gap-1.5">
+                          {[
+                            { hex: '#0a1420', label: 'Navy' },
+                            { hex: '#dfa82e', label: 'Gold' },
+                            { hex: '#ffffff', label: 'Putih' },
+                            { hex: '#f8fafc', label: 'Light' },
+                            { hex: '#0f2034', label: 'Malam' },
+                            { hex: '#000000', label: 'Hitam' },
+                          ].map((c) => (
+                            <button
+                              key={c.hex}
+                              type="button"
+                              onClick={() => updateSectionProperty('bg', c.hex)}
+                              style={{ backgroundColor: c.hex }}
+                              className="h-7 rounded-lg border border-white/20 hover:scale-110 transition-transform shadow-sm"
+                              title={c.label}
+                            />
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Warna Teks (Text Color) */}
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                          Warna Teks
+                        </label>
+                        <div className="flex items-center gap-2 mb-2">
+                          <input
+                            type="color"
+                            value={getSelectedSectionProperty('textColor', '#0f172a')}
+                            onChange={(e) => updateSectionProperty('textColor', e.target.value)}
+                            className="w-9 h-9 rounded-lg border border-[#252f47] bg-[#0e1320] cursor-pointer"
+                          />
+                          <input
+                            type="text"
+                            value={getSelectedSectionProperty('textColor', '#0f172a')}
+                            onChange={(e) => updateSectionProperty('textColor', e.target.value)}
+                            placeholder="#0f172a"
+                            className="flex-1 bg-[#0e1320] border border-[#252f47] rounded-lg px-3 py-1.5 text-xs text-white font-mono focus:outline-none focus:border-purple-500"
+                          />
+                        </div>
+
+                        {/* Presets Teks */}
+                        <div className="flex gap-2">
+                          <button
+                            type="button"
+                            onClick={() => updateSectionProperty('textColor', '#ffffff')}
+                            className="flex-1 py-1 rounded bg-[#0e1320] border border-white/20 text-white font-bold text-[10px]"
+                          >
+                            Teks Putih
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => updateSectionProperty('textColor', '#0f172a')}
+                            className="flex-1 py-1 rounded bg-white text-slate-900 font-bold text-[10px]"
+                          >
+                            Teks Gelap
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => updateSectionProperty('textColor', '#dfa82e')}
+                            className="flex-1 py-1 rounded bg-[#dfa82e] text-slate-950 font-bold text-[10px]"
+                          >
+                            Teks Gold
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Gambar Latar (Background Image) */}
+                      <div className="pt-2 border-t border-slate-700/60">
+                        <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">
+                          URL Gambar Latar Belakang
+                        </label>
+                        <input
+                          type="text"
+                          value={getSelectedSectionProperty('bgImage', '')}
+                          onChange={(e) => updateSectionProperty('bgImage', e.target.value)}
+                          placeholder="https://images.unsplash.com/..."
+                          className="w-full bg-[#0e1320] border border-[#252f47] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500"
+                        />
+                        <div className="flex gap-1.5 mt-2">
+                          <button
+                            type="button"
+                            onClick={() => updateSectionProperty('bgImage', 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80')}
+                            className="text-[10px] px-2 py-1 bg-slate-800 hover:bg-slate-700 rounded text-slate-300"
+                          >
+                            Gedung Bisnis
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => updateSectionProperty('bgImage', 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80')}
+                            className="text-[10px] px-2 py-1 bg-slate-800 hover:bg-slate-700 rounded text-slate-300"
+                          >
+                            Ruang Meeting
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => updateSectionProperty('bgImage', '')}
+                            className="text-[10px] px-2 py-1 bg-rose-900/40 hover:bg-rose-900/60 rounded text-rose-300"
+                          >
+                            Hapus Gambar
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* TAB 3: UKURAN & SPASI (SPACING, PADDING & MARGIN) */}
+                  {propertyTab === 'spacing' && (
+                    <div className="space-y-4">
+                      {/* Padding Atas & Bawah (Padding Y) */}
+                      <div>
+                        <div className="flex justify-between items-center mb-1">
+                          <label className="text-[11px] font-bold text-slate-300 uppercase tracking-wider">
+                            Padding Atas &amp; Bawah
+                          </label>
+                          <span className="text-[11px] font-mono text-purple-300">
+                            {getSelectedSectionProperty('paddingY', '64px')}
+                          </span>
+                        </div>
+                        <select
+                          value={getSelectedSectionProperty('paddingY', '64px')}
+                          onChange={(e) => updateSectionProperty('paddingY', e.target.value)}
+                          className="w-full bg-[#0e1320] border border-[#252f47] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500"
+                        >
+                          <option value="16px">Sangat Ramping (16px)</option>
+                          <option value="32px">Ramping (32px)</option>
+                          <option value="48px">Sedang (48px)</option>
+                          <option value="64px">Standar Lapang (64px)</option>
+                          <option value="80px">Besar (80px)</option>
+                          <option value="96px">Sangat Besar (96px)</option>
+                          <option value="120px">Ekstra Megah (120px)</option>
+                        </select>
+                      </div>
+
+                      {/* Padding Samping (Padding X) */}
+                      <div>
+                        <div className="flex justify-between items-center mb-1">
+                          <label className="text-[11px] font-bold text-slate-300 uppercase tracking-wider">
+                            Padding Samping Kiri-Kanan
+                          </label>
+                          <span className="text-[11px] font-mono text-purple-300">
+                            {getSelectedSectionProperty('paddingX', '24px')}
+                          </span>
+                        </div>
+                        <select
+                          value={getSelectedSectionProperty('paddingX', '24px')}
+                          onChange={(e) => updateSectionProperty('paddingX', e.target.value)}
+                          className="w-full bg-[#0e1320] border border-[#252f47] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500"
+                        >
+                          <option value="16px">Normal Mobile (16px)</option>
+                          <option value="24px">Standar (24px)</option>
+                          <option value="48px">Lapang (48px)</option>
+                          <option value="64px">Lebar Penuh (64px)</option>
+                        </select>
+                      </div>
+
+                      {/* Margin Atas-Bawah (Margin Y) */}
+                      <div>
+                        <div className="flex justify-between items-center mb-1">
+                          <label className="text-[11px] font-bold text-slate-300 uppercase tracking-wider">
+                            Margin Luar Atas-Bawah
+                          </label>
+                          <span className="text-[11px] font-mono text-purple-300">
+                            {getSelectedSectionProperty('marginY', '0px')}
+                          </span>
+                        </div>
+                        <select
+                          value={getSelectedSectionProperty('marginY', '0px')}
+                          onChange={(e) => updateSectionProperty('marginY', e.target.value)}
+                          className="w-full bg-[#0e1320] border border-[#252f47] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500"
+                        >
+                          <option value="0px">Tanpa Margin (0px)</option>
+                          <option value="16px">Jarak Kecil (16px)</option>
+                          <option value="32px">Jarak Sedang (32px)</option>
+                          <option value="48px">Jarak Lebar (48px)</option>
+                          <option value="64px">Jarak Sangat Lebar (64px)</option>
+                        </select>
+                      </div>
+
+                      {/* Lebar Maksimal Konten (Max Width) */}
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">
+                          Lebar Maksimal Konten
+                        </label>
+                        <select
+                          value={getSelectedSectionProperty('maxWidth', '1152px')}
+                          onChange={(e) => updateSectionProperty('maxWidth', e.target.value)}
+                          className="w-full bg-[#0e1320] border border-[#252f47] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500"
+                        >
+                          <option value="100%">Penuh 100% Layar (Full Width)</option>
+                          <option value="1280px">Ekstra Lebar (1280px)</option>
+                          <option value="1152px">Standar Nyaman (1152px - Max 6xl)</option>
+                          <option value="896px">Sedang (896px - Max 4xl)</option>
+                          <option value="672px">Ramping Tengah (672px - Max 2xl)</option>
+                        </select>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* TAB 4: TIPOGRAFI & POSISI TEKS */}
+                  {propertyTab === 'typography' && (
+                    <div className="space-y-4">
+                      {/* Posisi Rata Teks */}
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                          Posisi Rata Teks
+                        </label>
+                        <div className="grid grid-cols-4 gap-1.5 bg-[#0e1320] p-1 rounded-lg border border-[#252f47]">
+                          <button
+                            type="button"
+                            onClick={() => updateSectionProperty('textAlign', 'left')}
+                            className={`py-1.5 rounded flex items-center justify-center transition-colors ${
+                              getSelectedSectionProperty('textAlign', 'center') === 'left'
+                                ? 'bg-purple-600 text-white'
+                                : 'text-slate-400 hover:text-white'
+                            }`}
+                            title="Rata Kiri"
+                          >
+                            <AlignLeft className="w-4 h-4" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => updateSectionProperty('textAlign', 'center')}
+                            className={`py-1.5 rounded flex items-center justify-center transition-colors ${
+                              getSelectedSectionProperty('textAlign', 'center') === 'center'
+                                ? 'bg-purple-600 text-white'
+                                : 'text-slate-400 hover:text-white'
+                            }`}
+                            title="Rata Tengah"
+                          >
+                            <AlignCenter className="w-4 h-4" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => updateSectionProperty('textAlign', 'right')}
+                            className={`py-1.5 rounded flex items-center justify-center transition-colors ${
+                              getSelectedSectionProperty('textAlign', 'center') === 'right'
+                                ? 'bg-purple-600 text-white'
+                                : 'text-slate-400 hover:text-white'
+                            }`}
+                            title="Rata Kanan"
+                          >
+                            <AlignRight className="w-4 h-4" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => updateSectionProperty('textAlign', 'justify')}
+                            className={`py-1.5 rounded flex items-center justify-center transition-colors ${
+                              getSelectedSectionProperty('textAlign', 'center') === 'justify'
+                                ? 'bg-purple-600 text-white'
+                                : 'text-slate-400 hover:text-white'
+                            }`}
+                            title="Rata Kiri-Kanan"
+                          >
+                            <AlignJustify className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Ukuran Font Judul */}
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">
+                          Ukuran Font Judul
+                        </label>
+                        <select
+                          value={getSelectedSectionProperty('fontSize', '36px')}
+                          onChange={(e) => updateSectionProperty('fontSize', e.target.value)}
+                          className="w-full bg-[#0e1320] border border-[#252f47] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500"
+                        >
+                          <option value="24px">Kecil / Subjudul (24px)</option>
+                          <option value="30px">Sedang (30px)</option>
+                          <option value="36px">Standar Judul (36px)</option>
+                          <option value="44px">Besar (44px)</option>
+                          <option value="52px">Raksasa Hero (52px)</option>
+                        </select>
+                      </div>
+
+                      {/* Ketebalan Font (Font Weight) */}
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">
+                          Ketebalan Font
+                        </label>
+                        <select
+                          value={getSelectedSectionProperty('fontWeight', '700')}
+                          onChange={(e) => updateSectionProperty('fontWeight', e.target.value)}
+                          className="w-full bg-[#0e1320] border border-[#252f47] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500"
+                        >
+                          <option value="400">Normal (400)</option>
+                          <option value="600">Semi-Bold (600)</option>
+                          <option value="700">Bold Tebal (700)</option>
+                          <option value="800">Extra Bold (800)</option>
+                        </select>
+                      </div>
+
+                      {/* Gaya Font (Font Family) */}
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">
+                          Gaya Font
+                        </label>
+                        <select
+                          value={getSelectedSectionProperty('fontFamily', 'serif')}
+                          onChange={(e) => updateSectionProperty('fontFamily', e.target.value)}
+                          className="w-full bg-[#0e1320] border border-[#252f47] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500"
+                        >
+                          <option value="serif">Cinzel Serif (Klasik Korporasi / Legal)</option>
+                          <option value="sans">Plus Jakarta Sans (Modern / Bersih)</option>
+                        </select>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* TAB 5: BORDER & EFEK (RADIUS, SHADOW) */}
+                  {propertyTab === 'effects' && (
+                    <div className="space-y-4">
+                      {/* Sudut Melengkung (Border Radius) */}
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">
+                          Sudut Melengkung (Border Radius)
+                        </label>
+                        <select
+                          value={getSelectedSectionProperty('borderRadius', '0px')}
+                          onChange={(e) => updateSectionProperty('borderRadius', e.target.value)}
+                          className="w-full bg-[#0e1320] border border-[#252f47] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500"
+                        >
+                          <option value="0px">Persegi Rapi (0px)</option>
+                          <option value="8px">Membulat Halus (8px)</option>
+                          <option value="16px">Membulat Sedang (16px)</option>
+                          <option value="24px">Membulat Lebar (24px)</option>
+                          <option value="36px">Membulat Modern (36px)</option>
+                        </select>
+                      </div>
+
+                      {/* Ketebalan & Warna Border */}
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">
+                          Garis Tepi (Border)
+                        </label>
+                        <div className="grid grid-cols-2 gap-2 mb-2">
+                          <div>
+                            <span className="text-[10px] text-slate-400 block mb-0.5">Tebal Garis</span>
+                            <select
+                              value={getSelectedSectionProperty('borderWidth', '0')}
+                              onChange={(e) => updateSectionProperty('borderWidth', e.target.value)}
+                              className="w-full bg-[#0e1320] border border-[#252f47] rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500"
+                            >
+                              <option value="0">Tanpa Border (0px)</option>
+                              <option value="1">Tipis (1px)</option>
+                              <option value="2">Sedang (2px)</option>
+                              <option value="4">Tebal (4px)</option>
+                            </select>
+                          </div>
+                          <div>
+                            <span className="text-[10px] text-slate-400 block mb-0.5">Warna Garis</span>
+                            <div className="flex items-center gap-1.5">
+                              <input
+                                type="color"
+                                value={getSelectedSectionProperty('borderColor', '#dfa82e')}
+                                onChange={(e) => updateSectionProperty('borderColor', e.target.value)}
+                                className="w-8 h-8 rounded border border-[#252f47] bg-[#0e1320] cursor-pointer"
+                              />
+                              <input
+                                type="text"
+                                value={getSelectedSectionProperty('borderColor', '#dfa82e')}
+                                onChange={(e) => updateSectionProperty('borderColor', e.target.value)}
+                                className="flex-1 bg-[#0e1320] border border-[#252f47] rounded px-2 py-1 text-xs text-white font-mono"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Efek Bayangan (Box Shadow) */}
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">
+                          Efek Bayangan (Box Shadow)
+                        </label>
+                        <select
+                          value={getSelectedSectionProperty('boxShadow', 'none')}
+                          onChange={(e) => updateSectionProperty('boxShadow', e.target.value)}
+                          className="w-full bg-[#0e1320] border border-[#252f47] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500"
+                        >
+                          <option value="none">Tanpa Bayangan (None)</option>
+                          <option value="0 1px 3px 0 rgba(0, 0, 0, 0.1)">Bayangan Halus (Soft)</option>
+                          <option value="0 10px 15px -3px rgba(0, 0, 0, 0.2)">Bayangan Sedang (Medium)</option>
+                          <option value="0 25px 50px -12px rgba(0, 0, 0, 0.35)">Bayangan Mewah Berlapis (Luxury)</option>
+                        </select>
+                      </div>
+
+                      {/* Tindakan Cepat Seksi */}
+                      <div className="pt-3 border-t border-slate-700/60 space-y-2">
+                        <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider">
+                          Tindakan Komponen
+                        </label>
+                        <div className="grid grid-cols-2 gap-2">
+                          <button
+                            type="button"
+                            onClick={() => handleDuplicateSection(selectedSectionId)}
+                            className="py-1.5 rounded-lg bg-purple-600/20 hover:bg-purple-600/30 text-purple-200 border border-purple-500/30 font-semibold text-[11px] flex items-center justify-center gap-1.5 transition-colors"
+                          >
+                            <Copy className="w-3.5 h-3.5" />
+                            <span>Duplikat Div</span>
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleDeleteSection(selectedSectionId)}
+                            className="py-1.5 rounded-lg bg-rose-950/40 hover:bg-rose-900/60 text-rose-300 border border-rose-500/30 font-semibold text-[11px] flex items-center justify-center gap-1.5 transition-colors"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                            <span>Hapus Div</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+
+            {/* Properties Panel Footer */}
+            <div className="p-3 bg-[#111624] border-t border-[#232c42] flex items-center justify-between text-[11px]">
+              <span className="text-slate-400">Perubahan sinkron langsung</span>
+              <button
+                onClick={handleSave}
+                disabled={isSaving}
+                className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-xs uppercase tracking-wider hover:brightness-110 flex items-center gap-1 shadow-sm cursor-pointer"
+              >
+                <Save className="w-3.5 h-3.5" />
+                <span>Simpan</span>
+              </button>
+            </div>
+
+          </aside>
+        )}
+
       </div>
 
       {/* ── 3. MODAL SISIPKAN KOMPONEN SEBELUM HALAMAN TERTENTU ──────────────── */}

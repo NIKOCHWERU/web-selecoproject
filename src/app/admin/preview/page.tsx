@@ -38,9 +38,9 @@ import {
   Sparkles,
   Copy,
   MessageCircle,
-  HelpCircle
+  HelpCircle,
+  Settings
 } from 'lucide-react';
-import { SERVICE_CATEGORIES, KONSULTAN_SDM_ITEMS, PERIZINAN_LEGALITAS_ITEMS } from '@/data/layananData';
 
 export type PreviewPageId = 'home' | 'about' | 'services' | 'insight' | 'contact';
 
@@ -62,6 +62,7 @@ function PreviewContent() {
   const initialPage = (searchParams.get('page') as PreviewPageId) || 'home';
   const [currentPage, setCurrentPage] = useState<PreviewPageId>(initialPage);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
+  const [selectedSectionId, setSelectedSectionId] = useState<string | null>(null);
 
   useEffect(() => {
     const pageParam = searchParams.get('page') as PreviewPageId;
@@ -110,14 +111,13 @@ function PreviewContent() {
       if (event.data?.type === 'SET_EDITOR_MODE') {
         setIsEditMode(event.data.mode === 'click_to_edit');
       }
+      if (event.data?.type === 'SET_SELECTED_SECTION') {
+        setSelectedSectionId(event.data.sectionId);
+      }
       if (event.data?.type === 'SCROLL_TO_SECTION' && event.data.sectionId) {
-        const sec = document.getElementById(event.data.sectionId);
+        const sec = document.getElementById(`canva-wrapper-${event.data.sectionId}`) || document.getElementById(event.data.sectionId);
         if (sec) {
           sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          sec.classList.add('ring-4', 'ring-amber-400', 'ring-offset-4', 'transition-all', 'duration-500');
-          setTimeout(() => {
-            sec.classList.remove('ring-4', 'ring-amber-400', 'ring-offset-4');
-          }, 2500);
         }
       }
     };
@@ -192,7 +192,6 @@ function PreviewContent() {
   const getPageSectionOrder = () => {
     if (currentPage === 'home') {
       const order = content?.sectionOrder?.home || defaultSectionOrder.home;
-      // Also ensure any custom sections for home are included
       const customHomeIds = (content?.customSections || [])
         .filter((c: any) => !c.page || c.page === 'home')
         .map((c: any) => c.id);
@@ -210,29 +209,58 @@ function PreviewContent() {
 
   const sectionsToRender = getPageSectionOrder();
 
-  // Helper to render custom section
+  // Helper to render custom section with all custom properties (bg, text, padding, margin, font, etc.)
   const renderCustomSection = (custom: any) => {
     if (!custom) return null;
+
+    const containerStyle: React.CSSProperties = {
+      backgroundColor: custom.bg || '#ffffff',
+      color: custom.textColor || '#0f172a',
+      paddingTop: custom.paddingY || undefined,
+      paddingBottom: custom.paddingY || undefined,
+      paddingLeft: custom.paddingX || undefined,
+      paddingRight: custom.paddingX || undefined,
+      marginTop: custom.marginY || undefined,
+      marginBottom: custom.marginY || undefined,
+      textAlign: custom.textAlign || undefined,
+      borderRadius: custom.borderRadius || undefined,
+      borderWidth: custom.borderWidth ? `${custom.borderWidth}px` : undefined,
+      borderColor: custom.borderColor || undefined,
+      borderStyle: custom.borderWidth ? 'solid' : undefined,
+      boxShadow: custom.boxShadow || undefined,
+      backgroundImage: custom.bgImage ? `url(${custom.bgImage})` : undefined,
+      backgroundSize: custom.bgImage ? 'cover' : undefined,
+      backgroundPosition: custom.bgImage ? 'center' : undefined,
+    };
+
+    const titleStyle: React.CSSProperties = {
+      fontSize: custom.fontSize || undefined,
+      fontWeight: custom.fontWeight || undefined,
+      fontFamily: custom.fontFamily === 'serif' ? 'Cinzel, serif' : undefined,
+      lineHeight: custom.lineHeight || undefined,
+    };
+
+    const maxContainerWidth = custom.maxWidth || '1152px'; // max-w-6xl default
 
     if (custom.type === 'cta') {
       return (
         <section
           id={custom.id}
-          className="py-20 px-6 sm:px-12 border-b border-gray-100 relative overflow-hidden"
-          style={{ backgroundColor: custom.bg || '#0a1420', color: custom.textColor || '#ffffff' }}
+          className="py-20 px-6 sm:px-12 border-b border-gray-100 relative overflow-hidden transition-all"
+          style={containerStyle}
         >
-          <div className="max-w-4xl mx-auto text-center space-y-6 relative z-10">
+          <div style={{ maxWidth: maxContainerWidth }} className="mx-auto text-center space-y-6 relative z-10">
             {custom.badge && (
               <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest bg-[#dfa82e]/20 text-[#dfa82e] border border-[#dfa82e]/40">
                 <MessageCircle className="w-3.5 h-3.5" />
                 {custom.badge}
               </span>
             )}
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif-title leading-tight">
+            <h2 style={titleStyle} className="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif-title leading-tight">
               {custom.title}
             </h2>
             {custom.subtitle && (
-              <p className="text-base sm:text-lg opacity-80 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-base sm:text-lg opacity-85 max-w-2xl mx-auto leading-relaxed">
                 {custom.subtitle}
               </p>
             )}
@@ -256,17 +284,17 @@ function PreviewContent() {
       return (
         <section
           id={custom.id}
-          className="py-20 px-6 sm:px-12 border-b border-gray-100"
-          style={{ backgroundColor: custom.bg || '#f8fafc', color: custom.textColor || '#0f172a' }}
+          className="py-20 px-6 sm:px-12 border-b border-gray-100 transition-all"
+          style={containerStyle}
         >
-          <div className="max-w-6xl mx-auto">
+          <div style={{ maxWidth: maxContainerWidth }} className="mx-auto">
             <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
               {custom.badge && (
                 <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-[#dfa82e]/15 text-[#b88917] uppercase tracking-wider">
                   {custom.badge}
                 </span>
               )}
-              <h2 className="text-3xl font-bold font-serif-title">{custom.title}</h2>
+              <h2 style={titleStyle} className="text-3xl font-bold font-serif-title">{custom.title}</h2>
               {custom.subtitle && (
                 <p className="text-base text-slate-600">{custom.subtitle}</p>
               )}
@@ -296,16 +324,16 @@ function PreviewContent() {
       return (
         <section
           id={custom.id}
-          className="py-16 px-6 sm:px-12 border-b border-gray-100"
-          style={{ backgroundColor: custom.bg || '#ffffff', color: custom.textColor || '#0f172a' }}
+          className="py-16 px-6 sm:px-12 border-b border-gray-100 transition-all"
+          style={containerStyle}
         >
-          <div className="max-w-4xl mx-auto space-y-4">
+          <div style={{ maxWidth: maxContainerWidth }} className="mx-auto space-y-4">
             {custom.badge && (
               <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-[#dfa82e]/15 text-[#b88917] uppercase tracking-wider">
                 {custom.badge}
               </span>
             )}
-            <h2 className="text-3xl font-bold font-serif-title">{custom.title}</h2>
+            <h2 style={titleStyle} className="text-3xl font-bold font-serif-title">{custom.title}</h2>
             {custom.subtitle && (
               <p className="text-lg text-slate-600 font-medium">{custom.subtitle}</p>
             )}
@@ -323,16 +351,16 @@ function PreviewContent() {
     return (
       <section
         id={custom.id}
-        className="py-16 px-6 sm:px-12 border-b border-gray-100 relative"
-        style={{ backgroundColor: custom.bg || '#ffffff', color: custom.textColor || '#0f172a' }}
+        className="py-16 px-6 sm:px-12 border-b border-gray-100 relative transition-all"
+        style={containerStyle}
       >
-        <div className="max-w-5xl mx-auto text-center space-y-4">
+        <div style={{ maxWidth: maxContainerWidth }} className="mx-auto text-center space-y-4">
           {custom.badge && (
             <span className="inline-block px-3.5 py-1 rounded-full text-xs font-semibold bg-[#b88917]/15 text-[#b88917]">
               {custom.badge}
             </span>
           )}
-          <h2 className="text-3xl sm:text-4xl font-bold font-serif-title">{custom.title}</h2>
+          <h2 style={titleStyle} className="text-3xl sm:text-4xl font-bold font-serif-title">{custom.title}</h2>
           {custom.subtitle && (
             <p className="text-base text-slate-600 max-w-2xl mx-auto">{custom.subtitle}</p>
           )}
@@ -361,23 +389,36 @@ function PreviewContent() {
 
   // Helper to render section component by ID
   const renderSectionById = (secId: string) => {
-    if (secId === 'hero') return <Hero />;
-    if (secId === 'trust-stats') return <TrustStatsBanner />;
-    if (secId === 'about') return <AboutSection showMoreLink={true} />;
-    if (secId === 'services') return <ServicesSection />;
-    if (secId === 'retainer') return <RetainerSection />;
-    if (secId === 'team') return <TeamSection />;
-    if (secId === 'insights') return <InsightsSection />;
-    if (secId === 'faq') return <FAQSection />;
-    if (secId === 'contact') return <ContactSection />;
+    // Custom style override for standard sections from content.styles
+    const secStyle = content?.styles?.[secId];
+    const wrapperStyle: React.CSSProperties = secStyle ? {
+      backgroundColor: secStyle.backgroundColor || undefined,
+      color: secStyle.color || undefined,
+      paddingTop: secStyle.padding || undefined,
+      paddingBottom: secStyle.padding || undefined,
+      marginTop: secStyle.margin || undefined,
+      marginBottom: secStyle.margin || undefined,
+    } : {};
 
-    // Custom section
-    if (secId.startsWith('custom-div-')) {
+    let comp = null;
+    if (secId === 'hero') comp = <Hero />;
+    else if (secId === 'trust-stats') comp = <TrustStatsBanner />;
+    else if (secId === 'about') comp = <AboutSection showMoreLink={true} />;
+    else if (secId === 'services') comp = <ServicesSection />;
+    else if (secId === 'retainer') comp = <RetainerSection />;
+    else if (secId === 'team') comp = <TeamSection />;
+    else if (secId === 'insights') comp = <InsightsSection />;
+    else if (secId === 'faq') comp = <FAQSection />;
+    else if (secId === 'contact') comp = <ContactSection />;
+    else if (secId.startsWith('custom-div-')) {
       const custom = (content?.customSections || []).find((c: any) => c.id === secId);
       return renderCustomSection(custom);
     }
 
-    return null;
+    if (Object.keys(wrapperStyle).length > 0) {
+      return <div style={wrapperStyle}>{comp}</div>;
+    }
+    return comp;
   };
 
   const getSectionTitle = (secId: string) => {
@@ -393,6 +434,11 @@ function PreviewContent() {
       return SECTION_METADATA[secId].icon;
     }
     return '🧩';
+  };
+
+  const handleSelectSection = (secId: string) => {
+    setSelectedSectionId(secId);
+    window.parent.postMessage({ type: 'SECTION_SELECTED', sectionId: secId }, '*');
   };
 
   return (
@@ -411,14 +457,32 @@ function PreviewContent() {
 
               const secName = getSectionTitle(secId);
               const secIcon = getSectionIcon(secId);
+              const isSelected = selectedSectionId === secId;
 
               return (
-                <div key={secId} id={`canva-wrapper-${secId}`} className="relative group/canvasection">
+                <div 
+                  key={secId} 
+                  id={`canva-wrapper-${secId}`} 
+                  onClick={() => {
+                    if (isEditMode) handleSelectSection(secId);
+                  }}
+                  className={`relative group/canvasection transition-all ${
+                    isEditMode ? 'cursor-pointer' : ''
+                  } ${
+                    isSelected && isEditMode
+                      ? 'ring-4 ring-purple-500 ring-offset-4 ring-offset-slate-900 z-10 shadow-2xl'
+                      : ''
+                  }`}
+                >
                   {/* CANVA DROPZONE & HEADER (Hanya Tampil Saat Mode Editor Canva) */}
                   {isEditMode && (
                     <div 
                       data-canva-bar="true"
-                      className="bg-[#111624] border-y border-[#3b4461] select-none py-1.5 px-4 flex flex-col gap-1.5 transition-all z-20"
+                      className={`border-y select-none py-1.5 px-4 flex flex-col gap-1.5 transition-all z-20 ${
+                        isSelected 
+                          ? 'bg-[#1e1438] border-purple-500' 
+                          : 'bg-[#111624] border-[#3b4461]'
+                      }`}
                     >
                       {/* Canva Interactive Dropzone (Sebelum Halaman Ini) */}
                       <div
@@ -449,7 +513,8 @@ function PreviewContent() {
                             componentType: compType || 'banner',
                           }, '*');
                         }}
-                        onClick={() => {
+                        onClick={(e) => {
+                          e.stopPropagation();
                           window.parent.postMessage({
                             type: 'OPEN_INSERT_MODAL_BEFORE',
                             targetSectionId: secId,
@@ -467,13 +532,22 @@ function PreviewContent() {
                       {/* Canva Page Header Bar */}
                       <div className="flex items-center justify-between text-xs text-slate-200 pt-0.5">
                         <div className="flex items-center gap-2">
-                          <span className="px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-bold text-[11px] border border-purple-500/30">
+                          <span className={`px-2 py-0.5 rounded font-bold text-[11px] border ${
+                            isSelected 
+                              ? 'bg-purple-500 text-white border-purple-400' 
+                              : 'bg-purple-500/20 text-purple-300 border-purple-500/30'
+                          }`}>
                             Halaman {idx + 1}
                           </span>
                           <span className="font-semibold text-white flex items-center gap-1.5">
                             <span>{secIcon}</span>
                             <span>{secName}</span>
                           </span>
+                          {isSelected && (
+                            <span className="text-[10px] bg-purple-400 text-slate-950 font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+                              <Settings className="w-3 h-3" /> Dipilih
+                            </span>
+                          )}
                           {isHidden && (
                             <span className="text-[10px] bg-rose-500/20 text-rose-300 border border-rose-500/30 px-1.5 py-0.2 rounded font-bold">
                               Tersembunyi
@@ -482,7 +556,7 @@ function PreviewContent() {
                         </div>
 
                         {/* Canva Quick Action Buttons */}
-                        <div className="flex items-center gap-1.5">
+                        <div className="flex items-center gap-1.5" onClick={(e) => e.stopPropagation()}>
                           <button
                             onClick={() => window.parent.postMessage({ type: 'MOVE_SECTION_UP', sectionId: secId }, '*')}
                             disabled={idx === 0}
@@ -498,6 +572,14 @@ function PreviewContent() {
                             title="Geser Halaman ke Bawah"
                           >
                             <ChevronDown className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            onClick={() => handleSelectSection(secId)}
+                            className="px-2 py-1 rounded bg-purple-600 hover:bg-purple-500 text-white text-[11px] font-bold flex items-center gap-1 border border-purple-400 transition-colors shadow-sm"
+                            title="Buka Properti Komponen Ini"
+                          >
+                            <Settings className="w-3 h-3" />
+                            <span>Properti</span>
                           </button>
                           <button
                             onClick={() => window.parent.postMessage({ type: 'OPEN_INSERT_MODAL_BEFORE', targetSectionId: secId }, '*')}
