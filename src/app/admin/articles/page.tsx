@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
-import TailAdminLayout from '@/components/admin/TailAdminLayout';
+import AdminLayout from '@/components/layout/admin-layout';
 import ArticleDashboard from '@/components/admin/ArticleDashboard';
 
 export const metadata: Metadata = {
-  title: 'Dashboard Artikel & Gutenberg Workspace | Seleco Admin',
+  title: 'Dashboard Artikel & Gutenberg Workspace | SELECO Admin',
   description: 'Kelola artikel regulasi, berita perizinan, imigrasi, perpajakan, pertanahan, dan SDM dengan Gutenberg Block Workspace.',
   robots: {
     index: false,
@@ -13,13 +13,14 @@ export const metadata: Metadata = {
 
 export default function ArticlesAdminPage() {
   return (
-    <TailAdminLayout
+    <AdminLayout
       activeNav="articles"
       title="Dashboard Artikel"
-      subtitle="Kelola publikasi dan tulis artikel dengan editor blok Gutenberg"
+      breadcrumbTitle="Admin"
+      breadcrumbHref="/admin"
       authNamespace="articles"
     >
       <ArticleDashboard />
-    </TailAdminLayout>
+    </AdminLayout>
   );
 }

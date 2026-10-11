@@ -6,6 +6,38 @@
   --color-primary: #0f2034;
   --color-accent: #b88917;
   --color-secondary: #ffffff;
+
+  /* Shadcn UI Dark Dashboard Theme Tokens */
+  --background: 224 71% 4%;
+  --foreground: 213 31% 91%;
+  --card: 224 71% 7%;
+  --card-foreground: 213 31% 91%;
+  --popover: 224 71% 7%;
+  --popover-foreground: 213 31% 91%;
+  --primary: 42 78% 47%;
+  --primary-foreground: 224 71% 4%;
+  --secondary: 222 47% 11%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 223 47% 11%;
+  --muted-foreground: 215 20% 65%;
+  --accent: 223 47% 11%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 63% 31%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 216 34% 17%;
+  --input: 216 34% 17%;
+  --ring: 42 78% 47%;
+  --radius: 0.75rem;
+
+  /* Sidebar Tokens (matching next-shadcn-dashboard-starter) */
+  --sidebar-background: 224 71% 5%;
+  --sidebar-foreground: 213 31% 91%;
+  --sidebar-primary: 42 78% 47%;
+  --sidebar-primary-foreground: 224 71% 4%;
+  --sidebar-accent: 222 47% 11%;
+  --sidebar-accent-foreground: 210 40% 98%;
+  --sidebar-border: 216 34% 17%;
+  --sidebar-ring: 42 78% 47%;
 }
 
 @layer base {
