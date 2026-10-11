@@ -174,6 +174,30 @@ export interface SiteContent {
       [prop: string]: any;
     };
   };
+  sectionOrder?: {
+    home?: string[];
+    about?: string[];
+    services?: string[];
+    insight?: string[];
+    contact?: string[];
+    [page: string]: string[] | undefined;
+  };
+  hiddenSections?: string[];
+  customSections?: Array<{
+    id: string;
+    page?: string;
+    type?: string;
+    title: string;
+    subtitle?: string;
+    badge?: string;
+    content?: string;
+    image?: string;
+    bg?: string;
+    textColor?: string;
+    buttonText?: string;
+    buttonUrl?: string;
+    items?: any[];
+  }>;
   [key: string]: any;
 }
 
@@ -426,4 +450,21 @@ export const defaultSiteContent: SiteContent = {
     whatsappText: 'Konsultasi Sekarang via WhatsApp',
   },
   styles: {},
+  sectionOrder: {
+    home: ['hero', 'trust-stats', 'about', 'services', 'retainer', 'team', 'insights', 'faq', 'contact'],
+    about: ['about-header', 'about-main', 'retainer-banner', 'about-cta'],
+    services: ['services-header', 'services-main', 'services-cta'],
+    insight: ['insight-header', 'insight-main', 'insight-cta'],
+    contact: ['contact-header', 'contact-main', 'contact-faq'],
+  },
+  hiddenSections: [],
+  customSections: [],
+};
+
+export const defaultSectionOrder: Record<string, string[]> = {
+  home: ['hero', 'trust-stats', 'about', 'services', 'retainer', 'team', 'insights', 'faq', 'contact'],
+  about: ['about-header', 'about-main', 'retainer-banner', 'about-cta'],
+  services: ['services-header', 'services-main', 'services-cta'],
+  insight: ['insight-header', 'insight-main', 'insight-cta'],
+  contact: ['contact-header', 'contact-main', 'contact-faq'],
 };

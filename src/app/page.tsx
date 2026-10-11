@@ -1,30 +1,14 @@
 import Link from 'next/link';
-import { Calendar, ArrowRight, ShieldCheck, Scale, Award, Users } from 'lucide-react';
-import Hero from '@/components/Hero';
-import AboutSection from '@/components/AboutSection';
-import ServicesSection from '@/components/ServicesSection';
-import InsightsSection from '@/components/InsightsSection';
-import TrustStatsBanner from '@/components/TrustStatsBanner';
+import { Calendar, ArrowRight } from 'lucide-react';
+import HomeDynamicSections from '@/components/HomeDynamicSections';
 
 export default function HomePage() {
   return (
     <>
-      {/* 1. Hero Section (Eventure Asymmetric Executive Layout) */}
-      <Hero />
+      {/* Dynamic Sections from User Customization & Canva Editor */}
+      <HomeDynamicSections />
 
-      {/* 2. Trust & Stats Banner (Eventure Trust Strip & Modern Metric Cards) */}
-      <TrustStatsBanner />
-
-      {/* 3. About Overview (Eventure Collage with Legal & HRM Imagery & Elevated Cards) */}
-      <AboutSection showMoreLink={true} />
-
-      {/* 4. Services Overview (5 Pillars Modern Cards & Directory Strip) */}
-      <ServicesSection />
-
-      {/* 5. Editorial Insights */}
-      <InsightsSection />
-
-      {/* 6. Call to Action Banner to Contact Page */}
+      {/* Call to Action Banner to Contact Page */}
       <section className="py-24 bg-[#0a1420] border-t border-white/10 text-white relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#dfa82e]/10 border border-[#dfa82e]/30 rounded-full text-[#dfa82e] text-xs font-bold uppercase tracking-widest mb-4">
