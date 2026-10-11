@@ -61,7 +61,7 @@ export default function AdminClient() {
   return (
     <AdminLayout
       activeNav="hub"
-      title="Admin Hub &amp; Overview"
+      title="Dashboard Utama"
       breadcrumbTitle="Admin"
       breadcrumbHref="/admin"
       authNamespace="hub"
@@ -69,8 +69,8 @@ export default function AdminClient() {
       <PageContainer>
         {/* Header Heading with Actions */}
         <Heading
-          title="Overview Dashboard"
-          description="Pusat kendali administrasi web visual builder dan portal artikel editorial SELECO."
+          title="Dashboard Utama"
+          description="Pusat kendali pengaturan tampilan website dan publikasi artikel berita SELECO."
           action={
             <div className="flex items-center gap-2">
               <Button variant="outline" size="sm" asChild>
@@ -89,26 +89,26 @@ export default function AdminClient() {
           }
         />
 
-        {/* METRIC CARDS (Matching Kiranism next-shadcn-dashboard-starter) */}
+        {/* METRIC CARDS */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {/* Card 1: Site Status */}
           <Card>
             <CardHeader>
               <CardDescription>Status Akses Website</CardDescription>
               <CardTitle className="text-2xl font-bold tracking-tight">
-                {siteMode === 'live' ? 'TAYANG (LIVE)' : 'DEV MODE'}
+                {siteMode === 'live' ? 'Live (Online)' : 'Mode Dev'}
               </CardTitle>
               <CardAction>
                 <Badge variant={siteMode === 'live' ? 'success' : 'warning'}>
                   {siteMode === 'live' ? (
                     <>
                       <Icons.circleCheck className="size-3 mr-1" />
-                      Publik &amp; Google
+                      Live (Online)
                     </>
                   ) : (
                     <>
                       <Icons.clock className="size-3 mr-1" />
-                      Pengembangan
+                      Mode Dev
                     </>
                   )}
                 </Badge>

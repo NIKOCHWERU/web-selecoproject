@@ -223,14 +223,14 @@ export default function ArticleDashboard() {
         {/* Metric 2: Published */}
         <Card>
           <CardHeader>
-            <CardDescription>Artikel Terbit (Live)</CardDescription>
+            <CardDescription>Artikel Terbit (Online)</CardDescription>
             <CardTitle className="text-2xl font-bold tracking-tight tabular-nums text-emerald-400">
               {totalPublished}
             </CardTitle>
             <CardAction>
               <Badge variant="success">
                 <Icons.circleCheck className="size-3 mr-1" />
-                Live
+                Online
               </Badge>
             </CardAction>
           </CardHeader>

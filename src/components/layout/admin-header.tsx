@@ -86,7 +86,7 @@ export default function AdminHeader({
                   : 'text-muted-foreground hover:text-foreground'
               }`}
             >
-              Dev Mode
+              Mode Dev
             </button>
             <button
               onClick={() => onToggleSiteMode('live')}
@@ -97,7 +97,7 @@ export default function AdminHeader({
                   : 'text-muted-foreground hover:text-foreground'
               }`}
             >
-              Live (Tayang)
+              Live (Online)
             </button>
           </div>
         )}

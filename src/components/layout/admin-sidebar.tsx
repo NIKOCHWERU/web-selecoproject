@@ -33,19 +33,19 @@ export default function AdminSidebar({
 
   const mainNav = [
     {
-      title: 'Admin Hub',
+      title: 'Dashboard Utama',
       url: '/admin',
       icon: Icons.dashboard,
       match: pathname === '/admin',
     },
     {
-      title: 'Editor Web (Visual)',
+      title: 'Editor Web',
       url: '/admin/editor',
       icon: Icons.forms,
       match: pathname.startsWith('/admin/editor'),
     },
     {
-      title: 'Dashboard Artikel',
+      title: 'Kelola Artikel',
       url: '/admin/articles',
       icon: Icons.post,
       match: pathname.startsWith('/admin/articles'),

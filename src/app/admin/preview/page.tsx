@@ -177,15 +177,55 @@ function PreviewContent() {
         {/* 1. BERANDA (HOME) */}
         {currentPage === 'home' && (
           <div>
-            <Hero />
-            <TrustStatsBanner />
-            <AboutSection showMoreLink={true} />
-            <ServicesSection />
-            <RetainerSection />
-            <TeamSection />
-            <InsightsSection />
-            <FAQSection />
-            <ContactSection />
+            {!content?.hiddenSections?.includes('hero') && <Hero />}
+            {!content?.hiddenSections?.includes('trust-stats') && <TrustStatsBanner />}
+            {!content?.hiddenSections?.includes('about') && <AboutSection showMoreLink={true} />}
+            {!content?.hiddenSections?.includes('services') && <ServicesSection />}
+            {!content?.hiddenSections?.includes('retainer') && <RetainerSection />}
+            {!content?.hiddenSections?.includes('team') && <TeamSection />}
+            {!content?.hiddenSections?.includes('insights') && <InsightsSection />}
+            {!content?.hiddenSections?.includes('faq') && <FAQSection />}
+            {!content?.hiddenSections?.includes('contact') && <ContactSection />}
+
+            {/* Custom User Added Components/Divs */}
+            {content?.customSections?.filter((c: any) => !c.page || c.page === 'home').map((custom: any) => (
+              <div
+                key={custom.id}
+                id={custom.id}
+                className="py-16 px-6 sm:px-12 border-b border-gray-100 relative"
+                style={{ backgroundColor: custom.bg || '#ffffff', color: custom.textColor || '#0f172a' }}
+              >
+                <div className="max-w-6xl mx-auto text-center space-y-4">
+                  {custom.badge && (
+                    <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#b88917]/15 text-[#b88917]">
+                      {custom.badge}
+                    </span>
+                  )}
+                  <h2 className="text-3xl font-bold font-serif-title">{custom.title}</h2>
+                  {custom.subtitle && (
+                    <p className="text-base text-slate-600 max-w-2xl mx-auto">{custom.subtitle}</p>
+                  )}
+                  {custom.content && (
+                    <div className="text-sm text-slate-700 max-w-3xl mx-auto leading-relaxed">{custom.content}</div>
+                  )}
+                  {custom.image && (
+                    <div className="max-w-3xl mx-auto mt-6 rounded-xl overflow-hidden shadow-lg">
+                      <img src={custom.image} alt={custom.title} className="w-full h-auto object-cover" />
+                    </div>
+                  )}
+                  {custom.buttonText && (
+                    <div className="pt-4">
+                      <a
+                        href={custom.buttonUrl || '#'}
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-[#b88917] text-[#0a1420] rounded-xl font-bold text-xs uppercase tracking-wider shadow-md hover:brightness-110"
+                      >
+                        <span>{custom.buttonText}</span>
+                      </a>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         )}
 
