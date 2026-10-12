@@ -170,6 +170,37 @@ export default function HomeDynamicSections() {
       );
     }
 
+    if (custom.type === 'html' || custom.rawHtml) {
+      return (
+        <section
+          key={custom.id}
+          id={custom.id}
+          className="py-16 px-6 sm:px-12 border-b border-gray-100 relative transition-all"
+          style={containerStyle}
+        >
+          <div style={{ maxWidth: maxContainerWidth }} className="mx-auto">
+            {custom.title && (
+              <div className="text-center mb-8 space-y-2">
+                {custom.badge && (
+                  <span className="inline-block px-3.5 py-1 rounded-full text-xs font-semibold bg-[#b88917]/15 text-[#b88917]">
+                    {custom.badge}
+                  </span>
+                )}
+                <h2 style={titleStyle} className="text-3xl sm:text-4xl font-bold font-serif-title">{custom.title}</h2>
+                {custom.subtitle && (
+                  <p className="text-base text-slate-600 max-w-2xl mx-auto">{custom.subtitle}</p>
+                )}
+              </div>
+            )}
+            <div 
+              className="w-full overflow-hidden rounded-2xl"
+              dangerouslySetInnerHTML={{ __html: custom.rawHtml || '' }} 
+            />
+          </div>
+        </section>
+      );
+    }
+
     return (
       <section
         key={custom.id}
