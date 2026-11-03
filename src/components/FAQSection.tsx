@@ -17,13 +17,13 @@ export default function FAQSection() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div className="text-center mb-12">
-          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#dfa82e] mb-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#dfa82e]/15 border border-[#dfa82e]/30 text-xs font-bold uppercase tracking-widest text-[#dfa82e] mb-3">
             <EditableText
               fieldPath="faq.badge"
               fallback="Pertanyaan Umum"
               label="Badge FAQ"
             />
-          </p>
+          </div>
           <h2 className="font-serif-title text-3xl sm:text-4xl font-bold text-white leading-tight">
             <EditableText
               fieldPath="faq.title"
@@ -31,8 +31,8 @@ export default function FAQSection() {
               label="Judul FAQ"
             />
           </h2>
-          <div className="w-10 h-[2px] bg-[#dfa82e] mx-auto my-5" />
-          <p className="text-sm text-slate-300 font-normal">
+          <div className="w-16 h-1 bg-[#dfa82e] rounded-full mx-auto my-4" />
+          <p className="text-sm sm:text-base text-slate-300 font-normal leading-relaxed">
             <EditableText
               fieldPath="faq.subtitle"
               fallback={faq?.subtitle || 'Pertanyaan yang sering diajukan seputar layanan kami'}

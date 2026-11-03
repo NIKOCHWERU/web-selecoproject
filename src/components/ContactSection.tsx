@@ -52,13 +52,13 @@ export default function ContactSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div className="max-w-2xl mb-14">
-          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#dfa82e] mb-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#dfa82e]/15 border border-[#dfa82e]/30 text-xs font-bold uppercase tracking-widest text-[#dfa82e] mb-3">
             <EditableText
               fieldPath="contact.badge"
               fallback="Hubungi Kami"
               label="Badge Kontak"
             />
-          </p>
+          </div>
           <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
             <EditableText
               fieldPath="contact.title"
@@ -66,8 +66,8 @@ export default function ContactSection() {
               label="Judul Kontak"
             />
           </h2>
-          <div className="w-10 h-[2px] bg-[#dfa82e] my-5" />
-          <p className="text-sm text-slate-300 font-normal">
+          <div className="w-16 h-1 bg-[#dfa82e] rounded-full my-4" />
+          <p className="text-sm sm:text-base text-slate-300 font-normal leading-relaxed">
             <EditableText
               fieldPath="contact.subtitle"
               fallback="Sampaikan secara singkat kebutuhan bisnis dan korporasi Anda. Tim kami akan merespons dalam 1x24 jam kerja."
@@ -79,30 +79,30 @@ export default function ContactSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
 
-          {/* Left: Contact Info */}
+          {/* Left: Contact Info (Web NH Card Styling) */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-2 bg-[#0f2034] text-white rounded-xl p-8 lg:p-10 shadow-xl border border-white/10 flex flex-col justify-between"
+            className="lg:col-span-2 bg-[#0f2034] text-white rounded-2xl p-8 lg:p-10 shadow-2xl border border-white/10 flex flex-col justify-between"
           >
             <div>
               <h3 className="font-serif-title text-xl lg:text-2xl font-bold text-white mb-1">
                 {global?.brandName || 'SELECO'}
               </h3>
-              <p className="text-xs text-white/40 leading-relaxed mb-8 font-light">
+              <p className="text-xs text-slate-400 leading-relaxed mb-8 font-light">
                 {global?.brandTagline || 'SEDANA LEGAL CONSULTANT'} | Strategic Corporate Consultant in Indonesia.
               </p>
 
-              <div className="space-y-5">
-                <div className="flex items-start gap-3.5">
-                  <div className="w-8 h-8 flex items-center justify-center shrink-0 text-[#b88917] mt-0.5">
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-[#dfa82e]/15 border border-[#dfa82e]/30 flex items-center justify-center shrink-0 text-[#dfa82e] mt-0.5">
                     <MapPin className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="text-[10px] text-[#b88917] font-bold uppercase tracking-widest mb-1">Alamat Kantor</p>
-                    <p className="text-xs text-white/70 leading-relaxed">
+                    <p className="text-[10px] text-[#dfa82e] font-bold uppercase tracking-widest mb-1">Alamat Kantor</p>
+                    <p className="text-xs text-slate-300 leading-relaxed">
                       <EditableText
                         fieldPath="global.address"
                         fallback="Jl.M.H Thamrin No. 9 Lt 12, Kebon Sirih Menteng, DKI Jakarta, 10340"
@@ -112,13 +112,13 @@ export default function ContactSection() {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3.5">
-                  <div className="w-8 h-8 flex items-center justify-center shrink-0 text-[#b88917]">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-[#dfa82e]/15 border border-[#dfa82e]/30 flex items-center justify-center shrink-0 text-[#dfa82e]">
                     <Mail className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="text-[10px] text-[#b88917] font-bold uppercase tracking-widest mb-1">Email Resmi</p>
-                    <a href={`mailto:${global?.email || 'hello@selecoproject.com'}`} className="text-xs text-white/70 hover:text-white transition-colors block">
+                    <p className="text-[10px] text-[#dfa82e] font-bold uppercase tracking-widest mb-1">Email Resmi</p>
+                    <a href={`mailto:${global?.email || 'hello@selecoproject.com'}`} className="text-xs text-slate-300 hover:text-white transition-colors block">
                       <EditableText
                         fieldPath="global.email"
                         fallback="hello@selecoproject.com"
@@ -128,13 +128,13 @@ export default function ContactSection() {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3.5">
-                  <div className="w-8 h-8 flex items-center justify-center shrink-0 text-[#b88917]">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-[#dfa82e]/15 border border-[#dfa82e]/30 flex items-center justify-center shrink-0 text-[#dfa82e]">
                     <Phone className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="text-[10px] text-[#b88917] font-bold uppercase tracking-widest mb-1">Telepon / WhatsApp</p>
-                    <a href={`https://wa.me/${global?.whatsappNumber || '6282211020022'}`} target="_blank" rel="noopener noreferrer" className="text-xs text-white/70 hover:text-white transition-colors block">
+                    <p className="text-[10px] text-[#dfa82e] font-bold uppercase tracking-widest mb-1">Telepon / WhatsApp</p>
+                    <a href={`https://wa.me/${global?.whatsappNumber || '6282211020022'}`} target="_blank" rel="noopener noreferrer" className="text-xs text-slate-300 hover:text-white transition-colors block">
                       {global?.whatsappDisplay || '+62 822-1102-0022'}
                     </a>
                   </div>
@@ -142,8 +142,8 @@ export default function ContactSection() {
               </div>
             </div>
 
-            {/* Office Photo */}
-            <div className="mt-8 relative h-44 rounded-lg overflow-hidden border border-white/10">
+            {/* Office Photo Frame */}
+            <div className="mt-8 relative h-44 rounded-xl overflow-hidden border border-white/10 shadow-lg">
               <img
                 src="https://images.unsplash.com/photo-1575505586569-646b2ca898fc?auto=format&fit=crop&w=600&q=80"
                 alt="Kantor SELECO Jakarta"
@@ -151,20 +151,20 @@ export default function ContactSection() {
               />
               <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
                 <span className="font-serif-title text-base font-bold text-white">SELECO | Thamrin, Jakarta</span>
-                <span className="text-[10px] text-[#b88917] font-semibold uppercase tracking-widest mt-1">
+                <span className="text-[10px] text-[#dfa82e] font-semibold uppercase tracking-widest mt-1">
                   Senin - Jumat | 09:00 - 17:00 WIB
                 </span>
               </div>
             </div>
           </motion.div>
 
-          {/* Right: Form */}
+          {/* Right: Form (Web NH Style) */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-3 bg-[#0f2034] border border-white/10 rounded-xl p-8 lg:p-10 shadow-xl"
+            className="lg:col-span-3 bg-[#0f2034] border border-white/10 rounded-2xl p-8 lg:p-10 shadow-2xl"
           >
             {submitted ? (
               <div className="h-full flex flex-col items-center justify-center text-center py-16 gap-4">
@@ -184,7 +184,7 @@ export default function ContactSection() {
                       name="nama"
                       required
                       placeholder="Nama lengkap Anda"
-                      className="w-full px-3.5 py-2.5 text-sm bg-[#0a1420] border border-white/15 rounded focus:outline-none focus:bg-[#0c1826] focus:border-[#dfa82e] focus:ring-1 focus:ring-[#dfa82e]/30 text-white placeholder-white/30 transition-all"
+                      className="w-full px-4 py-3 text-sm bg-[#0a1420] border border-white/15 rounded-xl focus:outline-none focus:border-[#dfa82e] text-white placeholder-slate-400 transition-all"
                     />
                   </div>
                   <div>
@@ -193,7 +193,7 @@ export default function ContactSection() {
                       type="text"
                       name="perusahaan"
                       placeholder="PT / CV / nama bisnis"
-                      className="w-full px-3.5 py-2.5 text-sm bg-[#0a1420] border border-white/15 rounded focus:outline-none focus:bg-[#0c1826] focus:border-[#dfa82e] focus:ring-1 focus:ring-[#dfa82e]/30 text-white placeholder-white/30 transition-all"
+                      className="w-full px-4 py-3 text-sm bg-[#0a1420] border border-white/15 rounded-xl focus:outline-none focus:border-[#dfa82e] text-white placeholder-slate-400 transition-all"
                     />
                   </div>
                 </div>
@@ -206,7 +206,7 @@ export default function ContactSection() {
                       name="email"
                       required
                       placeholder="email@perusahaan.com"
-                      className="w-full px-3.5 py-2.5 text-sm bg-[#0a1420] border border-white/15 rounded focus:outline-none focus:bg-[#0c1826] focus:border-[#dfa82e] focus:ring-1 focus:ring-[#dfa82e]/30 text-white placeholder-white/30 transition-all"
+                      className="w-full px-4 py-3 text-sm bg-[#0a1420] border border-white/15 rounded-xl focus:outline-none focus:border-[#dfa82e] text-white placeholder-slate-400 transition-all"
                     />
                   </div>
                   <div>
@@ -216,7 +216,7 @@ export default function ContactSection() {
                       name="telepon"
                       required
                       placeholder="+62 812 XXXX XXXX"
-                      className="w-full px-3.5 py-2.5 text-sm bg-[#0a1420] border border-white/15 rounded focus:outline-none focus:bg-[#0c1826] focus:border-[#dfa82e] focus:ring-1 focus:ring-[#dfa82e]/30 text-white placeholder-white/30 transition-all"
+                      className="w-full px-4 py-3 text-sm bg-[#0a1420] border border-white/15 rounded-xl focus:outline-none focus:border-[#dfa82e] text-white placeholder-slate-400 transition-all"
                     />
                   </div>
                 </div>
@@ -227,7 +227,7 @@ export default function ContactSection() {
                     name="layanan"
                     required
                     defaultValue=""
-                    className="w-full px-3.5 py-2.5 text-sm bg-[#0a1420] border border-white/15 rounded focus:outline-none focus:bg-[#0c1826] focus:border-[#dfa82e] focus:ring-1 focus:ring-[#dfa82e]/30 text-white transition-all"
+                    className="w-full px-4 py-3 text-sm bg-[#0a1420] border border-white/15 rounded-xl focus:outline-none focus:border-[#dfa82e] text-white transition-all"
                   >
                     <option value="" disabled className="bg-[#0f2034] text-white/50">Pilih kategori layanan...</option>
                     {serviceOptions.map(opt => (
@@ -243,7 +243,7 @@ export default function ContactSection() {
                     required
                     rows={4}
                     placeholder="Jelaskan secara singkat konteks kebutuhan perizinan, imigrasi, pajak, pertanahan, atau SDM bisnis Anda..."
-                    className="w-full px-3.5 py-2.5 text-sm bg-[#0a1420] border border-white/15 rounded focus:outline-none focus:bg-[#0c1826] focus:border-[#dfa82e] focus:ring-1 focus:ring-[#dfa82e]/30 text-white placeholder-white/30 resize-none transition-all"
+                    className="w-full px-4 py-3 text-sm bg-[#0a1420] border border-white/15 rounded-xl focus:outline-none focus:border-[#dfa82e] text-white placeholder-slate-400 resize-none transition-all"
                   />
                 </div>
 
@@ -256,7 +256,7 @@ export default function ContactSection() {
 
                 <button
                   type="submit"
-                  className="w-full py-3.5 bg-gradient-to-r from-gold-accent to-gold-bright text-[#0a1420] font-bold text-xs uppercase tracking-wider rounded-lg hover:brightness-110 shadow-md transition-all flex items-center justify-center gap-2"
+                  className="w-full py-4 bg-[#dfa82e] hover:bg-white text-[#0a1420] font-bold text-xs uppercase tracking-widest rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <Send className="w-3.5 h-3.5 text-[#0a1420]" />
                   <span>Kirim via WhatsApp</span>

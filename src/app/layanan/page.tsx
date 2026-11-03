@@ -92,7 +92,7 @@ function LayananContent() {
               <h1 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
                 Konsultan Perizinan, Imigrasi, Pajak, Pertanahan &amp; SDM
               </h1>
-              <div className="w-16 h-[3px] bg-[#dfa82e] mt-3 mb-4 rounded-full" />
+              <div className="w-16 h-1 bg-[#dfa82e] mt-3 mb-4 rounded-full" />
               <p className="text-base text-slate-300 max-w-2xl leading-relaxed">
                 Direktori komprehensif mencakup <strong className="text-white font-semibold">{totalServices} Layanan Konsultan Spesialis</strong>: Perizinan Usaha OSS RBA, Keimigrasian &amp; TKA, Perpajakan Korporasi, Pertanahan BPN, serta Manajemen &amp; Ketenagakerjaan SDM.
               </p>

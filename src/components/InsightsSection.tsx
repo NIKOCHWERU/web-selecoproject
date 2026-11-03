@@ -15,22 +15,22 @@ export default function InsightsSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="max-w-2xl mb-14">
-          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#dfa82e] mb-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#dfa82e]/15 border border-[#dfa82e]/30 text-xs font-bold uppercase tracking-widest text-[#dfa82e] mb-3">
             <EditableText
               fieldPath="insights.badge"
               fallback="Publikasi Editorial"
               label="Badge Insight"
             />
-          </p>
-          <h2 className="font-serif-title text-3xl sm:text-4xl font-bold text-white leading-tight">
+          </div>
+          <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
             <EditableText
               fieldPath="insights.title"
               fallback="Legal Insights"
               label="Judul Insight"
             />
           </h2>
-          <div className="w-10 h-[2px] bg-[#dfa82e] my-5" />
-          <p className="text-sm text-slate-300 font-normal">
+          <div className="w-16 h-1 bg-[#dfa82e] rounded-full my-4" />
+          <p className="text-sm sm:text-base text-slate-300 font-normal leading-relaxed">
             <EditableText
               fieldPath="insights.subtitle"
               fallback="Perspektif strategis dan regulasi dari tim konsultan SELECO untuk pengambilan keputusan bisnis yang lebih terukur."
@@ -96,7 +96,7 @@ export default function InsightsSection() {
         <div className="mt-14 text-center">
           <Link
             href="/insight"
-            className="inline-flex items-center gap-2 px-8 py-3.5 border-2 border-[#dfa82e] rounded-lg text-[#dfa82e] hover:bg-[#dfa82e] hover:text-[#0a1420] transition-all text-xs font-bold uppercase tracking-wider shadow-sm"
+            className="inline-flex items-center gap-2 px-6 py-3.5 bg-[#dfa82e] hover:bg-white text-[#0a1420] transition-all text-xs font-bold uppercase tracking-widest rounded-xl shadow-md hover:shadow-lg cursor-pointer"
           >
             Lihat Semua Insight Editorial
           </Link>

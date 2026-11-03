@@ -17,20 +17,20 @@ export default function HomePage() {
           <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 leading-tight text-white">
             Ambil Langkah Legalitas yang Tepat untuk Bisnis Anda
           </h2>
-          <div className="w-16 h-[3px] bg-[#dfa82e] mx-auto mb-6 rounded-full" />
+          <div className="w-16 h-1 bg-[#dfa82e] mx-auto mb-6 rounded-full" />
           <p className="text-slate-300 text-base max-w-2xl mx-auto mb-10 leading-relaxed font-normal">
             Tim konsultan SELECO siap memberikan arahan dan kepastian mengenai legalitas usaha, perizinan OSS RBA, atau retainer korporasi Anda.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link
               href="/kontak"
-              className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-[#dfa82e] to-[#b88917] text-[#0a1420] font-bold text-xs uppercase tracking-wider rounded-full hover:brightness-110 transition-all shadow-lg shadow-[#dfa82e]/20 flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-6 py-3.5 sm:px-8 sm:py-4 bg-[#dfa82e] hover:bg-white text-[#0a1420] font-bold text-xs uppercase tracking-widest rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer"
             >
               <Calendar className="w-4 h-4" /> Hubungi Kami &amp; Jadwalkan Konsultasi
             </Link>
             <Link
               href="/tentang"
-              className="w-full sm:w-auto px-8 py-4 bg-white/5 border border-white/20 text-white hover:border-[#dfa82e] hover:text-[#dfa82e] font-bold text-xs uppercase tracking-wider rounded-full transition-all flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-6 py-3.5 sm:px-8 sm:py-4 bg-transparent border border-white/20 text-white hover:bg-white hover:text-[#0a1420] hover:border-white font-bold text-xs uppercase tracking-widest rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
             >
               Pelajari Profil Kami <ArrowRight className="w-4 h-4" />
             </Link>

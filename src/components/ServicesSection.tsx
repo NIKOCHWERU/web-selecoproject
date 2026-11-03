@@ -87,7 +87,7 @@ export default function ServicesSection() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-[#dfa82e] mb-4">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#dfa82e]/15 border border-[#dfa82e]/30 text-xs font-bold uppercase tracking-widest text-[#dfa82e] mb-4">
               <EditableText
                 fieldPath="services.badge"
                 fallback="5 Pilar Layanan Konsultan Terpadu"
@@ -101,7 +101,8 @@ export default function ServicesSection() {
                 label="Judul Layanan"
               />
             </h2>
-            <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal mt-4">
+            <div className="w-16 h-1 bg-[#dfa82e] rounded-full my-4" />
+            <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
               <EditableText
                 fieldPath="services.subtitle"
                 fallback="Solusi konsultan komprehensif mencakup Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM untuk akselerasi dan kepatuhan operasional bisnis Anda."
@@ -114,7 +115,7 @@ export default function ServicesSection() {
           <div className="shrink-0">
             <Link
               href="/layanan"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/20 hover:border-[#dfa82e]/50 text-xs font-bold uppercase tracking-wider text-white hover:text-[#dfa82e] transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#dfa82e] hover:bg-white text-[#0a1420] text-xs font-bold uppercase tracking-widest transition-all shadow-md cursor-pointer"
             >
               <span>Jelajahi Seluruh Layanan</span>
               <ArrowRight className="w-4 h-4" />
@@ -122,7 +123,7 @@ export default function ServicesSection() {
           </div>
         </div>
 
-        {/* Eventure-style 5 Modern Pillar Cards */}
+        {/* 5 Modern Pillar Cards (Web NH Style) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {pillars.map((cat, idx) => {
             const fallbackLink = cat.linkUrl || `/layanan?cat=${cat.id}`;
@@ -135,22 +136,22 @@ export default function ServicesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: idx * 0.05 }}
-                className="rounded-3xl bg-[#0f2034]/80 border border-white/10 hover:border-[#dfa82e]/50 p-8 flex flex-col justify-between hover:-translate-y-1.5 transition-all duration-300 shadow-xl group backdrop-blur-sm relative overflow-hidden"
+                className="rounded-2xl bg-[#0f2034]/90 border border-white/10 hover:border-[#dfa82e]/50 p-8 flex flex-col justify-between hover:-translate-y-1.5 transition-all duration-300 shadow-xl group backdrop-blur-sm relative overflow-hidden"
               >
                 {/* Subtle top ambient glow on hover */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#dfa82e]/5 rounded-full blur-2xl group-hover:bg-[#dfa82e]/10 transition-all pointer-events-none" />
 
                 <div>
                   <div className="flex items-center justify-between mb-6">
-                    <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white/5 border border-white/10 group-hover:bg-[#dfa82e]/15 group-hover:border-[#dfa82e]/30 transition-all">
+                    <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-[#0a1420] border border-[#dfa82e]/30 text-[#dfa82e] group-hover:bg-[#dfa82e] group-hover:text-[#0a1420] transition-all duration-300">
                       <EditableIcon
                         iconKey={`services.pillars.${idx}.icon`}
                         fallbackIcon={cat.iconName || 'FileCheck'}
-                        className="w-6 h-6 text-[#dfa82e] group-hover:scale-110 transition-transform"
+                        className="w-5 h-5 group-hover:scale-110 transition-transform"
                         label={`Ikon Pilar ${idx + 1}`}
                       />
                     </div>
-                    <span className="px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase bg-white/5 border border-white/10 text-[#dfa82e] group-hover:border-[#dfa82e]/30 transition-colors">
+                    <span className="px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-[#dfa82e]/10 border border-[#dfa82e]/30 text-[#dfa82e] group-hover:border-[#dfa82e]/50 transition-colors shadow-sm">
                       <EditableText
                         fieldPath={`services.pillars.${idx}.count`}
                         fallback={cat.count || '242 Items'}
@@ -205,10 +206,10 @@ export default function ServicesSection() {
           })}
         </div>
 
-        {/* Directory Banner - Modern Eventure Rounded Strip */}
-        <div className="rounded-3xl bg-gradient-to-r from-[#0f2034] via-[#142940] to-[#0f2034] text-white p-8 lg:p-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 border border-white/15 shadow-2xl relative overflow-hidden">
+        {/* Directory Banner - Web NH Style */}
+        <div className="rounded-2xl bg-[#0f2034] text-white p-6 sm:p-8 lg:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-[#dfa82e]/30 shadow-2xl relative overflow-hidden">
           <div className="space-y-3 z-10 max-w-2xl">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-widest text-[#dfa82e]">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dfa82e]/15 border border-[#dfa82e]/30 text-xs font-bold uppercase tracking-widest text-[#dfa82e]">
               Direktori Lengkap &amp; Pencarian Terpadu
             </span>
             <h3 className="font-serif-title text-2xl sm:text-3xl font-bold text-white">
@@ -218,7 +219,7 @@ export default function ServicesSection() {
                 label="Judul Banner Layanan"
               />
             </h3>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
               <EditableText
                 fieldPath="services.ctaBannerSubtitle"
                 fallback={`Gunakan pencarian interaktif kami untuk menemukan ${totalServices} solusi layanan Konsultan Perizinan, Imigrasi, Pajak, Pertanahan, dan SDM.`}
@@ -235,7 +236,7 @@ export default function ServicesSection() {
                 e.stopPropagation();
               }
             }}
-            className="px-8 py-4 bg-gradient-to-r from-[#dfa82e] to-[#b88917] hover:brightness-110 text-[#0a1420] font-bold text-xs uppercase tracking-wider rounded-full shadow-lg shadow-[#dfa82e]/20 transition-all whitespace-nowrap flex items-center gap-2.5 shrink-0 z-10"
+            className="px-6 py-3.5 bg-[#dfa82e] hover:bg-white text-[#0a1420] font-bold text-xs uppercase tracking-widest rounded-xl shadow-md hover:shadow-lg transition-all whitespace-nowrap flex items-center gap-2.5 shrink-0 z-10 cursor-pointer"
           >
             <EditableIcon
               iconKey="services.ctaBannerIcon"

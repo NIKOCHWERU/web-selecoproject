@@ -27,7 +27,7 @@ export default function KontakPage() {
             <h1 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
               Konsultasi Perizinan &amp; Layanan Korporasi
             </h1>
-            <div className="w-16 h-[3px] bg-[#dfa82e] mt-3 mb-4 rounded-full" />
+            <div className="w-16 h-1 bg-[#dfa82e] mt-3 mb-4 rounded-full" />
             <p className="text-base text-slate-300 max-w-2xl leading-relaxed font-normal">
               Diskusikan perizinan usaha, keimigrasian, perpajakan, pertanahan, atau manajemen SDM perusahaan Anda bersama konsultan profesional Seleco.
             </p>

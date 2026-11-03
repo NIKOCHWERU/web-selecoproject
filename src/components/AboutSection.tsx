@@ -122,7 +122,7 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
             className="lg:col-span-6 space-y-6"
           >
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-[#dfa82e] mb-3">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#dfa82e]/15 border border-[#dfa82e]/30 text-xs font-bold uppercase tracking-widest text-[#dfa82e] mb-3">
                 <EditableText
                   fieldPath="about.badge"
                   fallback="Tentang SELECO"
@@ -144,6 +144,8 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
                   />
                 </span>
               </h2>
+
+              <div className="w-16 h-1 bg-[#dfa82e] rounded-full my-4" />
             </div>
 
             <p className="text-sm text-slate-300 leading-relaxed font-normal">
@@ -196,7 +198,7 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
               <div className="pt-3">
                 <Link
                   href="/tentang"
-                  className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/15 hover:border-[#dfa82e]/50 text-xs font-bold uppercase tracking-wider text-[#dfa82e] hover:text-white transition-all group"
+                  className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-white/5 hover:bg-white hover:text-[#0a1420] border border-white/20 hover:border-white text-xs font-bold uppercase tracking-widest text-[#dfa82e] transition-all group shadow-sm cursor-pointer"
                 >
                   <span>Pelajari Profil &amp; Tim Konsultan Kami</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

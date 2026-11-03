@@ -10,7 +10,6 @@ import TrustStatsBanner from '@/components/TrustStatsBanner';
 import AboutSection from '@/components/AboutSection';
 import ServicesSection from '@/components/ServicesSection';
 import RetainerSection from '@/components/RetainerSection';
-import TeamSection from '@/components/TeamSection';
 import InsightsSection from '@/components/InsightsSection';
 import FAQSection from '@/components/FAQSection';
 import ContactSection from '@/components/ContactSection';
@@ -249,7 +248,7 @@ export default function HomeDynamicSections() {
     if (secId === 'about') return <AboutSection key="about" showMoreLink={true} />;
     if (secId === 'services') return <ServicesSection key="services" />;
     if (secId === 'retainer') return <RetainerSection key="retainer" />;
-    if (secId === 'team') return <TeamSection key="team" />;
+    if (secId === 'team') return null;
     if (secId === 'insights') return <InsightsSection key="insights" />;
     if (secId === 'faq') return <FAQSection key="faq" />;
     if (secId === 'contact') return <ContactSection key="contact" />;

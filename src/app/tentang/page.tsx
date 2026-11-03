@@ -27,7 +27,7 @@ export default function TentangPage() {
             <h1 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
               Dedikasi pada Integritas &amp; Keunggulan Strategis
             </h1>
-            <div className="w-16 h-[3px] bg-[#dfa82e] mt-3 mb-4 rounded-full" />
+            <div className="w-16 h-1 bg-[#dfa82e] mt-3 mb-4 rounded-full" />
             <p className="text-base text-slate-300 max-w-2xl leading-relaxed font-normal">
               Mengenal lebih dekat visi, standar profesional, dan tim konsultan di balik SELECO (SEDANA LEGAL CONSULTANT) yang siap mendampingi pertumbuhan bisnis Anda di Indonesia melalui 5 pilar layanan konsultan terpadu.
             </p>
@@ -50,7 +50,7 @@ export default function TentangPage() {
           </p>
           <Link
             href="/kontak"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-gold-accent to-gold-bright text-[#0a1420] font-bold text-xs uppercase tracking-wider rounded-lg hover:brightness-110 transition-all shadow-md"
+            className="inline-flex items-center gap-2 px-6 py-3.5 bg-[#dfa82e] hover:bg-white text-[#0a1420] font-bold text-xs uppercase tracking-widest rounded-xl transition-all shadow-md hover:shadow-lg cursor-pointer"
           >
             <span>Hubungi Tim Kami Sekarang</span>
             <ArrowRight className="w-4 h-4" />

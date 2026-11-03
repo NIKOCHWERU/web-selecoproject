@@ -151,7 +151,7 @@ export default function Navbar() {
                   e.stopPropagation();
                 }
               }}
-              className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-[#0a1420] bg-gradient-to-r from-[#dfa82e] to-[#b88917] hover:brightness-110 rounded-full shadow-md shadow-[#dfa82e]/20 transition-all flex items-center gap-2"
+              className="px-5 py-2.5 text-xs font-bold uppercase tracking-widest text-[#0a1420] bg-[#dfa82e] hover:bg-white rounded-xl shadow-md transition-all flex items-center gap-2 cursor-pointer"
             >
               <EditableIcon
                 iconKey="navbar.ctaIcon"

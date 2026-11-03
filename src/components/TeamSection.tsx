@@ -77,7 +77,7 @@ export default function TeamSection() {
                 <p className="text-xs text-slate-600 leading-relaxed">
                   <EditableText
                     fieldPath={`team.members.${idx}.bio`}
-                    fallback={atty.specialization || atty.focus || atty.bio}
+                    fallback={atty.bio || atty.specialization || atty.focus}
                     label={`Bio Tim #${idx + 1}`}
                     multiline={true}
                   />

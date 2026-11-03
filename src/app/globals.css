@@ -61,9 +61,9 @@
 }
 
 @layer components {
-  /* Cormorant Garamond for all editorial headings */
+  /* Playfair Display for all editorial headings matching Web NH style */
   .font-serif-title {
-    font-family: var(--font-cormorant), 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    font-family: var(--font-playfair), 'Playfair Display', var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
   }
 
   /* Corporate crisp 1px border utility */

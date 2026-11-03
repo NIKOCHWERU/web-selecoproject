@@ -31,7 +31,7 @@ export default function InsightPage() {
             <h1 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
               Insight &amp; Analisis Regulasi Bisnis
             </h1>
-            <div className="w-16 h-[3px] bg-[#dfa82e] mt-3 mb-4 rounded-full" />
+            <div className="w-16 h-1 bg-[#dfa82e] mt-3 mb-4 rounded-full" />
             <p className="text-base text-slate-300 max-w-2xl leading-relaxed">
               Perspektif strategis dan regulasi dari tim konsultan SELECO untuk pengambilan keputusan bisnis yang lebih terukur dan aman dari risiko operasional.
             </p>

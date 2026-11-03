@@ -64,8 +64,8 @@ export default function Hero() {
           transition={{ duration: 0.6 }}
           className="max-w-4xl lg:max-w-5xl space-y-6 sm:space-y-7 -mt-6 sm:-mt-10 lg:-mt-14"
         >
-          {/* Top Pill Eyebrow Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/15 backdrop-blur-sm text-xs font-semibold tracking-wider text-[#dfa82e]">
+          {/* Top Pill Eyebrow Badge (Web NH Style) */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#dfa82e]/15 border border-[#dfa82e]/30 text-[#dfa82e] text-xs font-bold uppercase tracking-widest">
             <span className="w-2 h-2 rounded-full bg-[#dfa82e] animate-pulse" />
             <EditableText
               fieldPath="hero.topBadge"
@@ -75,7 +75,7 @@ export default function Hero() {
           </div>
 
           {/* Main Punchy Headline */}
-          <h1 className="font-serif-title text-4xl sm:text-5xl lg:text-[3.75rem] xl:text-[4.25rem] font-bold tracking-tight leading-[1.1] text-white">
+          <h1 className="font-serif-title text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-[4rem] font-bold tracking-tight leading-[1.15] text-white">
             <EditableText
               fieldPath="hero.headlinePart1"
               fallback="Konsultan Terpadu untuk Akselerasi &"
@@ -90,11 +90,11 @@ export default function Hero() {
             </span>
           </h1>
 
-          {/* Divider Line */}
-          <div className="w-16 h-[3px] bg-gradient-to-r from-[#dfa82e] to-[#b88917] rounded-full" />
+          {/* Divider Line (Web NH Style) */}
+          <div className="w-16 h-1 bg-[#dfa82e] rounded-full" />
 
           {/* Subheadline description */}
-          <p className="text-base sm:text-lg text-slate-200/90 font-normal leading-relaxed max-w-3xl">
+          <p className="text-sm sm:text-base md:text-lg text-slate-200/90 font-normal leading-relaxed max-w-3xl">
             <EditableText
               fieldPath="hero.subheadline"
               fallback="SELECO menyediakan 5 pilar konsultan korporasi profesional: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM secara transparan, akurat, dan terpercaya."
@@ -103,8 +103,8 @@ export default function Hero() {
             />
           </p>
 
-          {/* Dual Pill CTA Buttons */}
-          <div className="flex flex-wrap items-center gap-4 pt-2">
+          {/* Dual Action Buttons (Web NH Style) */}
+          <div className="flex flex-wrap items-center gap-3.5 pt-2">
             <Link
               href={hero?.ctaButton1Link || '/layanan'}
               onClick={(e) => {
@@ -113,7 +113,7 @@ export default function Hero() {
                   e.stopPropagation();
                 }
               }}
-              className="px-8 py-4 bg-gradient-to-r from-[#dfa82e] to-[#b88917] hover:brightness-110 text-[#0a1420] font-bold text-xs uppercase tracking-wider rounded-full shadow-lg shadow-[#dfa82e]/25 transition-all flex items-center gap-2 group"
+              className="px-6 py-3.5 sm:px-8 sm:py-4 bg-[#dfa82e] text-[#0a1420] hover:bg-white font-bold text-xs uppercase tracking-widest rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 group cursor-pointer"
             >
               <EditableText
                 fieldPath="hero.ctaButton1Text"
@@ -133,7 +133,7 @@ export default function Hero() {
                   e.stopPropagation();
                 }
               }}
-              className="px-8 py-4 bg-white/5 hover:bg-white/10 text-white border border-white/20 hover:border-white/40 font-bold text-xs uppercase tracking-wider rounded-full backdrop-blur-sm transition-all flex items-center gap-2"
+              className="px-6 py-3.5 sm:px-8 sm:py-4 bg-transparent hover:bg-white hover:text-[#0a1420] text-white border border-white/25 hover:border-white font-bold text-xs uppercase tracking-widest rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
             >
               <EditableText
                 fieldPath="hero.ctaButton2Text"

@@ -90,12 +90,12 @@ export default function Footer() {
                     e.stopPropagation();
                   }
                 }}
-                className="inline-flex items-center gap-2 px-3 py-1.5 bg-gold-accent/10 border border-gold-accent/30 rounded text-gold-accent text-xs font-semibold hover:bg-gold-accent hover:text-white transition-all"
+                className="inline-flex items-center gap-2 px-3.5 py-2 bg-[#dfa82e]/10 border border-[#dfa82e]/30 rounded-xl text-[#dfa82e] text-xs font-bold uppercase tracking-widest hover:bg-[#dfa82e] hover:text-[#0a1420] transition-all shadow-sm"
               >
                 <EditableIcon
                   iconKey="footer.dirIcon"
                   fallbackIcon="Building2"
-                  className="w-3.5 h-3.5 text-gold-accent"
+                  className="w-3.5 h-3.5 text-[#dfa82e]"
                   label="Ikon Direktori Footer"
                 />
                 Direktori Layanan ({global?.totalServices || '445+'})
@@ -289,7 +289,7 @@ export default function Footer() {
       {showTopBtn && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-20 right-6 w-10 h-10 rounded-full bg-navy-deep border border-gold-accent/50 text-gold-accent flex items-center justify-center shadow-md hover:bg-gold-accent hover:text-white transition-all z-40"
+          className="fixed bottom-20 right-6 w-11 h-11 rounded-xl bg-[#0f2034] border border-[#dfa82e]/50 text-[#dfa82e] flex items-center justify-center shadow-xl hover:bg-[#dfa82e] hover:text-[#0a1420] transition-all z-40 cursor-pointer"
           aria-label="Scroll back to top"
         >
           <ArrowUp className="w-5 h-5" />

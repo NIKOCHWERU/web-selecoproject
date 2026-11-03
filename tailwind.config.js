@@ -91,7 +91,8 @@ module.exports = {
         sm: 'calc(var(--radius) - 4px)',
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
+        serif: ['var(--font-playfair)', 'Playfair Display', 'var(--font-cormorant)', 'Georgia', 'serif'],
       },
       boxShadow: {
         subtle: '0 4px 20px -2px rgba(15, 32, 52, 0.05)',

@@ -11,7 +11,6 @@ import TrustStatsBanner from '@/components/TrustStatsBanner';
 import AboutSection from '@/components/AboutSection';
 import ServicesSection from '@/components/ServicesSection';
 import RetainerSection from '@/components/RetainerSection';
-import TeamSection from '@/components/TeamSection';
 import InsightsSection from '@/components/InsightsSection';
 import FAQSection from '@/components/FAQSection';
 import ContactSection from '@/components/ContactSection';
@@ -50,7 +49,6 @@ const SECTION_METADATA: Record<string, { name: string; icon: string }> = {
   about: { name: 'Tentang SELECO', icon: '🏢' },
   services: { name: '5 Pilar Layanan Konsultan', icon: '💼' },
   retainer: { name: 'Program Retainer Korporasi', icon: '🛡️' },
-  team: { name: 'Tim Konsultan & Spesialis', icon: '👥' },
   insights: { name: 'Legal Insights & Publikasi', icon: '📰' },
   faq: { name: 'Tanya Jawab (FAQ)', icon: '❓' },
   contact: { name: 'Kontak & Alamat Kantor', icon: '📞' },
@@ -436,7 +434,6 @@ function PreviewContent() {
     else if (secId === 'about') comp = <AboutSection showMoreLink={true} />;
     else if (secId === 'services') comp = <ServicesSection />;
     else if (secId === 'retainer') comp = <RetainerSection />;
-    else if (secId === 'team') comp = <TeamSection />;
     else if (secId === 'insights') comp = <InsightsSection />;
     else if (secId === 'faq') comp = <FAQSection />;
     else if (secId === 'contact') comp = <ContactSection />;
