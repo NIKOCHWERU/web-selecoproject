@@ -163,7 +163,7 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
               {values.map((v: any, i: number) => (
                 <div
                   key={i}
-                  className="rounded-2xl p-5 bg-[#0f2034]/70 border border-white/10 hover:border-[#dfa82e]/40 transition-all duration-300 hover:-translate-y-1 relative group shadow-lg"
+                  className="rounded-2xl p-5 bg-[#0f2034] border border-white/10 border-l-4 border-l-[#dfa82e] hover:border-[#dfa82e]/60 transition-all duration-300 hover:-translate-y-1 relative group shadow-lg"
                 >
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-[10px] font-bold text-[#dfa82e] tracking-widest uppercase">

@@ -83,15 +83,14 @@ export default function Navbar() {
               />
             </div>
             <div className="flex flex-col">
-              <span className="font-serif-title text-lg sm:text-xl font-bold tracking-wider text-white leading-tight group-hover:text-[#b88917] transition-colors">
+              <span className="text-lg md:text-2xl font-bold tracking-[0.15em] uppercase font-serif text-[#dfa82e] border-b border-[#dfa82e]/40 pb-0.5 leading-tight group-hover:text-white transition-colors">
                 <EditableText
                   fieldPath="global.brandName"
-                  fallback="Seleco"
+                  fallback="SELECO"
                   label="Nama Brand"
-                />{' '}
-                <span className="text-[#b88917]">.</span>
+                />
               </span>
-              <span className="text-[8px] sm:text-[9px] font-semibold tracking-[0.18em] text-white/50 mt-0.5 uppercase">
+              <span className="text-[8px] md:text-[9px] lg:text-[10px] text-white tracking-[0.3em] uppercase mt-0.5 font-sans whitespace-nowrap">
                 <EditableText
                   fieldPath="global.brandTagline"
                   fallback="Sedana Legal Consultant"

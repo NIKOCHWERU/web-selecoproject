@@ -123,11 +123,19 @@ export default function ServicesSection() {
           </div>
         </div>
 
-        {/* 5 Modern Pillar Cards (Web NH Style) */}
+        {/* 5 Modern Pillar Cards (Exact Web NH Style) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {pillars.map((cat, idx) => {
             const fallbackLink = cat.linkUrl || `/layanan?cat=${cat.id}`;
             const currentLink = services?.pillars?.[idx]?.linkUrl || fallbackLink;
+            const defaultPillarImages = [
+              "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"
+            ];
+            const cardImg = cat.image || defaultPillarImages[idx % defaultPillarImages.length];
 
             return (
               <motion.div
@@ -136,31 +144,41 @@ export default function ServicesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: idx * 0.05 }}
-                className="rounded-2xl bg-[#0f2034]/90 border border-white/10 hover:border-[#dfa82e]/50 p-8 flex flex-col justify-between hover:-translate-y-1.5 transition-all duration-300 shadow-xl group backdrop-blur-sm relative overflow-hidden"
+                className="relative group overflow-hidden rounded-2xl shadow-xl border border-white/10 hover:border-[#dfa82e]/60 min-h-[360px] flex flex-col justify-end text-left transition-all duration-300"
               >
-                {/* Subtle top ambient glow on hover */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-[#dfa82e]/5 rounded-full blur-2xl group-hover:bg-[#dfa82e]/10 transition-all pointer-events-none" />
+                {/* Background image with dark gradient overlay matching Web NH */}
+                <div className="absolute inset-0 z-0">
+                  <img
+                    src={cardImg}
+                    alt={cat.name}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a1420] via-[#0a1420]/90 to-[#0a1420]/40"></div>
+                </div>
 
-                <div>
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-[#0a1420] border border-[#dfa82e]/30 text-[#dfa82e] group-hover:bg-[#dfa82e] group-hover:text-[#0a1420] transition-all duration-300">
-                      <EditableIcon
-                        iconKey={`services.pillars.${idx}.icon`}
-                        fallbackIcon={cat.iconName || 'FileCheck'}
-                        className="w-5 h-5 group-hover:scale-110 transition-transform"
-                        label={`Ikon Pilar ${idx + 1}`}
-                      />
-                    </div>
-                    <span className="px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-[#dfa82e]/10 border border-[#dfa82e]/30 text-[#dfa82e] group-hover:border-[#dfa82e]/50 transition-colors shadow-sm">
-                      <EditableText
-                        fieldPath={`services.pillars.${idx}.count`}
-                        fallback={cat.count || '242 Items'}
-                        label={`Jumlah ${cat.name}`}
-                      />
-                    </span>
+                {/* Top Badge */}
+                <div className="absolute top-4 right-4 z-10">
+                  <span className="px-3 py-1 rounded-full bg-[#0a1420]/90 border border-[#dfa82e]/40 text-[#dfa82e] text-[10px] font-bold tracking-widest uppercase shadow-md">
+                    <EditableText
+                      fieldPath={`services.pillars.${idx}.count`}
+                      fallback={cat.count || '242 Items'}
+                      label={`Jumlah ${cat.name}`}
+                    />
+                  </span>
+                </div>
+
+                {/* Content Overlay */}
+                <div className="relative z-10 p-6 sm:p-7 flex flex-col justify-end text-white">
+                  <div className="w-10 h-10 rounded-xl bg-[#dfa82e]/20 text-[#dfa82e] flex items-center justify-center mb-3 border border-[#dfa82e]/30 group-hover:bg-[#dfa82e] group-hover:text-[#0a1420] transition-colors">
+                    <EditableIcon
+                      iconKey={`services.pillars.${idx}.icon`}
+                      fallbackIcon={cat.iconName || 'FileCheck'}
+                      className="w-5 h-5 transition-transform"
+                      label={`Ikon Pilar ${idx + 1}`}
+                    />
                   </div>
 
-                  <h3 className="font-serif-title text-xl font-bold text-white group-hover:text-[#dfa82e] mb-3 transition-colors">
+                  <h3 className="text-lg md:text-xl font-bold mb-2 text-white font-sans group-hover:text-[#dfa82e] transition-colors">
                     <EditableText
                       fieldPath={`services.pillars.${idx}.name`}
                       fallback={cat.name}
@@ -169,7 +187,7 @@ export default function ServicesSection() {
                     />
                   </h3>
 
-                  <div className="text-xs sm:text-sm text-slate-300 group-hover:text-white/90 leading-relaxed mb-6 font-normal transition-colors">
+                  <div className="text-xs text-slate-300 leading-relaxed line-clamp-3 font-light mb-3">
                     <EditableText
                       fieldPath={`services.pillars.${idx}.description`}
                       fallback={cat.description}
@@ -178,29 +196,31 @@ export default function ServicesSection() {
                       as="p"
                     />
                   </div>
-                </div>
 
-                <Link
-                  href={currentLink}
-                  onClick={(e) => {
-                    if (isEditMode) {
-                      e.preventDefault();
-                      e.stopPropagation();
-                    }
-                  }}
-                  className="inline-flex items-center justify-between w-full pt-4 border-t border-white/10 text-xs font-bold uppercase tracking-wider text-[#dfa82e] group-hover:text-white transition-colors"
-                >
-                  <EditableText
-                    fieldPath={`services.pillars.${idx}.linkText`}
-                    fallback={cat.linkText || `Lihat Seluruh ${cat.count}`}
-                    label={`Teks Link Pilar ${idx + 1}`}
-                    linkPath={`services.pillars.${idx}.linkUrl`}
-                    fallbackLink={fallbackLink}
-                  />
-                  <span className="w-8 h-8 rounded-full bg-white/5 group-hover:bg-[#dfa82e] group-hover:text-[#0a1420] flex items-center justify-center transition-all">
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-                  </span>
-                </Link>
+                  <div className="w-8 h-0.5 bg-[#dfa82e] mb-4"></div>
+
+                  <Link
+                    href={currentLink}
+                    onClick={(e) => {
+                      if (isEditMode) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                      }
+                    }}
+                    className="inline-flex items-center justify-between w-full pt-3 border-t border-white/10 text-xs font-bold uppercase tracking-widest text-[#dfa82e] group-hover:text-white transition-colors"
+                  >
+                    <EditableText
+                      fieldPath={`services.pillars.${idx}.linkText`}
+                      fallback={cat.linkText || `Lihat Seluruh ${cat.count}`}
+                      label={`Teks Link Pilar ${idx + 1}`}
+                      linkPath={`services.pillars.${idx}.linkUrl`}
+                      fallbackLink={fallbackLink}
+                    />
+                    <span className="w-7 h-7 rounded-full bg-white/10 group-hover:bg-[#dfa82e] group-hover:text-[#0a1420] flex items-center justify-center transition-all">
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                    </span>
+                  </Link>
+                </div>
               </motion.div>
             );
           })}

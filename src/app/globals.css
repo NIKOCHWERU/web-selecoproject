@@ -109,4 +109,24 @@
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: rgba(184, 137, 23, 0.7);
   }
+
+  /* Web NH Style Compatibility Utility Tokens (in Navy & Gold) */
+  .bg-navy {
+    background-color: #0f2034;
+  }
+  .bg-navy-dark {
+    background-color: #0a1420;
+  }
+  .text-navy {
+    color: #0a1420;
+  }
+  .bg-gold {
+    background-color: #dfa82e;
+  }
+  .text-gold {
+    color: #dfa82e;
+  }
+  .border-gold {
+    border-color: #dfa82e;
+  }
 }

@@ -93,8 +93,8 @@ export default function Hero() {
           {/* Divider Line (Web NH Style) */}
           <div className="w-16 h-1 bg-[#dfa82e] rounded-full" />
 
-          {/* Subheadline description */}
-          <p className="text-sm sm:text-base md:text-lg text-slate-200/90 font-normal leading-relaxed max-w-3xl">
+          {/* Subheadline description (Web NH Signature Left Accent) */}
+          <p className="text-sm sm:text-base md:text-lg text-slate-300 font-light leading-relaxed max-w-3xl border-l-4 border-[#dfa82e] pl-4">
             <EditableText
               fieldPath="hero.subheadline"
               fallback="SELECO menyediakan 5 pilar konsultan korporasi profesional: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM secara transparan, akurat, dan terpercaya."

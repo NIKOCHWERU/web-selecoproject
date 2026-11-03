@@ -113,28 +113,28 @@ export default function TrustStatsBanner() {
           {stats.map((stat, i) => (
             <div
               key={i}
-              className="relative rounded-2xl p-6 bg-gradient-to-b from-[#0f2034] via-[#0d1b2a] to-[#0a1420] border border-[#dfa82e]/20 hover:border-[#dfa82e]/60 transition-all duration-300 text-center flex flex-col items-center justify-center group shadow-lg hover:shadow-[0_4px_25px_rgba(223,168,46,0.15)] overflow-hidden"
+              className="relative rounded-2xl p-6 bg-[#0f2034] border border-white/10 hover:border-[#dfa82e]/50 transition-all duration-300 text-center flex flex-col items-center justify-center group shadow-xl hover:shadow-[0_4px_25px_rgba(223,168,46,0.15)] overflow-hidden"
             >
               {/* Subtle top gold accent glow */}
               <div className="absolute top-0 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-[#dfa82e]/50 to-transparent group-hover:via-[#dfa82e] transition-colors" />
 
-              <div className="w-12 h-12 rounded-2xl bg-[#dfa82e]/10 border border-[#dfa82e]/30 group-hover:bg-[#dfa82e]/20 group-hover:border-[#dfa82e]/60 flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-105">
+              <div className="w-12 h-12 rounded-xl bg-[#0a1420] border border-[#dfa82e]/30 group-hover:bg-[#dfa82e] group-hover:text-[#0a1420] flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-105 text-[#dfa82e]">
                 <EditableIcon
                   iconKey={stat.iconKey}
                   fallbackIcon={stat.fallbackIcon}
-                  className="w-5 h-5 text-[#dfa82e]"
+                  className="w-5 h-5"
                   label={stat.iconLabel}
                 />
               </div>
-              <p className="font-serif-title text-3xl sm:text-4xl font-bold text-white tracking-tight group-hover:text-[#dfa82e] transition-colors">
+              <p className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#dfa82e] tracking-tight group-hover:text-white transition-colors font-sans mb-1">
                 <EditableText
                   fieldPath={stat.numberPath}
                   fallback={stat.numberFallback}
                   label={stat.numberLabel}
                 />
-                <span className="text-[#dfa82e]">{stat.numberSuffix}</span>
+                <span className="text-[#dfa82e] group-hover:text-white transition-colors">{stat.numberSuffix}</span>
               </p>
-              <p className="text-[11px] text-slate-300 uppercase tracking-wider font-semibold mt-2 group-hover:text-slate-100 transition-colors">
+              <p className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-slate-300 mt-1 group-hover:text-slate-100 transition-colors">
                 <EditableText
                   fieldPath={stat.labelPath}
                   fallback={stat.labelFallback}

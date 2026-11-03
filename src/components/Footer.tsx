@@ -57,14 +57,14 @@ export default function Footer() {
                 />
               </div>
               <div className="flex flex-col">
-                <span className="font-serif-title text-xl sm:text-2xl font-bold tracking-wider text-white leading-tight">
+                <span className="text-xl md:text-2xl font-bold tracking-wider font-serif text-[#dfa82e]">
                   <EditableText
                     fieldPath="global.brandName"
-                    fallback="Seleco"
+                    fallback="SELECO"
                     label="Nama Brand"
-                  /> <span className="text-gold-accent">.</span>
+                  />
                 </span>
-                <span className="text-[9px] font-semibold tracking-[0.2em] text-gold-accent mt-0.5">
+                <span className="text-[10px] text-white tracking-[0.2em] uppercase mt-0.5">
                   <EditableText
                     fieldPath="global.brandTagline"
                     fallback="Sedana legal consultant"
@@ -73,7 +73,7 @@ export default function Footer() {
                 </span>
               </div>
             </Link>
-            <p className="text-white/60 leading-relaxed text-xs">
+            <p className="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-sm font-light">
               <EditableText
                 fieldPath="footer.description"
                 fallback="Seleco (Sedana legal consultant) adalah konsultan terpercaya di Indonesia: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM."
@@ -105,15 +105,15 @@ export default function Footer() {
 
           {/* Practice Areas */}
           <div>
-            <h4 className="font-serif-title text-base font-semibold text-white mb-4 border-b border-gold-accent/30 pb-2 inline-block">
+            <h4 className="text-base font-bold mb-4 text-[#dfa82e] font-sans border-b border-[#dfa82e]/30 pb-2 inline-block">
               5 Pilar Konsultan
             </h4>
-            <ul className="space-y-2.5">
+            <ul className="space-y-3 text-sm text-slate-300">
               <li>
                 <Link 
                   href="/layanan?cat=perizinan" 
                   onClick={(e) => { if (isEditMode) { e.preventDefault(); e.stopPropagation(); } }}
-                  className="hover:text-gold-accent transition-colors"
+                  className="hover:text-[#dfa82e] transition-colors block leading-relaxed"
                 >
                   Konsultan Perizinan &amp; OSS
                 </Link>
@@ -122,7 +122,7 @@ export default function Footer() {
                 <Link 
                   href="/layanan?cat=imigrasi" 
                   onClick={(e) => { if (isEditMode) { e.preventDefault(); e.stopPropagation(); } }}
-                  className="hover:text-gold-accent transition-colors"
+                  className="hover:text-[#dfa82e] transition-colors block leading-relaxed"
                 >
                   Konsultan Imigrasi (KITAS &amp; TKA)
                 </Link>
@@ -131,7 +131,7 @@ export default function Footer() {
                 <Link 
                   href="/layanan?cat=pajak" 
                   onClick={(e) => { if (isEditMode) { e.preventDefault(); e.stopPropagation(); } }}
-                  className="hover:text-gold-accent transition-colors"
+                  className="hover:text-[#dfa82e] transition-colors block leading-relaxed"
                 >
                   Konsultan Pajak &amp; SPT Badan
                 </Link>
@@ -140,7 +140,7 @@ export default function Footer() {
                 <Link 
                   href="/layanan?cat=pertanahan" 
                   onClick={(e) => { if (isEditMode) { e.preventDefault(); e.stopPropagation(); } }}
-                  className="hover:text-gold-accent transition-colors"
+                  className="hover:text-[#dfa82e] transition-colors block leading-relaxed"
                 >
                   Konsultan Pertanahan &amp; BPN
                 </Link>
@@ -149,7 +149,7 @@ export default function Footer() {
                 <Link 
                   href="/layanan?cat=sdm" 
                   onClick={(e) => { if (isEditMode) { e.preventDefault(); e.stopPropagation(); } }}
-                  className="hover:text-gold-accent transition-colors"
+                  className="hover:text-[#dfa82e] transition-colors block leading-relaxed"
                 >
                   Konsultan SDM &amp; Ketenagakerjaan
                 </Link>
@@ -159,15 +159,15 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-serif-title text-base font-semibold text-white mb-4 border-b border-gold-accent/30 pb-2 inline-block">
+            <h4 className="text-base font-bold mb-4 text-[#dfa82e] font-sans border-b border-[#dfa82e]/30 pb-2 inline-block">
               Navigasi Firma
             </h4>
-            <ul className="space-y-2.5">
+            <ul className="space-y-3 text-sm text-slate-300">
               <li>
                 <Link 
                   href="/tentang" 
                   onClick={(e) => { if (isEditMode) { e.preventDefault(); e.stopPropagation(); } }}
-                  className="hover:text-gold-accent transition-colors"
+                  className="hover:text-[#dfa82e] transition-colors block leading-relaxed"
                 >
                   Tentang SELECO
                 </Link>
@@ -176,7 +176,7 @@ export default function Footer() {
                 <Link 
                   href="/tentang#retainer" 
                   onClick={(e) => { if (isEditMode) { e.preventDefault(); e.stopPropagation(); } }}
-                  className="hover:text-gold-accent transition-colors"
+                  className="hover:text-[#dfa82e] transition-colors block leading-relaxed"
                 >
                   Corporate Legal Retainer
                 </Link>
@@ -185,7 +185,7 @@ export default function Footer() {
                 <Link 
                   href="/tentang" 
                   onClick={(e) => { if (isEditMode) { e.preventDefault(); e.stopPropagation(); } }}
-                  className="hover:text-gold-accent transition-colors"
+                  className="hover:text-[#dfa82e] transition-colors block leading-relaxed"
                 >
                   Metodologi Kerja
                 </Link>
@@ -194,16 +194,16 @@ export default function Footer() {
                 <Link 
                   href="/insight" 
                   onClick={(e) => { if (isEditMode) { e.preventDefault(); e.stopPropagation(); } }}
-                  className="hover:text-gold-accent transition-colors"
+                  className="hover:text-[#dfa82e] transition-colors block leading-relaxed"
                 >
-                  Legal Insights & Berita
+                  Legal Insights &amp; Berita
                 </Link>
               </li>
               <li>
                 <Link 
                   href="/kontak" 
                   onClick={(e) => { if (isEditMode) { e.preventDefault(); e.stopPropagation(); } }}
-                  className="hover:text-gold-accent transition-colors"
+                  className="hover:text-[#dfa82e] transition-colors block leading-relaxed"
                 >
                   Hubungi Tim Kami
                 </Link>
@@ -213,8 +213,8 @@ export default function Footer() {
 
           {/* Office Contact */}
           <div>
-            <h4 className="font-serif-title text-base font-semibold text-white mb-4 border-b border-gold-accent/30 pb-2 inline-block">
-              Kantor Pusat & Kontak
+            <h4 className="text-base font-bold mb-4 text-[#dfa82e] font-sans border-b border-[#dfa82e]/30 pb-2 inline-block">
+              Kantor Pusat &amp; Kontak
             </h4>
             <div className="space-y-3">
               <div className="flex items-start gap-2.5">

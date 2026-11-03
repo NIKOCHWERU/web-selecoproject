@@ -42,19 +42,22 @@ export default function FAQSection() {
           </p>
         </div>
 
-        <div className="divide-y divide-white/10 border border-white/10 rounded-2xl bg-[#0f2034] overflow-hidden shadow-xl">
+        <div className="space-y-3.5">
           {items.map((item: any, idx: number) => (
-            <div key={idx}>
+            <div
+              key={idx}
+              className="rounded-xl border px-5 sm:px-6 py-4 bg-[#0f2034] border-white/10 hover:border-[#dfa82e]/40 transition-all shadow-md"
+            >
               <button
                 onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
-                className="w-full flex items-start justify-between gap-4 px-6 sm:px-8 py-5 text-left hover:bg-white/5 transition-colors"
+                className="w-full flex items-center justify-between text-left font-bold text-sm sm:text-base gap-4 text-white cursor-pointer"
                 aria-expanded={openIdx === idx}
               >
-                <div className="flex items-start gap-4">
-                  <span className="font-serif-title text-xl font-bold text-[#dfa82e] shrink-0">
-                    0{idx + 1}
+                <div className="flex items-center gap-3.5">
+                  <span className="text-xs font-bold text-[#dfa82e] shrink-0 font-sans px-2 py-0.5 rounded bg-[#dfa82e]/10 border border-[#dfa82e]/20">
+                    Q{idx + 1}
                   </span>
-                  <span className="font-serif-title text-lg sm:text-xl font-bold text-white leading-snug">
+                  <span className="font-semibold text-white leading-snug">
                     <EditableText
                       fieldPath={`faq.items.${idx}.question`}
                       fallback={item.question || item.q}
@@ -62,8 +65,8 @@ export default function FAQSection() {
                     />
                   </span>
                 </div>
-                <span className="shrink-0 text-[#dfa82e] mt-1">
-                  {openIdx === idx ? <Minus className="w-5 h-5 text-[#dfa82e]" /> : <Plus className="w-5 h-5 text-white/50" />}
+                <span className="shrink-0 text-[#dfa82e]">
+                  {openIdx === idx ? <Minus className="w-4 h-4 text-[#dfa82e]" /> : <Plus className="w-4 h-4 text-gray-400" />}
                 </span>
               </button>
 
@@ -76,7 +79,7 @@ export default function FAQSection() {
                     transition={{ duration: 0.25 }}
                     className="overflow-hidden"
                   >
-                    <div className="px-6 sm:px-8 pb-6 pt-1 text-sm sm:text-base text-slate-300 leading-relaxed font-normal bg-[#0a1420]/60 border-t border-white/5">
+                    <div className="mt-3 pt-3 border-t border-white/10 text-sm leading-relaxed text-slate-300 font-light">
                       <EditableText
                         fieldPath={`faq.items.${idx}.answer`}
                         fallback={item.answer || item.a}
