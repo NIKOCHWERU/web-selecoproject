@@ -43,13 +43,13 @@ export default function Footer() {
   };
 
   return (
-    <EditableSection id="footer" name="Footer Situs Section" tag="footer" className="bg-navy-dark text-white/70 text-xs border-t border-gold-accent/40 pt-16 pb-8 relative">
+    <EditableSection id="footer" name="Footer Situs Section" tag="footer" className="bg-navy-dark text-white/70 text-xs border-t border-gold-accent/40 pt-12 pb-6 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-8 border-b border-white/10">
           {/* Brand Info */}
-          <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative w-12 h-12 shrink-0 rounded-xl overflow-hidden bg-white p-1 border border-gold-accent/40 shadow-md">
+          <div className="space-y-3.5">
+            <Link href="/" className="flex items-center gap-2.5 group">
+              <div className="relative w-9 h-9 shrink-0 rounded-lg overflow-hidden bg-white p-0.5 border border-gold-accent/40 shadow-sm">
                 <img
                   src={global?.logo || '/logo-seleco.png'}
                   alt={global?.brandName || 'Seleco'}
@@ -57,14 +57,14 @@ export default function Footer() {
                 />
               </div>
               <div className="flex flex-col">
-                <span className="text-xl md:text-2xl font-bold tracking-wider font-serif text-[#dfa82e]">
+                <span className="text-lg font-bold tracking-wider font-serif text-[#dfa82e]">
                   <EditableText
                     fieldPath="global.brandName"
                     fallback="SELECO"
                     label="Nama Brand"
                   />
                 </span>
-                <span className="text-[10px] text-white tracking-[0.2em] uppercase mt-0.5">
+                <span className="text-[9px] text-white tracking-[0.2em] uppercase mt-0.5">
                   <EditableText
                     fieldPath="global.brandTagline"
                     fallback="Sedana legal consultant"
@@ -73,7 +73,7 @@ export default function Footer() {
                 </span>
               </div>
             </Link>
-            <p className="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-sm font-light">
+            <p className="text-slate-300 text-xs leading-relaxed max-w-sm font-normal">
               <EditableText
                 fieldPath="footer.description"
                 fallback="Seleco (Sedana legal consultant) adalah konsultan terpercaya di Indonesia: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM."
@@ -81,7 +81,7 @@ export default function Footer() {
                 multiline={true}
               />
             </p>
-            <div className="pt-2">
+            <div className="pt-1">
               <Link
                 href="/layanan"
                 onClick={(e) => {
@@ -90,7 +90,7 @@ export default function Footer() {
                     e.stopPropagation();
                   }
                 }}
-                className="inline-flex items-center gap-2 px-3.5 py-2 bg-[#dfa82e]/10 border border-[#dfa82e]/30 rounded-xl text-[#dfa82e] text-xs font-bold uppercase tracking-widest hover:bg-[#dfa82e] hover:text-[#0a1420] transition-all shadow-sm"
+                className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#dfa82e]/10 border border-[#dfa82e]/30 rounded-lg text-[#dfa82e] text-[11px] font-bold uppercase tracking-wider hover:bg-[#dfa82e] hover:text-[#0a1420] transition-colors shadow-sm"
               >
                 <EditableIcon
                   iconKey="footer.dirIcon"
@@ -105,10 +105,10 @@ export default function Footer() {
 
           {/* Practice Areas */}
           <div>
-            <h4 className="text-base font-bold mb-4 text-[#dfa82e] font-sans border-b border-[#dfa82e]/30 pb-2 inline-block">
+            <h4 className="text-sm font-bold mb-3 text-[#dfa82e] font-sans border-b border-[#dfa82e]/30 pb-1.5 inline-block">
               5 Pilar Konsultan
             </h4>
-            <ul className="space-y-3 text-sm text-slate-300">
+            <ul className="space-y-2 text-xs text-slate-300">
               <li>
                 <Link 
                   href="/layanan?cat=perizinan" 
@@ -159,10 +159,10 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-base font-bold mb-4 text-[#dfa82e] font-sans border-b border-[#dfa82e]/30 pb-2 inline-block">
+            <h4 className="text-sm font-bold mb-3 text-[#dfa82e] font-sans border-b border-[#dfa82e]/30 pb-1.5 inline-block">
               Navigasi Firma
             </h4>
-            <ul className="space-y-3 text-sm text-slate-300">
+            <ul className="space-y-2 text-xs text-slate-300">
               <li>
                 <Link 
                   href="/tentang" 
@@ -289,10 +289,10 @@ export default function Footer() {
       {showTopBtn && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-20 right-6 w-11 h-11 rounded-xl bg-[#0f2034] border border-[#dfa82e]/50 text-[#dfa82e] flex items-center justify-center shadow-xl hover:bg-[#dfa82e] hover:text-[#0a1420] transition-all z-40 cursor-pointer"
+          className="fixed bottom-20 right-6 w-9 h-9 rounded-lg bg-[#0f2034] border border-[#dfa82e]/50 text-[#dfa82e] flex items-center justify-center shadow-md hover:bg-[#dfa82e] hover:text-[#0a1420] transition-colors z-40 cursor-pointer"
           aria-label="Scroll back to top"
         >
-          <ArrowUp className="w-5 h-5" />
+          <ArrowUp className="w-4 h-4" />
         </button>
       )}
     </EditableSection>

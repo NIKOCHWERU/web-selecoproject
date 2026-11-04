@@ -70,63 +70,57 @@ export default function TrustStatsBanner() {
   ];
 
   return (
-    <EditableSection id="trust-stats" name="Statistik Kepercayaan Banner" className="bg-[#0a1420] py-16 lg:py-20 border-b border-white/10 text-white relative overflow-hidden">
-      {/* Background radial gold glow */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#dfa82e]/5 rounded-full blur-3xl pointer-events-none" />
-
+    <EditableSection id="trust-stats" name="Statistik Kepercayaan Banner" className="bg-[#0a1420] py-10 sm:py-12 lg:py-14 border-b border-white/10 text-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Trust strip with gold accents and pillar badges */}
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 pb-10 mb-10 border-b border-[#dfa82e]/15">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-8 mb-8 border-b border-[#dfa82e]/15">
           <div className="max-w-xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-[#dfa82e]/15 to-[#dfa82e]/5 border border-[#dfa82e]/35 text-[#dfa82e] text-[11px] font-bold uppercase tracking-widest mb-3.5 shadow-[0_0_15px_rgba(223,168,46,0.12)]">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dfa82e]/10 border border-[#dfa82e]/30 text-[#dfa82e] text-[10px] font-bold uppercase tracking-widest mb-2.5">
               <ShieldCheck className="w-3.5 h-3.5 text-[#dfa82e]" />
               <span>Kepercayaan &amp; Akuntabilitas</span>
             </div>
-            <h3 className="font-serif-title text-2xl sm:text-3xl font-bold text-white leading-tight">
+            <h3 className="font-serif-title text-xl sm:text-2xl font-bold text-white leading-tight">
               Dipercaya Ratusan <span className="text-[#dfa82e]">Korporasi &amp; Pengusaha</span> di Seluruh Indonesia
             </h3>
-            <p className="text-xs sm:text-sm text-slate-300 mt-2.5 font-light leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-300 mt-2 font-normal leading-relaxed">
               Standar kepatuhan terintegrasi untuk akselerasi izin, legalitas usaha, dan tata kelola korporasi.
             </p>
           </div>
 
-          <div className="flex flex-wrap lg:justify-end items-center gap-2.5 sm:gap-3 max-w-xl">
+          <div className="flex flex-wrap lg:justify-end items-center gap-2 sm:gap-2.5 max-w-xl">
             {pillarBadges.map((badge, idx) => {
               const IconComp = badge.icon;
               return (
                 <div
                   key={idx}
-                  className="group flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-gradient-to-b from-[#0f2034] to-[#0b1726] border border-[#dfa82e]/30 hover:border-[#dfa82e] text-slate-200 hover:text-white text-xs font-semibold tracking-wider uppercase shadow-sm hover:shadow-[0_0_18px_rgba(223,168,46,0.22)] transition-all duration-300"
+                  className="group flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#0f2034] border border-[#dfa82e]/25 hover:border-[#dfa82e]/50 text-slate-200 text-xs font-medium tracking-wide uppercase transition-colors"
                 >
-                  <span className="w-6 h-6 rounded-lg bg-[#dfa82e]/10 border border-[#dfa82e]/25 flex items-center justify-center group-hover:bg-[#dfa82e]/20 group-hover:border-[#dfa82e]/50 transition-colors">
-                    <IconComp className="w-3.5 h-3.5 text-[#dfa82e]" />
+                  <span className="w-5 h-5 rounded-md bg-[#dfa82e]/10 border border-[#dfa82e]/20 flex items-center justify-center text-[#dfa82e]">
+                    <IconComp className="w-3 h-3 text-[#dfa82e]" />
                   </span>
-                  <span className="group-hover:text-amber-100 transition-colors">{badge.title}</span>
+                  <span>{badge.title}</span>
                 </div>
               );
             })}
           </div>
         </div>
 
-        {/* 4 Stats Cards in Eventure Style with Gold Accents */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+        {/* 4 Stats Cards */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
           {stats.map((stat, i) => (
             <div
               key={i}
-              className="relative rounded-2xl p-6 bg-[#0f2034] border border-white/10 hover:border-[#dfa82e]/50 transition-all duration-300 text-center flex flex-col items-center justify-center group shadow-xl hover:shadow-[0_4px_25px_rgba(223,168,46,0.15)] overflow-hidden"
+              className="relative rounded-xl p-4 sm:p-5 bg-[#0f2034] border border-white/10 hover:border-[#dfa82e]/40 transition-colors text-center flex flex-col items-center justify-center group shadow-sm overflow-hidden"
             >
-              {/* Subtle top gold accent glow */}
-              <div className="absolute top-0 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-[#dfa82e]/50 to-transparent group-hover:via-[#dfa82e] transition-colors" />
-
-              <div className="w-12 h-12 rounded-xl bg-[#0a1420] border border-[#dfa82e]/30 group-hover:bg-[#dfa82e] group-hover:text-[#0a1420] flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-105 text-[#dfa82e]">
+              <div className="w-10 h-10 rounded-lg bg-[#0a1420] border border-[#dfa82e]/25 flex items-center justify-center mb-3 text-[#dfa82e] group-hover:bg-[#dfa82e] group-hover:text-[#0a1420] transition-colors">
                 <EditableIcon
                   iconKey={stat.iconKey}
                   fallbackIcon={stat.fallbackIcon}
-                  className="w-5 h-5"
+                  className="w-4 h-4"
                   label={stat.iconLabel}
                 />
               </div>
-              <p className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#dfa82e] tracking-tight group-hover:text-white transition-colors font-sans mb-1">
+              <p className="text-2xl sm:text-3xl font-bold text-[#dfa82e] tracking-tight group-hover:text-white transition-colors font-sans mb-0.5">
                 <EditableText
                   fieldPath={stat.numberPath}
                   fallback={stat.numberFallback}
@@ -134,7 +128,7 @@ export default function TrustStatsBanner() {
                 />
                 <span className="text-[#dfa82e] group-hover:text-white transition-colors">{stat.numberSuffix}</span>
               </p>
-              <p className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-slate-300 mt-1 group-hover:text-slate-100 transition-colors">
+              <p className="text-[11px] sm:text-xs font-medium uppercase tracking-wider text-slate-300 group-hover:text-slate-100 transition-colors">
                 <EditableText
                   fieldPath={stat.labelPath}
                   fallback={stat.labelFallback}

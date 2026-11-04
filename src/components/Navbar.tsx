@@ -57,7 +57,7 @@ export default function Navbar() {
         id="navbar"
         name="Navbar Navigasi Section"
         tag="header"
-        className={`sticky top-0 left-0 right-0 h-20 z-50 transition-all duration-300 ${
+        className={`sticky top-0 left-0 right-0 h-16 z-50 transition-all duration-300 ${
           scrolled
             ? 'bg-[#0f2034]/98 backdrop-blur-md border-b border-white/10 shadow-lg shadow-[#0f2034]/30'
             : 'bg-[#0f2034] border-b border-white/10'
@@ -73,9 +73,9 @@ export default function Navbar() {
                 e.stopPropagation();
               }
             }}
-            className="flex items-center gap-3 group"
+            className="flex items-center gap-2.5 group"
           >
-            <div className="relative w-10 h-10 sm:w-11 sm:h-11 shrink-0 rounded-lg overflow-hidden bg-white flex items-center justify-center p-0.5 border border-white/20 group-hover:border-[#b88917]/60 transition-all">
+            <div className="relative w-8 h-8 sm:w-9 sm:h-9 shrink-0 rounded-lg overflow-hidden bg-white flex items-center justify-center p-0.5 border border-white/20 group-hover:border-[#b88917]/60 transition-all">
               <img
                 src={global?.logo || '/logo-seleco.png'}
                 alt={global?.brandName || 'Seleco'}
@@ -83,14 +83,14 @@ export default function Navbar() {
               />
             </div>
             <div className="flex flex-col">
-              <span className="text-lg md:text-2xl font-bold tracking-[0.15em] uppercase font-serif text-[#dfa82e] border-b border-[#dfa82e]/40 pb-0.5 leading-tight group-hover:text-white transition-colors">
+              <span className="text-base md:text-xl font-bold tracking-[0.12em] uppercase font-serif text-[#dfa82e] border-b border-[#dfa82e]/40 pb-0.5 leading-tight group-hover:text-white transition-colors">
                 <EditableText
                   fieldPath="global.brandName"
                   fallback="SELECO"
                   label="Nama Brand"
                 />
               </span>
-              <span className="text-[8px] md:text-[9px] lg:text-[10px] text-white tracking-[0.3em] uppercase mt-0.5 font-sans whitespace-nowrap">
+              <span className="text-[7px] md:text-[8px] text-white tracking-[0.25em] uppercase mt-0.5 font-sans whitespace-nowrap">
                 <EditableText
                   fieldPath="global.brandTagline"
                   fallback="Sedana Legal Consultant"
@@ -101,7 +101,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex items-center space-x-7" aria-label="Main navigation">
+          <nav className="hidden lg:flex items-center space-x-6" aria-label="Main navigation">
             {navLinks.map((link: any, idx: number) => {
               const linkUrl = link.href || '/';
               const isActive = pathname === linkUrl;
@@ -150,7 +150,7 @@ export default function Navbar() {
                   e.stopPropagation();
                 }
               }}
-              className="px-5 py-2.5 text-xs font-bold uppercase tracking-widest text-[#0a1420] bg-[#dfa82e] hover:bg-white rounded-xl shadow-md transition-all flex items-center gap-2 cursor-pointer"
+              className="px-4 py-2 text-[11px] font-bold uppercase tracking-widest text-[#0a1420] bg-[#dfa82e] hover:bg-white rounded-lg shadow-sm transition-all flex items-center gap-2 cursor-pointer"
             >
               <EditableIcon
                 iconKey="navbar.ctaIcon"
@@ -261,7 +261,7 @@ export default function Navbar() {
                       setMobileOpen(false);
                     }
                   }}
-                  className="w-full py-3.5 text-xs font-bold uppercase tracking-wider text-center text-[#0a1420] bg-gradient-to-r from-[#dfa82e] to-[#b88917] hover:brightness-110 rounded-full flex items-center justify-center gap-2 transition-all shadow-md shadow-[#dfa82e]/20"
+                  className="w-full py-2.5 text-xs font-bold uppercase tracking-wider text-center text-[#0a1420] bg-[#dfa82e] hover:bg-white rounded-lg flex items-center justify-center gap-2 transition-colors shadow-sm"
                 >
                   <EditableIcon
                     iconKey="navbar.ctaIcon"

@@ -66,31 +66,31 @@ export default function HomeDynamicSections() {
         <section
           key={custom.id}
           id={custom.id}
-          className="py-20 px-6 sm:px-12 border-b border-gray-100 relative overflow-hidden transition-all"
+          className="py-12 sm:py-16 px-6 sm:px-12 border-b border-gray-100 relative overflow-hidden transition-all"
           style={containerStyle}
         >
-          <div style={{ maxWidth: maxContainerWidth }} className="mx-auto text-center space-y-6 relative z-10">
+          <div style={{ maxWidth: maxContainerWidth }} className="mx-auto text-center space-y-4 relative z-10">
             {custom.badge && (
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest bg-[#dfa82e]/20 text-[#dfa82e] border border-[#dfa82e]/40">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-[#dfa82e]/20 text-[#dfa82e] border border-[#dfa82e]/40">
                 <MessageCircle className="w-3.5 h-3.5" />
                 {custom.badge}
               </span>
             )}
-            <h2 style={titleStyle} className="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif-title leading-tight">
+            <h2 style={titleStyle} className="text-2xl sm:text-3xl lg:text-3xl font-bold font-serif-title leading-tight">
               {custom.title}
             </h2>
             {custom.subtitle && (
-              <p className="text-base sm:text-lg opacity-85 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-xs sm:text-sm opacity-85 max-w-2xl mx-auto leading-relaxed">
                 {custom.subtitle}
               </p>
             )}
             {custom.buttonText && (
-              <div className="pt-4">
+              <div className="pt-2">
                 <a
                   href={custom.buttonUrl || '#'}
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#dfa82e] to-[#b88917] text-[#0a1420] rounded-full font-bold text-xs uppercase tracking-wider shadow-lg hover:brightness-110 transition-all"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#dfa82e] hover:bg-white text-[#0a1420] rounded-lg font-bold text-xs uppercase tracking-wider shadow-sm transition-colors"
                 >
-                  <MessageCircle className="w-4 h-4" />
+                  <MessageCircle className="w-3.5 h-3.5" />
                   <span>{custom.buttonText}</span>
                 </a>
               </div>

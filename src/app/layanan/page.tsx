@@ -77,30 +77,30 @@ function LayananContent() {
     <div className="min-h-screen bg-[#0a1420] text-slate-100">
       
       {/* Page Hero Banner */}
-      <div className="bg-[#0f2034] border-b border-white/10 py-16">
+      <div className="bg-[#0f2034] border-b border-white/10 py-10 sm:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-2 text-xs text-white/40 mb-4">
+          <div className="flex items-center gap-2 text-xs text-white/40 mb-3">
             <Link href="/" className="hover:text-gold-accent transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3" />
             <span className="text-[#dfa82e] font-semibold">Direktori Layanan</span>
           </div>
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <div>
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#dfa82e]/10 border border-[#dfa82e]/30 rounded-full text-[#dfa82e] text-xs font-bold uppercase tracking-widest mb-3">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#dfa82e]/10 border border-[#dfa82e]/30 rounded-full text-[#dfa82e] text-[10px] font-bold uppercase tracking-widest mb-2.5">
                 <Building2 className="w-3.5 h-3.5" /> 5 PILAR LAYANAN KONSULTAN TERPADU
               </div>
-              <h1 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
+              <h1 className="font-serif-title text-2xl sm:text-3xl lg:text-3xl font-bold text-white leading-tight">
                 Konsultan Perizinan, Imigrasi, Pajak, Pertanahan &amp; SDM
               </h1>
-              <div className="w-16 h-1 bg-[#dfa82e] mt-3 mb-4 rounded-full" />
-              <p className="text-base text-slate-300 max-w-2xl leading-relaxed">
+              <div className="w-12 h-0.5 bg-[#dfa82e] mt-2.5 mb-3 rounded-full" />
+              <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed font-normal">
                 Direktori komprehensif mencakup <strong className="text-white font-semibold">{totalServices} Layanan Konsultan Spesialis</strong>: Perizinan Usaha OSS RBA, Keimigrasian &amp; TKA, Perpajakan Korporasi, Pertanahan BPN, serta Manajemen &amp; Ketenagakerjaan SDM.
               </p>
             </div>
             <div className="flex flex-col gap-2 text-center shrink-0">
-              <div className="bg-[#0a1420] border border-white/10 rounded-2xl px-8 py-4 shadow-md">
-                <p className="font-serif-title text-4xl font-bold text-[#dfa82e]">{totalServices}</p>
-                <p className="text-[10px] text-white/40 uppercase tracking-widest font-semibold mt-1">Total Layanan</p>
+              <div className="bg-[#0a1420] border border-white/10 rounded-xl px-6 py-3 shadow-sm">
+                <p className="font-serif-title text-2xl sm:text-3xl font-bold text-[#dfa82e]">{totalServices}</p>
+                <p className="text-[9px] text-white/40 uppercase tracking-widest font-semibold mt-0.5">Total Layanan</p>
               </div>
             </div>
           </div>

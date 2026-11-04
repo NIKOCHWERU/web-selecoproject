@@ -9,30 +9,30 @@ export default function HomePage() {
       <HomeDynamicSections />
 
       {/* Call to Action Banner to Contact Page */}
-      <section className="py-24 bg-[#0a1420] border-t border-white/10 text-white relative overflow-hidden">
+      <section className="py-12 sm:py-16 bg-[#0a1420] border-t border-white/10 text-white relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#dfa82e]/10 border border-[#dfa82e]/30 rounded-full text-[#dfa82e] text-xs font-bold uppercase tracking-widest mb-4">
-            <Calendar className="w-4 h-4 text-[#dfa82e]" /> KONSULTASI AWAL
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#dfa82e]/10 border border-[#dfa82e]/30 rounded-full text-[#dfa82e] text-[10px] font-bold uppercase tracking-widest mb-3">
+            <Calendar className="w-3.5 h-3.5 text-[#dfa82e]" /> KONSULTASI AWAL
           </div>
-          <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 leading-tight text-white">
+          <h2 className="font-serif-title text-2xl sm:text-3xl lg:text-3xl font-bold mb-3 leading-tight text-white">
             Ambil Langkah Legalitas yang Tepat untuk Bisnis Anda
           </h2>
-          <div className="w-16 h-1 bg-[#dfa82e] mx-auto mb-6 rounded-full" />
-          <p className="text-slate-300 text-base max-w-2xl mx-auto mb-10 leading-relaxed font-normal">
+          <div className="w-12 h-0.5 bg-[#dfa82e] mx-auto mb-4 rounded-full" />
+          <p className="text-slate-300 text-xs sm:text-sm max-w-2xl mx-auto mb-6 leading-relaxed font-normal">
             Tim konsultan SELECO siap memberikan arahan dan kepastian mengenai legalitas usaha, perizinan OSS RBA, atau retainer korporasi Anda.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
             <Link
               href="/kontak"
-              className="w-full sm:w-auto px-6 py-3.5 sm:px-8 sm:py-4 bg-[#dfa82e] hover:bg-white text-[#0a1420] font-bold text-xs uppercase tracking-widest rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full sm:w-auto px-5 py-2.5 sm:px-6 sm:py-3 bg-[#dfa82e] hover:bg-white text-[#0a1420] font-bold text-xs uppercase tracking-wider rounded-lg transition-colors shadow-sm flex items-center justify-center gap-2 cursor-pointer"
             >
-              <Calendar className="w-4 h-4" /> Hubungi Kami &amp; Jadwalkan Konsultasi
+              <Calendar className="w-3.5 h-3.5" /> Hubungi Kami &amp; Jadwalkan Konsultasi
             </Link>
             <Link
               href="/tentang"
-              className="w-full sm:w-auto px-6 py-3.5 sm:px-8 sm:py-4 bg-transparent border border-white/20 text-white hover:bg-white hover:text-[#0a1420] hover:border-white font-bold text-xs uppercase tracking-widest rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+              className="w-full sm:w-auto px-5 py-2.5 sm:px-6 sm:py-3 bg-transparent border border-white/20 text-white hover:bg-white hover:text-[#0a1420] hover:border-white font-bold text-xs uppercase tracking-wider rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-sm"
             >
-              Pelajari Profil Kami <ArrowRight className="w-4 h-4" />
+              Pelajari Profil Kami <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
         </div>

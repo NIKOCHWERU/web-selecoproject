@@ -39,21 +39,21 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
   ];
 
   return (
-    <EditableSection id="about" name="Tentang Kami Section" className="py-20 lg:py-28 bg-[#0a1420] border-b border-white/10 text-white relative">
+    <EditableSection id="about" name="Tentang Kami Section" className="py-12 sm:py-16 bg-[#0a1420] border-b border-white/10 text-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 
-          {/* Left Column: Eventure Modern Image Collage with Legal & HRM Themes */}
+          {/* Left Column: Corporate Image Collage */}
           <motion.div
-            initial={{ opacity: 0, x: -24 }}
+            initial={{ opacity: 0, x: -16 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5 }}
             className="lg:col-span-6 relative"
           >
-            <div className="grid grid-cols-2 gap-4 relative">
+            <div className="grid grid-cols-2 gap-3.5 relative">
               {/* Primary Large Image: Corporate Legal Consultation */}
-              <div className="col-span-2 rounded-2xl overflow-hidden border border-white/15 shadow-2xl relative aspect-[16/10] bg-[#0f2034]">
+              <div className="col-span-2 rounded-xl overflow-hidden border border-white/15 shadow-lg relative aspect-[16/10] bg-[#0f2034]">
                 <EditableImage
                   fieldPath="about.image1"
                   fallback="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1000&q=80"
@@ -61,15 +61,15 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
                   label="Foto Utama Tentang (Legalitas & Dokumen)"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a1420]/80 via-transparent to-transparent" />
-                <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between">
-                  <span className="text-xs font-semibold text-white/90 bg-black/40 px-3 py-1 rounded-full backdrop-blur-sm border border-white/10">
+                <div className="absolute bottom-2.5 left-3.5 right-3.5 flex items-center justify-between">
+                  <span className="text-[11px] font-semibold text-white/90 bg-black/50 px-2.5 py-0.5 rounded-full border border-white/10">
                     Pemeriksaan &amp; Kepatuhan Legalitas Korporasi
                   </span>
                 </div>
               </div>
 
               {/* Sub Image 1: HRM & People Consultation */}
-              <div className="rounded-2xl overflow-hidden border border-white/10 shadow-xl relative aspect-[4/3] bg-[#0f2034]">
+              <div className="rounded-xl overflow-hidden border border-white/10 shadow-md relative aspect-[4/3] bg-[#0f2034]">
                 <EditableImage
                   fieldPath="about.image2"
                   fallback="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=600&q=80"
@@ -77,13 +77,13 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
                   label="Foto Kolase 2 (SDM & HRM)"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a1420]/60 via-transparent to-transparent" />
-                <span className="absolute bottom-2 left-3 text-[10px] font-medium text-white/80">
+                <span className="absolute bottom-2 left-2.5 text-[9px] font-medium text-white/80">
                   Manajemen SDM &amp; TKA
                 </span>
               </div>
 
               {/* Sub Image 2: Corporate Boardroom & Advisory */}
-              <div className="rounded-2xl overflow-hidden border border-white/10 shadow-xl relative aspect-[4/3] bg-[#0f2034]">
+              <div className="rounded-xl overflow-hidden border border-white/10 shadow-md relative aspect-[4/3] bg-[#0f2034]">
                 <EditableImage
                   fieldPath="about.image3"
                   fallback="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80"
@@ -91,23 +91,23 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
                   label="Foto Kolase 3 (Boardroom & Kantor)"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a1420]/60 via-transparent to-transparent" />
-                <span className="absolute bottom-2 left-3 text-[10px] font-medium text-white/80">
+                <span className="absolute bottom-2 left-2.5 text-[9px] font-medium text-white/80">
                   Konsultasi Bisnis Terpadu
                 </span>
               </div>
             </div>
 
-            {/* Eventure Floating Overlapping Stat Chip */}
-            <div className="absolute -bottom-6 -right-2 sm:right-6 bg-[#0f2034] border border-[#dfa82e]/40 rounded-2xl p-4 shadow-2xl backdrop-blur-md flex items-center gap-4 max-w-xs z-20">
-              <div className="w-12 h-12 rounded-xl bg-[#dfa82e]/15 border border-[#dfa82e]/30 flex items-center justify-center text-[#dfa82e] shrink-0 font-bold text-xl">
+            {/* Floating Overlapping Stat Chip */}
+            <div className="absolute -bottom-4 -right-1 sm:right-4 bg-[#0f2034] border border-[#dfa82e]/40 rounded-xl p-3 shadow-xl flex items-center gap-3 max-w-[230px] z-20">
+              <div className="w-9 h-9 rounded-lg bg-[#dfa82e]/15 border border-[#dfa82e]/30 flex items-center justify-center text-[#dfa82e] shrink-0 font-bold text-base">
                 10+
               </div>
               <div>
                 <p className="text-xs font-bold text-white leading-tight">
                   Tahun Rekam Jejak
                 </p>
-                <p className="text-[11px] text-slate-400 mt-0.5">
-                  Mendampingi legalitas &amp; operasional korporasi di Indonesia
+                <p className="text-[10px] text-slate-400 mt-0.5 leading-snug">
+                  Mendampingi legalitas &amp; operasional korporasi
                 </p>
               </div>
             </div>
@@ -115,14 +115,14 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
 
           {/* Right Column: Content & Elevated Feature Cards */}
           <motion.div
-            initial={{ opacity: 0, x: 24 }}
+            initial={{ opacity: 0, x: 16 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-6 space-y-6"
+            transition={{ duration: 0.5 }}
+            className="lg:col-span-6 space-y-5"
           >
             <div>
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#dfa82e]/15 border border-[#dfa82e]/30 text-xs font-bold uppercase tracking-widest text-[#dfa82e] mb-3">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dfa82e]/10 border border-[#dfa82e]/30 text-[10px] font-bold uppercase tracking-widest text-[#dfa82e] mb-2.5">
                 <EditableText
                   fieldPath="about.badge"
                   fallback="Tentang SELECO"
@@ -130,13 +130,13 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
                 />
               </div>
 
-              <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-4xl font-bold text-white leading-tight">
+              <h2 className="font-serif-title text-2xl sm:text-3xl lg:text-3xl font-bold text-white leading-tight">
                 <EditableText
                   fieldPath="about.title"
                   fallback="Solusi Konsultan Terstruktur untuk"
                   label="Judul Tentang"
                 />{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#fad980] via-[#dfa82e] to-[#b88917] italic">
+                <span className="text-[#dfa82e] italic">
                   <EditableText
                     fieldPath="about.titleAccent"
                     fallback="Pertumbuhan Bisnis."
@@ -145,10 +145,10 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
                 </span>
               </h2>
 
-              <div className="w-16 h-1 bg-[#dfa82e] rounded-full my-4" />
+              <div className="w-12 h-0.5 bg-[#dfa82e] rounded-full my-3" />
             </div>
 
-            <p className="text-sm text-slate-300 leading-relaxed font-normal">
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
               <EditableText
                 fieldPath="about.paragraph1"
                 fallback="SELECO hadir sebagai mitra konsultan korporasi terpercaya yang menyediakan solusi terpadu 5 pilar: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM secara terukur, akurat, dan berintegritas tinggi."
@@ -158,23 +158,23 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
               />
             </p>
 
-            {/* Elevated Feature Cards in 2x2 Grid (Eventure Style) */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            {/* Elevated Feature Cards in 2x2 Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
               {values.map((v: any, i: number) => (
                 <div
                   key={i}
-                  className="rounded-2xl p-5 bg-[#0f2034] border border-white/10 border-l-4 border-l-[#dfa82e] hover:border-[#dfa82e]/60 transition-all duration-300 hover:-translate-y-1 relative group shadow-lg"
+                  className="rounded-xl p-4 bg-[#0f2034] border border-white/10 border-l-2 border-l-[#dfa82e] hover:border-[#dfa82e]/50 transition-colors relative group shadow-sm"
                 >
-                  <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center justify-between mb-2">
                     <span className="text-[10px] font-bold text-[#dfa82e] tracking-widest uppercase">
                       0{i + 1}
                     </span>
-                    <div className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-[#dfa82e]/10 group-hover:border-[#dfa82e]/30 transition-colors">
+                    <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-[#dfa82e]/10 group-hover:border-[#dfa82e]/30 transition-colors">
                       {valueIcons[i % valueIcons.length]}
                     </div>
                   </div>
 
-                  <h3 className="text-sm font-bold text-white mb-1.5 group-hover:text-[#dfa82e] transition-colors">
+                  <h3 className="text-xs sm:text-sm font-bold text-white mb-1 group-hover:text-[#dfa82e] transition-colors">
                     <EditableText
                       fieldPath={`about.values.${i}.title`}
                       fallback={v.title}
@@ -182,7 +182,7 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
                     />
                   </h3>
 
-                  <p className="text-xs text-slate-300 leading-relaxed font-normal">
+                  <p className="text-[11px] text-slate-300 leading-relaxed font-normal">
                     <EditableText
                       fieldPath={`about.values.${i}.description`}
                       fallback={v.description || v.desc}
@@ -195,13 +195,13 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
             </div>
 
             {showMoreLink && (
-              <div className="pt-3">
+              <div className="pt-2">
                 <Link
                   href="/tentang"
-                  className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-white/5 hover:bg-white hover:text-[#0a1420] border border-white/20 hover:border-white text-xs font-bold uppercase tracking-widest text-[#dfa82e] transition-all group shadow-sm cursor-pointer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white/5 hover:bg-white hover:text-[#0a1420] border border-white/20 hover:border-white text-[11px] font-bold uppercase tracking-widest text-[#dfa82e] transition-colors shadow-sm cursor-pointer"
                 >
                   <span>Pelajari Profil &amp; Tim Konsultan Kami</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
             )}

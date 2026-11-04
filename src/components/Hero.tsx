@@ -31,7 +31,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <EditableSection id="hero" name="Hero Banner Section" className="relative min-h-[calc(100vh-80px)] lg:min-h-[85vh] flex items-center justify-center overflow-hidden pt-8 pb-16 sm:py-12 lg:py-16 bg-[#0a1420] text-white">
+    <EditableSection id="hero" name="Hero Banner Section" className="relative flex items-center justify-center overflow-hidden py-12 sm:py-16 lg:py-20 bg-[#0a1420] text-white">
       {/* Looping Corporate Background Video */}
       <div className="absolute inset-0 overflow-hidden z-0">
         <video
@@ -47,26 +47,23 @@ export default function Hero() {
           <source src={hero?.bgVideo || '/bg_hero.mp4'} type="video/mp4" />
           <source src="/bg_hero.mp4" type="video/mp4" />
         </video>
-        {/* Darkened Deep Navy Gradient Overlay: keeps background video visible while ensuring maximum contrast and legibility */}
+        {/* Darkened Deep Navy Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#0a1420]/95 via-[#0a1420]/85 to-[#0a1420]/92 z-10" />
         <div className="absolute inset-0 bg-[#0a1420]/40 z-10" />
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0a1420] via-[#0a1420]/60 to-transparent z-10" />
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#0a1420] via-[#0a1420]/60 to-transparent z-10" />
       </div>
-
-      {/* Ambient Gold Radial Glow */}
-      <div className="absolute right-1/4 top-1/4 w-[500px] h-[500px] bg-[#dfa82e]/5 rounded-full blur-3xl pointer-events-none z-10" />
 
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         {/* Spacious Wide Layout - Vertically Centered */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="max-w-4xl lg:max-w-5xl space-y-6 sm:space-y-7 -mt-6 sm:-mt-10 lg:-mt-14"
+          transition={{ duration: 0.5 }}
+          className="max-w-4xl lg:max-w-5xl space-y-5 sm:space-y-6"
         >
-          {/* Top Pill Eyebrow Badge (Web NH Style) */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#dfa82e]/15 border border-[#dfa82e]/30 text-[#dfa82e] text-xs font-bold uppercase tracking-widest">
-            <span className="w-2 h-2 rounded-full bg-[#dfa82e] animate-pulse" />
+          {/* Top Pill Eyebrow Badge (Formal) */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dfa82e]/10 border border-[#dfa82e]/30 text-[#dfa82e] text-[11px] font-bold uppercase tracking-widest">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#dfa82e]" />
             <EditableText
               fieldPath="hero.topBadge"
               fallback="5 Pilar Konsultan Bisnis Terpadu"
@@ -75,13 +72,13 @@ export default function Hero() {
           </div>
 
           {/* Main Punchy Headline */}
-          <h1 className="font-serif-title text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-[4rem] font-bold tracking-tight leading-[1.15] text-white">
+          <h1 className="font-serif-title text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] font-bold tracking-tight leading-[1.2] text-white">
             <EditableText
               fieldPath="hero.headlinePart1"
               fallback="Konsultan Terpadu untuk Akselerasi &"
               label="Judul Bagian 1"
             />{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#fad980] via-[#dfa82e] to-[#b88917] italic">
+            <span className="text-[#dfa82e] italic">
               <EditableText
                 fieldPath="hero.headlineItalic"
                 fallback="Pertumbuhan Bisnis."
@@ -90,11 +87,11 @@ export default function Hero() {
             </span>
           </h1>
 
-          {/* Divider Line (Web NH Style) */}
-          <div className="w-16 h-1 bg-[#dfa82e] rounded-full" />
+          {/* Divider Line */}
+          <div className="w-12 h-0.5 bg-[#dfa82e] rounded-full" />
 
-          {/* Subheadline description (Web NH Signature Left Accent) */}
-          <p className="text-sm sm:text-base md:text-lg text-slate-300 font-light leading-relaxed max-w-3xl border-l-4 border-[#dfa82e] pl-4">
+          {/* Subheadline description */}
+          <p className="text-xs sm:text-sm md:text-base text-slate-300 font-normal leading-relaxed max-w-2xl border-l-2 border-[#dfa82e] pl-3.5">
             <EditableText
               fieldPath="hero.subheadline"
               fallback="SELECO menyediakan 5 pilar konsultan korporasi profesional: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM secara transparan, akurat, dan terpercaya."
@@ -103,8 +100,8 @@ export default function Hero() {
             />
           </p>
 
-          {/* Dual Action Buttons (Web NH Style) */}
-          <div className="flex flex-wrap items-center gap-3.5 pt-2">
+          {/* Dual Action Buttons */}
+          <div className="flex flex-wrap items-center gap-3 pt-1">
             <Link
               href={hero?.ctaButton1Link || '/layanan'}
               onClick={(e) => {
@@ -113,7 +110,7 @@ export default function Hero() {
                   e.stopPropagation();
                 }
               }}
-              className="px-6 py-3.5 sm:px-8 sm:py-4 bg-[#dfa82e] text-[#0a1420] hover:bg-white font-bold text-xs uppercase tracking-widest rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 group cursor-pointer"
+              className="px-5 py-2.5 sm:px-6 sm:py-3 bg-[#dfa82e] text-[#0a1420] hover:bg-white font-bold text-xs uppercase tracking-wider rounded-lg shadow-sm transition-colors flex items-center justify-center gap-2 cursor-pointer"
             >
               <EditableText
                 fieldPath="hero.ctaButton1Text"
@@ -122,7 +119,7 @@ export default function Hero() {
                 linkPath="hero.ctaButton1Link"
                 fallbackLink="/layanan"
               />
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
 
             <Link
@@ -133,7 +130,7 @@ export default function Hero() {
                   e.stopPropagation();
                 }
               }}
-              className="px-6 py-3.5 sm:px-8 sm:py-4 bg-transparent hover:bg-white hover:text-[#0a1420] text-white border border-white/25 hover:border-white font-bold text-xs uppercase tracking-widest rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+              className="px-5 py-2.5 sm:px-6 sm:py-3 bg-transparent hover:bg-white hover:text-[#0a1420] text-white border border-white/25 hover:border-white font-bold text-xs uppercase tracking-wider rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-sm"
             >
               <EditableText
                 fieldPath="hero.ctaButton2Text"
@@ -146,10 +143,10 @@ export default function Hero() {
           </div>
 
           {/* 5 Service Pillars Mini Checkmarks */}
-          <div className="pt-6 border-t border-white/10 flex flex-wrap gap-x-6 gap-y-3">
+          <div className="pt-4 border-t border-white/10 flex flex-wrap gap-x-5 gap-y-2">
             {(hero?.featurePills || ['Konsultan Perizinan', 'Konsultan Imigrasi', 'Konsultan Pajak', 'Konsultan Pertanahan', 'Konsultan SDM']).map((pill, idx) => (
-              <span key={idx} className="inline-flex items-center gap-2 text-xs sm:text-sm font-medium text-slate-200">
-                <CheckCircle2 className="w-4 h-4 text-[#dfa82e] shrink-0" />
+              <span key={idx} className="inline-flex items-center gap-2 text-xs font-normal text-slate-300">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#dfa82e] shrink-0" />
                 <EditableText
                   fieldPath={`hero.featurePills.${idx}`}
                   fallback={pill}
