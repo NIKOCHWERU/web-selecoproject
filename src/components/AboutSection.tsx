@@ -97,20 +97,6 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
               </div>
             </div>
 
-            {/* Floating Overlapping Stat Chip */}
-            <div className="absolute -bottom-4 -right-1 sm:right-4 bg-[#0f2034] border border-[#dfa82e]/40 rounded-xl p-3 shadow-xl flex items-center gap-3 max-w-[230px] z-20">
-              <div className="w-9 h-9 rounded-lg bg-[#dfa82e]/15 border border-[#dfa82e]/30 flex items-center justify-center text-[#dfa82e] shrink-0 font-bold text-base">
-                10+
-              </div>
-              <div>
-                <p className="text-xs font-bold text-white leading-tight">
-                  Tahun Rekam Jejak
-                </p>
-                <p className="text-[10px] text-slate-400 mt-0.5 leading-snug">
-                  Mendampingi legalitas &amp; operasional korporasi
-                </p>
-              </div>
-            </div>
           </motion.div>
 
           {/* Right Column: Content & Elevated Feature Cards */}
