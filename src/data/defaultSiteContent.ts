@@ -221,7 +221,7 @@ export const defaultSiteContent: SiteContent = {
     topBadge: "5 Pilar Konsultan Bisnis Terpadu",
     headlinePart1: "Konsultan Terpadu untuk Akselerasi &",
     headlineItalic: "Pertumbuhan Bisnis.",
-    subheadline: "SELECO menyediakan 5 pilar konsultan korporasi profesional: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM secara transparan, akurat, dan terpercaya.",
+    subheadline: "Seleco Project menghadirkan lima pilar layanan konsultasi korporasi yang profesional dan terintegrasi, meliputi perizinan, keimigrasian, perpajakan, pertanahan, serta pengembangan dan pelatihan SDM. Setiap layanan diberikan dengan mengutamakan transparansi, akurasi, dan profesionalisme untuk mendukung kebutuhan serta keberlangsungan bisnis Anda.",
     bgImage: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80",
     bgVideo: "/bg_hero.mp4",
     ctaButton1Text: "Cari 445+ Layanan Konsultan",
