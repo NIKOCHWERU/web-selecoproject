@@ -81,20 +81,20 @@ export default function ServicesSection() {
   const pillars: any[] = (services?.pillars && services.pillars.length > 0) ? services.pillars : defaultPillars;
 
   return (
-    <EditableSection id="services" name="Layanan & Spesialisasi Section" className="py-12 sm:py-16 bg-[#0a1420] border-b border-white/10 text-white">
+    <EditableSection id="services" name="Layanan & Spesialisasi Section" className="py-12 sm:py-16 bg-slate-50/70 border-b border-slate-200 text-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-12 gap-6">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dfa82e]/10 border border-[#dfa82e]/30 text-[10px] font-bold uppercase tracking-widest text-[#dfa82e] mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dfa82e]/15 border border-[#dfa82e]/35 text-[10px] font-bold uppercase tracking-widest text-[#b88917] mb-3">
               <EditableText
                 fieldPath="services.badge"
                 fallback="5 Pilar Layanan Konsultan Terpadu"
                 label="Badge Layanan"
               />
             </div>
-            <h2 className="font-serif-title text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight">
+            <h2 className="font-serif-title text-2xl sm:text-3xl lg:text-4xl font-bold text-[#0a1420] leading-tight">
               <EditableText
                 fieldPath="services.title"
                 fallback={`${totalServices} Layanan Konsultan Terpadu`}
@@ -102,7 +102,7 @@ export default function ServicesSection() {
               />
             </h2>
             <div className="w-12 h-0.5 bg-[#dfa82e] rounded-full my-3" />
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
               <EditableText
                 fieldPath="services.subtitle"
                 fallback="Solusi konsultan komprehensif mencakup Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM untuk akselerasi dan kepatuhan operasional bisnis Anda."
@@ -115,10 +115,10 @@ export default function ServicesSection() {
           <div className="shrink-0">
             <Link
               href="/layanan"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#dfa82e] hover:bg-white text-[#0a1420] text-[11px] font-bold uppercase tracking-widest transition-colors shadow-sm cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#0a1420] text-white hover:bg-[#b88917] text-[11px] font-bold uppercase tracking-widest transition-colors shadow-sm cursor-pointer"
             >
               <span>Jelajahi Seluruh Layanan</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3.5 h-3.5 text-[#dfa82e]" />
             </Link>
           </div>
         </div>
@@ -144,7 +144,7 @@ export default function ServicesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: idx * 0.04 }}
-                className="relative group overflow-hidden rounded-xl shadow-md border border-white/10 hover:border-[#dfa82e]/50 min-h-[300px] flex flex-col justify-end text-left transition-colors"
+                className="relative group overflow-hidden rounded-xl shadow-sm border border-slate-200 hover:border-[#dfa82e]/60 min-h-[300px] flex flex-col justify-end text-left transition-colors"
               >
                 {/* Background image with dark gradient overlay */}
                 <div className="absolute inset-0 z-0">
@@ -227,19 +227,19 @@ export default function ServicesSection() {
         </div>
 
         {/* Directory Banner */}
-        <div className="rounded-xl bg-[#0f2034] text-white p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-[#dfa82e]/30 shadow-lg relative overflow-hidden">
+        <div className="rounded-xl bg-white text-slate-900 p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-slate-200 shadow-sm relative overflow-hidden">
           <div className="space-y-2.5 z-10 max-w-2xl">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dfa82e]/10 border border-[#dfa82e]/30 text-[10px] font-bold uppercase tracking-widest text-[#dfa82e]">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dfa82e]/15 border border-[#dfa82e]/35 text-[10px] font-bold uppercase tracking-widest text-[#b88917]">
               Direktori Lengkap &amp; Pencarian Terpadu
             </span>
-            <h3 className="font-serif-title text-xl sm:text-2xl font-bold text-white">
+            <h3 className="font-serif-title text-xl sm:text-2xl font-bold text-[#0a1420]">
               <EditableText
                 fieldPath="services.ctaBannerTitle"
                 fallback="Membutuhkan Solusi Konsultan Spesifik untuk Bisnis Anda?"
                 label="Judul Banner Layanan"
               />
             </h3>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
               <EditableText
                 fieldPath="services.ctaBannerSubtitle"
                 fallback={`Gunakan pencarian interaktif kami untuk menemukan ${totalServices} solusi layanan Konsultan Perizinan, Imigrasi, Pajak, Pertanahan, dan SDM.`}
@@ -256,12 +256,12 @@ export default function ServicesSection() {
                 e.stopPropagation();
               }
             }}
-            className="px-5 py-2.5 bg-[#dfa82e] hover:bg-white text-[#0a1420] font-bold text-[11px] uppercase tracking-wider rounded-lg shadow-sm transition-colors whitespace-nowrap flex items-center gap-2 shrink-0 z-10 cursor-pointer"
+            className="px-5 py-2.5 bg-[#0a1420] hover:bg-[#b88917] text-white font-bold text-[11px] uppercase tracking-wider rounded-lg shadow-sm transition-colors whitespace-nowrap flex items-center gap-2 shrink-0 z-10 cursor-pointer"
           >
             <EditableIcon
               iconKey="services.ctaBannerIcon"
               fallbackIcon="Search"
-              className="w-3.5 h-3.5"
+              className="w-3.5 h-3.5 text-[#dfa82e]"
               label="Ikon Tombol Banner"
             />
             <EditableText

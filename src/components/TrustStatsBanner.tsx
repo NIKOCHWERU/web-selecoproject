@@ -70,19 +70,19 @@ export default function TrustStatsBanner() {
   ];
 
   return (
-    <EditableSection id="trust-stats" name="Statistik Kepercayaan Banner" className="bg-[#0a1420] py-10 sm:py-12 lg:py-14 border-b border-white/10 text-white relative overflow-hidden">
+    <EditableSection id="trust-stats" name="Statistik Kepercayaan Banner" className="bg-slate-50/70 py-10 sm:py-12 lg:py-14 border-b border-slate-200 text-slate-900 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Trust strip with gold accents and pillar badges */}
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-8 mb-8 border-b border-[#dfa82e]/15">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-8 mb-8 border-b border-slate-200">
           <div className="max-w-xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dfa82e]/10 border border-[#dfa82e]/30 text-[#dfa82e] text-[10px] font-bold uppercase tracking-widest mb-2.5">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#dfa82e]" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dfa82e]/15 border border-[#dfa82e]/35 text-[#b88917] text-[10px] font-bold uppercase tracking-widest mb-2.5">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#b88917]" />
               <span>Kepercayaan &amp; Akuntabilitas</span>
             </div>
-            <h3 className="font-serif-title text-xl sm:text-2xl font-bold text-white leading-tight">
-              Dipercaya Ratusan <span className="text-[#dfa82e]">Korporasi &amp; Pengusaha</span> di Seluruh Indonesia
+            <h3 className="font-serif-title text-xl sm:text-2xl font-bold text-[#0a1420] leading-tight">
+              Dipercaya Ratusan <span className="text-[#b88917]">Korporasi &amp; Pengusaha</span> di Seluruh Indonesia
             </h3>
-            <p className="text-xs sm:text-sm text-slate-300 mt-2 font-normal leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-600 mt-2 font-normal leading-relaxed">
               Standar kepatuhan terintegrasi untuk akselerasi izin, legalitas usaha, dan tata kelola korporasi.
             </p>
           </div>
@@ -93,10 +93,10 @@ export default function TrustStatsBanner() {
               return (
                 <div
                   key={idx}
-                  className="group flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#0f2034] border border-[#dfa82e]/25 hover:border-[#dfa82e]/50 text-slate-200 text-xs font-medium tracking-wide uppercase transition-colors"
+                  className="group flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-slate-200/90 hover:border-[#dfa82e]/60 text-slate-700 text-xs font-medium tracking-wide uppercase transition-colors shadow-sm"
                 >
-                  <span className="w-5 h-5 rounded-md bg-[#dfa82e]/10 border border-[#dfa82e]/20 flex items-center justify-center text-[#dfa82e]">
-                    <IconComp className="w-3 h-3 text-[#dfa82e]" />
+                  <span className="w-5 h-5 rounded-md bg-[#dfa82e]/10 border border-[#dfa82e]/25 flex items-center justify-center text-[#b88917]">
+                    <IconComp className="w-3 h-3 text-[#b88917]" />
                   </span>
                   <span>{badge.title}</span>
                 </div>
@@ -110,9 +110,9 @@ export default function TrustStatsBanner() {
           {stats.map((stat, i) => (
             <div
               key={i}
-              className="relative rounded-xl p-4 sm:p-5 bg-[#0f2034] border border-white/10 hover:border-[#dfa82e]/40 transition-colors text-center flex flex-col items-center justify-center group shadow-sm overflow-hidden"
+              className="relative rounded-xl p-4 sm:p-5 bg-white border border-slate-200/90 hover:border-[#dfa82e]/60 transition-colors text-center flex flex-col items-center justify-center group shadow-sm overflow-hidden"
             >
-              <div className="w-10 h-10 rounded-lg bg-[#0a1420] border border-[#dfa82e]/25 flex items-center justify-center mb-3 text-[#dfa82e] group-hover:bg-[#dfa82e] group-hover:text-[#0a1420] transition-colors">
+              <div className="w-10 h-10 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center mb-3 text-[#b88917] group-hover:bg-[#dfa82e] group-hover:text-[#0a1420] transition-colors">
                 <EditableIcon
                   iconKey={stat.iconKey}
                   fallbackIcon={stat.fallbackIcon}
@@ -120,15 +120,15 @@ export default function TrustStatsBanner() {
                   label={stat.iconLabel}
                 />
               </div>
-              <p className="text-2xl sm:text-3xl font-bold text-[#dfa82e] tracking-tight group-hover:text-white transition-colors font-sans mb-0.5">
+              <p className="text-2xl sm:text-3xl font-bold text-[#0a1420] tracking-tight group-hover:text-[#b88917] transition-colors font-sans mb-0.5">
                 <EditableText
                   fieldPath={stat.numberPath}
                   fallback={stat.numberFallback}
                   label={stat.numberLabel}
                 />
-                <span className="text-[#dfa82e] group-hover:text-white transition-colors">{stat.numberSuffix}</span>
+                <span className="text-[#b88917]">{stat.numberSuffix}</span>
               </p>
-              <p className="text-[11px] sm:text-xs font-medium uppercase tracking-wider text-slate-300 group-hover:text-slate-100 transition-colors">
+              <p className="text-[11px] sm:text-xs font-medium uppercase tracking-wider text-slate-600 group-hover:text-slate-900 transition-colors">
                 <EditableText
                   fieldPath={stat.labelPath}
                   fallback={stat.labelFallback}

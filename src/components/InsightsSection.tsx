@@ -11,18 +11,18 @@ export default function InsightsSection() {
   const articles = insights?.articles || [];
 
   return (
-    <EditableSection id="insights" name="Publikasi Insight Section" className="py-12 sm:py-16 bg-[#0a1420] border-b border-white/10">
+    <EditableSection id="insights" name="Publikasi Insight Section" className="py-12 sm:py-16 bg-white border-b border-slate-200 text-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="max-w-2xl mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dfa82e]/10 border border-[#dfa82e]/30 text-[10px] font-bold uppercase tracking-widest text-[#dfa82e] mb-2.5">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dfa82e]/15 border border-[#dfa82e]/35 text-[10px] font-bold uppercase tracking-widest text-[#b88917] mb-2.5">
             <EditableText
               fieldPath="insights.badge"
               fallback="Publikasi Editorial"
               label="Badge Insight"
             />
           </div>
-          <h2 className="font-serif-title text-2xl sm:text-3xl lg:text-3xl font-bold text-white leading-tight">
+          <h2 className="font-serif-title text-2xl sm:text-3xl lg:text-3xl font-bold text-[#0a1420] leading-tight">
             <EditableText
               fieldPath="insights.title"
               fallback="Legal Insights"
@@ -30,7 +30,7 @@ export default function InsightsSection() {
             />
           </h2>
           <div className="w-12 h-0.5 bg-[#dfa82e] rounded-full my-3" />
-          <p className="text-xs sm:text-sm text-slate-300 font-normal leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed">
             <EditableText
               fieldPath="insights.subtitle"
               fallback="Perspektif strategis dan regulasi dari tim konsultan SELECO untuk pengambilan keputusan bisnis yang lebih terukur."
@@ -48,36 +48,36 @@ export default function InsightsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.35, delay: idx * 0.04 }}
-              className="bg-[#0f2034] border border-white/10 rounded-xl overflow-hidden flex flex-col shadow-md hover:border-[#dfa82e]/50 hover:bg-[#13263c] transition-colors group"
+              className="bg-slate-50/70 border border-slate-200 rounded-xl overflow-hidden flex flex-col shadow-sm hover:border-[#dfa82e]/60 hover:bg-white transition-colors group"
             >
-              <div className="h-40 sm:h-44 overflow-hidden border-b border-white/10">
+              <div className="h-40 sm:h-44 overflow-hidden border-b border-slate-200 bg-slate-100">
                 <EditableImage
                   fieldPath={`insights.articles.${idx}.image`}
                   fallback={article.image || article.img}
                   alt={article.title}
                   label={`Foto Artikel #${idx + 1}`}
-                  className="w-full h-full object-cover transition-opacity duration-300 opacity-85 group-hover:opacity-100"
+                  className="w-full h-full object-cover transition-opacity duration-300 opacity-90 group-hover:opacity-100"
                 />
               </div>
               <div className="p-5 flex flex-col flex-grow">
-                <div className="flex items-center justify-between text-xs text-white/40 mb-2.5">
-                  <span className="bg-[#dfa82e]/10 text-[#dfa82e] font-bold px-2 py-0.5 rounded-full text-[9px] uppercase tracking-wider border border-[#dfa82e]/30">
+                <div className="flex items-center justify-between text-xs text-slate-400 mb-2.5">
+                  <span className="bg-[#dfa82e]/15 text-[#b88917] font-bold px-2 py-0.5 rounded-full text-[9px] uppercase tracking-wider border border-[#dfa82e]/35">
                     <EditableText
                       fieldPath={`insights.articles.${idx}.tag`}
                       fallback={article.tag || article.category || 'Konsultan'}
                       label={`Tag Artikel #${idx + 1}`}
                     />
                   </span>
-                  <span className="text-[11px]">{article.readTime || article.date}</span>
+                  <span className="text-[11px] text-slate-400">{article.readTime || article.date}</span>
                 </div>
-                <h3 className="font-serif-title text-base sm:text-lg font-bold text-white leading-snug mb-2 group-hover:text-[#dfa82e] transition-colors">
+                <h3 className="font-serif-title text-base sm:text-lg font-bold text-[#0a1420] leading-snug mb-2 group-hover:text-[#b88917] transition-colors">
                   <EditableText
                     fieldPath={`insights.articles.${idx}.title`}
                     fallback={article.title}
                     label={`Judul Artikel #${idx + 1}`}
                   />
                 </h3>
-                <p className="text-xs text-slate-300 leading-relaxed line-clamp-2 mb-4 flex-grow font-normal">
+                <p className="text-xs text-slate-600 leading-relaxed line-clamp-2 mb-4 flex-grow font-normal">
                   <EditableText
                     fieldPath={`insights.articles.${idx}.excerpt`}
                     fallback={article.excerpt}
@@ -85,7 +85,7 @@ export default function InsightsSection() {
                     multiline={true}
                   />
                 </p>
-                <Link href="/insight" className="inline-flex items-center gap-1.5 text-[11px] font-bold text-[#dfa82e] border-t border-white/10 pt-3 hover:text-white transition-colors uppercase tracking-wider">
+                <Link href="/insight" className="inline-flex items-center gap-1.5 text-[11px] font-bold text-[#b88917] border-t border-slate-200 pt-3 hover:text-[#0a1420] transition-colors uppercase tracking-wider">
                   Baca Insight <span>→</span>
                 </Link>
               </div>
@@ -96,7 +96,7 @@ export default function InsightsSection() {
         <div className="mt-10 text-center">
           <Link
             href="/insight"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#dfa82e] hover:bg-white text-[#0a1420] transition-colors text-[11px] font-bold uppercase tracking-widest rounded-lg shadow-sm cursor-pointer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0a1420] hover:bg-[#b88917] text-white transition-colors text-[11px] font-bold uppercase tracking-widest rounded-lg shadow-sm cursor-pointer"
           >
             Lihat Semua Insight Editorial
           </Link>

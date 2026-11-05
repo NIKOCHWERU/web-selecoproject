@@ -13,18 +13,18 @@ export default function FAQSection() {
   const items = faq?.items || [];
 
   return (
-    <EditableSection id="faq" name="FAQ Pertanyaan Umum Section" className="py-12 sm:py-16 bg-[#0a1420] border-b border-white/10">
+    <EditableSection id="faq" name="FAQ Pertanyaan Umum Section" className="py-12 sm:py-16 bg-slate-50/70 border-b border-slate-200 text-slate-900">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div className="text-center mb-8 sm:mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dfa82e]/10 border border-[#dfa82e]/30 text-[10px] font-bold uppercase tracking-widest text-[#dfa82e] mb-2.5">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dfa82e]/15 border border-[#dfa82e]/35 text-[10px] font-bold uppercase tracking-widest text-[#b88917] mb-2.5">
             <EditableText
               fieldPath="faq.badge"
               fallback="Pertanyaan Umum"
               label="Badge FAQ"
             />
           </div>
-          <h2 className="font-serif-title text-2xl sm:text-3xl font-bold text-white leading-tight">
+          <h2 className="font-serif-title text-2xl sm:text-3xl font-bold text-[#0a1420] leading-tight">
             <EditableText
               fieldPath="faq.title"
               fallback="Frequently Asked Questions"
@@ -32,7 +32,7 @@ export default function FAQSection() {
             />
           </h2>
           <div className="w-12 h-0.5 bg-[#dfa82e] rounded-full mx-auto my-3" />
-          <p className="text-xs sm:text-sm text-slate-300 font-normal leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed">
             <EditableText
               fieldPath="faq.subtitle"
               fallback={faq?.subtitle || 'Pertanyaan yang sering diajukan seputar layanan kami'}
@@ -46,18 +46,18 @@ export default function FAQSection() {
           {items.map((item: any, idx: number) => (
             <div
               key={idx}
-              className="rounded-lg border px-4 sm:px-5 py-3.5 bg-[#0f2034] border-white/10 hover:border-[#dfa82e]/40 transition-colors shadow-sm"
+              className="rounded-lg border px-4 sm:px-5 py-3.5 bg-white border-slate-200 hover:border-[#dfa82e]/50 transition-colors shadow-sm"
             >
               <button
                 onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
-                className="w-full flex items-center justify-between text-left font-bold text-xs sm:text-sm gap-4 text-white cursor-pointer"
+                className="w-full flex items-center justify-between text-left font-bold text-xs sm:text-sm gap-4 text-[#0a1420] cursor-pointer"
                 aria-expanded={openIdx === idx}
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-[10px] font-bold text-[#dfa82e] shrink-0 font-sans px-1.5 py-0.5 rounded bg-[#dfa82e]/10 border border-[#dfa82e]/20">
+                  <span className="text-[10px] font-bold text-[#b88917] shrink-0 font-sans px-1.5 py-0.5 rounded bg-[#dfa82e]/15 border border-[#dfa82e]/35">
                     Q{idx + 1}
                   </span>
-                  <span className="font-semibold text-white leading-snug">
+                  <span className="font-semibold text-[#0a1420] leading-snug">
                     <EditableText
                       fieldPath={`faq.items.${idx}.question`}
                       fallback={item.question || item.q}
@@ -65,8 +65,8 @@ export default function FAQSection() {
                     />
                   </span>
                 </div>
-                <span className="shrink-0 text-[#dfa82e]">
-                  {openIdx === idx ? <Minus className="w-3.5 h-3.5 text-[#dfa82e]" /> : <Plus className="w-3.5 h-3.5 text-gray-400" />}
+                <span className="shrink-0 text-[#b88917]">
+                  {openIdx === idx ? <Minus className="w-3.5 h-3.5 text-[#b88917]" /> : <Plus className="w-3.5 h-3.5 text-slate-400" />}
                 </span>
               </button>
 
@@ -79,7 +79,7 @@ export default function FAQSection() {
                     transition={{ duration: 0.2 }}
                     className="overflow-hidden"
                   >
-                    <div className="mt-2.5 pt-2.5 border-t border-white/10 text-xs leading-relaxed text-slate-300 font-normal">
+                    <div className="mt-2.5 pt-2.5 border-t border-slate-100 text-xs leading-relaxed text-slate-600 font-normal">
                       <EditableText
                         fieldPath={`faq.items.${idx}.answer`}
                         fallback={item.answer || item.a}

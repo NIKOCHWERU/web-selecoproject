@@ -69,7 +69,7 @@ export default function RootLayout({
 
   return (
     <html lang="id" className={`${inter.variable} ${cormorantGaramond.variable} ${playfairDisplay.variable} scroll-smooth`}>
-      <body className={`${inter.className} bg-[#0a1420] text-slate-100 antialiased min-h-screen flex flex-col justify-between selection:bg-[#b88917] selection:text-white`}>
+      <body className={`${inter.className} bg-white text-slate-900 antialiased min-h-screen flex flex-col justify-between selection:bg-[#dfa82e]/20 selection:text-[#0a1420]`}>
         <ContentProvider initialContent={initialContent}>
           <SiteWrapper>{children}</SiteWrapper>
         </ContentProvider>
