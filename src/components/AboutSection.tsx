@@ -137,7 +137,7 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
             <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
               <EditableText
                 fieldPath="about.paragraph1"
-                fallback="SELECO hadir sebagai mitra konsultan korporasi terpercaya yang menyediakan solusi terpadu 5 pilar: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM secara terukur, akurat, dan berintegritas tinggi."
+                fallback="Seleco Project merupakan mitra profesional dalam bidang konsultasi korporasi yang menyediakan solusi terpadu di bidang perizinan, keimigrasian, perpajakan, pertanahan, serta pengembangan dan pelatihan SDM. Seleco Project berkomitmen untuk mendukung kebutuhan pelaku usaha, korporasi nasional, maupun multinasional melalui layanan yang profesional, akurat, transparan, dan berorientasi pada solusi."
                 label="Paragraf 1"
                 multiline={true}
                 as="span"
