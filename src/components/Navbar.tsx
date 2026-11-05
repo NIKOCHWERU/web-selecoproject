@@ -59,8 +59,8 @@ export default function Navbar() {
         tag="header"
         className={`sticky top-0 left-0 right-0 h-16 z-50 transition-all duration-300 ${
           scrolled
-            ? 'bg-[#142740]/98 backdrop-blur-md border-b border-[#dfa82e]/25 shadow-md'
-            : 'bg-[#142740]/95 backdrop-blur-md border-b border-white/10'
+            ? 'bg-[#0a1420] border-b border-[#dfa82e]/30 shadow-lg'
+            : 'bg-[#142740] border-b border-white/10'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">

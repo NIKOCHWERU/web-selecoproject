@@ -31,7 +31,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <EditableSection id="hero" name="Hero Banner Section" className="relative flex items-center justify-center overflow-hidden py-14 sm:py-16 lg:py-20 bg-[#0a1420] text-white border-b border-[#dfa82e]/30">
+    <EditableSection id="hero" name="Hero Banner Section" className="relative flex items-center justify-center overflow-hidden min-h-[calc(100vh-4rem)] py-12 sm:py-16 lg:py-20 bg-[#0a1420] text-white border-b border-[#dfa82e]/30">
       {/* Looping Corporate Background Video */}
       <div className="absolute inset-0 overflow-hidden z-0">
         <video
