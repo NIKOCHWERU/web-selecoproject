@@ -288,16 +288,17 @@ function LayananContent() {
 
             {/* CTA Banner */}
             {filtered.length > 0 && (
-              <div className="mt-12 p-8 bg-slate-50 border border-slate-200 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-6 text-slate-900 shadow-xs">
-                <div>
-                  <h3 className="font-serif-title text-2xl font-bold text-[#0a1420]">Tidak menemukan yang Anda cari?</h3>
-                  <p className="text-xs text-slate-600 mt-1">Tim SELECO siap mendiskusikan kebutuhan konsultan perizinan, imigrasi, pajak, pertanahan, dan SDM perusahaan Anda.</p>
+              <div className="mt-12 p-8 bg-[#0a1420] border border-[#dfa82e]/30 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-6 text-white shadow-xl relative overflow-hidden">
+                <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#dfa82e]" />
+                <div className="pl-1 sm:pl-3">
+                  <h3 className="font-serif-title text-2xl font-bold text-white">Tidak menemukan yang Anda cari?</h3>
+                  <p className="text-xs text-slate-300 mt-1 font-normal">Tim SELECO siap mendiskusikan kebutuhan konsultan perizinan, imigrasi, pajak, pertanahan, dan SDM perusahaan Anda.</p>
                 </div>
                 <Link
                   href="/kontak"
-                  className="px-7 py-3.5 bg-[#0a1420] text-white hover:bg-[#b88917] font-bold text-xs uppercase tracking-wider rounded-lg transition-colors whitespace-nowrap flex items-center gap-2 shadow-sm cursor-pointer"
+                  className="px-7 py-3.5 bg-[#dfa82e] hover:bg-white text-[#0a1420] font-bold text-xs uppercase tracking-wider rounded-lg transition-colors whitespace-nowrap flex items-center gap-2 shadow-sm cursor-pointer shrink-0"
                 >
-                  <Briefcase className="w-4 h-4 text-white" /> Hubungi Kami
+                  <Briefcase className="w-4 h-4 text-[#0a1420]" /> Hubungi Kami
                 </Link>
               </div>
             )}

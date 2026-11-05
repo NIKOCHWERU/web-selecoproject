@@ -41,15 +41,15 @@ export default function RetainerSection() {
     <EditableSection id="retainer" name="Corporate Retainer Section" className="py-12 sm:py-16 bg-slate-50/70 border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="bg-white text-slate-900 rounded-xl p-6 sm:p-8 lg:p-10 shadow-sm border border-slate-200 relative overflow-hidden">
+        <div className="bg-[#0a1420] text-white rounded-2xl p-6 sm:p-8 lg:p-10 shadow-xl border border-[#dfa82e]/30 relative overflow-hidden">
           {/* Left accent bar */}
-          <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#dfa82e]" />
+          <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#dfa82e]" />
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center relative z-10">
             
             {/* Left Content */}
             <div className="lg:col-span-7 space-y-5 pl-1 sm:pl-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dfa82e]/15 border border-[#dfa82e]/35 text-[10px] font-bold uppercase tracking-widest text-[#b88917]">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dfa82e]/15 border border-[#dfa82e]/35 text-[10px] font-bold uppercase tracking-widest text-[#dfa82e]">
                 <EditableText
                   fieldPath="retainer.badge"
                   fallback="Retainer Korporasi"
@@ -57,7 +57,7 @@ export default function RetainerSection() {
                 />
               </div>
 
-              <h2 className="font-serif-title text-2xl sm:text-3xl lg:text-3xl font-bold text-[#0a1420] leading-tight">
+              <h2 className="font-serif-title text-2xl sm:text-3xl lg:text-3xl font-bold text-white leading-tight">
                 <EditableText
                   fieldPath="retainer.title"
                   fallback="Divisi Konsultan Korporasi Eksternal Bisnis Anda."
@@ -67,7 +67,7 @@ export default function RetainerSection() {
 
               <div className="w-12 h-0.5 bg-[#dfa82e] rounded-full" />
 
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
                 <EditableText
                   fieldPath="retainer.subtitle"
                   fallback="Akses pendampingan konsultan korporasi terpadu sesuai kebutuhan operasional perusahaan, mulai dari perizinan usaha, keimigrasian/TKA, kepatuhan pajak, pertanahan BPN, hingga manajemen SDM tanpa biaya penggajian staf internal."
@@ -81,10 +81,10 @@ export default function RetainerSection() {
                 {retainerServices.map((service, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center gap-2 border-b border-slate-100 py-2"
+                    className="flex items-center gap-2 border-b border-white/10 py-2"
                   >
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#b88917] shrink-0" />
-                    <span className="text-xs text-slate-700">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#dfa82e] shrink-0" />
+                    <span className="text-xs text-slate-200">
                       <EditableText
                         fieldPath={`retainer.serviceItems.${idx}`}
                         fallback={service}
@@ -96,16 +96,16 @@ export default function RetainerSection() {
               </div>
 
               {/* Retainer CTA */}
-              <div className="pt-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4">
+              <div className="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
                 <div>
-                  <h4 className="font-serif-title text-base font-bold text-[#0a1420]">
+                  <h4 className="font-serif-title text-base font-bold text-white">
                     <EditableText
                       fieldPath="retainer.ctaTitle"
                       fallback="Perkuat Tata Kelola & Operasional Perusahaan"
                       label="Judul CTA Retainer"
                     />
                   </h4>
-                  <p className="text-[11px] text-slate-500 mt-0.5">
+                  <p className="text-[11px] text-slate-400 mt-0.5">
                     <EditableText
                       fieldPath="retainer.ctaSubtitle"
                       fallback="Konsultan profesional siap mendampingi operasional dan perizinan bisnis Anda."
@@ -121,7 +121,7 @@ export default function RetainerSection() {
                       e.stopPropagation();
                     }
                   }}
-                  className="px-5 py-2.5 bg-[#0a1420] hover:bg-[#b88917] text-white font-bold text-[11px] uppercase tracking-wider rounded-lg transition-colors shadow-sm flex items-center gap-2 cursor-pointer shrink-0"
+                  className="px-5 py-2.5 bg-[#dfa82e] hover:bg-white text-[#0a1420] font-bold text-[11px] uppercase tracking-wider rounded-lg transition-colors shadow-sm flex items-center gap-2 cursor-pointer shrink-0"
                 >
                   <EditableIcon
                     iconKey="retainer.ctaIcon"
@@ -142,16 +142,16 @@ export default function RetainerSection() {
 
             {/* Right Photo Frame */}
             <div className="lg:col-span-5">
-              <div className="relative rounded-xl overflow-hidden border border-slate-200 shadow-sm h-64 lg:h-[350px]">
+              <div className="relative rounded-xl overflow-hidden border border-white/15 shadow-md h-64 lg:h-[350px]">
                 <EditableImage
                   fieldPath="retainer.image"
                   fallback="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=800&q=80"
                   alt="Ruang Konsultasi Korporasi SELECO"
                   label="Foto Ruang Retainer"
-                  className="w-full h-full object-cover filter brightness-[0.85]"
+                  className="w-full h-full object-cover filter brightness-[0.8]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent pointer-events-none" />
-                <div className="absolute bottom-4 left-4 right-4 border-t border-white/20 pt-3 text-center pointer-events-none">
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a1420]/90 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute bottom-4 left-4 right-4 border-t border-[#dfa82e]/30 pt-3 text-center pointer-events-none">
                   <span className="font-serif-title text-sm font-bold text-white block">
                     SELECO External Corporate Team
                   </span>

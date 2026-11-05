@@ -40,17 +40,17 @@ export default function TentangPage() {
       <RetainerSection />
 
       {/* CTA Footer Banner */}
-      <div className="py-12 sm:py-14 bg-slate-50 border-t border-slate-200 text-center">
+      <div className="py-12 sm:py-14 bg-[#0a1420] border-t border-[#dfa82e]/30 text-center text-white">
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="font-serif-title text-xl sm:text-2xl font-bold text-[#0a1420] mb-2.5">
+          <h2 className="font-serif-title text-xl sm:text-2xl font-bold text-white mb-2.5">
             Siap Berdiskusi Mengenai Kebutuhan Bisnis &amp; Korporasi Anda?
           </h2>
-          <p className="text-xs sm:text-sm text-slate-600 mb-6 font-normal">
+          <p className="text-xs sm:text-sm text-slate-300 mb-6 font-normal">
             Jadwalkan konsultasi awal dengan tim konsultan kami secara tatap muka ataupun virtual.
           </p>
           <Link
             href="/kontak"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0a1420] hover:bg-[#b88917] text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-colors shadow-sm cursor-pointer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#dfa82e] hover:bg-white text-[#0a1420] font-bold text-xs uppercase tracking-wider rounded-lg transition-colors shadow-sm cursor-pointer"
           >
             <span>Hubungi Tim Kami Sekarang</span>
             <ArrowRight className="w-3.5 h-3.5" />

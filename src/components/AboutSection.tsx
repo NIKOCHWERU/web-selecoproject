@@ -108,7 +108,7 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
             className="lg:col-span-6 space-y-5"
           >
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dfa82e]/15 border border-[#dfa82e]/35 text-[10px] font-bold uppercase tracking-widest text-[#b88917] mb-2.5">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0a1420] border border-[#0a1420] text-[10px] font-bold uppercase tracking-widest text-[#dfa82e] mb-2.5 shadow-xs">
                 <EditableText
                   fieldPath="about.badge"
                   fallback="Tentang SELECO"
@@ -149,13 +149,13 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
               {values.map((v: any, i: number) => (
                 <div
                   key={i}
-                  className="rounded-xl p-4 bg-slate-50 border border-slate-200 border-l-2 border-l-[#dfa82e] hover:bg-white hover:border-[#dfa82e]/60 transition-colors relative group shadow-sm"
+                  className="rounded-xl p-4 bg-slate-50 border border-slate-200 border-l-2 border-l-[#0a1420] hover:bg-white hover:border-[#dfa82e]/60 transition-colors relative group shadow-sm"
                 >
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-[10px] font-bold text-[#b88917] tracking-widest uppercase">
                       0{i + 1}
                     </span>
-                    <div className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center group-hover:bg-[#dfa82e]/10 group-hover:border-[#dfa82e]/40 transition-colors">
+                    <div className="w-8 h-8 rounded-lg bg-[#0a1420] text-[#dfa82e] flex items-center justify-center shadow-xs group-hover:bg-[#dfa82e] group-hover:text-[#0a1420] transition-colors">
                       {valueIcons[i % valueIcons.length]}
                     </div>
                   </div>

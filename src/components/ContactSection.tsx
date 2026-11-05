@@ -85,24 +85,24 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="lg:col-span-2 bg-slate-50 text-slate-900 rounded-xl p-6 sm:p-7 shadow-sm border border-slate-200 flex flex-col justify-between"
+            className="lg:col-span-2 bg-[#0a1420] text-white rounded-2xl p-6 sm:p-7 shadow-xl border border-[#dfa82e]/30 flex flex-col justify-between relative overflow-hidden"
           >
             <div>
-              <h3 className="font-serif-title text-lg lg:text-xl font-bold text-[#0a1420] mb-0.5">
+              <h3 className="font-serif-title text-lg lg:text-xl font-bold text-white mb-0.5">
                 {global?.brandName || 'SELECO'}
               </h3>
-              <p className="text-[11px] text-slate-500 leading-relaxed mb-6 font-normal">
+              <p className="text-[11px] text-slate-400 leading-relaxed mb-6 font-normal">
                 {global?.brandTagline || 'SEDANA LEGAL CONSULTANT'} | Strategic Corporate Consultant in Indonesia.
               </p>
 
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center shrink-0 text-[#b88917] shadow-xs mt-0.5">
+                  <div className="w-8 h-8 rounded-lg bg-white/10 border border-white/15 flex items-center justify-center shrink-0 text-[#dfa82e] shadow-xs mt-0.5">
                     <MapPin className="w-3.5 h-3.5" />
                   </div>
                   <div>
-                    <p className="text-[9px] text-[#b88917] font-bold uppercase tracking-widest mb-0.5">Alamat Kantor</p>
-                    <p className="text-xs text-slate-700 leading-relaxed">
+                    <p className="text-[9px] text-[#dfa82e] font-bold uppercase tracking-widest mb-0.5">Alamat Kantor</p>
+                    <p className="text-xs text-slate-200 leading-relaxed">
                       <EditableText
                         fieldPath="global.address"
                         fallback="Jl.M.H Thamrin No. 9 Lt 12, Kebon Sirih Menteng, DKI Jakarta, 10340"
@@ -113,12 +113,12 @@ export default function ContactSection() {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center shrink-0 text-[#b88917] shadow-xs">
+                  <div className="w-8 h-8 rounded-lg bg-white/10 border border-white/15 flex items-center justify-center shrink-0 text-[#dfa82e] shadow-xs">
                     <Mail className="w-3.5 h-3.5" />
                   </div>
                   <div>
-                    <p className="text-[9px] text-[#b88917] font-bold uppercase tracking-widest mb-0.5">Email Resmi</p>
-                    <a href={`mailto:${global?.email || 'hello@selecoproject.com'}`} className="text-xs text-slate-700 hover:text-[#b88917] transition-colors block">
+                    <p className="text-[9px] text-[#dfa82e] font-bold uppercase tracking-widest mb-0.5">Email Resmi</p>
+                    <a href={`mailto:${global?.email || 'hello@selecoproject.com'}`} className="text-xs text-slate-200 hover:text-white transition-colors block">
                       <EditableText
                         fieldPath="global.email"
                         fallback="hello@selecoproject.com"
@@ -129,12 +129,12 @@ export default function ContactSection() {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center shrink-0 text-[#b88917] shadow-xs">
+                  <div className="w-8 h-8 rounded-lg bg-white/10 border border-white/15 flex items-center justify-center shrink-0 text-[#dfa82e] shadow-xs">
                     <Phone className="w-3.5 h-3.5" />
                   </div>
                   <div>
-                    <p className="text-[9px] text-[#b88917] font-bold uppercase tracking-widest mb-0.5">Telepon / WhatsApp</p>
-                    <a href={`https://wa.me/${global?.whatsappNumber || '6282211020022'}`} target="_blank" rel="noopener noreferrer" className="text-xs text-slate-700 hover:text-[#b88917] transition-colors block">
+                    <p className="text-[9px] text-[#dfa82e] font-bold uppercase tracking-widest mb-0.5">Telepon / WhatsApp</p>
+                    <a href={`https://wa.me/${global?.whatsappNumber || '6282211020022'}`} target="_blank" rel="noopener noreferrer" className="text-xs text-slate-200 hover:text-white transition-colors block">
                       {global?.whatsappDisplay || '+62 822-1102-0022'}
                     </a>
                   </div>
@@ -143,13 +143,13 @@ export default function ContactSection() {
             </div>
 
             {/* Office Photo Frame */}
-            <div className="mt-6 relative h-36 rounded-lg overflow-hidden border border-slate-200 shadow-sm">
+            <div className="mt-6 relative h-36 rounded-lg overflow-hidden border border-white/15 shadow-sm">
               <img
                 src="https://images.unsplash.com/photo-1575505586569-646b2ca898fc?auto=format&fit=crop&w=600&q=80"
                 alt="Kantor SELECO Jakarta"
                 className="w-full h-full object-cover filter brightness-[0.7]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col items-center justify-center text-center px-4">
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0a1420]/80 via-black/30 to-transparent flex flex-col items-center justify-center text-center px-4">
                 <span className="font-serif-title text-sm font-bold text-white">SELECO | Thamrin, Jakarta</span>
                 <span className="text-[9px] text-[#dfa82e] font-semibold uppercase tracking-widest mt-0.5">
                   Senin - Jumat | 09:00 - 17:00 WIB

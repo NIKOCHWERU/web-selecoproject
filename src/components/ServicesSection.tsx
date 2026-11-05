@@ -227,19 +227,20 @@ export default function ServicesSection() {
         </div>
 
         {/* Directory Banner */}
-        <div className="rounded-xl bg-white text-slate-900 p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-slate-200 shadow-sm relative overflow-hidden">
-          <div className="space-y-2.5 z-10 max-w-2xl">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dfa82e]/15 border border-[#dfa82e]/35 text-[10px] font-bold uppercase tracking-widest text-[#b88917]">
+        <div className="rounded-2xl bg-[#0a1420] text-white p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-[#dfa82e]/35 shadow-xl relative overflow-hidden">
+          <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#dfa82e]" />
+          <div className="space-y-2.5 z-10 max-w-2xl pl-1 sm:pl-3">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dfa82e]/15 border border-[#dfa82e]/35 text-[10px] font-bold uppercase tracking-widest text-[#dfa82e]">
               Direktori Lengkap &amp; Pencarian Terpadu
             </span>
-            <h3 className="font-serif-title text-xl sm:text-2xl font-bold text-[#0a1420]">
+            <h3 className="font-serif-title text-xl sm:text-2xl font-bold text-white">
               <EditableText
                 fieldPath="services.ctaBannerTitle"
                 fallback="Membutuhkan Solusi Konsultan Spesifik untuk Bisnis Anda?"
                 label="Judul Banner Layanan"
               />
             </h3>
-            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
               <EditableText
                 fieldPath="services.ctaBannerSubtitle"
                 fallback={`Gunakan pencarian interaktif kami untuk menemukan ${totalServices} solusi layanan Konsultan Perizinan, Imigrasi, Pajak, Pertanahan, dan SDM.`}
@@ -256,12 +257,12 @@ export default function ServicesSection() {
                 e.stopPropagation();
               }
             }}
-            className="px-5 py-2.5 bg-[#0a1420] hover:bg-[#b88917] text-white font-bold text-[11px] uppercase tracking-wider rounded-lg shadow-sm transition-colors whitespace-nowrap flex items-center gap-2 shrink-0 z-10 cursor-pointer"
+            className="px-5 py-2.5 bg-[#dfa82e] hover:bg-white text-[#0a1420] font-bold text-[11px] uppercase tracking-wider rounded-lg shadow-sm transition-colors whitespace-nowrap flex items-center gap-2 shrink-0 z-10 cursor-pointer"
           >
             <EditableIcon
               iconKey="services.ctaBannerIcon"
               fallbackIcon="Search"
-              className="w-3.5 h-3.5 text-[#dfa82e]"
+              className="w-3.5 h-3.5 text-[#0a1420]"
               label="Ikon Tombol Banner"
             />
             <EditableText

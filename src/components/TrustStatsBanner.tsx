@@ -75,8 +75,8 @@ export default function TrustStatsBanner() {
         {/* Trust strip with gold accents and pillar badges */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-8 mb-8 border-b border-slate-200">
           <div className="max-w-xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dfa82e]/15 border border-[#dfa82e]/35 text-[#b88917] text-[10px] font-bold uppercase tracking-widest mb-2.5">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#b88917]" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0a1420] border border-[#0a1420] text-[#dfa82e] text-[10px] font-bold uppercase tracking-widest mb-2.5 shadow-xs">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#dfa82e]" />
               <span>Kepercayaan &amp; Akuntabilitas</span>
             </div>
             <h3 className="font-serif-title text-xl sm:text-2xl font-bold text-[#0a1420] leading-tight">
@@ -93,10 +93,10 @@ export default function TrustStatsBanner() {
               return (
                 <div
                   key={idx}
-                  className="group flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-slate-200/90 hover:border-[#dfa82e]/60 text-slate-700 text-xs font-medium tracking-wide uppercase transition-colors shadow-sm"
+                  className="group flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-slate-200/90 hover:border-[#0a1420] text-slate-800 text-xs font-semibold tracking-wide uppercase transition-colors shadow-sm"
                 >
-                  <span className="w-5 h-5 rounded-md bg-[#dfa82e]/10 border border-[#dfa82e]/25 flex items-center justify-center text-[#b88917]">
-                    <IconComp className="w-3 h-3 text-[#b88917]" />
+                  <span className="w-5 h-5 rounded-md bg-[#0a1420] flex items-center justify-center text-[#dfa82e]">
+                    <IconComp className="w-3 h-3 text-[#dfa82e]" />
                   </span>
                   <span>{badge.title}</span>
                 </div>
@@ -110,9 +110,9 @@ export default function TrustStatsBanner() {
           {stats.map((stat, i) => (
             <div
               key={i}
-              className="relative rounded-xl p-4 sm:p-5 bg-white border border-slate-200/90 hover:border-[#dfa82e]/60 transition-colors text-center flex flex-col items-center justify-center group shadow-sm overflow-hidden"
+              className="relative rounded-xl p-4 sm:p-5 bg-white border border-slate-200/90 hover:border-[#0a1420] transition-colors text-center flex flex-col items-center justify-center group shadow-sm overflow-hidden"
             >
-              <div className="w-10 h-10 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center mb-3 text-[#b88917] group-hover:bg-[#dfa82e] group-hover:text-[#0a1420] transition-colors">
+              <div className="w-10 h-10 rounded-lg bg-[#0a1420] text-[#dfa82e] flex items-center justify-center mb-3 group-hover:bg-[#dfa82e] group-hover:text-[#0a1420] transition-colors shadow-xs">
                 <EditableIcon
                   iconKey={stat.iconKey}
                   fallbackIcon={stat.fallbackIcon}
