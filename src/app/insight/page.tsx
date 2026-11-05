@@ -17,22 +17,22 @@ export default function InsightPage() {
   return (
     <div className="min-h-screen bg-white text-slate-900">
       {/* Page Hero Banner */}
-      <div className="bg-slate-50 border-b border-slate-200 py-10 sm:py-12">
+      <div className="bg-gradient-to-b from-[#142740] to-[#0f2034] text-white border-b border-[#dfa82e]/25 py-10 sm:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-2 text-xs text-slate-400 mb-3">
-            <Link href="/" className="hover:text-[#b88917] transition-colors">Home</Link>
+          <div className="flex items-center gap-2 text-xs text-slate-300 mb-3">
+            <Link href="/" className="hover:text-[#dfa82e] transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-[#b88917] font-semibold">Insight</span>
+            <span className="text-[#dfa82e] font-semibold">Insight</span>
           </div>
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#dfa82e]/15 border border-[#dfa82e]/35 rounded-full text-[#b88917] text-[10px] font-bold uppercase tracking-widest mb-2.5">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#dfa82e]/20 border border-[#dfa82e]/40 rounded-full text-[#dfa82e] text-[10px] font-bold uppercase tracking-widest mb-2.5">
               <BookOpen className="w-3.5 h-3.5" /> PUBLIKASI EDITORIAL &amp; REGULASI
             </div>
-            <h1 className="font-serif-title text-2xl sm:text-3xl lg:text-3xl font-bold text-[#0a1420] leading-tight">
+            <h1 className="font-serif-title text-2xl sm:text-3xl lg:text-3xl font-bold text-white leading-tight">
               Insight &amp; Analisis Regulasi Bisnis
             </h1>
             <div className="w-12 h-0.5 bg-[#dfa82e] mt-2.5 mb-3 rounded-full" />
-            <p className="text-xs sm:text-sm text-slate-600 max-w-2xl leading-relaxed font-normal">
+            <p className="text-xs sm:text-sm text-slate-200 max-w-2xl leading-relaxed font-normal">
               Perspektif strategis dan regulasi dari tim konsultan SELECO untuk pengambilan keputusan bisnis yang lebih terukur dan aman dari risiko operasional.
             </p>
           </div>

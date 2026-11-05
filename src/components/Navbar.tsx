@@ -59,8 +59,8 @@ export default function Navbar() {
         tag="header"
         className={`sticky top-0 left-0 right-0 h-16 z-50 transition-all duration-300 ${
           scrolled
-            ? 'bg-white/98 backdrop-blur-md border-b border-slate-200/90 shadow-sm'
-            : 'bg-white/95 backdrop-blur-md border-b border-slate-200/80'
+            ? 'bg-[#142740]/98 backdrop-blur-md border-b border-[#dfa82e]/25 shadow-md'
+            : 'bg-[#142740]/95 backdrop-blur-md border-b border-white/10'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
@@ -75,7 +75,7 @@ export default function Navbar() {
             }}
             className="flex items-center gap-2.5 group"
           >
-            <div className="relative w-8 h-8 sm:w-9 sm:h-9 shrink-0 rounded-lg overflow-hidden bg-white flex items-center justify-center p-0.5 border border-slate-200 group-hover:border-[#b88917]/60 transition-all shadow-sm">
+            <div className="relative w-8 h-8 sm:w-9 sm:h-9 shrink-0 rounded-lg overflow-hidden bg-white/10 flex items-center justify-center p-0.5 border border-white/20 group-hover:border-[#dfa82e]/60 transition-all shadow-sm">
               <img
                 src={global?.logo || '/logo-seleco.png'}
                 alt={global?.brandName || 'Seleco'}
@@ -83,14 +83,14 @@ export default function Navbar() {
               />
             </div>
             <div className="flex flex-col">
-              <span className="text-base md:text-xl font-bold tracking-[0.12em] uppercase font-serif text-[#0a1420] border-b border-[#dfa82e]/50 pb-0.5 leading-tight group-hover:text-[#b88917] transition-colors">
+              <span className="text-base md:text-xl font-bold tracking-[0.12em] uppercase font-serif text-white border-b border-[#dfa82e]/50 pb-0.5 leading-tight group-hover:text-[#dfa82e] transition-colors">
                 <EditableText
                   fieldPath="global.brandName"
                   fallback="SELECO"
                   label="Nama Brand"
                 />
               </span>
-              <span className="text-[7px] md:text-[8px] text-slate-600 tracking-[0.25em] uppercase mt-0.5 font-sans whitespace-nowrap">
+              <span className="text-[7px] md:text-[8px] text-slate-300 tracking-[0.25em] uppercase mt-0.5 font-sans whitespace-nowrap">
                 <EditableText
                   fieldPath="global.brandTagline"
                   fallback="Sedana Legal Consultant"
@@ -117,8 +117,8 @@ export default function Navbar() {
                     }}
                     className={`text-[11px] uppercase tracking-widest font-semibold transition-colors py-1 ${
                       isActive
-                        ? 'text-[#b88917]'
-                        : 'text-slate-700 hover:text-[#b88917]'
+                        ? 'text-[#dfa82e]'
+                        : 'text-slate-200 hover:text-[#dfa82e]'
                     }`}
                   >
                     <EditableText
@@ -132,7 +132,7 @@ export default function Navbar() {
                   {isActive && (
                     <motion.span
                       layoutId="activeIndicator"
-                      className="absolute -bottom-1 left-0 right-0 h-[2px] bg-[#b88917] rounded-full"
+                      className="absolute -bottom-1 left-0 right-0 h-[2px] bg-[#dfa82e] rounded-full"
                     />
                   )}
                 </div>
@@ -150,12 +150,12 @@ export default function Navbar() {
                   e.stopPropagation();
                 }
               }}
-              className="px-4 py-2 text-[11px] font-bold uppercase tracking-widest text-white bg-[#0a1420] hover:bg-[#b88917] rounded-lg shadow-sm transition-colors flex items-center gap-2 cursor-pointer"
+              className="px-4 py-2 text-[11px] font-bold uppercase tracking-widest text-[#0a1420] bg-[#dfa82e] hover:bg-white rounded-lg shadow-sm transition-colors flex items-center gap-2 cursor-pointer"
             >
               <EditableIcon
                 iconKey="navbar.ctaIcon"
                 fallbackIcon="Calendar"
-                className="w-3.5 h-3.5 text-[#dfa82e]"
+                className="w-3.5 h-3.5 text-[#0a1420]"
                 label="Ikon Tombol Konsultasi"
               />
               <EditableText
@@ -171,7 +171,7 @@ export default function Navbar() {
           {/* Mobile Hamburger Toggle */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden p-2 text-slate-700 hover:text-[#0a1420] focus:outline-none focus:ring-2 focus:ring-[#b88917] focus:ring-offset-2 focus:ring-offset-white rounded"
+            className="lg:hidden p-2 text-slate-200 hover:text-[#dfa82e] focus:outline-none focus:ring-2 focus:ring-[#dfa82e] focus:ring-offset-2 focus:ring-offset-[#142740] rounded"
             aria-label="Toggle navigation menu"
             aria-expanded={mobileOpen}
           >
@@ -189,28 +189,28 @@ export default function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobileOpen(false)}
-              className="fixed inset-0 bg-black/40 z-50 lg:hidden"
+              className="fixed inset-0 bg-black/50 z-50 lg:hidden"
             />
             <motion.aside
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 28, stiffness: 220 }}
-              className="fixed top-0 right-0 w-72 max-w-[85vw] h-full bg-white border-l border-slate-200 z-50 p-6 flex flex-col justify-between lg:hidden shadow-2xl"
+              className="fixed top-0 right-0 w-72 max-w-[85vw] h-full bg-[#142740] text-white border-l border-white/10 z-50 p-6 flex flex-col justify-between lg:hidden shadow-2xl"
             >
               <div>
-                <div className="flex items-center justify-between pb-5 border-b border-slate-100">
+                <div className="flex items-center justify-between pb-5 border-b border-white/10">
                   <div className="flex flex-col">
-                    <span className="font-serif-title text-lg font-bold text-[#0a1420] tracking-widest">
-                      Seleco <span className="text-[#b88917]">.</span>
+                    <span className="font-serif-title text-lg font-bold text-white tracking-widest">
+                      Seleco <span className="text-[#dfa82e]">.</span>
                     </span>
-                    <span className="text-[8px] font-semibold tracking-widest text-slate-500 uppercase mt-0.5">
+                    <span className="text-[8px] font-semibold tracking-widest text-slate-300 uppercase mt-0.5">
                       Sedana Legal Consultant
                     </span>
                   </div>
                   <button
                     onClick={() => setMobileOpen(false)}
-                    className="p-1.5 text-slate-500 hover:text-[#0a1420] focus:outline-none focus:ring-1 focus:ring-[#b88917] rounded"
+                    className="p-1.5 text-slate-300 hover:text-white focus:outline-none focus:ring-1 focus:ring-[#dfa82e] rounded"
                     aria-label="Close menu"
                   >
                     <X className="w-5 h-5" />
@@ -233,8 +233,8 @@ export default function Navbar() {
                             setMobileOpen(false);
                           }
                         }}
-                        className={`text-sm font-medium flex items-center py-3 border-b border-slate-100 transition-colors ${
-                          isActive ? 'text-[#b88917] font-bold' : 'text-slate-700 hover:text-[#b88917]'
+                        className={`text-sm font-medium flex items-center py-3 border-b border-white/10 transition-colors ${
+                          isActive ? 'text-[#dfa82e] font-bold' : 'text-slate-200 hover:text-[#dfa82e]'
                         }`}
                       >
                         <EditableText
@@ -250,7 +250,7 @@ export default function Navbar() {
                 </nav>
               </div>
 
-              <div className="pt-5 border-t border-slate-100">
+              <div className="pt-5 border-t border-white/10">
                 <Link
                   href={global?.consultationUrl || '/kontak'}
                   onClick={(e) => {
@@ -261,12 +261,12 @@ export default function Navbar() {
                       setMobileOpen(false);
                     }
                   }}
-                  className="w-full py-2.5 text-xs font-bold uppercase tracking-wider text-center text-white bg-[#0a1420] hover:bg-[#b88917] rounded-lg flex items-center justify-center gap-2 transition-colors shadow-sm"
+                  className="w-full py-2.5 text-xs font-bold uppercase tracking-wider text-center text-[#0a1420] bg-[#dfa82e] hover:bg-white rounded-lg flex items-center justify-center gap-2 transition-colors shadow-sm"
                 >
                   <EditableIcon
                     iconKey="navbar.ctaIcon"
                     fallbackIcon="Calendar"
-                    className="w-4 h-4 text-[#dfa82e]"
+                    className="w-4 h-4 text-[#0a1420]"
                     label="Ikon Konsultasi Mobile"
                   />
                   <EditableText
