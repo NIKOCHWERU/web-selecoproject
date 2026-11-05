@@ -327,89 +327,69 @@ export default async function ArticleDetailPage({ params }: PageProps) {
     .slice(0, 3);
 
   return (
-    <div className="min-h-screen bg-white text-slate-900">
-      {/* Article Top Navigation Bar */}
-      <div className="bg-[#142740] border-b border-white/10 text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2 text-xs text-slate-300 overflow-hidden">
-            <Link href="/" className="hover:text-[#dfa82e] transition-colors">Home</Link>
-            <ChevronRight className="w-3 h-3 shrink-0" />
-            <Link href="/insight" className="hover:text-[#dfa82e] transition-colors">Insight</Link>
-            <ChevronRight className="w-3 h-3 shrink-0" />
-            <span className="text-[#dfa82e] font-semibold truncate max-w-[200px] sm:max-w-xs">
-              {article.category}
+    <div className="pt-10 sm:pt-14 pb-20 bg-white min-h-screen font-sans text-slate-900">
+      <div className="container mx-auto px-4 max-w-[92%] md:max-w-5xl">
+        {/* Back Button */}
+        <div className="mb-8">
+          <Link
+            href="/insight"
+            className="inline-flex items-center text-[#0a1420] hover:text-[#dfa82e] transition-colors font-bold uppercase tracking-widest text-xs gap-2"
+          >
+            <ArrowLeft size={16} /> Kembali ke Insight
+          </Link>
+        </div>
+
+        {/* Header Section */}
+        <header className="mb-8 sm:mb-10">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="bg-[#dfa82e] text-[#0a1420] text-[10px] font-bold px-3 py-1 uppercase tracking-[0.2em] rounded-full">
+              {article.category || 'Insight'}
             </span>
           </div>
 
-          <Link
-            href="/insight"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-200 hover:text-white px-3 py-1.5 rounded-lg border border-white/20 hover:bg-white/10 transition-colors"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Kembali ke Insight</span>
-          </Link>
-        </div>
-      </div>
-
-      {/* Article Header */}
-      <header className="bg-gradient-to-b from-[#142740] to-[#0f2034] text-white border-b border-[#dfa82e]/25 pt-10 pb-12">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-[#dfa82e]/20 border border-[#dfa82e]/40 rounded-full text-[#dfa82e] text-xs font-bold uppercase tracking-wider mb-4">
-            {article.category}
-          </div>
-
-          <h1 className="font-serif-title text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6">
+          <h1 className="text-3xl md:text-5xl font-bold text-[#0a1420] mb-6 font-sans leading-tight">
             {article.title}
           </h1>
 
           {article.excerpt && (
-            <p className="text-lg sm:text-xl text-slate-200 leading-relaxed mb-6 font-normal">
+            <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-6 font-normal">
               {article.excerpt}
             </p>
           )}
 
-          {/* Author & Meta Row */}
-          <div className="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-white/15 text-xs sm:text-sm text-slate-300">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-[#dfa82e]/20 border border-[#dfa82e]/40 flex items-center justify-center text-[#dfa82e] font-bold">
-                <User className="w-5 h-5" />
-              </div>
-              <div>
-                <div className="font-bold text-white">{article.author}</div>
-                <div className="text-slate-300 text-xs">{article.authorRole || 'Tim Redaksi SELECO'}</div>
-              </div>
+          {/* Meta Info Row */}
+          <div className="flex flex-wrap items-center gap-6 text-slate-500 text-xs sm:text-sm border-b border-slate-200 pb-6 mb-8">
+            <div className="flex items-center gap-2">
+              <Calendar size={16} className="text-[#dfa82e]" />
+              <span>{article.publishedAt}</span>
             </div>
-
-            <div className="flex items-center gap-4 text-xs text-slate-300">
-              <div className="flex items-center gap-1.5">
-                <Calendar className="w-3.5 h-3.5 text-slate-400" />
-                <span>{article.publishedAt}</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5 text-slate-400" />
+            <div className="flex items-center gap-2">
+              <User size={16} className="text-[#dfa82e]" />
+              <span className="font-medium text-slate-800">{article.author}</span>
+              {article.authorRole && <span className="text-slate-400">({article.authorRole})</span>}
+            </div>
+            {article.readTime && (
+              <div className="flex items-center gap-2">
+                <Clock size={16} className="text-[#dfa82e]" />
                 <span>{article.readTime}</span>
               </div>
-            </div>
+            )}
           </div>
-        </div>
-      </header>
+        </header>
 
-      {/* Featured Cover Image */}
-      {article.coverImage && (
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 -mt-4 mb-10">
-          <div className="overflow-hidden rounded-3xl border border-slate-200 shadow-md bg-slate-100 max-h-[480px]">
+        {/* Featured Cover Image */}
+        {article.coverImage && (
+          <div className="mb-10 sm:mb-12 rounded-2xl overflow-hidden shadow-xl aspect-video max-h-[520px] bg-slate-100 border border-slate-200">
             <img
               src={article.coverImage}
               alt={article.title}
-              className="w-full h-full object-cover max-h-[480px]"
+              className="w-full h-full object-cover"
             />
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Article Body: Gutenberg Blocks Canvas */}
-      <main className="max-w-3xl mx-auto px-4 sm:px-6 py-6">
-        <article className="prose-container bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-sm text-slate-800">
+        {/* Article Body Content */}
+        <article className="prose prose-lg md:prose-xl max-w-none text-slate-800 leading-relaxed font-normal mb-16 prose-p:mb-6 prose-p:text-justify prose-headings:font-sans prose-headings:text-[#0a1420] prose-a:text-[#dfa82e] prose-ul:list-disc prose-ul:pl-6 prose-ol:list-decimal prose-ol:pl-6 prose-li:marker:text-slate-800">
           {article.blocks && article.blocks.length > 0 ? (
             article.blocks.map((block) => (
               <RenderGutenbergBlock key={block.id} block={block} />
@@ -417,98 +397,96 @@ export default async function ArticleDetailPage({ params }: PageProps) {
           ) : (
             <p className="text-slate-500 italic">Konten artikel belum ditambahkan.</p>
           )}
-
-          {/* Tags */}
-          {article.tags && article.tags.length > 0 && (
-            <div className="mt-10 pt-6 border-t border-slate-200">
-              <div className="flex flex-wrap items-center gap-2">
-                <Tag className="w-4 h-4 text-[#b88917]" />
-                <span className="text-xs font-bold text-[#0a1420] uppercase tracking-wider mr-1">Tags:</span>
-                {article.tags.map((tag, idx) => (
-                  <span
-                    key={idx}
-                    className="text-xs px-2.5 py-1 bg-slate-100 border border-slate-200 text-slate-700 rounded-lg hover:border-[#dfa82e]/50 hover:text-[#b88917] transition-colors"
-                  >
-                    #{tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
         </article>
 
-        {/* Consultation Call To Action Banner */}
-        <section className="my-12 rounded-3xl p-8 bg-slate-50 border border-slate-200 text-slate-900 shadow-sm relative overflow-hidden">
-          <div className="relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#dfa82e]/15 border border-[#dfa82e]/35 rounded-full text-[#b88917] text-xs font-bold uppercase tracking-wider mb-4">
-              <ShieldCheck className="w-3.5 h-3.5" /> Konsultasi Konsultan Korporasi
-            </div>
-            <h3 className="font-serif-title text-2xl sm:text-3xl font-bold mb-3 text-[#0a1420]">
-              Butuh Pendampingan Izin Usaha &amp; Kepatuhan Regulasi?
-            </h3>
-            <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-6 max-w-xl">
-              Tim konsultan SELECO siap membantu verifikasi risiko KBLI, pengurusan OSS RBA, dan audit kepatuhan korporasi Anda secara tepat dan profesional.
-            </p>
-            <div className="flex flex-wrap items-center gap-3">
-              <a
-                href="https://wa.me/6282211020022?text=Halo%20SELECO,%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20konsultan%20dan%20perizinan"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-3 bg-[#0a1420] hover:bg-[#b88917] text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-sm flex items-center gap-2"
+        {/* Tags */}
+        {article.tags && article.tags.length > 0 && (
+          <div className="mb-12 pt-6 border-t border-slate-200 flex items-center gap-2 flex-wrap">
+            <Tag size={16} className="text-[#dfa82e]" />
+            <span className="text-xs font-bold uppercase tracking-wider text-[#0a1420]">Tags:</span>
+            {article.tags.map((tag, idx) => (
+              <span
+                key={idx}
+                className="text-xs px-2.5 py-1 bg-slate-100 border border-slate-200 text-slate-700 rounded-lg hover:border-[#dfa82e]/50 transition-colors"
               >
-                <Phone className="w-4 h-4 text-white" />
-                <span>Konsultasi Sekarang</span>
-              </a>
-              <Link
-                href="/tentang"
-                className="px-5 py-3 border border-slate-300 hover:border-[#0a1420] text-[#0a1420] hover:bg-white bg-white text-xs font-semibold rounded-xl transition-all"
-              >
-                Tentang SELECO
-              </Link>
-            </div>
+                #{tag}
+              </span>
+            ))}
           </div>
-        </section>
+        )}
 
-        {/* Related Articles */}
+        {/* Related Articles Section */}
         {relatedArticles.length > 0 && (
-          <section className="my-12">
-            <h3 className="font-serif-title text-2xl font-bold text-[#0a1420] mb-6">
-              Insight Terkait Lainnya
-            </h3>
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {relatedArticles.map((item) => (
+          <div className="mt-8 mb-16 pt-12 border-t border-slate-200">
+            <div className="text-center md:text-left mb-8">
+              <h4 className="text-[#dfa82e] font-black tracking-[0.2em] uppercase text-xs mb-2">
+                Sentral Edukasi &amp; Regulasi
+              </h4>
+              <h2 className="text-2xl sm:text-3xl font-black text-[#0a1420] uppercase font-sans tracking-wide">
+                Insight &amp; Analisis Terkait
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {relatedArticles.map((relArt) => (
                 <Link
-                  key={item.id}
-                  href={`/insight/${item.slug}`}
-                  className="group block rounded-2xl overflow-hidden bg-slate-50/70 border border-slate-200 hover:border-[#dfa82e]/60 hover:bg-white shadow-xs transition-all flex flex-col justify-between"
+                  href={`/insight/${relArt.slug}`}
+                  key={relArt.id}
+                  className="flex flex-col group h-full bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-[#dfa82e]/50 rounded-xl p-4 transition-all duration-300"
                 >
-                  <div>
-                    <div className="h-40 overflow-hidden bg-slate-100 border-b border-slate-200">
-                      <img
-                        src={item.coverImage}
-                        alt={item.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-                    <div className="p-4">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#b88917] bg-[#dfa82e]/15 border border-[#dfa82e]/35 px-2 py-0.5 rounded">
-                        {item.category}
-                      </span>
-                      <h4 className="font-serif-title text-sm font-bold text-[#0a1420] mt-2 line-clamp-2 group-hover:text-[#b88917] transition-colors">
-                        {item.title}
-                      </h4>
-                    </div>
+                  <div className="w-full h-40 bg-slate-100 mb-4 overflow-hidden rounded-lg relative">
+                    <img
+                      src={relArt.coverImage}
+                      alt={relArt.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
                   </div>
-                  <div className="px-4 pb-4 pt-0 text-xs font-semibold text-slate-400 flex items-center justify-between border-t border-slate-200 pt-3">
-                    <span>{item.readTime}</span>
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-[#b88917]" />
+                  <div className="text-[#dfa82e] text-[10px] font-black tracking-widest uppercase mb-2">
+                    {relArt.category || 'Insight'}
+                  </div>
+                  <h4 className="text-sm font-bold text-[#0a1420] mb-3 line-clamp-2 uppercase font-sans group-hover:text-[#dfa82e] transition-colors leading-snug">
+                    {relArt.title}
+                  </h4>
+                  <div className="mt-auto pt-3 flex justify-between items-center border-t border-slate-100 text-xs text-slate-400">
+                    <div className="flex items-center gap-1.5">
+                      <Calendar size={12} className="text-[#dfa82e]" />
+                      <span>{relArt.publishedAt}</span>
+                    </div>
+                    <span>{relArt.readTime}</span>
                   </div>
                 </Link>
               ))}
             </div>
-          </section>
+          </div>
         )}
-      </main>
+
+        {/* Consultation CTA Banner */}
+        <div className="mt-12 mb-12 relative overflow-hidden rounded-2xl max-w-4xl mx-auto shadow-xl bg-[#0a1420] text-white border border-[#dfa82e]/30">
+          <div className="relative z-10 p-6 md:p-8 text-center">
+            <div className="inline-flex items-center justify-center w-12 h-12 bg-[#dfa82e]/20 rounded-xl mb-4 border border-[#dfa82e]/30">
+              <MessageCircle className="text-[#dfa82e] w-6 h-6" />
+            </div>
+            <h2 className="text-lg md:text-xl font-bold text-white mb-3 uppercase tracking-widest font-sans">
+              Butuh Konsultasi Korporasi &amp; Legalitas?
+            </h2>
+            <p className="text-slate-300 text-xs md:text-sm max-w-2xl mx-auto mb-6 leading-relaxed">
+              Jangan biarkan perizinan, keimigrasian, perpajakan, atau masalah SDM menghambat bisnis Anda. Tim konsultan SELECO siap memberikan arahan dan kepastian regulasi.
+            </p>
+            <a
+              href="https://wa.me/6282211020022?text=Halo%20SELECO,%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20korporasi"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-[#dfa82e] hover:bg-white text-[#0a1420] font-bold py-3 px-6 text-sm rounded-lg transition-all shadow-md group"
+            >
+              Konsultasi Sekarang
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </a>
+            <div className="mt-6 flex items-center justify-center gap-2 text-slate-400 text-xs">
+              <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+              Tersedia untuk Konsultasi Online &amp; Tatap Muka
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
