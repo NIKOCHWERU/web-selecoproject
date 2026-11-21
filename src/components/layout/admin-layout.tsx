@@ -101,6 +101,9 @@ export default function AdminLayout({
 
       const data = await res.json();
       if (res.ok && data.success) {
+        if (data.token) {
+          sessionStorage.setItem('seleco_admin_token', data.token);
+        }
         sessionStorage.setItem('seleco_admin_auth', 'true');
         sessionStorage.setItem('seleco_admin_auth_editor', 'true');
         sessionStorage.setItem('seleco_admin_auth_articles', 'true');
@@ -123,7 +126,11 @@ export default function AdminLayout({
     }
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/admin/auth', { method: 'DELETE' });
+    } catch {}
+    sessionStorage.removeItem('seleco_admin_token');
     sessionStorage.removeItem('seleco_admin_auth');
     sessionStorage.removeItem('seleco_admin_auth_editor');
     sessionStorage.removeItem('seleco_admin_auth_articles');

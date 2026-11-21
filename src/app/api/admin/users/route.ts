@@ -1,10 +1,14 @@
 import { NextResponse } from 'next/server';
-import { getAdminUsers, createAdminUser, updateAdminUser, deleteAdminUser } from '@/lib/authService';
+import { getAdminUsers, createAdminUser, updateAdminUser, deleteAdminUser, verifyAdminRequest } from '@/lib/authService';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    if (!verifyAdminRequest(request)) {
+      return NextResponse.json({ success: false, error: 'Akses ditolak: Autentikasi admin diperlukan.' }, { status: 401 });
+    }
+
     const users = getAdminUsers();
     // Strip passwords before returning
     const safeUsers = users.map(({ password, ...u }) => u);
@@ -16,6 +20,10 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
+    if (!verifyAdminRequest(request)) {
+      return NextResponse.json({ success: false, error: 'Akses ditolak: Autentikasi admin diperlukan.' }, { status: 401 });
+    }
+
     const body = await request.json();
     const { action, id, username, name, email, password, role } = body;
 
@@ -44,6 +52,10 @@ export async function POST(request: Request) {
 
 export async function DELETE(request: Request) {
   try {
+    if (!verifyAdminRequest(request)) {
+      return NextResponse.json({ success: false, error: 'Akses ditolak: Autentikasi admin diperlukan.' }, { status: 401 });
+    }
+
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
     if (!id) {
@@ -60,3 +72,4 @@ export async function DELETE(request: Request) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }
+

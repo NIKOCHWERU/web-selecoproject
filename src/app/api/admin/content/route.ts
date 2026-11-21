@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getSiteContent, saveSiteContent } from '@/lib/contentService';
 import { defaultSiteContent } from '@/data/defaultSiteContent';
+import { verifyAdminRequest } from '@/lib/authService';
 
 export const dynamic = 'force-dynamic';
 
@@ -18,6 +19,13 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
+    if (!verifyAdminRequest(request)) {
+      return NextResponse.json(
+        { success: false, error: 'Akses ditolak: Autentikasi admin diperlukan.' },
+        { status: 401 }
+      );
+    }
+
     const body = await request.json();
     const { content } = body;
 

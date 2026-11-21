@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { authenticateUser } from '@/lib/authService';
+import { authenticateUser, createSessionToken } from '@/lib/authService';
 
 export const dynamic = 'force-dynamic';
 
@@ -13,11 +13,26 @@ export async function POST(request: Request) {
     const user = authenticateUser(userToAuth, password);
 
     if (user) {
-      return NextResponse.json({
+      const token = createSessionToken(user);
+      const response = NextResponse.json({
         success: true,
         message: 'Login berhasil!',
         user,
+        token,
       });
+
+      // Set secure HttpOnly cookie for server-side auth
+      response.cookies.set({
+        name: 'seleco_admin_token',
+        value: token,
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        path: '/',
+        maxAge: 60 * 60 * 24 * 7, // 7 days
+      });
+
+      return response;
     }
 
     return NextResponse.json(
@@ -30,4 +45,19 @@ export async function POST(request: Request) {
       { status: 400 }
     );
   }
+}
+
+export async function DELETE() {
+  const response = NextResponse.json({
+    success: true,
+    message: 'Logout berhasil',
+  });
+  response.cookies.set({
+    name: 'seleco_admin_token',
+    value: '',
+    httpOnly: true,
+    path: '/',
+    maxAge: 0,
+  });
+  return response;
 }

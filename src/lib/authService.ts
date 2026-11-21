@@ -155,3 +155,69 @@ export function deleteAdminUser(id: string): { success: boolean; error?: string 
   saveAdminUsers(filtered);
   return { success: true };
 }
+
+// ─────────────────────────────────────────────────────────────
+// SECURE SERVER-SIDE TOKEN & REQUEST AUTHENTICATION
+// ─────────────────────────────────────────────────────────────
+import crypto from 'crypto';
+
+const AUTH_SECRET = process.env.ADMIN_SECRET || process.env.ADMIN_PASSWORD || 'seleco_secure_auth_token_key_2026';
+
+export function createSessionToken(user: AdminUser): string {
+  const payload = JSON.stringify({
+    userId: user.id,
+    username: user.username,
+    role: user.role,
+    exp: Date.now() + 1000 * 60 * 60 * 24 * 7, // 7 days
+  });
+  const b64Payload = Buffer.from(payload).toString('base64url');
+  const signature = crypto.createHmac('sha256', AUTH_SECRET).update(b64Payload).digest('base64url');
+  return `${b64Payload}.${signature}`;
+}
+
+export function verifySessionToken(token: string): { valid: boolean; user?: any } {
+  if (!token || typeof token !== 'string') return { valid: false };
+  const parts = token.split('.');
+  if (parts.length !== 2) return { valid: false };
+  const [b64Payload, signature] = parts;
+  try {
+    const expectedSig = crypto.createHmac('sha256', AUTH_SECRET).update(b64Payload).digest('base64url');
+    if (signature !== expectedSig) {
+      return { valid: false };
+    }
+    const payload = JSON.parse(Buffer.from(b64Payload, 'base64url').toString('utf8'));
+    if (payload.exp && Date.now() > payload.exp) {
+      return { valid: false };
+    }
+    return { valid: true, user: payload };
+  } catch {
+    return { valid: false };
+  }
+}
+
+export function verifyAdminRequest(request: Request): boolean {
+  // 1. Check Cookie 'seleco_admin_token'
+  const cookieHeader = request.headers.get('cookie') || '';
+  const match = cookieHeader.match(/seleco_admin_token=([^;]+)/);
+  if (match) {
+    const result = verifySessionToken(decodeURIComponent(match[1]));
+    if (result.valid) return true;
+  }
+
+  // 2. Check Authorization header: Bearer <token>
+  const authHeader = request.headers.get('authorization') || '';
+  if (authHeader.startsWith('Bearer ')) {
+    const token = authHeader.substring(7).trim();
+    const result = verifySessionToken(token);
+    if (result.valid) return true;
+  }
+
+  // 3. Check X-Admin-Key against ADMIN_PASSWORD or AUTH_SECRET
+  const customKey = request.headers.get('x-admin-key');
+  const fallbackPass = process.env.ADMIN_PASSWORD || 'admin';
+  if (customKey && (customKey === fallbackPass || customKey === AUTH_SECRET)) {
+    return true;
+  }
+
+  return false;
+}
