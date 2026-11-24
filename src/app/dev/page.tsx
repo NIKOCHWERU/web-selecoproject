@@ -63,13 +63,11 @@ export default function DevPortalPage() {
       <div className="max-w-3xl w-full mx-auto relative z-10">
         <div className="flex items-center justify-between border-b border-slate-800 pb-6 mb-8">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-white p-1 border border-amber-400/40 flex items-center justify-center shadow-lg shadow-amber-500/10">
-              <img
-                src="/logo-seleco.png"
-                alt="Seleco"
-                className="w-full h-full object-contain"
-              />
-            </div>
+            <img
+              src="/logo-seleco.png"
+              alt="Seleco"
+              className="h-10 sm:h-12 w-auto object-contain drop-shadow-md"
+            />
             <div>
               <h1 className="font-serif-title text-xl sm:text-2xl font-bold text-white tracking-wide">
                 Seleco Developer Portal

@@ -57,21 +57,11 @@ export default function MaintenancePage({ content }: MaintenancePageProps) {
       {/* Top Header */}
       <header className="relative z-10 max-w-6xl w-full mx-auto px-6 py-8 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-white p-1 border border-amber-400/40 flex items-center justify-center shadow-lg shadow-amber-500/10">
-            <img
-              src="/logo-seleco.png"
-              alt={brandName}
-              className="w-full h-full object-contain"
-            />
-          </div>
-          <div>
-            <div className="font-serif-title text-xl font-bold tracking-wider text-white">
-              {brandName}
-            </div>
-            <div className="text-[10px] font-semibold tracking-widest text-amber-400/80">
-              {brandTagline}
-            </div>
-          </div>
+          <img
+            src="/logo-seleco.png"
+            alt={brandName}
+            className="h-10 sm:h-12 w-auto object-contain drop-shadow-md"
+          />
         </div>
       </header>
 

@@ -81,9 +81,9 @@ export default function AdminSidebar({
       {/* Brand Header */}
       <SidebarHeader>
         <Link href="/admin" className="flex items-center gap-3 px-1 py-1 overflow-hidden">
-          <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-white p-1 border border-border shadow-xs">
+          <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-navy-950 p-1 border border-border shadow-xs">
             <img
-              src="/logo-seleco.png"
+              src="/logo-icon.png"
               alt="SELECO"
               className="size-7 object-contain"
             />

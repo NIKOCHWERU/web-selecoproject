@@ -200,11 +200,11 @@ export default function AdminLayout({
       <div className="min-h-screen w-full bg-background flex items-center justify-center p-4">
         <Card className="w-full max-w-md border-border bg-card shadow-2xl p-6 sm:p-8">
           <CardHeader className="text-center pb-6">
-            <div className="flex size-14 items-center justify-center rounded-2xl bg-white p-2 border border-border mx-auto mb-3 shadow-md">
+            <div className="flex h-14 w-auto items-center justify-center mx-auto mb-3">
               <img
                 src="/logo-seleco.png"
                 alt="SELECO"
-                className="size-10 object-contain"
+                className="h-10 w-auto object-contain drop-shadow-sm"
               />
             </div>
             <CardTitle className="text-2xl font-bold tracking-tight text-foreground">

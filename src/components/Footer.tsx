@@ -48,29 +48,13 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-8 border-b border-white/10">
           {/* Brand Info */}
           <div className="space-y-3.5">
-            <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="relative w-9 h-9 shrink-0 rounded-lg overflow-hidden bg-white p-0.5 border border-[#dfa82e]/30 shadow-xs">
+            <Link href="/" className="flex items-center gap-2.5 group py-1">
+              <div className="relative h-9 sm:h-10 flex items-center">
                 <img
                   src={global?.logo || '/logo-seleco.png'}
-                  alt={global?.brandName || 'Seleco'}
-                  className="w-full h-full object-contain"
+                  alt={global?.brandName || 'Seleco Project'}
+                  className="h-full w-auto max-w-[200px] object-contain drop-shadow-sm group-hover:scale-[1.02] transition-transform duration-300"
                 />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-lg font-bold tracking-wider font-serif text-white">
-                  <EditableText
-                    fieldPath="global.brandName"
-                    fallback="SELECO"
-                    label="Nama Brand"
-                  />
-                </span>
-                <span className="text-[9px] text-[#dfa82e] tracking-[0.2em] uppercase mt-0.5 font-semibold">
-                  <EditableText
-                    fieldPath="global.brandTagline"
-                    fallback="Sedana legal consultant"
-                    label="Tagline Brand"
-                  />
-                </span>
               </div>
             </Link>
             <p className="text-slate-300 text-xs leading-relaxed max-w-sm font-normal">

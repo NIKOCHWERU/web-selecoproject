@@ -73,30 +73,14 @@ export default function Navbar() {
                 e.stopPropagation();
               }
             }}
-            className="flex items-center gap-2.5 group"
+            className="flex items-center gap-3 group py-1"
           >
-            <div className="relative w-8 h-8 sm:w-9 sm:h-9 shrink-0 rounded-lg overflow-hidden bg-white/10 flex items-center justify-center p-0.5 border border-white/20 group-hover:border-[#dfa82e]/60 transition-all shadow-sm">
+            <div className="relative h-8 sm:h-9 md:h-10 flex items-center">
               <img
                 src={global?.logo || '/logo-seleco.png'}
-                alt={global?.brandName || 'Seleco'}
-                className="w-full h-full object-contain"
+                alt={global?.brandName || 'Seleco Project'}
+                className="h-full w-auto max-w-[170px] sm:max-w-[210px] md:max-w-[240px] object-contain drop-shadow-sm group-hover:scale-[1.02] transition-transform duration-300"
               />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-base md:text-xl font-bold tracking-[0.12em] uppercase font-serif text-white border-b border-[#dfa82e]/50 pb-0.5 leading-tight group-hover:text-[#dfa82e] transition-colors">
-                <EditableText
-                  fieldPath="global.brandName"
-                  fallback="SELECO"
-                  label="Nama Brand"
-                />
-              </span>
-              <span className="text-[7px] md:text-[8px] text-slate-300 tracking-[0.25em] uppercase mt-0.5 font-sans whitespace-nowrap">
-                <EditableText
-                  fieldPath="global.brandTagline"
-                  fallback="Sedana Legal Consultant"
-                  label="Tagline Brand"
-                />
-              </span>
             </div>
           </Link>
 
