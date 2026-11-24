@@ -54,9 +54,14 @@ export const metadata: Metadata = {
     type: 'website',
   },
   icons: {
-    icon: '/logo-seleco.png',
-    shortcut: '/logo-seleco.png',
-    apple: '/logo-seleco.png',
+    icon: [
+      { url: '/favicon.ico?v=20261124' },
+      { url: '/logo-icon.png?v=20261124', sizes: '512x512', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico?v=20261124',
+    apple: [
+      { url: '/apple-touch-icon.png?v=20261124', sizes: '180x180', type: 'image/png' },
+    ],
   },
 };
 
