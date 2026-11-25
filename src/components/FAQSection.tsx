@@ -1,41 +1,39 @@
 'use client';
 
 import { useState } from 'react';
-import { Plus, Minus } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useContent } from '@/context/ContentContext';
 import { EditableText, EditableSection } from './EditableElement';
 
 export default function FAQSection() {
-  const [openIdx, setOpenIdx] = useState<number | null>(null);
+  const [openIdx, setOpenIdx] = useState<number | null>(0);
   const { content } = useContent();
   const faq = content?.faq;
   const items = faq?.items || [];
 
   return (
-    <EditableSection id="faq" name="FAQ Pertanyaan Umum Section" className="section-y bg-slate-50 border-b border-slate-200 text-slate-900">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        <div className="text-center mb-10 sm:mb-12">
-          <div className="eyebrow-legal mb-3">
+    <EditableSection id="faq" name="FAQ Pertanyaan Umum Section" className="py-14 md:py-20 bg-gray-50 border-t border-gray-200 text-[#0a1420]">
+      <div className="container mx-auto px-4 max-w-4xl">
+        <div className="text-center mb-10">
+          <span className="inline-block px-3.5 py-1 rounded-full bg-[#dfa82e]/15 border border-[#dfa82e]/30 text-[#b88917] text-xs font-bold uppercase tracking-widest mb-3">
             <EditableText
               fieldPath="faq.badge"
-              fallback="Pertanyaan Umum"
+              fallback="Tanya Jawab"
               label="Badge FAQ"
             />
-          </div>
-          <h2 className="font-serif-title heading-section text-[#0a1420]">
+          </span>
+          <h2 className="text-2xl md:text-3xl font-bold mb-3 uppercase text-[#0a1420]">
             <EditableText
               fieldPath="faq.title"
-              fallback="Frequently Asked Questions"
+              fallback="Yang Paling Sering Ditanyakan Klien"
               label="Judul FAQ"
             />
           </h2>
-          <div className="w-16 h-[1.5px] bg-[#dfa82e] mx-auto my-4" />
-          <p className="text-sm text-slate-600 font-normal leading-relaxed">
+          <div className="w-16 h-1 bg-[#dfa82e] mx-auto mb-4" />
+          <p className="text-sm text-gray-600 max-w-2xl mx-auto">
             <EditableText
               fieldPath="faq.subtitle"
-              fallback={faq?.subtitle || 'Pertanyaan yang sering diajukan seputar layanan kami'}
+              fallback="Jawaban singkat soal alur kerja, estimasi waktu, jangkauan wilayah, dan biaya."
               label="Subjudul FAQ"
               multiline={true}
             />
@@ -46,50 +44,38 @@ export default function FAQSection() {
           {items.map((item: any, idx: number) => (
             <div
               key={idx}
-              className="rounded-md border px-5 sm:px-6 py-4 bg-white border-[#0f2034]/12 hover:border-[#b88917]/60 transition-colors"
+              className="rounded-xl border px-5 py-4 bg-white border-gray-200"
             >
               <button
+                type="button"
                 onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
-                className="w-full min-h-[44px] flex items-center justify-between text-left font-bold text-sm gap-4 text-[#0a1420] cursor-pointer"
+                className="w-full min-h-[44px] flex items-center justify-between text-left font-bold text-sm md:text-base gap-4 text-[#0a1420] cursor-pointer"
                 aria-expanded={openIdx === idx}
               >
-                <div className="flex items-center gap-3.5">
-                  <span className="font-serif-title text-sm font-bold text-[#0f2034] shrink-0">
-                    0{idx + 1}
-                  </span>
-                  <span className="font-semibold text-[#0a1420] leading-snug">
-                    <EditableText
-                      fieldPath={`faq.items.${idx}.question`}
-                      fallback={item.question || item.q}
-                      label={`Pertanyaan #${idx + 1}`}
-                    />
-                  </span>
-                </div>
-                <span className="shrink-0 text-[#0a1420]">
-                  {openIdx === idx ? <Minus className="w-4 h-4 text-[#0a1420]" /> : <Plus className="w-4 h-4 text-slate-600" />}
+                <span>
+                  <EditableText
+                    fieldPath={`faq.items.${idx}.question`}
+                    fallback={item.question || item.q}
+                    label={`Pertanyaan #${idx + 1}`}
+                  />
                 </span>
+                {openIdx === idx ? (
+                  <ChevronUp size={18} className="text-[#b88917] shrink-0" />
+                ) : (
+                  <ChevronDown size={18} className="text-gray-400 shrink-0" />
+                )}
               </button>
 
-              <AnimatePresence>
-                {openIdx === idx && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                    className="overflow-hidden"
-                  >
-                    <div className="mt-2.5 pt-2.5 border-t border-slate-100 text-xs leading-relaxed text-slate-600 font-normal">
-                      <EditableText
-                        fieldPath={`faq.items.${idx}.answer`}
-                        fallback={item.answer || item.a}
-                        label={`Jawaban #${idx + 1}`}
-                        multiline={true}
-                      />
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              {openIdx === idx && (
+                <div className="mt-3 pt-3 border-t border-gray-100 text-sm leading-relaxed text-gray-600">
+                  <EditableText
+                    fieldPath={`faq.items.${idx}.answer`}
+                    fallback={item.answer || item.a}
+                    label={`Jawaban #${idx + 1}`}
+                    multiline={true}
+                  />
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -97,4 +83,3 @@ export default function FAQSection() {
     </EditableSection>
   );
 }
-

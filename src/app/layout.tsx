@@ -1,37 +1,37 @@
 import type { Metadata } from 'next';
-import { Plus_Jakarta_Sans, Cormorant_Garamond } from 'next/font/google';
+import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import React from 'react';
 import { ContentProvider } from '@/context/ContentContext';
 import { getSiteContent } from '@/lib/contentService';
 import SiteWrapper from '@/components/SiteWrapper';
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-jakarta',
+  variable: '--font-inter',
 });
 
-const cormorantGaramond = Cormorant_Garamond({
+const playfairDisplay = Playfair_Display({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '600', '700'],
   style: ['normal', 'italic'],
   display: 'swap',
-  variable: '--font-cormorant',
+  variable: '--font-playfair',
 });
 
 export const metadata: Metadata = {
-  title: 'SELECO | SEDANA LEGAL CONSULTANT | Perizinan, Imigrasi, Pajak, Pertanahan & SDM',
-  description: 'SELECO (SEDANA LEGAL CONSULTANT) menyediakan 5 pilar konsultan profesional: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM.',
-  keywords: 'konsultan perizinan usaha, konsultan imigrasi kitas tka, konsultan pajak spt badan, konsultan pertanahan bpn, konsultan sdm ketenagakerjaan, seleco sedana legal consultant',
+  title: 'SELECO | Konsultan Hukum, Perizinan, Imigrasi, Pajak & SDM se-Indonesia',
+  description: 'PT SELECO SWAKARYA NUSANTARA (SELECO) - layanan komprehensif dan terintegrasi untuk perizinan OSS RBA, imigrasi, pajak, pertanahan, dan ketenagakerjaan. Solusi efektif dan pasti, #YouBetterWithUs.',
+  keywords: 'konsultan perizinan usaha, konsultan imigrasi kitas tka, konsultan pajak spt badan, konsultan pertanahan bpn, konsultan sdm ketenagakerjaan, seleco sedana legal consultant, pt seleco swakarya nusantara',
   robots: {
     index: false,
     follow: false,
     nocache: true,
   },
   openGraph: {
-    title: 'SELECO | SEDANA LEGAL CONSULTANT',
-    description: '5 Pilar Konsultan: Perizinan, Imigrasi, Pajak, Pertanahan & SDM (445+ Solusi Layanan)',
+    title: 'SELECO | Konsultan Hukum, Perizinan, Imigrasi, Pajak & SDM se-Indonesia',
+    description: 'PT SELECO SWAKARYA NUSANTARA (SELECO) - layanan komprehensif dan terintegrasi untuk perizinan OSS RBA, imigrasi, pajak, pertanahan, dan ketenagakerjaan. Solusi efektif dan pasti, #YouBetterWithUs.',
     url: `https://${process.env.NEXT_PUBLIC_DOMAIN || 'selecoproject.com'}`,
     siteName: 'SELECO',
     images: [
@@ -65,8 +65,8 @@ export default function RootLayout({
   const initialContent = getSiteContent();
 
   return (
-    <html lang="id" className={`${plusJakartaSans.variable} ${cormorantGaramond.variable} scroll-smooth`}>
-      <body className={`${plusJakartaSans.className} bg-white text-slate-900 antialiased min-h-screen flex flex-col justify-between selection:bg-[#dfa82e]/20 selection:text-[#0a1420]`}>
+    <html lang="id" className={`${inter.variable} ${playfairDisplay.variable} scroll-smooth`}>
+      <body className={`${inter.className} bg-gray-50 text-[#0a1420] antialiased min-h-screen flex flex-col justify-between selection:bg-[#dfa82e]/20 selection:text-[#0a1420]`}>
         <ContentProvider initialContent={initialContent}>
           <SiteWrapper>{children}</SiteWrapper>
         </ContentProvider>

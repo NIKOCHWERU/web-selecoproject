@@ -17,23 +17,23 @@ export default function InsightPage() {
   return (
     <div className="min-h-screen bg-white text-slate-900">
       {/* Page Hero Banner */}
-      <div className="bg-gradient-to-b from-[#142740] to-[#0f2034] text-white border-b border-[#dfa82e]/25 py-10 sm:py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="bg-gradient-to-b from-[#142740] to-[#0a1420] text-white border-b border-[#dfa82e]/25 pt-28 pb-12">
+        <div className="container mx-auto px-4 max-w-6xl">
           <div className="flex items-center gap-2 text-xs text-slate-300 mb-3">
-            <Link href="/" className="hover:text-[#dfa82e] transition-colors">Home</Link>
+            <Link href="/" className="hover:text-[#dfa82e] transition-colors">Beranda</Link>
             <ChevronRight className="w-3 h-3" />
             <span className="text-[#dfa82e] font-semibold">Insight</span>
           </div>
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#dfa82e]/20 border border-[#dfa82e]/40 rounded text-[#dfa82e] text-xs font-bold tracking-wide mb-2.5">
-              <BookOpen className="w-3.5 h-3.5" /> PUBLIKASI EDITORIAL &amp; REGULASI
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#dfa82e]/20 border border-[#dfa82e]/40 rounded-full text-[#dfa82e] text-xs font-bold uppercase tracking-widest mb-3">
+              <BookOpen className="w-3.5 h-3.5" /> PUBLIKASI &amp; REGULASI
             </div>
-            <h1 className="font-serif-title text-2xl sm:text-3xl lg:text-3xl font-bold text-white leading-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight uppercase">
               Insight &amp; Analisis Regulasi Bisnis
             </h1>
-            <div className="w-12 h-0.5 bg-[#dfa82e] mt-2.5 mb-3 rounded-full" />
-            <p className="text-xs sm:text-sm text-slate-200 max-w-2xl leading-relaxed font-normal">
-              Perspektif strategis dan regulasi dari tim konsultan SELECO untuk pengambilan keputusan bisnis yang lebih terukur dan aman dari risiko operasional.
+            <div className="w-16 h-1 bg-[#dfa82e] mt-4 mb-4" />
+            <p className="text-sm md:text-base text-slate-200 max-w-2xl leading-relaxed font-light">
+              Perspektif dari tim konsultan SELECO untuk keputusan bisnis yang lebih terukur dan minim risiko.
             </p>
           </div>
         </div>

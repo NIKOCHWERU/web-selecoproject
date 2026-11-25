@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 import { useContent } from '@/context/ContentContext';
 import { EditableText, EditableImage, EditableSection } from './EditableElement';
 
@@ -11,73 +11,68 @@ export default function InsightsSection() {
   const articles = insights?.articles || [];
 
   return (
-    <EditableSection id="insights" name="Publikasi Insight Section" className="section-y bg-white border-b border-slate-200 text-slate-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div className="max-w-2xl mb-12">
-          <div className="eyebrow-legal mb-3">
+    <EditableSection id="insights" name="Publikasi Insight Section" className="py-14 md:py-20 bg-white text-[#0a1420]">
+      <div className="container mx-auto px-4 max-w-6xl">
+        <div className="text-center mb-12">
+          <span className="inline-block px-3.5 py-1 rounded-full bg-[#dfa82e]/15 border border-[#dfa82e]/30 text-[#b88917] text-xs font-bold uppercase tracking-widest mb-3">
             <EditableText
               fieldPath="insights.badge"
-              fallback="Publikasi Editorial"
+              fallback="Publikasi & Catatan Regulasi"
               label="Badge Insight"
             />
-          </div>
-          <h2 className="font-serif-title heading-section text-[#0a1420]">
+          </span>
+          <h2 className="text-2xl md:text-4xl font-bold mb-3 uppercase tracking-wide text-[#0a1420]">
             <EditableText
               fieldPath="insights.title"
-              fallback="Legal Insights"
+              fallback="Regulasi Berubah Cepat. Anda Tetap Selangkah di Depan."
               label="Judul Insight"
             />
           </h2>
-          <div className="w-16 h-[1.5px] bg-[#dfa82e] my-4" />
-          <p className="text-sm text-slate-600 font-normal leading-[1.7]">
+          <div className="w-16 h-1 bg-[#dfa82e] mx-auto mb-4" />
+          <p className="text-sm md:text-base max-w-2xl mx-auto text-gray-600">
             <EditableText
               fieldPath="insights.subtitle"
-              fallback="Perspektif strategis dan regulasi dari tim konsultan SELECO untuk pengambilan keputusan bisnis yang lebih terukur."
+              fallback="Ringkasan aturan baru dan panduan praktis dari tim konsultan kami untuk membantu manajemen mengambil keputusan yang tepat."
               label="Subjudul Insight"
               multiline={true}
             />
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {articles.map((article: any, idx: number) => (
-            <motion.article
+            <article
               key={article.id || idx}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.35, delay: idx * 0.04 }}
-              className="bg-white border border-[#0f2034]/12 rounded-md overflow-hidden flex flex-col hover:border-[#b88917]/60 transition-colors group"
+              className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:border-[#dfa82e] transition-all flex flex-col group"
             >
-              <div className="h-44 sm:h-48 overflow-hidden border-b border-[#0f2034]/10 bg-slate-100">
+              <div className="h-48 overflow-hidden border-b border-gray-200 bg-gray-100">
                 <EditableImage
                   fieldPath={`insights.articles.${idx}.image`}
                   fallback={article.image || article.img}
                   alt={article.title}
                   label={`Foto Artikel #${idx + 1}`}
-                  className="w-full h-full object-cover transition-opacity duration-300 opacity-95 group-hover:opacity-100"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
-              <div className="p-5 flex flex-col flex-grow">
-                <div className="flex items-center justify-between text-xs text-slate-600 mb-2.5">
-                  <span className="bg-[#dfa82e]/15 text-[#0a1420] font-semibold px-2 py-0.5 rounded text-xs border border-[#dfa82e]/35">
+              <div className="p-6 flex flex-col flex-grow">
+                <div className="flex items-center justify-between text-xs text-gray-500 mb-3">
+                  <span className="bg-[#dfa82e]/15 text-[#b88917] font-bold px-2.5 py-0.5 rounded-full text-[11px] uppercase tracking-wider border border-[#dfa82e]/30">
                     <EditableText
                       fieldPath={`insights.articles.${idx}.tag`}
-                      fallback={article.tag || article.category || 'Konsultan'}
+                      fallback={article.tag || article.category || 'Regulasi'}
                       label={`Tag Artikel #${idx + 1}`}
                     />
                   </span>
-                  <span className="text-xs text-slate-600">{article.readTime || article.date}</span>
+                  <span className="text-xs text-gray-500">{article.readTime || article.date}</span>
                 </div>
-                <h3 className="font-serif-title text-base sm:text-lg font-bold text-[#0a1420] leading-snug mb-2 group-hover:text-[#0f2034] transition-colors">
+                <h3 className="text-lg font-bold text-[#0a1420] leading-snug mb-2 group-hover:text-[#b88917] transition-colors">
                   <EditableText
                     fieldPath={`insights.articles.${idx}.title`}
                     fallback={article.title}
                     label={`Judul Artikel #${idx + 1}`}
                   />
                 </h3>
-                <p className="text-xs text-slate-600 leading-relaxed line-clamp-2 mb-4 flex-grow font-normal">
+                <p className="text-xs md:text-sm text-gray-600 leading-relaxed line-clamp-3 mb-5 flex-grow">
                   <EditableText
                     fieldPath={`insights.articles.${idx}.excerpt`}
                     fallback={article.excerpt}
@@ -85,23 +80,25 @@ export default function InsightsSection() {
                     multiline={true}
                   />
                 </p>
-                <Link href="/insight" className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0a1420] border-t border-slate-200 pt-3 hover:underline transition-colors">
-                  Baca Insight
+                <Link
+                  href="/insight"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#0a1420] hover:text-[#b88917] border-t border-gray-100 pt-3.5 transition-colors"
+                >
+                  Baca Selengkapnya <ArrowRight size={14} />
                 </Link>
               </div>
-            </motion.article>
+            </article>
           ))}
         </div>
 
         <div className="mt-10 text-center">
           <Link
             href="/insight"
-            className="btn btn-dark"
+            className="inline-flex items-center gap-2 bg-[#0a1420] hover:bg-[#dfa82e] text-white hover:text-[#0a1420] px-7 py-3.5 rounded-lg font-bold text-xs uppercase tracking-widest transition-all"
           >
-            Lihat Semua Insight Editorial
+            Baca Semua Insight <ArrowRight size={15} />
           </Link>
         </div>
-
       </div>
     </EditableSection>
   );

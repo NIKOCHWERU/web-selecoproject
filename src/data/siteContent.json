@@ -8,22 +8,23 @@
     "email": "hello@selecoproject.com",
     "address": "Jl. M.H. Thamrin No. 9 Lt 12, Kebon Sirih, Menteng, DKI Jakarta 10340",
     "consultationUrl": "/kontak",
-    "badgeText": "Lima Bidang Praktik Utama",
+    "consultationText": "Konsultasi Gratis",
+    "badgeText": "Lima Bidang, Satu Tim Terpadu",
     "totalServices": "445+",
-    "litigationCount": "34",
+    "litigationCount": "445",
     "ossLicenseCount": "411+",
     "logo": "/logo-seleco.png"
   },
   "hero": {
-    "topBadge": "Lima Bidang Praktik Utama",
-    "headlinePart1": "Pendampingan Hukum dan Perizinan untuk",
-    "headlineItalic": "Kepastian Usaha Anda.",
-    "subheadline": "SELECO mendampingi perusahaan nasional dan penanaman modal asing dalam pengurusan perizinan usaha, keimigrasian, perpajakan, pertanahan, serta ketenagakerjaan. Tim kami bekerja langsung pada dokumen, instansi teknis, dan tenggat regulasi agar operasional perusahaan Anda berjalan tertib.",
+    "topBadge": "Lima Bidang, Satu Tim Terpadu",
+    "headlinePart1": "Satu Mitra Hukum untuk Semua Kebutuhan Legal Usaha Anda,",
+    "headlineItalic": "di Seluruh Indonesia.",
+    "subheadline": "Layanan komprehensif dan terintegrasi untuk perizinan, imigrasi, pajak, pertanahan, dan ketenagakerjaan. Dapatkan langkah yang lebih efektif dan hasil yang pasti bersama SELECO, sebab #YouBetterWithUs.",
     "bgImage": "https://images.unsplash.com/photo-1453945619913-79ec89a82c51?auto=format&fit=crop&w=1920&q=80",
     "bgVideo": "/bg_hero.mp4",
-    "ctaButton1Text": "Lihat 445+ Daftar Layanan",
+    "ctaButton1Text": "Jelajahi 445+ Layanan",
     "ctaButton1Link": "/layanan",
-    "ctaButton2Text": "Jadwalkan Pertemuan Konsultasi",
+    "ctaButton2Text": "Jadwalkan Konsultasi",
     "ctaButton2Link": "/kontak",
     "featurePills": [
       "Perizinan Usaha & OSS",
@@ -32,54 +33,54 @@
       "Pertanahan & BPN",
       "Ketenagakerjaan & SDM"
     ],
-    "sealQuote": "Kepastian Prosedur dan Kepatuhan Hukum Perusahaan.",
-    "sealDescription": "Kantor konsultan hukum korporasi di Jakarta Pusat untuk perizinan berusaha OSS RBA, keimigrasian TKA, perpajakan badan, pertanahan BPN, dan ketenagakerjaan.",
-    "stat1Number": "10+",
-    "stat1Label": "Tahun Pengalaman",
-    "stat2Number": "445+",
-    "stat2Label": "Cakupan Layanan"
+    "sealQuote": "#YouBetterWithUs",
+    "sealDescription": "Layanan komprehensif dan terintegrasi se-Indonesia. Dapatkan langkah serta solusi yang lebih efektif dan pasti bersama kami.",
+    "stat1Number": "445+",
+    "stat1Label": "Layanan dalam Satu Pintu",
+    "stat2Number": "411+",
+    "stat2Label": "Klasifikasi Izin OSS RBA"
   },
   "about": {
     "badge": "Profil Firma",
-    "title": "Mitra Kerja Hukum untuk",
-    "titleAccent": "Operasional Korporasi.",
-    "paragraph1": "Sedana Legal Consultant (SELECO) berkantor di kawasan M.H. Thamrin, Jakarta Pusat. Kami menangani legalitas usaha, izin tinggal tenaga kerja asing, kepatuhan pajak badan, sertifikasi tanah BPN, hingga penyusunan aturan ketenagakerjaan bagi perusahaan di Indonesia.",
-    "paragraph2": "Tim kami menangani 411+ klasifikasi izin usaha OSS RBA serta koordinasi lintas kementerian dan dinas daerah agar setiap tahapan perizinan jelas jadwal, dokumen, dan dasar hukumnya.",
+    "title": "Bukan Sekadar Mengurus Izin.",
+    "titleAccent": "Kami Memastikan Usaha Anda Berjalan Pasti.",
+    "paragraph1": "PT SELECO SWAKARYA NUSANTARA, yang dikenal dengan nama SELECO (Sedana Legal Consultant), berkantor di kawasan M.H. Thamrin, Jakarta Pusat. Kami menangani legalitas usaha, izin tinggal tenaga kerja asing, kepatuhan pajak badan, sertifikasi tanah, hingga peraturan ketenagakerjaan. Semuanya dalam satu tim, sehingga Anda tidak perlu lagi berpindah-pindah konsultan.",
+    "paragraph2": "Kami menguasai 411+ klasifikasi izin OSS RBA dan berkoordinasi langsung dengan kementerian serta dinas daerah di seluruh Indonesia. Setiap tahap punya jadwal, dokumen, dan dasar hukum yang jelas.",
     "image1": "https://images.unsplash.com/photo-1479142506502-19b3a3b7ff33?auto=format&fit=crop&w=1200&q=80",
     "image2": "https://images.unsplash.com/photo-1589994965851-a8f479c573a9?auto=format&fit=crop&w=800&q=80",
     "experienceYears": "10+",
     "values": [
       {
-        "title": "Kepatuhan Prosedur",
-        "description": "Setiap berkas dan permohonan kami susun sesuai ketentuan undang-undang serta aturan pelaksana yang berlaku."
+        "title": "Patuh Prosedur",
+        "description": "Setiap berkas disusun sesuai undang-undang dan aturan pelaksana yang berlaku."
       },
       {
-        "title": "Rencana Kerja Terukur",
-        "description": "Kami memetakan urutan izin, persyaratan teknis, dan potensi hambatan sebelum pengajuan dilakukan."
+        "title": "Rencana Terukur",
+        "description": "Urutan izin, persyaratan teknis, dan potensi hambatan kami petakan sebelum pengajuan."
       },
       {
-        "title": "Laporan Berkala & Biaya Jelas",
-        "description": "Klien menerima pembaruan status tiap tahap serta rincian biaya resmi PNBP dan jasa konsultan tertulis di awal."
+        "title": "Transparan & Berkala",
+        "description": "Status tiap tahap dilaporkan rutin, dan biaya resmi (PNBP) maupun jasa konsultan dirinci tertulis sejak awal."
       },
       {
-        "title": "Perlindungan Data Perusahaan",
-        "description": "Akta, laporan keuangan, dan berkas internal klien kami jaga dengan prosedur kerahasiaan ketat."
+        "title": "Data Aman",
+        "description": "Akta, laporan keuangan, dan berkas internal Anda dijaga dengan prosedur kerahasiaan ketat."
       }
     ]
   },
   "services": {
     "badge": "Bidang Praktik",
-    "title": "Lima Pilar Pendampingan Perusahaan",
-    "subtitle": "Pilih bidang praktik di bawah ini untuk melihat daftar lengkap layanan, ruang lingkup dokumen, dan jenis perizinan yang kami tangani.",
-    "ctaBannerTitle": "Perlu Peninjauan Kasus atau Izin Khusus?",
-    "ctaBannerSubtitle": "Kirimkan ringkasan bidang usaha dan lokasi proyek Anda. Tim kami akan mengecek persyaratan KBLI serta instansi terkait.",
-    "ctaBannerButtonText": "Hubungi Konsultan via WhatsApp",
+    "title": "Lima Bidang, Satu Solusi Terintegrasi",
+    "subtitle": "Kebutuhan legal perusahaan saling terkait. Karena itu kami menanganinya bersama, bukan terpisah-pisah.",
+    "ctaBannerTitle": "Kasus Anda Butuh Penanganan Khusus?",
+    "ctaBannerSubtitle": "Kirim ringkasan bidang usaha dan lokasi proyek Anda. Kami cek KBLI dan instansi terkait, lalu beri langkah paling efektif.",
+    "ctaBannerButtonText": "Chat Konsultan via WhatsApp",
     "pillars": [
       {
         "id": "perizinan",
         "name": "Konsultan Perizinan",
         "count": "242 Layanan",
-        "description": "Pendirian PT, CV, dan PMA, pengurusan NIB dan Sertifikat Standar OSS RBA, PB UMKU, izin operasional sektoral, BPOM, sertifikasi Halal, dan SNI.",
+        "description": "Pendirian PT, CV, dan PMA; NIB dan Sertifikat Standar OSS RBA; PB UMKU; izin sektoral, BPOM, Halal, dan SNI.",
         "linkText": "Lihat 242 Layanan Perizinan",
         "linkUrl": "/layanan?cat=perizinan",
         "iconName": "FileCheck"
@@ -88,7 +89,7 @@
         "id": "imigrasi",
         "name": "Konsultan Imigrasi",
         "count": "36 Layanan",
-        "description": "Pengurusan visa bisnis dan investor, KITAS dan ITAS kerja, izin tinggal tetap ITAP, RPTKA tenaga kerja asing, paspor, serta dokumen keimigrasian WNA.",
+        "description": "Visa bisnis dan investor, KITAS/ITAS kerja, ITAP, RPTKA, paspor, dan dokumen keimigrasian WNA.",
         "linkText": "Lihat 36 Layanan Imigrasi",
         "linkUrl": "/layanan?cat=imigrasi",
         "iconName": "Globe"
@@ -97,7 +98,7 @@
         "id": "pajak",
         "name": "Konsultan Pajak",
         "count": "86 Layanan",
-        "description": "Perencanaan pajak badan, pelaporan SPT Masa dan SPT Tahunan perusahaan maupun pribadi, permohonan restitusi, serta pendampingan pemeriksaan pajak.",
+        "description": "Perencanaan pajak badan, SPT Masa dan Tahunan, restitusi, serta pendampingan pemeriksaan pajak.",
         "linkText": "Lihat 86 Layanan Pajak",
         "linkUrl": "/layanan?cat=pajak",
         "iconName": "Receipt"
@@ -106,7 +107,7 @@
         "id": "pertanahan",
         "name": "Konsultan Pertanahan",
         "count": "45 Layanan",
-        "description": "Pengurusan sertifikat BPN (SHM, HGB, HGU), pengecekan keabsahan sertifikat, balik nama, roya hak tanggungan, KKPR tata ruang, serta PBG dan SLF.",
+        "description": "Sertifikat SHM, HGB, HGU; pengecekan keabsahan; balik nama; roya hak tanggungan; KKPR; PBG dan SLF.",
         "linkText": "Lihat 45 Layanan Pertanahan",
         "linkUrl": "/layanan?cat=pertanahan",
         "iconName": "Landmark"
@@ -115,7 +116,7 @@
         "id": "sdm",
         "name": "Konsultan SDM",
         "count": "36 Layanan",
-        "description": "Penyusunan Peraturan Perusahaan, Perjanjian Kerja Bersama, struktur dan skala upah, kontrak kerja PKWT dan PKWTT, kepatuhan BPJS, serta audit ketenagakerjaan.",
+        "description": "Peraturan Perusahaan, PKB, struktur dan skala upah, kontrak PKWT/PKWTT, kepatuhan BPJS, dan audit ketenagakerjaan.",
         "linkText": "Lihat 36 Layanan SDM",
         "linkUrl": "/layanan?cat=sdm",
         "iconName": "Users"
@@ -124,8 +125,19 @@
   },
   "retainer": {
     "badge": "Program Retainer Bulanan",
-    "title": "Pendampingan Hukum Berkelanjutan Tanpa Membentuk Divisi Internal.",
-    "subtitle": "Perusahaan Anda mendapatkan akses langsung ke konsultan perizinan, pajak, imigrasi, pertanahan, dan ketenagakerjaan dalam satu perjanjian bulanan yang pasti."
+    "title": "Tim Legal Siap Pakai, Tanpa Membentuk Divisi Internal.",
+    "subtitle": "Satu perjanjian bulanan memberi akses langsung ke konsultan perizinan, pajak, imigrasi, pertanahan, dan ketenagakerjaan dengan biaya yang pasti.",
+    "ctaTitle": "Skema Retainer yang Pas untuk Skala Perusahaan Anda",
+    "ctaSubtitle": "Sampaikan kebutuhan bulanan tim Anda, kami siapkan proposal ruang lingkup kerja tertulis.",
+    "ctaButtonText": "Minta Proposal Retainer",
+    "serviceItems": [
+      "Konsultasi hukum dan perizinan rutin via telepon, WhatsApp, atau tatap muka",
+      "Review dan penyusunan draf perjanjian kerja sama komersial",
+      "Penyusunan dan pembaruan Peraturan Perusahaan serta kontrak kerja",
+      "Pemantauan masa berlaku NIB, izin operasional, dan pelaporan LKPM OSS RBA",
+      "Pendampingan pajak bulanan, dokumen TKA, dan perizinan pertanahan",
+      "Audit kepatuhan berkala agar terhindar dari sanksi administratif"
+    ]
   },
   "team": {
     "badge": "Tim Praktisi",
@@ -160,91 +172,91 @@
   },
   "insights": {
     "badge": "Publikasi & Catatan Regulasi",
-    "title": "Pembaruan Regulasi dan Praktik Hukum Usaha",
-    "subtitle": "Ringkasan aturan baru dan panduan praktis dari tim konsultan kami untuk membantu manajemen mengambil keputusan tepat.",
+    "title": "Regulasi Berubah Cepat. Anda Tetap Selangkah di Depan.",
+    "subtitle": "Ringkasan aturan baru dan panduan praktis dari tim konsultan kami untuk membantu manajemen mengambil keputusan yang tepat.",
     "articles": [
       {
         "id": "1",
-        "title": "Panduan Migrasi Izin Usaha ke Sistem OSS RBA Terbaru 2026",
+        "title": "Panduan Migrasi Izin Usaha ke OSS RBA 2026",
         "tag": "Perizinan OSS",
         "date": "10 Sep 2026",
         "readTime": "5 menit baca",
         "image": "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=800&q=80",
-        "excerpt": "Tahapan penyesuaian klasifikasi KBLI dan pemenuhan persyaratan dasar perizinan berusaha berbasis risiko sesuai ketentuan pemerintah."
+        "excerpt": "Penyesuaian KBLI dan pemenuhan persyaratan dasar perizinan berbasis risiko, langkah demi langkah."
       },
       {
         "id": "2",
-        "title": "Pengelolaan Pajak dan Kepatuhan SPT Tahunan Badan Usaha",
+        "title": "Kepatuhan SPT Tahunan Badan Usaha",
         "tag": "Konsultan Pajak",
         "date": "04 Sep 2026",
         "readTime": "7 menit baca",
         "image": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80",
-        "excerpt": "Langkah penyusunan dokumen pendukung SPT badan, jadwal pelaporan rutin, dan pencegahan sanksi administrasi perpajakan."
+        "excerpt": "Dokumen pendukung, jadwal pelaporan, dan cara menghindari sanksi administrasi."
       },
       {
         "id": "3",
-        "title": "Prosedur KITAS Investor dan Izin Kerja Tenaga Kerja Asing (TKA)",
+        "title": "KITAS Investor dan Izin Kerja TKA",
         "tag": "Konsultan Imigrasi",
         "date": "28 Agu 2026",
         "readTime": "6 menit baca",
         "image": "https://images.unsplash.com/photo-1589994965851-a8f479c573a9?auto=format&fit=crop&w=800&q=80",
-        "excerpt": "Alur pengajuan RPTKA, notifikasi Kemenaker, serta penerbitan izin tinggal KITAS dan ITAP di Direktorat Jenderal Imigrasi bagi perusahaan PMA."
+        "excerpt": "Alur RPTKA, notifikasi Kemenaker, hingga penerbitan KITAS dan ITAP bagi perusahaan PMA."
       }
     ]
   },
   "faq": {
     "badge": "Tanya Jawab",
-    "title": "Pertanyaan yang Sering Ditanyakan Klien",
-    "subtitle": "Penjelasan singkat mengenai alur kerja, estimasi waktu, jangkauan wilayah, dan sistem biaya di SELECO.",
+    "title": "Yang Paling Sering Ditanyakan Klien",
+    "subtitle": "Jawaban singkat soal alur kerja, estimasi waktu, jangkauan wilayah, dan biaya.",
     "items": [
       {
         "question": "Bagaimana alur konsultasi awal di SELECO?",
-        "answer": "Hubungi tim kami melalui WhatsApp atau formulir di halaman ini. Kami menjadwalkan sesi tatap muka di kantor Thamrin atau pertemuan daring untuk memeriksa dokumen perusahaan Anda dan menyusun tahapan pengerjaan."
+        "answer": "Hubungi kami lewat WhatsApp atau formulir di halaman ini. Kami jadwalkan pertemuan di kantor Thamrin atau secara daring, memeriksa dokumen perusahaan Anda, lalu menyusun tahapan kerja."
       },
       {
-        "question": "Berapa lama waktu pengurusan izin usaha OSS RBA?",
-        "answer": "Durasi pengerjaan mengikuti tingkat risiko KBLI perusahaan Anda. Untuk risiko rendah dan menengah rendah, NIB umumnya terbit dalam 1 sampai 3 hari kerja. Untuk risiko tinggi yang memerlukan AMDAL, PBG, atau SLF, tim kami mendampingi verifikasi instansi teknis hingga izin operasional terbit."
+        "question": "Berapa lama pengurusan izin usaha OSS RBA?",
+        "answer": "Tergantung tingkat risiko KBLI. Untuk risiko rendah dan menengah rendah, NIB umumnya terbit dalam 1 sampai 3 hari kerja. Untuk risiko tinggi (AMDAL, PBG, SLF), kami mendampingi verifikasi instansi teknis sampai izin operasional terbit."
       },
       {
-        "question": "Apakah SELECO menangani perizinan di luar Jabodetabek?",
-        "answer": "Ya. Tim kami menangani pendirian badan usaha, pengurusan OSS RBA, dan izin sektoral di seluruh wilayah Indonesia melalui koordinasi dengan kementerian teknis serta DPMPTSP daerah."
+        "question": "Apakah SELECO melayani di luar Jabodetabek?",
+        "answer": "Ya. Kami menangani pendirian badan usaha, OSS RBA, dan izin sektoral di seluruh Indonesia melalui koordinasi dengan kementerian teknis dan DPMPTSP daerah."
       },
       {
-        "question": "Apa manfaat program Retainer Bulanan bagi perusahaan?",
-        "answer": "Perusahaan Anda memperoleh pendampingan rutin di bidang perizinan, imigrasi, pajak, pertanahan, dan ketenagakerjaan tanpa perlu merekrut staf legal penuh waktu. Cakupannya meliputi penelaahan kontrak, advis regulasi harian, pemantauan izin, dan audit kepatuhan berkala."
+        "question": "Apa manfaat program Retainer Bulanan?",
+        "answer": "Pendampingan rutin di lima bidang tanpa perlu merekrut staf legal penuh waktu: review kontrak, advis regulasi, pemantauan izin, dan audit kepatuhan berkala."
       },
       {
         "question": "Bagaimana rincian biaya jasa dan biaya resmi instansi?",
-        "answer": "Seluruh komponen biaya kami tuangkan secara tertulis dalam Surat Penawaran dan Perjanjian Kerja Sama sebelum pekerjaan dimulai, dengan pemisahan jelas antara biaya resmi PNBP atau retribusi instansi dan jasa konsultan."
+        "answer": "Semua biaya dicantumkan tertulis di Surat Penawaran dan Perjanjian Kerja Sama sebelum pekerjaan dimulai, dengan pemisahan jelas antara biaya resmi instansi (PNBP/retribusi) dan jasa konsultan."
       }
     ]
   },
   "contact": {
     "badge": "Kontak Kantor",
-    "title": "Sampaikan Kebutuhan Hukum dan Perizinan Anda",
-    "subtitle": "Isi ringkasan kebutuhan perusahaan Anda melalui formulir berikut. Tim konsultan kami merespons pada hari kerja, Senin sampai Jumat.",
+    "title": "Ceritakan Kebutuhan Anda, Kami Siapkan Langkahnya.",
+    "subtitle": "Isi formulir singkat berikut. Tim kami merespons pada hari kerja, Senin sampai Jumat.",
     "formTitle": "Formulir Konsultasi Awal",
     "formSubtitle": "Seluruh keterangan yang Anda kirimkan dijaga kerahasiaannya dan langsung diteruskan ke tim konsultan kami.",
     "offices": [
       {
         "city": "Jakarta (Kantor Utama)",
-        "name": "SELECO Head Office",
+        "name": "PT SELECO SWAKARYA NUSANTARA",
         "address": "Jl. M.H. Thamrin No. 9 Lt 12, Kebon Sirih, Menteng, DKI Jakarta 10340",
         "phone": "+62 822-1102-0022"
       }
     ]
   },
   "footer": {
-    "description": "SELECO (Sedana Legal Consultant) adalah kantor konsultan hukum korporasi di Jakarta Pusat yang menangani perizinan usaha, keimigrasian, perpajakan, pertanahan, dan ketenagakerjaan.",
-    "copyright": "© 2026 SELECO (Sedana Legal Consultant). Hak Cipta Dilindungi Undang-Undang."
+    "description": "SELECO (Sedana Legal Consultant) dikelola oleh PT SELECO SWAKARYA NUSANTARA, konsultan hukum korporasi di Jakarta Pusat yang menyatukan perizinan usaha, keimigrasian, perpajakan, pertanahan, dan ketenagakerjaan dalam satu layanan terintegrasi untuk klien di seluruh Indonesia. #YouBetterWithUs",
+    "copyright": "© 2026 PT SELECO SWAKARYA NUSANTARA. Seluruh hak dilindungi undang-undang."
   },
   "siteMode": {
     "status": "live",
-    "badgeText": "Website Dalam Pemeliharaan",
-    "title": "Website Resmi SELECO Sedang Dalam Pembaruan",
-    "subtitle": "Tim kami sedang memperbarui halaman direktori layanan. Untuk konsultasi perizinan, imigrasi, pajak, pertanahan, atau ketenagakerjaan, hubungi kami melalui WhatsApp atau email resmi.",
+    "badgeText": "Sedang Dalam Pembaruan",
+    "title": "Kami Sedang Menyempurnakan Website SELECO",
+    "subtitle": "Halaman direktori layanan sedang diperbarui. Untuk konsultasi perizinan, imigrasi, pajak, pertanahan, atau ketenagakerjaan, tim kami tetap siap melalui WhatsApp dan email resmi.",
     "estimatedDate": "Segera Kembali Online",
-    "whatsappText": "Hubungi Konsultan via WhatsApp"
+    "whatsappText": "Chat Konsultan via WhatsApp"
   },
   "styles": {},
   "hiddenSections": ["team"],

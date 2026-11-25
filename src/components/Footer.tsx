@@ -2,16 +2,15 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Building2, ArrowUp, MessageCircle, Mail, MapPin, Phone, Shield, FileText } from 'lucide-react';
+import { ArrowUp, Mail, Phone, Shield } from 'lucide-react';
 import { useContent } from '@/context/ContentContext';
-import { EditableText, EditableSection, EditableIcon } from './EditableElement';
+import { EditableText, EditableSection } from './EditableElement';
 
 export default function Footer() {
   const [showTopBtn, setShowTopBtn] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const { content } = useContent();
   const global = content?.global;
-  const footer = content?.footer;
 
   useEffect(() => {
     const checkMode = () => {
@@ -31,8 +30,7 @@ export default function Footer() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 400) setShowTopBtn(true);
-      else setShowTopBtn(false);
+      setShowTopBtn(window.scrollY > 400);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -42,192 +40,168 @@ export default function Footer() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const waNum = global?.whatsappNumber || '6282211020022';
+
   return (
-    <EditableSection id="footer" name="Footer Situs Section" tag="footer" className="bg-[#0a1420] text-slate-300 text-xs border-t-2 border-[#dfa82e]/40 pt-14 pb-8 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-8 border-b border-white/10">
-          {/* Brand Info */}
-          <div className="space-y-3.5">
-            <Link href="/" className="flex items-center gap-2.5 group py-1">
-              <div className="relative h-9 sm:h-10 flex items-center">
-                <img
-                  src={global?.logo || '/logo-seleco.png'}
-                  alt={global?.brandName || 'Seleco Project'}
-                  className="h-full w-auto max-w-[200px] object-contain group-hover:scale-[1.02] transition-transform duration-300"
-                />
-              </div>
+    <EditableSection
+      id="footer"
+      name="Footer Situs Section"
+      tag="footer"
+      className="bg-[#0a1420] text-white pt-16 border-t border-white/10 relative"
+    >
+      {/* Exact Web NH Footer Grid */}
+      <div className="container mx-auto px-4">
+        <div className="grid md:grid-cols-[1.5fr_1fr_1fr_1fr] gap-8 mb-12">
+          {/* Brand Column */}
+          <div className="flex flex-col">
+            <Link href="/" className="flex items-center gap-3 mb-6">
+              <img
+                src={global?.logo || '/logo-seleco.png'}
+                alt={global?.brandName || 'SELECO'}
+                className="h-11 w-auto max-w-[210px] object-contain"
+              />
             </Link>
-            <p className="text-slate-300 text-xs leading-relaxed max-w-sm font-normal">
+            <p className="text-slate-300 text-sm mb-6 leading-relaxed max-w-sm">
               <EditableText
                 fieldPath="footer.description"
-                fallback="Seleco (Sedana legal consultant) adalah konsultan terpercaya di Indonesia: Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM."
+                fallback="SELECO (Sedana Legal Consultant) dikelola oleh PT SELECO SWAKARYA NUSANTARA, konsultan hukum korporasi di Jakarta Pusat yang menyatukan perizinan usaha, keimigrasian, perpajakan, pertanahan, dan ketenagakerjaan dalam satu layanan terintegrasi untuk klien di seluruh Indonesia. #YouBetterWithUs"
                 label="Deskripsi Footer"
                 multiline={true}
               />
             </p>
-            <div className="pt-1">
-              <Link
-                href="/layanan"
-                onClick={(e) => {
-                  if (isEditMode) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                  }
-                }}
-                className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/15 rounded-lg text-[#dfa82e] text-xs font-bold tracking-wide hover:bg-[#dfa82e] hover:text-[#0a1420] transition-colors"
-              >
-                <EditableIcon
-                  iconKey="footer.dirIcon"
-                  fallbackIcon="Building2"
-                  className="w-3.5 h-3.5 text-[#dfa82e]"
-                  label="Ikon Direktori Footer"
-                />
-                Direktori Layanan ({global?.totalServices || '445+'})
-              </Link>
+          </div>
+
+          {/* 5 Pillars */}
+          <div>
+            <h4 className="text-xl font-bold mb-6 text-[#dfa82e]">Layanan Kami</h4>
+            <ul className="space-y-3 text-sm text-slate-300">
+              <li>
+                <Link
+                  href="/layanan?cat=perizinan"
+                  onClick={(e) => {
+                    if (isEditMode) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                    }
+                  }}
+                  className="hover:text-[#dfa82e] transition-colors block leading-relaxed"
+                >
+                  Konsultan Perizinan (242)
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/layanan?cat=imigrasi"
+                  onClick={(e) => {
+                    if (isEditMode) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                    }
+                  }}
+                  className="hover:text-[#dfa82e] transition-colors block leading-relaxed"
+                >
+                  Konsultan Imigrasi (36)
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/layanan?cat=pajak"
+                  onClick={(e) => {
+                    if (isEditMode) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                    }
+                  }}
+                  className="hover:text-[#dfa82e] transition-colors block leading-relaxed"
+                >
+                  Konsultan Pajak (86)
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/layanan?cat=pertanahan"
+                  onClick={(e) => {
+                    if (isEditMode) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                    }
+                  }}
+                  className="hover:text-[#dfa82e] transition-colors block leading-relaxed"
+                >
+                  Konsultan Pertanahan (45)
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/layanan?cat=sdm"
+                  onClick={(e) => {
+                    if (isEditMode) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                    }
+                  }}
+                  className="hover:text-[#dfa82e] transition-colors block leading-relaxed"
+                >
+                  Konsultan SDM (36)
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Office */}
+          <div>
+            <h4 className="text-xl font-bold mb-6 text-[#dfa82e]">Kantor Pusat</h4>
+            <div className="space-y-4 text-sm text-slate-300">
+              <div>
+                <p className="font-bold text-white mb-1">PT SELECO SWAKARYA NUSANTARA</p>
+                <p className="leading-relaxed">
+                  <EditableText
+                    fieldPath="global.address"
+                    fallback="Jl. M.H. Thamrin No. 9 Lt 12, Kebon Sirih, Menteng, DKI Jakarta 10340"
+                    label="Alamat Kantor"
+                  />
+                </p>
+              </div>
+              <div className="pt-2">
+                <p className="text-xs text-slate-400 italic">Senin – Jumat | 09:00 – 17:00 WIB</p>
+              </div>
             </div>
           </div>
 
-          {/* Practice Areas */}
+          {/* Contacts */}
           <div>
-            <h4 className="text-sm font-bold mb-3 text-white font-sans border-b border-[#dfa82e]/40 pb-1.5 inline-block">
-              5 Pilar Konsultan
-            </h4>
-            <ul className="space-y-2 text-xs text-slate-300">
-              <li>
-                <Link 
-                  href="/layanan?cat=perizinan" 
-                  onClick={(e) => { if (isEditMode) { e.preventDefault(); e.stopPropagation(); } }}
-                  className="hover:text-[#dfa82e] transition-colors block leading-relaxed"
+            <h4 className="text-xl font-bold mb-6 text-[#dfa82e]">Kontak</h4>
+            <div className="space-y-4 text-sm text-slate-300">
+              <div>
+                <p className="font-bold text-white mb-1">Telepon / WhatsApp</p>
+                <a
+                  href={`https://wa.me/${waNum}?text=${encodeURIComponent('Halo SELECO, saya ingin berkonsultasi mengenai layanan Anda.')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => {
+                    if (isEditMode) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                    }
+                  }}
+                  className="flex items-center gap-2 hover:text-[#dfa82e] transition"
                 >
-                  Konsultan Perizinan &amp; OSS
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/layanan?cat=imigrasi" 
-                  onClick={(e) => { if (isEditMode) { e.preventDefault(); e.stopPropagation(); } }}
-                  className="hover:text-[#dfa82e] transition-colors block leading-relaxed"
-                >
-                  Konsultan Imigrasi (KITAS &amp; TKA)
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/layanan?cat=pajak" 
-                  onClick={(e) => { if (isEditMode) { e.preventDefault(); e.stopPropagation(); } }}
-                  className="hover:text-[#dfa82e] transition-colors block leading-relaxed"
-                >
-                  Konsultan Pajak &amp; SPT Badan
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/layanan?cat=pertanahan" 
-                  onClick={(e) => { if (isEditMode) { e.preventDefault(); e.stopPropagation(); } }}
-                  className="hover:text-[#dfa82e] transition-colors block leading-relaxed"
-                >
-                  Konsultan Pertanahan &amp; BPN
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/layanan?cat=sdm" 
-                  onClick={(e) => { if (isEditMode) { e.preventDefault(); e.stopPropagation(); } }}
-                  className="hover:text-[#dfa82e] transition-colors block leading-relaxed"
-                >
-                  Konsultan SDM &amp; Ketenagakerjaan
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h4 className="text-sm font-bold mb-3 text-white font-sans border-b border-[#dfa82e]/40 pb-1.5 inline-block">
-              Navigasi Firma
-            </h4>
-            <ul className="space-y-2 text-xs text-slate-300">
-              <li>
-                <Link 
-                  href="/tentang" 
-                  onClick={(e) => { if (isEditMode) { e.preventDefault(); e.stopPropagation(); } }}
-                  className="hover:text-[#dfa82e] transition-colors block leading-relaxed"
-                >
-                  Tentang SELECO
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/tentang#retainer" 
-                  onClick={(e) => { if (isEditMode) { e.preventDefault(); e.stopPropagation(); } }}
-                  className="hover:text-[#dfa82e] transition-colors block leading-relaxed"
-                >
-                  Corporate Legal Retainer
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/tentang" 
-                  onClick={(e) => { if (isEditMode) { e.preventDefault(); e.stopPropagation(); } }}
-                  className="hover:text-[#dfa82e] transition-colors block leading-relaxed"
-                >
-                  Metodologi Kerja
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/insight" 
-                  onClick={(e) => { if (isEditMode) { e.preventDefault(); e.stopPropagation(); } }}
-                  className="hover:text-[#dfa82e] transition-colors block leading-relaxed"
-                >
-                  Legal Insights &amp; Berita
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/kontak" 
-                  onClick={(e) => { if (isEditMode) { e.preventDefault(); e.stopPropagation(); } }}
-                  className="hover:text-[#dfa82e] transition-colors block leading-relaxed"
-                >
-                  Hubungi Tim Kami
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Office Contact */}
-          <div>
-            <h4 className="text-sm font-bold mb-3 text-white font-sans border-b border-[#dfa82e]/40 pb-1.5 inline-block">
-              Kantor Pusat &amp; Kontak
-            </h4>
-            <div className="space-y-3">
-              <div className="flex items-start gap-2.5">
-                <EditableIcon
-                  iconKey="footer.addressIcon"
-                  fallbackIcon="MapPin"
-                  className="w-4 h-4 text-[#dfa82e] shrink-0 mt-0.5"
-                  label="Ikon Alamat Footer"
-                />
-                <span className="text-slate-300">
-                  <EditableText
-                    fieldPath="global.address"
-                    fallback="Jl.M.H Thamrin No. 9 Lt 12, Kebon Sirih Menteng, DKI Jakarta, 10340"
-                    label="Alamat Kantor"
-                  />
-                </span>
+                  <Phone size={16} /> {global?.phone || '+62 822-1102-0022'}
+                </a>
               </div>
-              <div className="flex items-center gap-2.5">
-                <EditableIcon
-                  iconKey="footer.emailIcon"
-                  fallbackIcon="Mail"
-                  className="w-4 h-4 text-[#dfa82e] shrink-0"
-                  label="Ikon Email Footer"
-                />
-                <a 
-                  href={`mailto:${global?.email || 'hello@selecoproject.com'}`} 
-                  onClick={(e) => { if (isEditMode) { e.preventDefault(); e.stopPropagation(); } }}
-                  className="text-slate-300 hover:text-[#dfa82e] transition-colors"
+              <div>
+                <p className="font-bold text-white mb-1">Email Resmi</p>
+                <a
+                  href={`mailto:${global?.email || 'hello@selecoproject.com'}`}
+                  onClick={(e) => {
+                    if (isEditMode) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                    }
+                  }}
+                  className="flex items-center gap-2 hover:text-[#dfa82e] transition"
                 >
+                  <Mail size={16} />
                   <EditableText
                     fieldPath="global.email"
                     fallback="hello@selecoproject.com"
@@ -235,37 +209,26 @@ export default function Footer() {
                   />
                 </a>
               </div>
-              <div className="flex items-center gap-2.5">
-                <EditableIcon
-                  iconKey="footer.phoneIcon"
-                  fallbackIcon="Phone"
-                  className="w-4 h-4 text-[#dfa82e] shrink-0"
-                  label="Ikon Telepon Footer"
-                />
-                <a 
-                  href={`tel:${global?.whatsappNumber || '6282211020022'}`} 
-                  onClick={(e) => { if (isEditMode) { e.preventDefault(); e.stopPropagation(); } }}
-                  className="text-slate-300 hover:text-[#dfa82e] transition-colors"
-                >
-                  {global?.whatsappDisplay || '+62 822-1102-0022'}
-                </a>
-              </div>
-              <div className="pt-2 text-slate-400">
-                Jam Kerja: Senin – Jumat | 09:00 – 17:00 WIB
-              </div>
             </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-400 border-t border-white/10 mt-4">
-          <div>
+        {/* Bottom Bar matching Web NH */}
+        <div className="border-t border-white/10 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-slate-400 tracking-wide">
             <EditableText
               fieldPath="footer.copyright"
-              fallback={`© ${new Date().getFullYear()} SELECO (SEDANA LEGAL CONSULTANT). Hak Cipta Dilindungi Undang-Undang.`}
+              fallback="© 2026 PT SELECO SWAKARYA NUSANTARA. Seluruh hak dilindungi undang-undang."
               label="Teks Copyright"
             />
-          </div>
+          </p>
+          <Link
+            href="/admin"
+            className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-[#dfa82e] uppercase tracking-widest transition-colors"
+          >
+            <Shield size={13} />
+            Portal Admin
+          </Link>
         </div>
       </div>
 
