@@ -98,7 +98,7 @@ export default function ContactSection() {
                 icon: <Phone size={22} />,
                 label: 'Telepon / WhatsApp',
                 value: global?.phone || '+62 822-1102-0022',
-                href: `https://wa.me/${waNum}?text=${encodeURIComponent('Halo SELECO, saya ingin berkonsultasi mengenai layanan hukum dan perizinan.')}`,
+                href: `https://wa.me/${waNum}?text=${encodeURIComponent('Halo SELECO, saya ingin berkonsultasi mengenai layanan konsultan dan perizinan.')}`,
               },
               {
                 icon: <MapPin size={22} />,

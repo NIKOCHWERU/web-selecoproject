@@ -38,7 +38,7 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
               <EditableImage
                 fieldPath="about.image1"
                 fallback="https://images.unsplash.com/photo-1479142506502-19b3a3b7ff33?auto=format&fit=crop&w=1000&q=80"
-                alt="Perpustakaan hukum dan dokumen legalitas korporasi"
+                alt="Ruang referensi dan dokumen korporasi"
                 label="Foto Utama Tentang"
                 className="w-full h-full object-cover"
               />
@@ -84,7 +84,7 @@ export default function AboutSection({ showMoreLink = false }: { showMoreLink?: 
             <p className="text-sm md:text-base leading-relaxed mb-6 text-gray-600">
               <EditableText
                 fieldPath="about.paragraph2"
-                fallback="Kami menguasai 411+ klasifikasi izin OSS RBA dan berkoordinasi langsung dengan kementerian serta dinas daerah di seluruh Indonesia. Setiap tahap punya jadwal, dokumen, dan dasar hukum yang jelas."
+                fallback="Kami menguasai 411+ klasifikasi izin OSS RBA dan berkoordinasi langsung dengan kementerian serta dinas daerah di seluruh Indonesia. Setiap tahap punya jadwal, dokumen, dan dasar regulasi yang jelas."
                 label="Paragraf 2"
                 multiline={true}
                 as="span"

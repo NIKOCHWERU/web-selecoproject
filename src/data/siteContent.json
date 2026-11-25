@@ -17,7 +17,7 @@
   },
   "hero": {
     "topBadge": "Lima Bidang, Satu Tim Terpadu",
-    "headlinePart1": "Satu Mitra Hukum untuk Semua Kebutuhan Legal Usaha Anda,",
+    "headlinePart1": "Satu Mitra Konsultan untuk Semua Kebutuhan Bisnis Anda,",
     "headlineItalic": "di Seluruh Indonesia.",
     "subheadline": "Layanan komprehensif dan terintegrasi untuk perizinan, imigrasi, pajak, pertanahan, dan ketenagakerjaan. Dapatkan langkah yang lebih efektif dan hasil yang pasti bersama SELECO, sebab #YouBetterWithUs.",
     "bgImage": "https://images.unsplash.com/photo-1453945619913-79ec89a82c51?auto=format&fit=crop&w=1920&q=80",
@@ -45,7 +45,7 @@
     "title": "Bukan Sekadar Mengurus Izin.",
     "titleAccent": "Kami Memastikan Usaha Anda Berjalan Pasti.",
     "paragraph1": "PT SELECO SWAKARYA NUSANTARA, yang dikenal dengan nama SELECO (Sedana Legal Consultant), berkantor di kawasan M.H. Thamrin, Jakarta Pusat. Kami menangani legalitas usaha, izin tinggal tenaga kerja asing, kepatuhan pajak badan, sertifikasi tanah, hingga peraturan ketenagakerjaan. Semuanya dalam satu tim, sehingga Anda tidak perlu lagi berpindah-pindah konsultan.",
-    "paragraph2": "Kami menguasai 411+ klasifikasi izin OSS RBA dan berkoordinasi langsung dengan kementerian serta dinas daerah di seluruh Indonesia. Setiap tahap punya jadwal, dokumen, dan dasar hukum yang jelas.",
+    "paragraph2": "Kami menguasai 411+ klasifikasi izin OSS RBA dan berkoordinasi langsung dengan kementerian serta dinas daerah di seluruh Indonesia. Setiap tahap punya jadwal, dokumen, dan dasar regulasi yang jelas.",
     "image1": "https://images.unsplash.com/photo-1479142506502-19b3a3b7ff33?auto=format&fit=crop&w=1200&q=80",
     "image2": "https://images.unsplash.com/photo-1589994965851-a8f479c573a9?auto=format&fit=crop&w=800&q=80",
     "experienceYears": "10+",
@@ -131,7 +131,7 @@
     "ctaSubtitle": "Sampaikan kebutuhan bulanan tim Anda, kami siapkan proposal ruang lingkup kerja tertulis.",
     "ctaButtonText": "Minta Proposal Retainer",
     "serviceItems": [
-      "Konsultasi hukum dan perizinan rutin via telepon, WhatsApp, atau tatap muka",
+      "Konsultasi bisnis dan perizinan rutin via telepon, WhatsApp, atau tatap muka",
       "Review dan penyusunan draf perjanjian kerja sama komersial",
       "Penyusunan dan pembaruan Peraturan Perusahaan serta kontrak kerja",
       "Pemantauan masa berlaku NIB, izin operasional, dan pelaporan LKPM OSS RBA",
@@ -142,7 +142,7 @@
   "team": {
     "badge": "Tim Praktisi",
     "title": "Ditangani Langsung oleh Konsultan Berpengalaman",
-    "subtitle": "Praktisi hukum korporasi dan kepatuhan regulasi",
+    "subtitle": "Praktisi konsultan korporasi dan kepatuhan regulasi",
     "members": [
       {
         "id": "1",
@@ -247,7 +247,7 @@
     ]
   },
   "footer": {
-    "description": "SELECO (Sedana Legal Consultant) dikelola oleh PT SELECO SWAKARYA NUSANTARA, konsultan hukum korporasi di Jakarta Pusat yang menyatukan perizinan usaha, keimigrasian, perpajakan, pertanahan, dan ketenagakerjaan dalam satu layanan terintegrasi untuk klien di seluruh Indonesia. #YouBetterWithUs",
+    "description": "SELECO (Sedana Legal Consultant) dikelola oleh PT SELECO SWAKARYA NUSANTARA, konsultan bisnis korporasi di Jakarta Pusat yang menyatukan perizinan usaha, keimigrasian, perpajakan, pertanahan, dan ketenagakerjaan dalam satu layanan terintegrasi untuk klien di seluruh Indonesia. #YouBetterWithUs",
     "copyright": "© 2026 PT SELECO SWAKARYA NUSANTARA. Seluruh hak dilindungi undang-undang."
   },
   "siteMode": {

@@ -21,7 +21,7 @@ const playfairDisplay = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: 'SELECO | Konsultan Hukum, Perizinan, Imigrasi, Pajak & SDM se-Indonesia',
+  title: 'SELECO | Konsultan Perizinan, Imigrasi, Pajak, Pertanahan & SDM se-Indonesia',
   description: 'PT SELECO SWAKARYA NUSANTARA (SELECO) - layanan komprehensif dan terintegrasi untuk perizinan OSS RBA, imigrasi, pajak, pertanahan, dan ketenagakerjaan. Solusi efektif dan pasti, #YouBetterWithUs.',
   keywords: 'konsultan perizinan usaha, konsultan imigrasi kitas tka, konsultan pajak spt badan, konsultan pertanahan bpn, konsultan sdm ketenagakerjaan, seleco sedana legal consultant, pt seleco swakarya nusantara',
   robots: {
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     nocache: true,
   },
   openGraph: {
-    title: 'SELECO | Konsultan Hukum, Perizinan, Imigrasi, Pajak & SDM se-Indonesia',
+    title: 'SELECO | Konsultan Perizinan, Imigrasi, Pajak, Pertanahan & SDM se-Indonesia',
     description: 'PT SELECO SWAKARYA NUSANTARA (SELECO) - layanan komprehensif dan terintegrasi untuk perizinan OSS RBA, imigrasi, pajak, pertanahan, dan ketenagakerjaan. Solusi efektif dan pasti, #YouBetterWithUs.',
     url: `https://${process.env.NEXT_PUBLIC_DOMAIN || 'selecoproject.com'}`,
     siteName: 'SELECO',

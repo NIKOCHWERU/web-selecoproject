@@ -66,7 +66,7 @@ export default function Hero() {
         <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] font-bold mb-4 leading-[1.18] tracking-tight uppercase font-sans text-white max-w-4xl">
           <EditableText
             fieldPath="hero.headlinePart1"
-            fallback="Satu Mitra Hukum untuk Semua Kebutuhan Legal Usaha Anda,"
+            fallback="Satu Mitra Konsultan untuk Semua Kebutuhan Bisnis Anda,"
             label="Judul Bagian 1"
           />{' '}
           <span className="text-[#dfa82e]">

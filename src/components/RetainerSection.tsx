@@ -28,7 +28,7 @@ export default function RetainerSection() {
   }, []);
 
   const defaultRetainerServices = [
-    'Konsultasi hukum dan perizinan rutin via telepon, WhatsApp, atau tatap muka',
+    'Konsultasi bisnis dan perizinan rutin via telepon, WhatsApp, atau tatap muka',
     'Review dan penyusunan draf perjanjian kerja sama komersial',
     'Penyusunan dan pembaruan Peraturan Perusahaan serta kontrak kerja',
     'Pemantauan masa berlaku NIB, izin operasional, dan pelaporan LKPM OSS RBA',
@@ -56,7 +56,7 @@ export default function RetainerSection() {
               <EditableImage
                 fieldPath="retainer.image"
                 fallback="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=900&q=80"
-                alt="Perpustakaan hukum dengan rak buku dan patung"
+                alt="Perpustakaan regulasi dan arsip dokumen korporasi"
                 label="Foto Ruang Retainer"
                 className="w-full h-full object-cover"
               />

@@ -65,14 +65,14 @@ export default function Footer() {
               {isEditMode ? (
                 <EditableText
                   fieldPath="footer.description"
-                  fallback="SELECO (Sedana Legal Consultant) dikelola oleh PT SELECO SWAKARYA NUSANTARA, konsultan hukum korporasi di Jakarta Pusat yang menyatukan perizinan usaha, keimigrasian, perpajakan, pertanahan, dan ketenagakerjaan dalam satu layanan terintegrasi untuk klien di seluruh Indonesia. #YouBetterWithUs"
+                  fallback="SELECO (Sedana Legal Consultant) dikelola oleh PT SELECO SWAKARYA NUSANTARA, konsultan bisnis korporasi di Jakarta Pusat yang menyatukan perizinan usaha, keimigrasian, perpajakan, pertanahan, dan ketenagakerjaan dalam satu layanan terintegrasi untuk klien di seluruh Indonesia. #YouBetterWithUs"
                   label="Deskripsi Footer"
                   multiline={true}
                 />
               ) : (
                 (
                   content?.footer?.description ||
-                  'SELECO (Sedana Legal Consultant) dikelola oleh PT SELECO SWAKARYA NUSANTARA, konsultan hukum korporasi di Jakarta Pusat yang menyatukan perizinan usaha, keimigrasian, perpajakan, pertanahan, dan ketenagakerjaan dalam satu layanan terintegrasi untuk klien di seluruh Indonesia. #YouBetterWithUs'
+                  'SELECO (Sedana Legal Consultant) dikelola oleh PT SELECO SWAKARYA NUSANTARA, konsultan bisnis korporasi di Jakarta Pusat yang menyatukan perizinan usaha, keimigrasian, perpajakan, pertanahan, dan ketenagakerjaan dalam satu layanan terintegrasi untuk klien di seluruh Indonesia. #YouBetterWithUs'
                 )
                   .split(/(#YouBetterWithUs)/g)
                   .map((part: string, i: number) =>
