@@ -48,7 +48,7 @@ export default function AdminHeader({
   onLogout,
 }: AdminHeaderProps) {
   return (
-    <header className="sticky top-0 z-30 flex h-16 shrink-0 items-center justify-between gap-2 border-b border-border bg-background/80 px-4 backdrop-blur-md md:h-14 md:px-6">
+    <header className="sticky top-0 z-30 flex h-16 shrink-0 items-center justify-between gap-2 border-b border-border bg-background/80 px-4 md:h-14 md:px-6">
       {/* Left: Sidebar Trigger & Breadcrumbs */}
       <div className="flex items-center gap-2">
         <SidebarTrigger className="-ml-1" />
@@ -73,16 +73,16 @@ export default function AdminHeader({
         {/* Site Mode Switcher Pill */}
         {onToggleSiteMode && (
           <div className="hidden sm:flex items-center gap-1.5 rounded-lg border border-border bg-card/60 p-1 text-xs">
-            <span className="text-[11px] font-medium text-muted-foreground px-1.5 flex items-center gap-1">
+            <span className="text-xs font-medium text-muted-foreground px-1.5 flex items-center gap-1">
               <span className={`size-1.5 rounded-full ${siteMode === 'live' ? 'bg-emerald-400' : 'bg-amber-400'}`} />
               Status:
             </span>
             <button
               onClick={() => onToggleSiteMode('maintenance')}
               disabled={isSwitchingMode}
-              className={`rounded-md px-2 py-0.5 text-[11px] font-semibold transition-all cursor-pointer ${
+              className={`rounded-md px-2 py-0.5 text-xs font-semibold transition-all cursor-pointer ${
                 siteMode === 'maintenance'
-                  ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-xs'
+                  ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
                   : 'text-muted-foreground hover:text-foreground'
               }`}
             >
@@ -91,9 +91,9 @@ export default function AdminHeader({
             <button
               onClick={() => onToggleSiteMode('live')}
               disabled={isSwitchingMode}
-              className={`rounded-md px-2 py-0.5 text-[11px] font-semibold transition-all cursor-pointer ${
+              className={`rounded-md px-2 py-0.5 text-xs font-semibold transition-all cursor-pointer ${
                 siteMode === 'live'
-                  ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-xs'
+                  ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
                   : 'text-muted-foreground hover:text-foreground'
               }`}
             >
@@ -127,7 +127,7 @@ export default function AdminHeader({
                 <p className="text-xs font-semibold leading-none text-foreground">
                   {currentUser?.name || 'Administrator'}
                 </p>
-                <p className="text-[11px] leading-none text-muted-foreground">
+                <p className="text-xs leading-none text-muted-foreground">
                   @{currentUser?.username || 'admin'} • {currentUser?.role || 'Admin'}
                 </p>
               </div>

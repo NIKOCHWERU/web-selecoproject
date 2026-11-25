@@ -70,7 +70,7 @@ export default function SiteWrapper({ children }: SiteWrapperProps) {
       </Suspense>
 
       {isMaintenance && isAdminOrPreview && (
-        <div className="bg-[#b88917] text-[#0f2034] px-4 py-2 text-xs font-bold flex flex-wrap items-center justify-between gap-2 sticky top-0 z-[100] shadow-md">
+        <div className="bg-[#b88917] text-[#0f2034] px-4 py-2 text-xs font-bold flex flex-wrap items-center justify-between gap-2 sticky top-0 z-[100]">
           <div className="flex items-center gap-2">
             <ShieldAlert className="w-4 h-4 text-[#0f2034] shrink-0" />
             <span>
@@ -80,13 +80,13 @@ export default function SiteWrapper({ children }: SiteWrapperProps) {
           <div className="flex items-center gap-2 shrink-0">
             <Link
               href="/admin/editor"
-              className="px-2.5 py-1 bg-[#0f2034] text-white rounded text-[11px] font-bold hover:brightness-125 transition-all flex items-center gap-1"
+              className="px-2.5 py-1 bg-[#0f2034] text-white rounded text-xs font-bold hover:brightness-125 transition-all flex items-center gap-1"
             >
               <span>Editor Web</span>
             </Link>
             <Link
               href="/admin"
-              className="px-2.5 py-1 bg-white/20 text-[#0f2034] rounded text-[11px] font-bold hover:brightness-125 transition-all flex items-center gap-1"
+              className="px-2.5 py-1 bg-white/20 text-[#0f2034] rounded text-xs font-bold hover:brightness-125 transition-all flex items-center gap-1"
             >
               <Sliders className="w-3 h-3 text-[#0f2034]" />
               <span>Dashboard Admin</span>

@@ -21,7 +21,7 @@ export default function KontakPage() {
             <span className="text-[#dfa82e] font-semibold">Kontak</span>
           </div>
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#dfa82e]/20 border border-[#dfa82e]/40 rounded-full text-[#dfa82e] text-[10px] font-bold uppercase tracking-widest mb-2.5">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#dfa82e]/20 border border-[#dfa82e]/40 rounded text-[#dfa82e] text-xs font-bold tracking-wide mb-2.5">
               <PhoneCall className="w-3.5 h-3.5" /> PUSAT KOMUNIKASI &amp; KONSULTASI
             </div>
             <h1 className="font-serif-title text-2xl sm:text-3xl lg:text-3xl font-bold text-white leading-tight">

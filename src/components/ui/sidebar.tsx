@@ -125,7 +125,7 @@ export function Sidebar({
     return (
       <div className="fixed inset-0 z-50 flex md:hidden">
         <div
-          className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
+          className="fixed inset-0 bg-black/80 transition-opacity"
           onClick={() => setOpenMobile(false)}
         />
         <div
@@ -261,7 +261,7 @@ export function SidebarGroupLabel({
     <div
       data-sidebar="group-label"
       className={cn(
-        'flex h-7 shrink-0 items-center rounded-md px-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/80 outline-none',
+        'flex h-7 shrink-0 items-center rounded-md px-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground/80 outline-none',
         className
       )}
       {...props}

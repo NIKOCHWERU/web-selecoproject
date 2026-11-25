@@ -17,7 +17,7 @@ export default function FAQSection() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div className="text-center mb-8 sm:mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dfa82e]/15 border border-[#dfa82e]/35 text-[10px] font-bold uppercase tracking-widest text-[#b88917] mb-2.5">
+          <div className="inline-flex items-center text-xs font-semibold tracking-wide text-[#0a1420] mb-2.5">
             <EditableText
               fieldPath="faq.badge"
               fallback="Pertanyaan Umum"
@@ -46,15 +46,15 @@ export default function FAQSection() {
           {items.map((item: any, idx: number) => (
             <div
               key={idx}
-              className="rounded-lg border px-4 sm:px-5 py-3.5 bg-white border-slate-200 hover:border-[#dfa82e]/50 transition-colors shadow-sm"
+              className="rounded-lg border px-4 sm:px-5 py-3.5 bg-white border-slate-200 hover:border-[#dfa82e]/50 transition-colors"
             >
               <button
                 onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
-                className="w-full flex items-center justify-between text-left font-bold text-xs sm:text-sm gap-4 text-[#0a1420] cursor-pointer"
+                className="w-full min-h-[44px] flex items-center justify-between text-left font-bold text-xs sm:text-sm gap-4 text-[#0a1420] cursor-pointer"
                 aria-expanded={openIdx === idx}
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-[10px] font-bold text-[#b88917] shrink-0 font-sans px-1.5 py-0.5 rounded bg-[#dfa82e]/15 border border-[#dfa82e]/35">
+                  <span className="text-xs font-bold text-[#0a1420] shrink-0 font-sans px-1.5 py-0.5 rounded bg-[#dfa82e]/15 border border-[#dfa82e]/35">
                     Q{idx + 1}
                   </span>
                   <span className="font-semibold text-[#0a1420] leading-snug">
@@ -65,8 +65,8 @@ export default function FAQSection() {
                     />
                   </span>
                 </div>
-                <span className="shrink-0 text-[#b88917]">
-                  {openIdx === idx ? <Minus className="w-3.5 h-3.5 text-[#b88917]" /> : <Plus className="w-3.5 h-3.5 text-slate-400" />}
+                <span className="shrink-0 text-[#0a1420]">
+                  {openIdx === idx ? <Minus className="w-4 h-4 text-[#0a1420]" /> : <Plus className="w-4 h-4 text-slate-600" />}
                 </span>
               </button>
 

@@ -86,7 +86,7 @@ function LayananContent() {
           </div>
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#dfa82e]/20 border border-[#dfa82e]/40 rounded-full text-[#dfa82e] text-[10px] font-bold uppercase tracking-widest mb-2.5">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#dfa82e]/20 border border-[#dfa82e]/40 rounded text-[#dfa82e] text-xs font-bold tracking-wide mb-2.5">
                 <Building2 className="w-3.5 h-3.5" /> 5 PILAR LAYANAN KONSULTAN TERPADU
               </div>
               <h1 className="font-serif-title text-2xl sm:text-3xl lg:text-3xl font-bold text-white leading-tight">
@@ -98,9 +98,9 @@ function LayananContent() {
               </p>
             </div>
             <div className="flex flex-col gap-2 text-center shrink-0">
-              <div className="bg-white/10 border border-white/20 rounded-xl px-6 py-3 shadow-xs backdrop-blur-sm">
+              <div className="bg-white/10 border border-white/20 rounded-xl px-6 py-3">
                 <p className="font-serif-title text-2xl sm:text-3xl font-bold text-[#dfa82e]">{totalServices}</p>
-                <p className="text-[9px] text-slate-300 uppercase tracking-widest font-semibold mt-0.5">Total Layanan</p>
+                <p className="text-xs text-slate-300 tracking-wide font-semibold mt-0.5">Total Layanan</p>
               </div>
             </div>
           </div>
@@ -112,9 +112,9 @@ function LayananContent() {
 
           {/* === LEFT SIDEBAR: Category Filter === */}
           <aside className="xl:w-72 shrink-0">
-            <div className="bg-white border border-slate-200 rounded-xl sticky top-24 text-slate-900 overflow-hidden shadow-xs">
+            <div className="bg-white border border-slate-200 rounded-xl sticky top-24 text-slate-900 overflow-hidden">
               <div className="px-4 py-3 border-b border-slate-200 bg-slate-50">
-                <p className="text-xs font-bold text-[#0a1420] uppercase tracking-widest flex items-center gap-2">
+                <p className="text-xs font-bold text-[#0a1420] tracking-wide flex items-center gap-2">
                   <Filter className="w-3.5 h-3.5 text-[#b88917]" /> Filter Kategori
                 </p>
               </div>
@@ -130,7 +130,7 @@ function LayananContent() {
                     }`}
                   >
                     <span className="leading-snug font-semibold">{cat.id === 'all' ? `Semua Layanan (${totalServices})` : cat.name}</span>
-                    <span className={`shrink-0 text-[10px] font-bold px-1.5 py-0.5 rounded ${activeCat === cat.id ? 'bg-[#b88917] text-white' : 'bg-slate-100 text-slate-600'}`}>
+                    <span className={`shrink-0 text-xs font-bold px-1.5 py-0.5 rounded ${activeCat === cat.id ? 'bg-[#b88917] text-white' : 'bg-slate-100 text-slate-600'}`}>
                       {cat.id === 'all' ? totalServices : cat.count}
                     </span>
                   </button>
@@ -143,7 +143,7 @@ function LayananContent() {
           <div className="flex-1 min-w-0">
 
             {/* Search & View Controls */}
-            <div className="bg-white border border-slate-200 rounded-xl p-4 mb-6 flex flex-col sm:flex-row gap-3 items-start sm:items-center shadow-xs">
+            <div className="bg-white border border-slate-200 rounded-xl p-4 mb-6 flex flex-col sm:flex-row gap-3 items-start sm:items-center">
               <div className="relative flex-1 w-full">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                 <input
@@ -179,10 +179,10 @@ function LayananContent() {
 
             {/* Category Title & Description */}
             {currentCatData && (
-              <div className="mb-6 p-5 bg-slate-50 border border-slate-200 border-l-4 border-l-[#dfa82e] rounded-xl shadow-xs">
+              <div className="mb-6 p-5 bg-slate-50 border border-slate-200 border-l-4 border-l-[#dfa82e] rounded-xl">
                 <h2 className="font-serif-title text-xl font-bold text-[#0a1420] mb-1">{currentCatData.name}</h2>
                 <p className="text-xs text-slate-600">{currentCatData.description}</p>
-                <p className="text-xs text-[#b88917] font-bold mt-2">
+                <p className="text-xs text-[#0a1420] font-bold mt-2">
                   Menampilkan {filtered.length} dari {currentCatData.count} layanan
                   {searchQuery && ` - cocok dengan "${searchQuery}"`}
                 </p>
@@ -220,23 +220,23 @@ function LayananContent() {
                         initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.3, delay: Math.min(idx * 0.02, 0.3) }}
-                        className="bg-white border border-slate-200 rounded-xl p-5 hover:border-[#dfa82e]/60 hover:shadow-sm transition-all group flex flex-col justify-between shadow-xs"
+                        className="bg-white border border-slate-200 rounded-xl p-5 hover:border-[#dfa82e]/60 transition-all group flex flex-col justify-between"
                       >
                         <div>
                           <div className="flex items-start justify-between gap-2 mb-2">
-                            <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded shrink-0 ${badge.badgeClass}`}>
+                            <span className={`text-xs font-bold tracking-wide px-2 py-0.5 rounded shrink-0 ${badge.badgeClass}`}>
                               {badge.label}
                             </span>
-                            <span className="text-[10px] text-slate-400 font-semibold shrink-0">#{item.id}</span>
+                            <span className="text-xs text-slate-400 font-semibold shrink-0">#{item.id}</span>
                           </div>
                           <h3 className="text-sm font-bold text-[#0a1420] leading-snug mb-1 group-hover:text-[#b88917] transition-colors">
                             {item.title}
                           </h3>
-                          <p className="text-[10px] text-slate-500 font-semibold">{item.category}</p>
+                          <p className="text-xs text-slate-500 font-semibold">{item.category}</p>
                         </div>
                         <Link
                           href="/kontak"
-                          className="mt-3 text-xs font-bold text-[#b88917] border-t border-slate-100 pt-2.5 flex items-center gap-1 hover:text-[#0a1420] transition-colors"
+                          className="mt-3 text-xs font-bold text-[#0a1420] border-t border-slate-100 pt-2.5 flex items-center gap-1 hover:text-[#0a1420] transition-colors"
                         >
                           Konsultasikan <ChevronRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
                         </Link>
@@ -250,7 +250,7 @@ function LayananContent() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="bg-white border border-slate-200 rounded-xl overflow-hidden divide-y divide-slate-100 shadow-xs"
+                  className="bg-white border border-slate-200 rounded-xl overflow-hidden divide-y divide-slate-100"
                 >
                   {filtered.map((item, idx) => {
                     const badge = getBadgeInfo(item.type);
@@ -269,13 +269,13 @@ function LayananContent() {
                           <p className="text-sm font-semibold text-[#0a1420] group-hover:text-[#b88917] transition-colors leading-snug">
                             {item.title}
                           </p>
-                          <p className="text-[10px] text-slate-500 mt-0.5">{item.category}</p>
+                          <p className="text-xs text-slate-500 mt-0.5">{item.category}</p>
                         </div>
                         <div className="flex items-center gap-2 shrink-0">
-                          <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${badge.badgeClass}`}>
+                          <span className={`text-xs font-bold tracking-wide px-2 py-0.5 rounded ${badge.badgeClass}`}>
                             {badge.label}
                           </span>
-                          <Link href="/kontak" className="text-[10px] font-bold text-[#b88917] hover:text-[#0a1420] transition-colors whitespace-nowrap">
+                          <Link href="/kontak" className="text-xs font-bold text-[#0a1420] hover:text-[#0a1420] transition-colors whitespace-nowrap">
                             Konsultasi →
                           </Link>
                         </div>
@@ -288,7 +288,7 @@ function LayananContent() {
 
             {/* CTA Banner */}
             {filtered.length > 0 && (
-              <div className="mt-12 p-8 bg-[#0a1420] border border-[#dfa82e]/30 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-6 text-white shadow-xl relative overflow-hidden">
+              <div className="mt-12 p-8 bg-[#0a1420] border border-[#dfa82e]/30 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-6 text-white relative overflow-hidden">
                 <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#dfa82e]" />
                 <div className="pl-1 sm:pl-3">
                   <h3 className="font-serif-title text-2xl font-bold text-white">Tidak menemukan yang Anda cari?</h3>
@@ -296,7 +296,7 @@ function LayananContent() {
                 </div>
                 <Link
                   href="/kontak"
-                  className="px-7 py-3.5 bg-[#dfa82e] hover:bg-white text-[#0a1420] font-bold text-xs uppercase tracking-wider rounded-lg transition-colors whitespace-nowrap flex items-center gap-2 shadow-sm cursor-pointer shrink-0"
+                  className="px-7 py-3.5 bg-[#dfa82e] hover:bg-white text-[#0a1420] font-bold text-xs tracking-wide rounded-lg transition-colors whitespace-nowrap flex items-center gap-2 cursor-pointer shrink-0"
                 >
                   <Briefcase className="w-4 h-4 text-[#0a1420]" /> Hubungi Kami
                 </Link>

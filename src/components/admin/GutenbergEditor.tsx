@@ -67,7 +67,7 @@ export default function GutenbergEditor({
       slug: `artikel-baru-${Date.now().toString().slice(-4)}`,
       title: '',
       excerpt: '',
-      coverImage: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=1200&q=80',
+      coverImage: 'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1200&q=80',
       category: 'Perizinan OSS',
       tags: ['Perizinan', 'Legalitas'],
       author: 'Tim Redaksi SELECO',
@@ -337,7 +337,7 @@ export default function GutenbergEditor({
               <FileText className="w-3.5 h-3.5 text-[#dfa82e]" />
               <span>{article.title ? (article.title.length > 25 ? article.title.slice(0, 25) + '...' : article.title) : 'Dokumen Naskah Baru'}</span>
             </span>
-            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase ${
+            <span className={`text-xs font-bold px-2 py-0.5 rounded uppercase ${
               article.status === 'published'
                 ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
                 : 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
@@ -362,7 +362,7 @@ export default function GutenbergEditor({
             title="Kembalikan (Undo) - Ctrl+Z"
           >
             <Undo2 className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline text-[11px]">Undo</span>
+            <span className="hidden sm:inline text-xs">Undo</span>
           </button>
 
           {/* Redo Button */}
@@ -378,7 +378,7 @@ export default function GutenbergEditor({
             title="Ulangi (Redo) - Ctrl+Y"
           >
             <Redo2 className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline text-[11px]">Redo</span>
+            <span className="hidden sm:inline text-xs">Redo</span>
           </button>
 
           {/* Save State / Riwayat Button */}
@@ -389,13 +389,13 @@ export default function GutenbergEditor({
             title="Buka Riwayat Perubahan & Save States"
           >
             <History className="w-3.5 h-3.5 text-[#dfa82e]" />
-            <span className="text-[11px] font-semibold">Riwayat</span>
-            <span className="bg-[#dfa82e]/20 text-[#dfa82e] text-[10px] px-1.5 rounded-full font-bold">
+            <span className="text-xs font-semibold">Riwayat</span>
+            <span className="bg-[#dfa82e]/20 text-[#dfa82e] text-xs px-1.5 rounded font-bold">
               {historySnapshots.length}
             </span>
           </button>
 
-          <span className="text-[10px] hidden md:inline-flex items-center gap-1 text-slate-400 ml-2">
+          <span className="text-xs hidden md:inline-flex items-center gap-1 text-slate-400 ml-2">
             <span>{totalWords} kata</span>
             <span>•</span>
             <span>{calculatedMinutes} mnt baca</span>
@@ -427,7 +427,7 @@ export default function GutenbergEditor({
             type="button"
             onClick={() => handleSubmit('published')}
             disabled={isSaving}
-            className="px-3.5 py-1.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:brightness-110 text-white font-bold text-xs uppercase tracking-wider rounded-md shadow-md flex items-center gap-1.5 transition-all cursor-pointer"
+            className="px-3.5 py-1.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:brightness-110 text-white font-bold text-xs uppercase tracking-wide rounded-md flex items-center gap-1.5 transition-all cursor-pointer"
           >
             {isSaving ? (
               <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -440,7 +440,7 @@ export default function GutenbergEditor({
       </header>
 
       {/* ── 2. WORD RIBBON BAR (ALAT TAMBAH BLOK & SETTING) ────────────────────── */}
-      <div className="bg-[#1e293b]/95 border-b border-slate-700/80 px-4 py-2 flex flex-col gap-2 shrink-0 z-20 shadow-md">
+      <div className="bg-[#1e293b]/95 border-b border-slate-700/80 px-4 py-2 flex flex-col gap-2 shrink-0 z-20">
         {/* Ribbon Tabs */}
         <div className="flex items-center gap-1 border-b border-slate-700/50 pb-1 text-xs">
           <button
@@ -452,7 +452,7 @@ export default function GutenbergEditor({
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            ➕ Sisipkan Komponen / Blok
+            Sisipkan Komponen / Blok
           </button>
           <button
             type="button"
@@ -463,7 +463,7 @@ export default function GutenbergEditor({
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            📋 Susunan Paragraf &amp; Blok ({article.blocks.length})
+            Susunan Paragraf &amp; Blok ({article.blocks.length})
           </button>
           <button
             type="button"
@@ -474,7 +474,7 @@ export default function GutenbergEditor({
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            🕒 Riwayat &amp; Save State
+            Riwayat &amp; Save State
           </button>
           <button
             type="button"
@@ -485,14 +485,14 @@ export default function GutenbergEditor({
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            ⚙️ Kategori &amp; Pengaturan Artikel
+            Kategori &amp; Pengaturan Artikel
           </button>
         </div>
 
         {/* Tab 1: Insert Block Tools */}
         {ribbonTab === 'insert' && (
           <div className="flex items-center gap-2 overflow-x-auto py-1">
-            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider whitespace-nowrap mr-1">
+            <span className="text-xs font-bold text-slate-400 uppercase tracking-wide whitespace-nowrap mr-1">
               Sisipkan:
             </span>
             <button
@@ -565,7 +565,7 @@ export default function GutenbergEditor({
         {/* Tab 2: Structure Tools */}
         {ribbonTab === 'structure' && (
           <div className="flex items-center gap-2 overflow-x-auto py-1">
-            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider whitespace-nowrap mr-1">
+            <span className="text-xs font-bold text-slate-400 uppercase tracking-wide whitespace-nowrap mr-1">
               Urutan Blok:
             </span>
             {article.blocks.map((b, i) => (
@@ -573,7 +573,7 @@ export default function GutenbergEditor({
                 key={b.id}
                 className="flex items-center gap-1 px-2 py-1 rounded bg-slate-800 border border-slate-700 text-xs whitespace-nowrap"
               >
-                <span className="font-mono text-[10px] text-slate-400">#{i + 1}</span>
+                <span className="font-mono text-xs text-slate-400">#{i + 1}</span>
                 <span className="font-semibold text-slate-200">{getBlockLabel(b.type)}</span>
                 <button
                   type="button"
@@ -609,7 +609,7 @@ export default function GutenbergEditor({
         {/* Tab 3: History & Save States */}
         {ribbonTab === 'history' && (
           <div className="flex items-center gap-3 overflow-x-auto py-1 text-xs">
-            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider whitespace-nowrap">
+            <span className="text-xs font-bold text-slate-400 uppercase tracking-wide whitespace-nowrap">
               Snapshot Terakhir:
             </span>
             {historySnapshots.slice(0, 4).map((snap) => (
@@ -622,13 +622,13 @@ export default function GutenbergEditor({
               >
                 <History className="w-3 h-3 text-[#dfa82e]" />
                 <span className="font-semibold">{snap.action}</span>
-                <span className="text-[10px] text-slate-400">({snap.time})</span>
+                <span className="text-xs text-slate-400">({snap.time})</span>
               </button>
             ))}
             <button
               type="button"
               onClick={() => setShowHistoryModal(true)}
-              className="text-[#dfa82e] hover:underline text-[11px] font-bold whitespace-nowrap cursor-pointer"
+              className="text-[#dfa82e] hover:underline text-xs font-bold whitespace-nowrap cursor-pointer"
             >
               Lihat Semua ({historySnapshots.length}) →
             </button>
@@ -698,15 +698,15 @@ export default function GutenbergEditor({
           {/* Document Header Page Tab */}
           <div className="border-b border-slate-200 pb-3 flex items-center justify-between text-xs text-slate-500">
             <span className="font-semibold text-slate-700 flex items-center gap-1.5">
-              <span>📄</span> Lembar Dokumen Artikel • SELECO Newsroom
+              <span>Lembar Dokumen Artikel • SELECO Newsroom</span>
             </span>
-            <span className="text-[11px] font-mono text-slate-400">
+            <span className="text-xs font-mono text-slate-400">
               {article.category} • {article.publishedAt}
             </span>
           </div>
 
           {/* Cover Image Upload Card */}
-          <div className="relative group/cover rounded-xl overflow-hidden border border-slate-200 bg-slate-100 h-56 sm:h-72 shadow-md">
+          <div className="relative group/cover rounded-xl overflow-hidden border border-slate-200 bg-slate-100 h-56 sm:h-72">
             <img
               src={article.coverImage}
               alt={article.title || 'Sampul Artikel'}
@@ -784,7 +784,7 @@ export default function GutenbergEditor({
                   <button
                     type="button"
                     onClick={() => setShowBlockPickerIndex(idx)}
-                    className="w-6 h-6 rounded-full bg-[#dfa82e] text-slate-950 flex items-center justify-center shadow-lg hover:scale-110 transition-transform cursor-pointer"
+                    className="w-6 h-6 rounded-full bg-[#dfa82e] text-slate-950 flex items-center justify-center hover:scale-110 transition-transform cursor-pointer"
                     title="Sisipkan Blok di Sini"
                   >
                     <Plus className="w-3.5 h-3.5 stroke-[3]" />
@@ -796,14 +796,14 @@ export default function GutenbergEditor({
                   onClick={() => setActiveBlockId(block.id)}
                   className={`relative group/block rounded-xl border p-4 transition-all duration-200 ${
                     activeBlockId === block.id
-                      ? 'border-[#dfa82e] bg-amber-50/20 shadow-md ring-1 ring-[#dfa82e]/30'
+                      ? 'border-[#dfa82e] bg-amber-50/20 ring-1 ring-[#dfa82e]/30'
                       : 'border-slate-200 bg-slate-50/50 hover:border-slate-300'
                   }`}
                 >
                   {/* Block Header Toolbar */}
                   <div className="flex items-center justify-between pb-2 mb-2 border-b border-slate-200 text-xs">
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-[10px] uppercase text-[#dfa82e] px-2 py-0.5 rounded bg-amber-50 border border-amber-200 flex items-center gap-1">
+                      <span className="font-bold text-xs uppercase text-[#dfa82e] px-2 py-0.5 rounded bg-amber-50 border border-amber-200 flex items-center gap-1">
                         {getBlockIcon(block.type)}
                         <span>{getBlockLabel(block.type)}</span>
                       </span>
@@ -816,7 +816,7 @@ export default function GutenbergEditor({
                               key={lvl}
                               type="button"
                               onClick={() => updateBlockContent(block.id, { level: lvl })}
-                              className={`px-1.5 py-0.5 rounded text-[10px] font-bold cursor-pointer ${
+                              className={`px-1.5 py-0.5 rounded text-xs font-bold cursor-pointer ${
                                 (block.content.level || 2) === lvl
                                   ? 'bg-[#dfa82e] text-slate-950'
                                   : 'text-slate-500 hover:text-slate-900'
@@ -927,7 +927,7 @@ export default function GutenbergEditor({
                           value={block.content.caption || ''}
                           onChange={(e) => updateBlockContent(block.id, { caption: e.target.value })}
                           placeholder="Keterangan caption foto (opsional)..."
-                          className="w-full bg-transparent text-[11px] text-slate-500 italic focus:outline-none"
+                          className="w-full bg-transparent text-xs text-slate-500 italic focus:outline-none"
                         />
                       </div>
                     )}
@@ -1003,7 +1003,7 @@ export default function GutenbergEditor({
                             const newItems = [...(block.content.items || []), 'Poin baru'];
                             updateBlockContent(block.id, { items: newItems });
                           }}
-                          className="text-[11px] text-[#dfa82e] font-semibold hover:underline pt-1 cursor-pointer"
+                          className="text-xs text-[#dfa82e] font-semibold hover:underline pt-1 cursor-pointer"
                         >
                           + Tambah Baris Poin
                         </button>
@@ -1089,7 +1089,7 @@ export default function GutenbergEditor({
 
       {/* ── 4. BLOCK PICKER POPUP (KETIKA KLIK PLUS DI ANTARA BLOK) ─────────────── */}
       {showBlockPickerIndex !== null && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
           <div className="bg-[#1e293b] border border-slate-700 rounded-xl p-5 w-full max-w-md shadow-2xl">
             <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-700">
               <h4 className="text-sm font-bold text-white flex items-center gap-2">
@@ -1161,7 +1161,7 @@ export default function GutenbergEditor({
 
       {/* ── 5. MODAL RIWAYAT PERUBAHAN & SAVE STATE (ARTICLE RESTORE) ─────────── */}
       {showHistoryModal && (
-        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-black/75 flex items-center justify-center p-4">
           <div className="bg-[#1e293b] border border-slate-700 rounded-2xl w-full max-w-xl max-h-[80vh] flex flex-col shadow-2xl">
             <div className="p-5 border-b border-slate-700 flex items-center justify-between">
               <div>
@@ -1197,12 +1197,12 @@ export default function GutenbergEditor({
                       <div className="flex items-center gap-2">
                         <span className="text-xs font-bold text-white">{snap.action}</span>
                         {i === 0 && (
-                          <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-bold">
+                          <span className="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded font-bold">
                             Terkini
                           </span>
                         )}
                       </div>
-                      <span className="text-[11px] text-slate-400 mt-0.5 block">
+                      <span className="text-xs text-slate-400 mt-0.5 block">
                         Terekam pukul {snap.time} • ({snap.article.blocks?.length || 0} blok)
                       </span>
                     </div>
@@ -1234,7 +1234,7 @@ export default function GutenbergEditor({
 
       {/* ── 6. MODAL PRATINJAU ARTIKEL ─────────────────────────────────────────── */}
       {showPreviewModal && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
           <div className="bg-white text-slate-900 rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto p-6 sm:p-12 shadow-2xl relative">
             <button
               type="button"
@@ -1244,7 +1244,7 @@ export default function GutenbergEditor({
               <X className="w-5 h-5" />
             </button>
             <div className="space-y-4">
-              <span className="px-3 py-1 bg-amber-50 text-[#b88917] rounded-full text-xs font-bold">
+              <span className="px-3 py-1 bg-amber-50 text-[#b88917] rounded text-xs font-bold">
                 {article.category}
               </span>
               <h1 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900">

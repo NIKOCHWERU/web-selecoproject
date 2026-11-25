@@ -41,7 +41,7 @@ export default function RetainerSection() {
     <EditableSection id="retainer" name="Corporate Retainer Section" className="py-12 sm:py-16 bg-slate-50/70 border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="bg-[#0a1420] text-white rounded-2xl p-6 sm:p-8 lg:p-10 shadow-xl border border-[#dfa82e]/30 relative overflow-hidden">
+        <div className="bg-[#0a1420] text-white rounded-2xl p-6 sm:p-8 lg:p-10 border border-[#dfa82e]/30 relative overflow-hidden">
           {/* Left accent bar */}
           <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#dfa82e]" />
 
@@ -49,7 +49,7 @@ export default function RetainerSection() {
             
             {/* Left Content */}
             <div className="lg:col-span-7 space-y-5 pl-1 sm:pl-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dfa82e]/15 border border-[#dfa82e]/35 text-[10px] font-bold uppercase tracking-widest text-[#dfa82e]">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-[#dfa82e]/15 border border-[#dfa82e]/35 text-xs font-bold tracking-wide text-[#dfa82e]">
                 <EditableText
                   fieldPath="retainer.badge"
                   fallback="Retainer Korporasi"
@@ -105,7 +105,7 @@ export default function RetainerSection() {
                       label="Judul CTA Retainer"
                     />
                   </h4>
-                  <p className="text-[11px] text-slate-400 mt-0.5">
+                  <p className="text-xs text-slate-400 mt-0.5">
                     <EditableText
                       fieldPath="retainer.ctaSubtitle"
                       fallback="Konsultan profesional siap mendampingi operasional dan perizinan bisnis Anda."
@@ -121,7 +121,7 @@ export default function RetainerSection() {
                       e.stopPropagation();
                     }
                   }}
-                  className="px-5 py-2.5 bg-[#dfa82e] hover:bg-white text-[#0a1420] font-bold text-[11px] uppercase tracking-wider rounded-lg transition-colors shadow-sm flex items-center gap-2 cursor-pointer shrink-0"
+                  className="px-5 py-2.5 bg-[#dfa82e] hover:bg-white text-[#0a1420] font-bold text-xs tracking-wide rounded-lg transition-colors flex items-center gap-2 cursor-pointer shrink-0"
                 >
                   <EditableIcon
                     iconKey="retainer.ctaIcon"
@@ -142,11 +142,11 @@ export default function RetainerSection() {
 
             {/* Right Photo Frame */}
             <div className="lg:col-span-5">
-              <div className="relative rounded-xl overflow-hidden border border-white/15 shadow-md h-64 lg:h-[350px]">
+              <div className="relative rounded-xl overflow-hidden border border-white/15 h-64 lg:h-[350px]">
                 <EditableImage
                   fieldPath="retainer.image"
                   fallback="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=800&q=80"
-                  alt="Ruang Konsultasi Korporasi SELECO"
+                  alt="Perpustakaan hukum dengan rak buku dan patung"
                   label="Foto Ruang Retainer"
                   className="w-full h-full object-cover filter brightness-[0.8]"
                 />
@@ -155,7 +155,7 @@ export default function RetainerSection() {
                   <span className="font-serif-title text-sm font-bold text-white block">
                     SELECO External Corporate Team
                   </span>
-                  <span className="text-[9px] text-[#dfa82e] font-semibold uppercase tracking-widest mt-0.5 block">
+                  <span className="text-xs text-[#dfa82e] font-semibold tracking-wide mt-0.5 block">
                     Efisiensi Operasional &amp; Total Compliance
                   </span>
                 </div>

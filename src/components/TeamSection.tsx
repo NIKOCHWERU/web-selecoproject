@@ -14,7 +14,7 @@ export default function TeamSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="text-center max-w-2xl mx-auto mb-14">
-          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#b88917] mb-3">
+          <p className="text-xs font-bold tracking-wide text-[#0a1420] mb-3">
             <EditableText
               fieldPath="team.badge"
               fallback="Tim Konsultan Profesional"
@@ -47,7 +47,7 @@ export default function TeamSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.1 }}
-              className="bg-white border border-gray-200/90 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:border-gold-accent transition-all duration-300 group"
+              className="bg-white border border-gray-200/90 rounded-2xl overflow-hidden  hover:border-gold-accent transition-all duration-300 group"
             >
               <div className="h-80 overflow-hidden border-b border-gray-100 bg-slate-100">
                 <EditableImage
@@ -66,7 +66,7 @@ export default function TeamSection() {
                     label={`Nama Tim #${idx + 1}`}
                   />
                 </h3>
-                <p className="text-xs font-bold uppercase tracking-wider text-amber-800 mt-1 mb-3">
+                <p className="text-xs font-bold tracking-wide text-amber-800 mt-1 mb-3">
                   <EditableText
                     fieldPath={`team.members.${idx}.role`}
                     fallback={atty.role}

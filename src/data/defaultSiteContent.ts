@@ -222,7 +222,7 @@ export const defaultSiteContent: SiteContent = {
     headlinePart1: "Konsultan Terpadu untuk Akselerasi &",
     headlineItalic: "Pertumbuhan Bisnis.",
     subheadline: "Seleco Project menghadirkan lima pilar layanan konsultasi korporasi yang profesional dan terintegrasi, meliputi perizinan, keimigrasian, perpajakan, pertanahan, serta pengembangan dan pelatihan SDM. Setiap layanan diberikan dengan mengutamakan transparansi, akurasi, dan profesionalisme untuk mendukung kebutuhan serta keberlangsungan bisnis Anda.",
-    bgImage: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80",
+    bgImage: "https://images.unsplash.com/photo-1453945619913-79ec89a82c51?auto=format&fit=crop&w=1920&q=80",
     bgVideo: "/bg_hero.mp4",
     ctaButton1Text: "Cari 445+ Layanan Konsultan",
     ctaButton1Link: "/layanan",
@@ -248,8 +248,8 @@ export const defaultSiteContent: SiteContent = {
     titleAccent: "Pertumbuhan Bisnis.",
     paragraph1: "Seleco Project merupakan mitra profesional dalam bidang konsultasi korporasi yang menyediakan solusi terpadu di bidang perizinan, keimigrasian, perpajakan, pertanahan, serta pengembangan dan pelatihan SDM. Seleco Project berkomitmen untuk mendukung kebutuhan pelaku usaha, korporasi nasional, maupun multinasional melalui layanan yang profesional, akurat, transparan, dan berorientasi pada solusi.",
     paragraph2: "Dengan keahlian mendalam pada 5 pilar layanan konsultan serta pengurusan 411+ izin usaha OSS RBA dan kepatuhan instansi teknis, kami memastikan seluruh operasional bisnis Anda berjalan lancar, aman, dan patuh regulasi.",
-    image1: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
-    image2: "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80",
+    image1: "https://images.unsplash.com/photo-1453945619913-79ec89a82c51?auto=format&fit=crop&w=1200&q=80",
+    image2: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=800&q=80",
     experienceYears: "10+",
     values: [
       {
@@ -372,7 +372,7 @@ export const defaultSiteContent: SiteContent = {
         tag: "Perizinan OSS",
         date: "10 Sep 2026",
         readTime: "5 menit baca",
-        image: "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80",
+        image: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=800&q=80",
         excerpt: "Langkah-langkah strategis bagi korporasi dan pelaku usaha dalam memenuhi persyaratan dasar perizinan berusaha berbasis risiko sesuai regulasi pemerintah terkini.",
       },
       {

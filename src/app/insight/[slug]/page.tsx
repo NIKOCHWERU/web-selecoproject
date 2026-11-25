@@ -100,7 +100,7 @@ function RenderGutenbergBlock({ block }: { block: GutenbergBlock }) {
     case 'image': {
       return (
         <figure className="my-8">
-          <div className="overflow-hidden rounded-2xl border border-slate-200 shadow-md bg-slate-100">
+          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
             <img
               src={block.content.url}
               alt={block.content.alt || 'Ilustrasi Artikel SELECO'}
@@ -118,13 +118,13 @@ function RenderGutenbergBlock({ block }: { block: GutenbergBlock }) {
 
     case 'quote': {
       return (
-        <blockquote className="my-8 p-6 sm:p-8 bg-slate-50 border-l-4 border-[#dfa82e] rounded-r-2xl border border-slate-200 shadow-sm">
+        <blockquote className="my-8 p-6 sm:p-8 bg-slate-50 border-l-4 border-[#dfa82e] rounded-r-2xl border border-slate-200">
           <Quote className="w-8 h-8 text-[#dfa82e]/60 mb-2" />
           <p className="font-serif-title text-lg sm:text-xl italic text-[#0a1420] leading-relaxed">
             &ldquo;{block.content.text}&rdquo;
           </p>
           {(block.content.author || block.content.cite) && (
-            <div className="mt-4 text-xs font-semibold uppercase tracking-wider text-[#b88917]">
+            <div className="mt-4 text-xs font-semibold tracking-wide text-[#0a1420]">
               - {block.content.author} {block.content.cite && <span className="text-slate-500 font-normal">({block.content.cite})</span>}
             </div>
           )}
@@ -178,7 +178,7 @@ function RenderGutenbergBlock({ block }: { block: GutenbergBlock }) {
       }[type];
 
       return (
-        <div className={`my-7 p-5 sm:p-6 rounded-2xl border ${styles.bg} flex items-start gap-4 shadow-xs`}>
+        <div className={`my-7 p-5 sm:p-6 rounded-2xl border ${styles.bg} flex items-start gap-4`}>
           {styles.icon}
           <div>
             {block.content.title && (
@@ -198,14 +198,14 @@ function RenderGutenbergBlock({ block }: { block: GutenbergBlock }) {
       const headers: string[] = block.content.headers || ['Parameter Regulasi', 'Ketentuan / Syarat', 'Keterangan'];
       const rows: string[][] = block.content.rows || [];
       return (
-        <div className="my-8 overflow-x-auto rounded-xl border border-slate-200 shadow-sm bg-white">
+        <div className="my-8 overflow-x-auto rounded-xl border border-slate-200 bg-white">
           {block.content.title && (
-            <div className="px-5 py-3 bg-slate-50 text-[#b88917] text-xs font-bold uppercase tracking-wider border-b border-slate-200">
+            <div className="px-5 py-3 bg-slate-50 text-[#0a1420] text-xs font-bold tracking-wide border-b border-slate-200">
               {block.content.title}
             </div>
           )}
           <table className="w-full text-left text-xs sm:text-sm">
-            <thead className="bg-slate-50 border-b border-slate-200 text-[#0a1420] font-bold uppercase text-[11px] tracking-wider">
+            <thead className="bg-slate-50 border-b border-slate-200 text-[#0a1420] font-bold text-xs tracking-wide">
               <tr>
                 {headers.map((h, i) => (
                   <th key={i} className="px-4 py-3 border-r border-slate-200 last:border-r-0">
@@ -232,10 +232,10 @@ function RenderGutenbergBlock({ block }: { block: GutenbergBlock }) {
 
     case 'cta': {
       return (
-        <div className="my-10 bg-slate-50 text-slate-900 rounded-2xl p-6 sm:p-8 border border-slate-200 relative overflow-hidden shadow-sm">
+        <div className="my-10 bg-slate-50 text-slate-900 rounded-2xl p-6 sm:p-8 border border-slate-200 relative overflow-hidden">
           <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#dfa82e]" />
           <div className="pl-3 sm:pl-4 space-y-3">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-[#b88917]">
+            <span className="text-xs font-bold tracking-wide text-[#0a1420]">
               Konsultasi Profesional SELECO
             </span>
             <h4 className="font-serif-title text-xl sm:text-2xl font-bold text-[#0a1420] leading-tight">
@@ -247,7 +247,7 @@ function RenderGutenbergBlock({ block }: { block: GutenbergBlock }) {
             <div className="pt-2">
               <a
                 href={block.content.ctaButtonUrl || '/kontak'}
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0a1420] hover:bg-[#b88917] text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-colors shadow-xs"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0a1420] hover:bg-[#b88917] text-white text-xs font-bold tracking-wide rounded-lg transition-colors"
               >
                 <MessageCircle className="w-3.5 h-3.5" />
                 <span>{block.content.ctaButtonText || 'Jadwalkan Konsultasi'}</span>
@@ -269,7 +269,7 @@ function RenderGutenbergBlock({ block }: { block: GutenbergBlock }) {
               <p className="font-bold text-xs sm:text-sm text-slate-900 truncate">
                 {block.content.fileName || 'Dokumen Regulasi Terkait.pdf'}
               </p>
-              <p className="text-[11px] text-slate-500">
+              <p className="text-xs text-slate-500">
                 {block.content.fileType || 'Dokumen Resmi'} • {block.content.fileSize || 'PDF'}
               </p>
             </div>
@@ -333,7 +333,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
         <div className="mb-8">
           <Link
             href="/insight"
-            className="inline-flex items-center text-[#0a1420] hover:text-[#dfa82e] transition-colors font-bold uppercase tracking-widest text-xs gap-2"
+            className="inline-flex items-center text-[#0a1420] hover:text-[#dfa82e] transition-colors font-bold tracking-wide text-xs gap-2"
           >
             <ArrowLeft size={16} /> Kembali ke Insight
           </Link>
@@ -342,7 +342,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
         {/* Header Section */}
         <header className="mb-8 sm:mb-10">
           <div className="flex items-center gap-2 mb-4">
-            <span className="bg-[#dfa82e] text-[#0a1420] text-[10px] font-bold px-3 py-1 uppercase tracking-[0.2em] rounded-full">
+            <span className="bg-[#dfa82e] text-[#0a1420] text-xs font-bold px-3 py-1 tracking-wide rounded">
               {article.category || 'Insight'}
             </span>
           </div>
@@ -379,7 +379,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 
         {/* Featured Cover Image */}
         {article.coverImage && (
-          <div className="mb-10 sm:mb-12 rounded-2xl overflow-hidden shadow-xl aspect-video max-h-[520px] bg-slate-100 border border-slate-200">
+          <div className="mb-10 sm:mb-12 rounded-2xl overflow-hidden aspect-video max-h-[520px] bg-slate-100 border border-slate-200">
             <img
               src={article.coverImage}
               alt={article.title}
@@ -403,7 +403,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
         {article.tags && article.tags.length > 0 && (
           <div className="mb-12 pt-6 border-t border-slate-200 flex items-center gap-2 flex-wrap">
             <Tag size={16} className="text-[#dfa82e]" />
-            <span className="text-xs font-bold uppercase tracking-wider text-[#0a1420]">Tags:</span>
+            <span className="text-xs font-bold tracking-wide text-[#0a1420]">Tags:</span>
             {article.tags.map((tag, idx) => (
               <span
                 key={idx}
@@ -419,10 +419,10 @@ export default async function ArticleDetailPage({ params }: PageProps) {
         {relatedArticles.length > 0 && (
           <div className="mt-8 mb-16 pt-12 border-t border-slate-200">
             <div className="text-center md:text-left mb-8">
-              <h4 className="text-[#dfa82e] font-black tracking-[0.2em] uppercase text-xs mb-2">
+              <h4 className="text-[#dfa82e] font-black tracking-wide text-xs mb-2">
                 Sentral Edukasi &amp; Regulasi
               </h4>
-              <h2 className="text-2xl sm:text-3xl font-black text-[#0a1420] uppercase font-sans tracking-wide">
+              <h2 className="text-2xl sm:text-3xl font-black text-[#0a1420] font-sans tracking-wide">
                 Insight &amp; Analisis Terkait
               </h2>
             </div>
@@ -431,7 +431,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                 <Link
                   href={`/insight/${relArt.slug}`}
                   key={relArt.id}
-                  className="flex flex-col group h-full bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-[#dfa82e]/50 rounded-xl p-4 transition-all duration-300"
+                  className="flex flex-col group h-full bg-white border border-slate-200  hover:border-[#dfa82e]/50 rounded-xl p-4 transition-all duration-300"
                 >
                   <div className="w-full h-40 bg-slate-100 mb-4 overflow-hidden rounded-lg relative">
                     <img
@@ -440,10 +440,10 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
-                  <div className="text-[#dfa82e] text-[10px] font-black tracking-widest uppercase mb-2">
+                  <div className="text-[#dfa82e] text-xs font-black tracking-wide mb-2">
                     {relArt.category || 'Insight'}
                   </div>
-                  <h4 className="text-sm font-bold text-[#0a1420] mb-3 line-clamp-2 uppercase font-sans group-hover:text-[#dfa82e] transition-colors leading-snug">
+                  <h4 className="text-sm font-bold text-[#0a1420] mb-3 line-clamp-2 font-sans group-hover:text-[#dfa82e] transition-colors leading-snug">
                     {relArt.title}
                   </h4>
                   <div className="mt-auto pt-3 flex justify-between items-center border-t border-slate-100 text-xs text-slate-400">
@@ -460,12 +460,12 @@ export default async function ArticleDetailPage({ params }: PageProps) {
         )}
 
         {/* Consultation CTA Banner */}
-        <div className="mt-12 mb-12 relative overflow-hidden rounded-2xl max-w-4xl mx-auto shadow-xl bg-[#0a1420] text-white border border-[#dfa82e]/30">
+        <div className="mt-12 mb-12 relative overflow-hidden rounded-2xl max-w-4xl mx-auto bg-[#0a1420] text-white border border-[#dfa82e]/30">
           <div className="relative z-10 p-6 md:p-8 text-center">
             <div className="inline-flex items-center justify-center w-12 h-12 bg-[#dfa82e]/20 rounded-xl mb-4 border border-[#dfa82e]/30">
               <MessageCircle className="text-[#dfa82e] w-6 h-6" />
             </div>
-            <h2 className="text-lg md:text-xl font-bold text-white mb-3 uppercase tracking-widest font-sans">
+            <h2 className="text-lg md:text-xl font-bold text-white mb-3 tracking-wide font-sans">
               Butuh Konsultasi Korporasi &amp; Legalitas?
             </h2>
             <p className="text-slate-300 text-xs md:text-sm max-w-2xl mx-auto mb-6 leading-relaxed">
@@ -475,13 +475,13 @@ export default async function ArticleDetailPage({ params }: PageProps) {
               href="https://wa.me/6282211020022?text=Halo%20SELECO,%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20korporasi"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#dfa82e] hover:bg-white text-[#0a1420] font-bold py-3 px-6 text-sm rounded-lg transition-all shadow-md group"
+              className="inline-flex items-center gap-2 bg-[#dfa82e] hover:bg-white text-[#0a1420] font-bold py-3 px-6 text-sm rounded-lg transition-all group"
             >
               Konsultasi Sekarang
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>
             <div className="mt-6 flex items-center justify-center gap-2 text-slate-400 text-xs">
-              <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+              <div className="w-2 h-2 bg-emerald-500 rounded-full" />
               Tersedia untuk Konsultasi Online &amp; Tatap Muka
             </div>
           </div>

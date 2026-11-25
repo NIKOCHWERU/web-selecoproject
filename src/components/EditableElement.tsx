@@ -298,7 +298,7 @@ export function EditableText({
       <span 
         className={`absolute -inset-1 rounded-md pointer-events-none transition-all duration-150 z-20 ${
           showToolbar 
-            ? 'border-2 border-amber-400 bg-amber-400/10 shadow-[0_0_15px_rgba(212,175,55,0.3)]' 
+            ? 'border-2 border-amber-400 bg-amber-400/10' 
             : isHovered 
             ? 'border-2 border-dashed border-amber-400/80 bg-amber-400/5' 
             : 'border border-transparent'
@@ -307,10 +307,10 @@ export function EditableText({
 
       {/* Label Tooltip & Quick Action Pill on Hover */}
       {isHovered && !showToolbar && (
-        <span className="absolute -top-7 left-0 z-30 flex items-center gap-1 bg-slate-950 text-white text-[10px] px-2 py-0.5 rounded shadow-lg border border-amber-400/40 pointer-events-none whitespace-nowrap animate-fade-in">
+        <span className="absolute -top-7 left-0 z-30 flex items-center gap-1 bg-slate-950 text-white text-xs px-2 py-0.5 rounded border border-amber-400/40 pointer-events-none whitespace-nowrap animate-fade-in">
           <Edit3 className="w-2.5 h-2.5 text-amber-400" />
           <span className="font-semibold text-amber-300">{label || fieldPath}</span>
-          <span className="text-slate-400 text-[9px]">(Klik untuk edit)</span>
+          <span className="text-slate-400 text-xs">(Klik untuk edit)</span>
         </span>
       )}
 
@@ -349,13 +349,13 @@ export function EditableText({
       {/* ELEMENTOR-STYLE FLOATING QUICK TOOLBAR (Style, Align, Color, Size) */}
       {showToolbar && (
         <div 
-          className="absolute left-0 bottom-full mb-2 z-50 bg-slate-900/95 backdrop-blur-xl border border-amber-400/60 rounded-xl shadow-2xl p-2 flex items-center gap-2 text-white text-xs select-none animate-in fade-in zoom-in-95 duration-150 whitespace-nowrap max-w-[95vw] overflow-x-auto"
+          className="absolute left-0 bottom-full mb-2 z-50 bg-slate-900/95 border border-amber-400/60 rounded-xl shadow-2xl p-2 flex items-center gap-2 text-white text-xs select-none animate-in fade-in zoom-in-95 duration-150 whitespace-nowrap max-w-[95vw] overflow-x-auto"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Label Header */}
           <div className="flex items-center gap-1 px-1.5 border-r border-slate-700 pr-2">
             <Sliders className="w-3.5 h-3.5 text-amber-400" />
-            <span className="text-[10px] font-bold uppercase tracking-wider text-amber-300">
+            <span className="text-xs font-bold uppercase tracking-wide text-amber-300">
               {label || 'Format'}
             </span>
           </div>
@@ -507,12 +507,12 @@ export function EditableText({
           </div>
 
           {/* Font Size Quick Adjust */}
-          <div className="flex items-center gap-1 bg-slate-950/80 px-2 py-1 rounded-lg border border-slate-800 text-[11px]">
+          <div className="flex items-center gap-1 bg-slate-950/80 px-2 py-1 rounded-lg border border-slate-800 text-xs">
             <Type className="w-3 h-3 text-amber-300" />
             <select
               value={customStyle.fontSize || ''}
               onChange={(e) => updateStyleProp('fontSize', e.target.value)}
-              className="bg-transparent text-white text-[11px] focus:outline-none cursor-pointer"
+              className="bg-transparent text-white text-xs focus:outline-none cursor-pointer"
             >
               <option value="" className="bg-slate-900">Font Normal</option>
               <option value="11px" className="bg-slate-900">11px (Sangat Kecil)</option>
@@ -529,12 +529,12 @@ export function EditableText({
           </div>
 
           {/* Spasi Karakter (Letter Spacing) */}
-          <div className="flex items-center gap-1 bg-slate-950/80 px-2 py-1 rounded-lg border border-slate-800 text-[11px]">
+          <div className="flex items-center gap-1 bg-slate-950/80 px-2 py-1 rounded-lg border border-slate-800 text-xs">
             <Baseline className="w-3 h-3 text-amber-300" />
             <select
               value={customStyle.letterSpacing || ''}
               onChange={(e) => updateStyleProp('letterSpacing', e.target.value)}
-              className="bg-transparent text-white text-[11px] focus:outline-none cursor-pointer"
+              className="bg-transparent text-white text-xs focus:outline-none cursor-pointer"
               title="Spasi Karakter (Letter Spacing)"
             >
               <option value="" className="bg-slate-900">Spasi Huruf Normal</option>
@@ -546,12 +546,12 @@ export function EditableText({
           </div>
 
           {/* Line Height (Spasi Baris) */}
-          <div className="flex items-center gap-1 bg-slate-950/80 px-2 py-1 rounded-lg border border-slate-800 text-[11px]">
-            <span className="text-[10px] text-amber-300 font-bold">1↕</span>
+          <div className="flex items-center gap-1 bg-slate-950/80 px-2 py-1 rounded-lg border border-slate-800 text-xs">
+            <span className="text-xs text-amber-300 font-bold">1↕</span>
             <select
               value={customStyle.lineHeight || ''}
               onChange={(e) => updateStyleProp('lineHeight', e.target.value)}
-              className="bg-transparent text-white text-[11px] focus:outline-none cursor-pointer"
+              className="bg-transparent text-white text-xs focus:outline-none cursor-pointer"
               title="Spasi Baris (Line Height)"
             >
               <option value="" className="bg-slate-900">Spasi Baris Default</option>
@@ -564,12 +564,12 @@ export function EditableText({
           </div>
 
           {/* Margin & Spacing (Word MS Format) */}
-          <div className="flex items-center gap-1 bg-slate-950/80 px-2 py-1 rounded-lg border border-slate-800 text-[11px]">
+          <div className="flex items-center gap-1 bg-slate-950/80 px-2 py-1 rounded-lg border border-slate-800 text-xs">
             <Space className="w-3 h-3 text-amber-300" />
             <select
               value={customStyle.margin || ''}
               onChange={(e) => updateStyleProp('margin', e.target.value)}
-              className="bg-transparent text-white text-[11px] focus:outline-none cursor-pointer"
+              className="bg-transparent text-white text-xs focus:outline-none cursor-pointer"
               title="Margin / Jarak Luar Elemen"
             >
               <option value="" className="bg-slate-900">Margin Default</option>
@@ -587,12 +587,12 @@ export function EditableText({
           </div>
 
           {/* Padding (Jarak Dalam) */}
-          <div className="flex items-center gap-1 bg-slate-950/80 px-2 py-1 rounded-lg border border-slate-800 text-[11px]">
+          <div className="flex items-center gap-1 bg-slate-950/80 px-2 py-1 rounded-lg border border-slate-800 text-xs">
             <Box className="w-3 h-3 text-amber-300" />
             <select
               value={customStyle.padding || ''}
               onChange={(e) => updateStyleProp('padding', e.target.value)}
-              className="bg-transparent text-white text-[11px] focus:outline-none cursor-pointer"
+              className="bg-transparent text-white text-xs focus:outline-none cursor-pointer"
               title="Padding / Ruang Dalam Elemen"
             >
               <option value="" className="bg-slate-900">Padding Default</option>
@@ -606,14 +606,14 @@ export function EditableText({
 
           {/* Link / URL Editor */}
           {linkPath && (
-            <div className="flex items-center gap-1.5 bg-slate-950/80 px-2.5 py-1 rounded-lg border border-slate-800 text-[11px]">
+            <div className="flex items-center gap-1.5 bg-slate-950/80 px-2.5 py-1 rounded-lg border border-slate-800 text-xs">
               <ExternalLink className="w-3 h-3 text-amber-300 shrink-0" />
               <input
                 type="text"
                 value={getLinkValue()}
                 onChange={(e) => updateLinkValue(e.target.value)}
                 placeholder="Link URL (/kontak atau https://...)"
-                className="bg-transparent text-amber-300 w-36 sm:w-48 text-[11px] focus:outline-none border-b border-transparent focus:border-amber-400 placeholder:text-slate-500"
+                className="bg-transparent text-amber-300 w-36 sm:w-48 text-xs focus:outline-none border-b border-transparent focus:border-amber-400 placeholder:text-slate-500"
                 title="URL Tujuan Tombol"
               />
             </div>
@@ -644,7 +644,7 @@ export function EditableText({
                   return copy;
                 });
               }}
-              className="px-2 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-300 rounded text-[10px] transition-colors"
+              className="px-2 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-300 rounded text-xs transition-colors"
               title="Reset Format Teks ke Semula"
             >
               Reset
@@ -873,7 +873,7 @@ export function EditableImage({
       {/* Floating Header Action Pill (Elementor-style) */}
       {isHovered && !showImageToolbar && (
         <div className="absolute top-2 left-2 right-2 z-30 flex items-center justify-between pointer-events-none animate-fade-in">
-          <div className="bg-slate-950/90 text-amber-300 border border-amber-400/50 text-[10px] font-bold px-2.5 py-1 rounded-lg shadow-lg flex items-center gap-1.5 backdrop-blur-md">
+          <div className="bg-slate-950/90 text-amber-300 border border-amber-400/50 text-xs font-bold px-2.5 py-1 rounded-lg flex items-center gap-1.5">
             <ImageIcon className="w-3 h-3 text-amber-400" />
             <span>{label || 'Gambar'}</span>
           </div>
@@ -884,7 +884,7 @@ export function EditableImage({
                 e.stopPropagation();
                 setShowImageToolbar(true);
               }}
-              className="px-2.5 py-1 bg-amber-400 text-slate-950 hover:brightness-110 text-[11px] font-bold rounded-lg shadow-lg flex items-center gap-1 transition-all"
+              className="px-2.5 py-1 bg-amber-400 text-slate-950 hover:brightness-110 text-xs font-bold rounded-lg flex items-center gap-1 transition-all"
               title="Sesuaikan Crop, Posisi, Filter & Format CSS"
             >
               <SlidersHorizontal className="w-3 h-3" />
@@ -895,7 +895,7 @@ export function EditableImage({
                 e.stopPropagation();
                 fileInputRef.current?.click();
               }}
-              className="px-2.5 py-1 bg-slate-900/90 hover:bg-slate-800 text-white text-[11px] font-bold rounded-lg border border-slate-700 shadow-lg flex items-center gap-1 transition-all"
+              className="px-2.5 py-1 bg-slate-900/90 hover:bg-slate-800 text-white text-xs font-bold rounded-lg border border-slate-700 flex items-center gap-1 transition-all"
               title="Ganti Foto Baru"
             >
               <Upload className="w-3 h-3 text-amber-400" />
@@ -908,14 +908,14 @@ export function EditableImage({
       {/* ELEMENTOR IMAGE SETTINGS POPUP MODAL (Crop, Fit, Position, Zoom, Filters) */}
       {showImageToolbar && (
         <div 
-          className="absolute inset-x-2 top-2 z-50 bg-slate-950/95 backdrop-blur-xl border border-amber-400/70 rounded-2xl shadow-2xl p-4 text-white text-xs select-none animate-in fade-in zoom-in-95 duration-150 max-h-[92%] overflow-y-auto custom-scrollbar"
+          className="absolute inset-x-2 top-2 z-50 bg-slate-950/95 border border-amber-400/70 rounded-2xl shadow-2xl p-4 text-white text-xs select-none animate-in fade-in zoom-in-95 duration-150 max-h-[92%] overflow-y-auto custom-scrollbar"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
           <div className="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
             <div className="flex items-center gap-2">
               <SlidersHorizontal className="w-4 h-4 text-amber-400" />
-              <span className="font-bold text-amber-300 text-xs uppercase tracking-wider">
+              <span className="font-bold text-amber-300 text-xs uppercase tracking-wide">
                 Setting Gambar (CSS &amp; Crop)
               </span>
             </div>
@@ -930,11 +930,11 @@ export function EditableImage({
           <div className="space-y-3.5">
             {/* 1. Aspect Ratio (Crop Presets) */}
             <div>
-              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5 flex items-center gap-1">
+              <label className="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-1.5 flex items-center gap-1">
                 <Crop className="w-3 h-3 text-amber-300" />
                 <span>Crop / Rasio Aspek (Aspect Ratio)</span>
               </label>
-              <div className="grid grid-cols-4 gap-1.5 text-[10px]">
+              <div className="grid grid-cols-4 gap-1.5 text-xs">
                 {[
                   { label: 'Default', val: '' },
                   { label: '1:1 Persegi', val: '1/1' },
@@ -962,11 +962,11 @@ export function EditableImage({
 
             {/* 2. Object Fit (Ukuran Tampilan Gambar) */}
             <div>
-              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5 flex items-center gap-1">
+              <label className="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-1.5 flex items-center gap-1">
                 <Maximize2 className="w-3 h-3 text-amber-300" />
                 <span>Kesesuaian Gambar (Object Fit)</span>
               </label>
-              <div className="grid grid-cols-4 gap-1.5 text-[10px]">
+              <div className="grid grid-cols-4 gap-1.5 text-xs">
                 {[
                   { label: 'Cover (Isi Penuh)', val: 'cover' },
                   { label: 'Contain (Pas Utuh)', val: 'contain' },
@@ -990,11 +990,11 @@ export function EditableImage({
 
             {/* 3. Object Position (Fokus Pemotongan) */}
             <div>
-              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5 flex items-center gap-1">
+              <label className="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-1.5 flex items-center gap-1">
                 <Focus className="w-3 h-3 text-amber-300" />
                 <span>Titik Fokus Pemotongan (Object Position)</span>
               </label>
-              <div className="grid grid-cols-5 gap-1 text-[10px]">
+              <div className="grid grid-cols-5 gap-1 text-xs">
                 {[
                   { label: 'Tengah', val: 'center' },
                   { label: 'Atas', val: 'top' },
@@ -1019,8 +1019,8 @@ export function EditableImage({
 
             {/* 4. Zoom / Scale Slider */}
             <div>
-              <div className="flex items-center justify-between text-[10px] mb-1">
-                <span className="font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1">
+              <div className="flex items-center justify-between text-xs mb-1">
+                <span className="font-bold text-slate-400 uppercase tracking-wide flex items-center gap-1">
                   <ZoomIn className="w-3 h-3 text-amber-300" />
                   <span>Zoom / Skala:</span>
                 </span>
@@ -1039,11 +1039,11 @@ export function EditableImage({
 
             {/* 5. Sudut Lengkung (Border Radius) */}
             <div>
-              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5 flex items-center gap-1">
+              <label className="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-1.5 flex items-center gap-1">
                 <Square className="w-3 h-3 text-amber-300" />
                 <span>Bentuk Sudut (Border Radius)</span>
               </label>
-              <div className="grid grid-cols-4 gap-1.5 text-[10px]">
+              <div className="grid grid-cols-4 gap-1.5 text-xs">
                 {[
                   { label: 'Siku (0px)', val: '0px' },
                   { label: 'Halus (8px)', val: '8px' },
@@ -1068,14 +1068,14 @@ export function EditableImage({
             {/* 6. CSS Filters (Brightness, Contrast, Grayscale) */}
             <div className="pt-2 border-t border-slate-800 grid grid-cols-3 gap-2">
               <div>
-                <label className="text-[9px] font-bold text-slate-400 block mb-1 flex items-center gap-1">
+                <label className="text-xs font-bold text-slate-400 block mb-1 flex items-center gap-1">
                   <Sun className="w-2.5 h-2.5 text-amber-300" />
                   <span>Kecerahan</span>
                 </label>
                 <select
                   value={customImgStyle.filterBrightness || '1'}
                   onChange={(e) => updateImageStyle('filterBrightness', e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-lg py-1 px-1.5 text-[10px] text-white focus:outline-none"
+                  className="w-full bg-slate-900 border border-slate-800 rounded-lg py-1 px-1.5 text-xs text-white focus:outline-none"
                 >
                   <option value="0.7">Gelap (70%)</option>
                   <option value="0.85">Redup (85%)</option>
@@ -1086,14 +1086,14 @@ export function EditableImage({
               </div>
 
               <div>
-                <label className="text-[9px] font-bold text-slate-400 block mb-1 flex items-center gap-1">
+                <label className="text-xs font-bold text-slate-400 block mb-1 flex items-center gap-1">
                   <Contrast className="w-2.5 h-2.5 text-amber-300" />
                   <span>Kontras</span>
                 </label>
                 <select
                   value={customImgStyle.filterContrast || '1'}
                   onChange={(e) => updateImageStyle('filterContrast', e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-lg py-1 px-1.5 text-[10px] text-white focus:outline-none"
+                  className="w-full bg-slate-900 border border-slate-800 rounded-lg py-1 px-1.5 text-xs text-white focus:outline-none"
                 >
                   <option value="0.8">Lembut (80%)</option>
                   <option value="1">Normal (100%)</option>
@@ -1103,14 +1103,14 @@ export function EditableImage({
               </div>
 
               <div>
-                <label className="text-[9px] font-bold text-slate-400 block mb-1 flex items-center gap-1">
+                <label className="text-xs font-bold text-slate-400 block mb-1 flex items-center gap-1">
                   <Sparkles className="w-2.5 h-2.5 text-amber-300" />
                   <span>Efek Warna</span>
                 </label>
                 <select
                   value={customImgStyle.filterGrayscale || '0%'}
                   onChange={(e) => updateImageStyle('filterGrayscale', e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-lg py-1 px-1.5 text-[10px] text-white focus:outline-none"
+                  className="w-full bg-slate-900 border border-slate-800 rounded-lg py-1 px-1.5 text-xs text-white focus:outline-none"
                 >
                   <option value="0%">Warna Asli</option>
                   <option value="50%">Semi Hitam-Putih</option>
@@ -1123,7 +1123,7 @@ export function EditableImage({
             <div className="pt-2 border-t border-slate-800 flex items-center justify-between">
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-amber-300 border border-amber-400/40 rounded-lg text-[10px] font-bold flex items-center gap-1.5 transition-all"
+                className="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-amber-300 border border-amber-400/40 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all"
               >
                 <Upload className="w-3 h-3" />
                 <span>Upload Foto Pengganti</span>
@@ -1131,7 +1131,7 @@ export function EditableImage({
 
               <button
                 onClick={() => setShowImageToolbar(false)}
-                className="px-4 py-1.5 bg-gradient-to-r from-gold-accent to-gold-bright text-slate-950 rounded-lg text-[10px] font-bold hover:brightness-110 transition-all"
+                className="px-4 py-1.5 bg-gradient-to-r from-gold-accent to-gold-bright text-slate-950 rounded-lg text-xs font-bold hover:brightness-110 transition-all"
               >
                 Terapkan &amp; Selesai
               </button>
@@ -1336,7 +1336,7 @@ export function EditableBackground({
                 e.stopPropagation();
                 setShowBgToolbar(!showBgToolbar);
               }}
-              className="px-3.5 py-2 bg-amber-400 hover:brightness-110 text-slate-950 rounded-xl shadow-2xl flex items-center gap-2 text-xs font-bold uppercase tracking-wider transition-all duration-200"
+              className="px-3.5 py-2 bg-amber-400 hover:brightness-110 text-slate-950 rounded-xl shadow-2xl flex items-center gap-2 text-xs font-bold uppercase tracking-wide transition-all duration-200"
               title="Atur Posisi, Zoom, dan Efek CSS Background"
             >
               <SlidersHorizontal className="w-4 h-4" />
@@ -1348,7 +1348,7 @@ export function EditableBackground({
                 e.stopPropagation();
                 fileInputRef.current?.click();
               }}
-              className="px-3.5 py-2 bg-slate-950/90 hover:bg-slate-900 text-amber-300 border border-amber-400/50 rounded-xl shadow-2xl flex items-center gap-2 text-xs font-bold uppercase tracking-wider backdrop-blur-md transition-all duration-200"
+              className="px-3.5 py-2 bg-slate-950/90 hover:bg-slate-900 text-amber-300 border border-amber-400/50 rounded-xl shadow-2xl flex items-center gap-2 text-xs font-bold uppercase tracking-wide transition-all duration-200"
               title="Klik untuk mengganti background image hero ini"
             >
               {isUploading ? (
@@ -1363,14 +1363,14 @@ export function EditableBackground({
           {/* Modal Settings */}
           {showBgToolbar && (
             <div 
-              className="mt-3 w-80 bg-slate-950/95 backdrop-blur-xl border border-amber-400/70 rounded-2xl shadow-2xl p-4 text-white text-xs select-none animate-in fade-in zoom-in-95 duration-150 max-h-[80vh] overflow-y-auto custom-scrollbar"
+              className="mt-3 w-80 bg-slate-950/95 border border-amber-400/70 rounded-2xl shadow-2xl p-4 text-white text-xs select-none animate-in fade-in zoom-in-95 duration-150 max-h-[80vh] overflow-y-auto custom-scrollbar"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Header */}
               <div className="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
                 <div className="flex items-center gap-2">
                   <SlidersHorizontal className="w-4 h-4 text-amber-400" />
-                  <span className="font-bold text-amber-300 text-xs uppercase tracking-wider">
+                  <span className="font-bold text-amber-300 text-xs uppercase tracking-wide">
                     Setting Background Hero
                   </span>
                 </div>
@@ -1385,11 +1385,11 @@ export function EditableBackground({
               <div className="space-y-3.5">
                 {/* 1. Posisi Background (Titik Fokus) */}
                 <div>
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5 flex items-center gap-1">
+                  <label className="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-1.5 flex items-center gap-1">
                     <Focus className="w-3 h-3 text-amber-300" />
                     <span>Posisi Background (Focus Point)</span>
                   </label>
-                  <div className="grid grid-cols-5 gap-1 text-[10px]">
+                  <div className="grid grid-cols-5 gap-1 text-xs">
                     {[
                       { label: 'Tengah', val: 'center center' },
                       { label: 'Atas', val: 'center top' },
@@ -1414,11 +1414,11 @@ export function EditableBackground({
 
                 {/* 2. Ukuran Background (Size) */}
                 <div>
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5 flex items-center gap-1">
+                  <label className="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-1.5 flex items-center gap-1">
                     <Maximize2 className="w-3 h-3 text-amber-300" />
                     <span>Ukuran Background (Size)</span>
                   </label>
-                  <div className="grid grid-cols-3 gap-1.5 text-[10px]">
+                  <div className="grid grid-cols-3 gap-1.5 text-xs">
                     {[
                       { label: 'Cover (Penuh)', val: 'cover' },
                       { label: 'Contain (Pas)', val: 'contain' },
@@ -1441,8 +1441,8 @@ export function EditableBackground({
 
                 {/* 3. Zoom / Scale Slider */}
                 <div>
-                  <div className="flex items-center justify-between text-[10px] mb-1">
-                    <span className="font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1">
+                  <div className="flex items-center justify-between text-xs mb-1">
+                    <span className="font-bold text-slate-400 uppercase tracking-wide flex items-center gap-1">
                       <ZoomIn className="w-3 h-3 text-amber-300" />
                       <span>Zoom Background:</span>
                     </span>
@@ -1462,14 +1462,14 @@ export function EditableBackground({
                 {/* 4. Opasitas & Kecerahan */}
                 <div className="pt-2 border-t border-slate-800 grid grid-cols-2 gap-2">
                   <div>
-                    <label className="text-[9px] font-bold text-slate-400 block mb-1 flex items-center gap-1">
+                    <label className="text-xs font-bold text-slate-400 block mb-1 flex items-center gap-1">
                       <Sun className="w-2.5 h-2.5 text-amber-300" />
                       <span>Kecerahan</span>
                     </label>
                     <select
                       value={customBgStyle.filterBrightness || '1'}
                       onChange={(e) => updateBgStyle('filterBrightness', e.target.value)}
-                      className="w-full bg-slate-900 border border-slate-800 rounded-lg py-1 px-1.5 text-[10px] text-white focus:outline-none"
+                      className="w-full bg-slate-900 border border-slate-800 rounded-lg py-1 px-1.5 text-xs text-white focus:outline-none"
                     >
                       <option value="0.5">Gelap (50%)</option>
                       <option value="0.7">Redup (70%)</option>
@@ -1480,14 +1480,14 @@ export function EditableBackground({
                   </div>
 
                   <div>
-                    <label className="text-[9px] font-bold text-slate-400 block mb-1 flex items-center gap-1">
+                    <label className="text-xs font-bold text-slate-400 block mb-1 flex items-center gap-1">
                       <Contrast className="w-2.5 h-2.5 text-amber-300" />
                       <span>Kontras</span>
                     </label>
                     <select
                       value={customBgStyle.filterContrast || '1'}
                       onChange={(e) => updateBgStyle('filterContrast', e.target.value)}
-                      className="w-full bg-slate-900 border border-slate-800 rounded-lg py-1 px-1.5 text-[10px] text-white focus:outline-none"
+                      className="w-full bg-slate-900 border border-slate-800 rounded-lg py-1 px-1.5 text-xs text-white focus:outline-none"
                     >
                       <option value="0.8">Lembut (80%)</option>
                       <option value="1">Normal (100%)</option>
@@ -1500,14 +1500,14 @@ export function EditableBackground({
                 {/* 5. Efek Warna & Blur */}
                 <div className="grid grid-cols-2 gap-2">
                   <div>
-                    <label className="text-[9px] font-bold text-slate-400 block mb-1 flex items-center gap-1">
+                    <label className="text-xs font-bold text-slate-400 block mb-1 flex items-center gap-1">
                       <Sparkles className="w-2.5 h-2.5 text-amber-300" />
                       <span>Filter Warna</span>
                     </label>
                     <select
                       value={customBgStyle.filterGrayscale || '0%'}
                       onChange={(e) => updateBgStyle('filterGrayscale', e.target.value)}
-                      className="w-full bg-slate-900 border border-slate-800 rounded-lg py-1 px-1.5 text-[10px] text-white focus:outline-none"
+                      className="w-full bg-slate-900 border border-slate-800 rounded-lg py-1 px-1.5 text-xs text-white focus:outline-none"
                     >
                       <option value="0%">Warna Penuh</option>
                       <option value="50%">Semi Muted (50%)</option>
@@ -1516,13 +1516,13 @@ export function EditableBackground({
                   </div>
 
                   <div>
-                    <label className="text-[9px] font-bold text-slate-400 block mb-1 flex items-center gap-1">
+                    <label className="text-xs font-bold text-slate-400 block mb-1 flex items-center gap-1">
                       <span>Blur / Halus</span>
                     </label>
                     <select
                       value={customBgStyle.filterBlur || '0px'}
                       onChange={(e) => updateBgStyle('filterBlur', e.target.value)}
-                      className="w-full bg-slate-900 border border-slate-800 rounded-lg py-1 px-1.5 text-[10px] text-white focus:outline-none"
+                      className="w-full bg-slate-900 border border-slate-800 rounded-lg py-1 px-1.5 text-xs text-white focus:outline-none"
                     >
                       <option value="0px">Tajam (0px)</option>
                       <option value="2px">Halus (2px)</option>
@@ -1536,7 +1536,7 @@ export function EditableBackground({
                 <div className="pt-2 border-t border-slate-800 flex items-center justify-between">
                   <button
                     onClick={() => fileInputRef.current?.click()}
-                    className="px-2.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-amber-300 border border-amber-400/40 rounded-lg text-[10px] font-bold flex items-center gap-1 transition-all"
+                    className="px-2.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-amber-300 border border-amber-400/40 rounded-lg text-xs font-bold flex items-center gap-1 transition-all"
                   >
                     <Upload className="w-3 h-3" />
                     <span>Upload Foto</span>
@@ -1544,7 +1544,7 @@ export function EditableBackground({
 
                   <button
                     onClick={() => setShowBgToolbar(false)}
-                    className="px-3.5 py-1.5 bg-gradient-to-r from-gold-accent to-gold-bright text-slate-950 rounded-lg text-[10px] font-bold hover:brightness-110 transition-all"
+                    className="px-3.5 py-1.5 bg-gradient-to-r from-gold-accent to-gold-bright text-slate-950 rounded-lg text-xs font-bold hover:brightness-110 transition-all"
                   >
                     Terapkan &amp; Selesai
                   </button>
@@ -1668,7 +1668,7 @@ export function EditableSection({
       <div 
         className={`absolute inset-0 pointer-events-none transition-all duration-150 z-20 ${
           showToolbar 
-            ? 'border-2 border-amber-400/90 shadow-[inset_0_0_20px_rgba(212,175,55,0.1)]' 
+            ? 'border-2 border-amber-400/90' 
             : isHovered 
             ? 'border border-dashed border-amber-400/50' 
             : 'border-0'
@@ -1677,15 +1677,15 @@ export function EditableSection({
 
       {/* Elementor Section Header Handle Bar */}
       {isHovered && (
-        <div className="absolute top-2 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1.5 bg-slate-900/95 text-white text-xs px-3.5 py-1.5 rounded-full shadow-2xl border border-amber-400/60 backdrop-blur-md animate-fade-in">
+        <div className="absolute top-2 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1.5 bg-slate-900/95 text-white text-xs px-3.5 py-1.5 rounded shadow-2xl border border-amber-400/60 animate-fade-in">
           <Layout className="w-3.5 h-3.5 text-amber-400" />
-          <span className="font-bold text-amber-300 uppercase tracking-wider text-[11px]">{name}</span>
+          <span className="font-bold text-amber-300 uppercase tracking-wide text-xs">{name}</span>
           <button
             onClick={(e) => {
               e.stopPropagation();
               setShowToolbar(!showToolbar);
             }}
-            className="ml-1 px-2 py-0.5 bg-amber-400 hover:brightness-110 text-slate-950 font-bold text-[10px] rounded transition-all"
+            className="ml-1 px-2 py-0.5 bg-amber-400 hover:brightness-110 text-slate-950 font-bold text-xs rounded transition-all"
             title="Ubah style / warna latar section ini"
           >
             Edit Section
@@ -1696,12 +1696,12 @@ export function EditableSection({
       {/* Floating Section Style Toolbar */}
       {showToolbar && (
         <div 
-          className="absolute top-12 left-1/2 -translate-x-1/2 z-50 bg-slate-900/95 backdrop-blur-xl border border-amber-400/60 rounded-2xl shadow-2xl p-3 flex items-center gap-3 text-white text-xs select-none animate-in fade-in zoom-in-95 duration-150 whitespace-nowrap"
+          className="absolute top-12 left-1/2 -translate-x-1/2 z-50 bg-slate-900/95 border border-amber-400/60 rounded-2xl shadow-2xl p-3 flex items-center gap-3 text-white text-xs select-none animate-in fade-in zoom-in-95 duration-150 whitespace-nowrap"
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex items-center gap-1.5 pr-2 border-r border-slate-700">
             <Paintbrush className="w-4 h-4 text-amber-300" />
-            <span className="text-[11px] font-bold text-white uppercase tracking-wider">Latar Section</span>
+            <span className="text-xs font-bold text-white uppercase tracking-wide">Latar Section</span>
           </div>
 
           {/* Quick Bg Color Presets */}
@@ -1731,12 +1731,12 @@ export function EditableSection({
           </div>
 
           {/* Padding Adjust */}
-          <div className="flex items-center gap-1 bg-slate-950/80 px-2 py-1.5 rounded-xl border border-slate-800 text-[11px]">
+          <div className="flex items-center gap-1 bg-slate-950/80 px-2 py-1.5 rounded-xl border border-slate-800 text-xs">
             <span>Padding:</span>
             <select
               value={customStyle.padding || ''}
               onChange={(e) => updateSectionStyle('padding', e.target.value)}
-              className="bg-transparent text-amber-300 text-[11px] focus:outline-none cursor-pointer font-semibold"
+              className="bg-transparent text-amber-300 text-xs focus:outline-none cursor-pointer font-semibold"
             >
               <option value="" className="bg-slate-900">Normal (Default)</option>
               <option value="40px 0" className="bg-slate-900">Rapat (40px)</option>
@@ -1900,7 +1900,7 @@ export function EditableIcon({
       <span
         className={`absolute -inset-1 rounded-lg pointer-events-none transition-all duration-150 z-20 ${
           showPicker
-            ? 'border-2 border-amber-400 bg-amber-400/20 shadow-[0_0_12px_rgba(212,175,55,0.4)]'
+            ? 'border-2 border-amber-400 bg-amber-400/20'
             : isHovered
             ? 'border-2 border-dashed border-amber-400/90 bg-amber-400/10'
             : 'border border-transparent'
@@ -1909,10 +1909,10 @@ export function EditableIcon({
 
       {/* Hover tooltip */}
       {isHovered && !showPicker && (
-        <span className="absolute -top-7 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1 bg-slate-950 text-white text-[10px] px-2 py-0.5 rounded shadow-xl border border-amber-400/50 pointer-events-none whitespace-nowrap animate-fade-in">
+        <span className="absolute -top-7 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1 bg-slate-950 text-white text-xs px-2 py-0.5 rounded border border-amber-400/50 pointer-events-none whitespace-nowrap animate-fade-in">
           <Edit3 className="w-2.5 h-2.5 text-amber-400" />
           <span className="font-bold text-amber-300">{label || currentIconName}</span>
-          <span className="text-slate-400 text-[9px]">(Ganti Ikon)</span>
+          <span className="text-slate-400 text-xs">(Ganti Ikon)</span>
         </span>
       )}
 

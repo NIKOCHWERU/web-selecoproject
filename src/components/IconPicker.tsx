@@ -379,7 +379,7 @@ export function IconPicker({
           </div>
           <div>
             <h4 className="font-bold text-amber-300 text-xs tracking-wide leading-none">{title}</h4>
-            <span className="text-[10px] text-slate-400 leading-none">Saat ini: <strong className="text-white">{currentIconName || 'Default'}</strong></span>
+            <span className="text-xs text-slate-400 leading-none">Saat ini: <strong className="text-white">{currentIconName || 'Default'}</strong></span>
           </div>
         </div>
 
@@ -421,7 +421,7 @@ export function IconPicker({
             key={cat.id}
             onClick={() => setActiveCategory(cat.id)}
             type="button"
-            className={`px-2.5 py-1 rounded-lg text-[10px] font-semibold flex items-center gap-1 shrink-0 transition-all ${
+            className={`px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1 shrink-0 transition-all ${
               activeCategory === cat.id
                 ? 'bg-amber-400 text-slate-950 font-bold shadow'
                 : 'bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800'
@@ -441,7 +441,7 @@ export function IconPicker({
             <p>Tidak ada ikon yang cocok dengan "{searchQuery}"</p>
             <button 
               onClick={() => { setSearchQuery(''); setActiveCategory('all'); }}
-              className="mt-2 text-[10px] text-amber-300 hover:underline"
+              className="mt-2 text-xs text-amber-300 hover:underline"
             >
               Reset Pencarian
             </button>
@@ -465,12 +465,12 @@ export function IconPicker({
                   title={`${item.label} (${item.name})`}
                   className={`relative p-2 rounded-xl flex flex-col items-center justify-center transition-all group ${
                     isSelected
-                      ? 'bg-amber-400 text-slate-950 ring-2 ring-amber-300 font-bold shadow-lg scale-105'
+                      ? 'bg-amber-400 text-slate-950 ring-2 ring-amber-300 font-bold scale-105'
                       : 'bg-slate-900/90 text-slate-200 hover:bg-amber-400/20 hover:text-amber-300 border border-slate-800 hover:border-amber-400/60 hover:scale-110'
                   }`}
                 >
                   <Comp className="w-5 h-5 transition-transform group-hover:scale-110" />
-                  <span className="text-[8px] truncate max-w-full text-center mt-1 opacity-70 group-hover:opacity-100">
+                  <span className="text-xs truncate max-w-full text-center mt-1 opacity-70 group-hover:opacity-100">
                     {item.name}
                   </span>
                 </button>
@@ -482,7 +482,7 @@ export function IconPicker({
 
       {/* Quick Color & Size Toolbar (Optional) */}
       {(onChangeColor || onChangeSize) && (
-        <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-[11px] gap-2 mt-1">
+        <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-xs gap-2 mt-1">
           {onChangeColor && (
             <div className="flex items-center gap-1">
               <Palette className="w-3.5 h-3.5 text-amber-300 shrink-0" />
@@ -509,7 +509,7 @@ export function IconPicker({
           )}
 
           {onChangeSize && (
-            <div className="flex items-center gap-1 text-[10px]">
+            <div className="flex items-center gap-1 text-xs">
               <span className="text-slate-400">Ukuran:</span>
               <select
                 value={customSize || '24px'}
@@ -529,7 +529,7 @@ export function IconPicker({
 
       {/* Done Button */}
       <div className="pt-2 border-t border-slate-800 flex items-center justify-between mt-1">
-        <span className="text-[10px] text-slate-400">Total: {filteredIcons.length} Ikon</span>
+        <span className="text-xs text-slate-400">Total: {filteredIcons.length} Ikon</span>
         <button
           type="button"
           onClick={onClose}

@@ -214,9 +214,9 @@ export default function UserManagement({ currentUsername = 'admin' }: UserManage
 
       <div className="max-w-6xl mx-auto space-y-6">
         {/* Header Banner */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-950 border border-slate-800 rounded-3xl p-6 shadow-xl">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-950 border border-slate-800 rounded-3xl p-6">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-400/10 border border-amber-400/30 rounded-full text-amber-300 text-xs font-bold uppercase tracking-wider mb-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-400/10 border border-amber-400/30 rounded text-amber-300 text-xs font-bold uppercase tracking-wide mb-2">
               <ShieldCheck className="w-3.5 h-3.5" /> Manajemen Akses &amp; Keamanan
             </div>
             <h1 className="font-serif-title text-2xl sm:text-3xl font-bold text-white">
@@ -229,7 +229,7 @@ export default function UserManagement({ currentUsername = 'admin' }: UserManage
 
           <button
             onClick={openAddModal}
-            className="px-5 py-3 bg-gradient-to-r from-[#d4a024] to-[#b88917] hover:brightness-110 text-slate-950 font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md hover:shadow-gold flex items-center gap-2 shrink-0"
+            className="px-5 py-3 bg-gradient-to-r from-[#d4a024] to-[#b88917] hover:brightness-110 text-slate-950 font-bold text-xs uppercase tracking-wide rounded-xl transition-all  flex items-center gap-2 shrink-0"
           >
             <UserPlus className="w-4 h-4" />
             <span>Tambah Admin Baru</span>
@@ -240,7 +240,7 @@ export default function UserManagement({ currentUsername = 'admin' }: UserManage
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex items-center justify-between">
             <div>
-              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Total Akun Admin</span>
+              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Total Akun Admin</span>
               <div className="text-2xl font-bold text-white mt-1">{users.length}</div>
             </div>
             <div className="w-10 h-10 rounded-xl bg-amber-400/10 border border-amber-400/20 flex items-center justify-center text-amber-300">
@@ -250,7 +250,7 @@ export default function UserManagement({ currentUsername = 'admin' }: UserManage
 
           <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex items-center justify-between">
             <div>
-              <span className="text-xs font-semibold text-amber-400 uppercase tracking-wider">Superadmin</span>
+              <span className="text-xs font-semibold text-amber-400 uppercase tracking-wide">Superadmin</span>
               <div className="text-2xl font-bold text-amber-400 mt-1">
                 {users.filter(u => u.role === 'superadmin').length}
               </div>
@@ -262,7 +262,7 @@ export default function UserManagement({ currentUsername = 'admin' }: UserManage
 
           <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex items-center justify-between">
             <div>
-              <span className="text-xs font-semibold text-emerald-400 uppercase tracking-wider">Editor &amp; Penulis</span>
+              <span className="text-xs font-semibold text-emerald-400 uppercase tracking-wide">Editor &amp; Penulis</span>
               <div className="text-2xl font-bold text-emerald-400 mt-1">
                 {users.filter(u => u.role !== 'superadmin').length}
               </div>
@@ -274,7 +274,7 @@ export default function UserManagement({ currentUsername = 'admin' }: UserManage
         </div>
 
         {/* User Table Card */}
-        <div className="bg-slate-950 border border-slate-800 rounded-3xl overflow-hidden shadow-xl">
+        <div className="bg-slate-950 border border-slate-800 rounded-3xl overflow-hidden">
           <div className="p-4 sm:p-5 border-b border-slate-800 flex items-center justify-between">
             <h3 className="font-serif-title text-base sm:text-lg font-bold text-white flex items-center gap-2">
               <Users className="w-4 h-4 text-amber-300" />
@@ -292,7 +292,7 @@ export default function UserManagement({ currentUsername = 'admin' }: UserManage
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-slate-800 bg-slate-900/50 text-slate-400 uppercase tracking-wider">
+                  <tr className="border-b border-slate-800 bg-slate-900/50 text-slate-400 uppercase tracking-wide">
                     <th className="py-3.5 px-4 font-semibold">Pengguna / Nama</th>
                     <th className="py-3.5 px-4 font-semibold">Username</th>
                     <th className="py-3.5 px-4 font-semibold">Role</th>
@@ -315,12 +315,12 @@ export default function UserManagement({ currentUsername = 'admin' }: UserManage
                               <div className="font-bold text-white flex items-center gap-1.5">
                                 <span>{user.name}</span>
                                 {isCurrent && (
-                                  <span className="text-[10px] px-1.5 py-0.2 bg-amber-400/20 text-amber-300 rounded border border-amber-400/30 font-medium">
+                                  <span className="text-xs px-1.5 py-0.2 bg-amber-400/20 text-amber-300 rounded border border-amber-400/30 font-medium">
                                     Anda
                                   </span>
                                 )}
                               </div>
-                              <div className="text-[11px] text-slate-400">{user.email}</div>
+                              <div className="text-xs text-slate-400">{user.email}</div>
                             </div>
                           </div>
                         </td>
@@ -328,7 +328,7 @@ export default function UserManagement({ currentUsername = 'admin' }: UserManage
                           @{user.username}
                         </td>
                         <td className="py-3.5 px-4">
-                          <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border ${
+                          <span className={`px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wide border ${
                             user.role === 'superadmin'
                               ? 'bg-amber-400/10 border-amber-400/30 text-amber-300'
                               : user.role === 'editor'
@@ -341,7 +341,7 @@ export default function UserManagement({ currentUsername = 'admin' }: UserManage
                         <td className="py-3.5 px-4 text-slate-300">
                           {user.email}
                         </td>
-                        <td className="py-3.5 px-4 text-slate-400 text-[11px]">
+                        <td className="py-3.5 px-4 text-slate-400 text-xs">
                           {user.createdAt ? new Date(user.createdAt).toLocaleDateString('id-ID') : '-'}
                         </td>
                         <td className="py-3.5 px-4 text-right">
@@ -379,7 +379,7 @@ export default function UserManagement({ currentUsername = 'admin' }: UserManage
 
       {/* MODAL: TAMBAH USER BARU */}
       {showAddModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70">
           <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl space-y-5">
             <div className="flex items-center justify-between border-b border-slate-800 pb-3">
               <h3 className="font-serif-title text-lg font-bold text-white flex items-center gap-2">
@@ -483,7 +483,7 @@ export default function UserManagement({ currentUsername = 'admin' }: UserManage
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-5 py-2.5 bg-amber-400 text-slate-950 font-bold text-xs rounded-xl hover:brightness-110 shadow-md"
+                  className="px-5 py-2.5 bg-amber-400 text-slate-950 font-bold text-xs rounded-xl hover:brightness-110"
                 >
                   {isSubmitting ? 'Menyimpan...' : 'Tambah Pengguna'}
                 </button>
@@ -495,7 +495,7 @@ export default function UserManagement({ currentUsername = 'admin' }: UserManage
 
       {/* MODAL: EDIT USER & RESET PASSWORD */}
       {editingUser && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70">
           <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl space-y-5">
             <div className="flex items-center justify-between border-b border-slate-800 pb-3">
               <h3 className="font-serif-title text-lg font-bold text-white flex items-center gap-2">
@@ -582,7 +582,7 @@ export default function UserManagement({ currentUsername = 'admin' }: UserManage
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-5 py-2.5 bg-amber-400 text-slate-950 font-bold text-xs rounded-xl hover:brightness-110 shadow-md"
+                  className="px-5 py-2.5 bg-amber-400 text-slate-950 font-bold text-xs rounded-xl hover:brightness-110"
                 >
                   {isSubmitting ? 'Menyimpan...' : 'Perbarui Pengguna'}
                 </button>

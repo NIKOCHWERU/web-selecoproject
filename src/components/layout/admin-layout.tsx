@@ -204,7 +204,7 @@ export default function AdminLayout({
               <img
                 src="/logo-seleco.png"
                 alt="SELECO"
-                className="h-10 w-auto object-contain drop-shadow-sm"
+                className="h-10 w-auto object-contain"
               />
             </div>
             <CardTitle className="text-2xl font-bold tracking-tight text-foreground">
@@ -262,7 +262,7 @@ export default function AdminLayout({
             </form>
           </CardContent>
 
-          <CardFooter className="flex justify-center text-center text-[11px] text-muted-foreground pt-4 border-t border-border">
+          <CardFooter className="flex justify-center text-center text-xs text-muted-foreground pt-4 border-t border-border">
             Sistem Administrasi Khusus Tim Legal &amp; Manajemen SELECO
           </CardFooter>
         </Card>

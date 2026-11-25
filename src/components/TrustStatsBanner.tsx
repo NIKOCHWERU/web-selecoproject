@@ -61,32 +61,28 @@ export default function TrustStatsBanner() {
   ];
 
   return (
-    <EditableSection id="trust-stats" name="Statistik Kepercayaan Banner" className="bg-slate-50/70 py-8 sm:py-10 border-b border-slate-200 text-slate-900 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* 4 Stats Cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+    <EditableSection id="trust-stats" name="Statistik Kepercayaan Banner" className="bg-slate-50 py-8 sm:py-10 border-b border-slate-200 text-slate-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 border border-slate-200 bg-white rounded-lg divide-slate-200 max-lg:[&>*:nth-child(n+3)]:border-t max-lg:[&>*:nth-child(even)]:border-l lg:divide-x">
           {stats.map((stat, i) => (
-            <div
-              key={i}
-              className="relative rounded-xl p-4 sm:p-5 bg-white border border-slate-200/90 hover:border-[#0a1420] transition-colors text-center flex flex-col items-center justify-center group shadow-sm overflow-hidden"
-            >
-              <div className="w-10 h-10 rounded-lg bg-[#0a1420] text-[#dfa82e] flex items-center justify-center mb-3 group-hover:bg-[#dfa82e] group-hover:text-[#0a1420] transition-colors shadow-xs">
+            <div key={i} className="p-4 sm:p-5 flex flex-col items-start gap-1">
+              <div className="text-[#0f2034] mb-1">
                 <EditableIcon
                   iconKey={stat.iconKey}
                   fallbackIcon={stat.fallbackIcon}
-                  className="w-4 h-4"
+                  className="w-5 h-5"
                   label={stat.iconLabel}
                 />
               </div>
-              <p className="text-2xl sm:text-3xl font-bold text-[#0a1420] tracking-tight group-hover:text-[#b88917] transition-colors font-sans mb-0.5">
+              <p className="order-1 text-2xl sm:text-3xl font-bold text-[#0a1420] tracking-tight">
                 <EditableText
                   fieldPath={stat.numberPath}
                   fallback={stat.numberFallback}
                   label={stat.numberLabel}
                 />
-                <span className="text-[#b88917]">{stat.numberSuffix}</span>
+                <span>{stat.numberSuffix}</span>
               </p>
-              <p className="text-[11px] sm:text-xs font-medium uppercase tracking-wider text-slate-600 group-hover:text-slate-900 transition-colors">
+              <p className="order-2 text-sm font-medium text-slate-600">
                 <EditableText
                   fieldPath={stat.labelPath}
                   fallback={stat.labelFallback}

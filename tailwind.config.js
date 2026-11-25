@@ -89,10 +89,13 @@ module.exports = {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+        xl: '0.5rem',
+        '2xl': '0.5rem',
+        '3xl': '0.5rem',
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
-        serif: ['var(--font-playfair)', 'Playfair Display', 'var(--font-cormorant)', 'Georgia', 'serif'],
+        serif: ['var(--font-playfair)', 'Playfair Display', 'Georgia', 'serif'],
       },
       boxShadow: {
         subtle: '0 4px 20px -2px rgba(15, 32, 52, 0.05)',

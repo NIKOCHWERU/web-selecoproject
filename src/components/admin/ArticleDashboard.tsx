@@ -314,7 +314,7 @@ export default function ArticleDashboard() {
                 onClick={() => setStatusFilter('all')}
                 className={`rounded-md px-2.5 py-1 text-xs font-semibold transition-all cursor-pointer ${
                   statusFilter === 'all'
-                    ? 'bg-card text-foreground shadow-xs'
+                    ? 'bg-card text-foreground'
                     : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
@@ -434,7 +434,7 @@ export default function ArticleDashboard() {
 
                   {/* Category */}
                   <TableCell className="py-3 px-4">
-                    <Badge variant="outline" className="text-[10px] text-[#dfa82e] border-[#dfa82e]/30">
+                    <Badge variant="outline" className="text-xs text-[#dfa82e] border-[#dfa82e]/30">
                       {article.category}
                     </Badge>
                   </TableCell>
@@ -458,7 +458,7 @@ export default function ArticleDashboard() {
                   <TableCell className="py-3 px-4 text-xs text-muted-foreground">
                     <div className="flex flex-col">
                       <span className="font-medium text-foreground">{article.publishedAt}</span>
-                      <span className="text-[11px] text-muted-foreground">{article.readTime}</span>
+                      <span className="text-xs text-muted-foreground">{article.readTime}</span>
                     </div>
                   </TableCell>
 
@@ -548,7 +548,7 @@ export default function ArticleDashboard() {
                     className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute top-3 left-3 flex items-center gap-1.5">
-                    <Badge variant="outline" className="bg-background/80 backdrop-blur-sm text-[#dfa82e] border-[#dfa82e]/30">
+                    <Badge variant="outline" className="bg-background/80 text-[#dfa82e] border-[#dfa82e]/30">
                       {article.category}
                     </Badge>
                     {article.featured && (
@@ -559,12 +559,12 @@ export default function ArticleDashboard() {
                   </div>
                   <div className="absolute top-3 right-3">
                     <button onClick={() => handleToggleStatus(article)} className="cursor-pointer">
-                      <Badge variant={article.status === 'published' ? 'success' : 'warning'} className="backdrop-blur-sm">
+                      <Badge variant={article.status === 'published' ? 'success' : 'warning'} className="">
                         {article.status === 'published' ? 'Terbit' : 'Draft'}
                       </Badge>
                     </button>
                   </div>
-                  <div className="absolute bottom-2 right-2 text-[10px] text-white bg-black/60 backdrop-blur-sm px-2 py-0.5 rounded font-mono">
+                  <div className="absolute bottom-2 right-2 text-xs text-white bg-black/60 px-2 py-0.5 rounded font-mono">
                     {article.blocks?.length || 0} Blok
                   </div>
                 </div>

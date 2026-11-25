@@ -55,7 +55,13 @@ import {
   MapPin,
   Phone,
   Mail,
-  Code
+  Code,
+  Building2,
+  Briefcase,
+  ShieldCheck,
+  Newspaper,
+  BarChart3,
+  LayoutTemplate
 } from 'lucide-react';
 import { defaultSiteContent, SiteContent, defaultSectionOrder } from '@/data/defaultSiteContent';
 
@@ -72,7 +78,7 @@ interface ComponentTemplate {
   type: 'banner' | 'text' | 'columns' | 'cta' | 'faq' | 'image' | 'html' | 'blank';
   title: string;
   desc: string;
-  icon: string;
+  icon: React.ReactNode;
   badge: string;
   color: string;
 }
@@ -110,15 +116,15 @@ export default function ElementorEditorClient() {
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   // Standard Sections Information for Home
-  const standardHomeSections: Record<string, { name: string; icon: string; desc: string }> = {
-    hero: { name: 'Hero Banner Utama', icon: '🚀', desc: 'Headline, video latar, tombol CTA' },
-    'trust-stats': { name: 'Statistik Kepercayaan', icon: '📊', desc: 'Angka legalitas, izin OSS, standar kepatuhan' },
-    about: { name: 'Tentang SELECO', icon: '🏢', desc: 'Profil firma, nilai korporasi' },
-    services: { name: '5 Pilar Layanan', icon: '💼', desc: 'Perizinan, imigrasi, pajak, tanah, SDM' },
-    retainer: { name: 'Program Retainer', icon: '🛡️', desc: 'Pendampingan konsultasi korporasi bulanan' },
-    insights: { name: 'Legal Insights', icon: '📰', desc: 'Artikel publikasi & analisa regulasi' },
-    faq: { name: 'Tanya Jawab (FAQ)', icon: '❓', desc: 'Pertanyaan seputar konsultasi' },
-    contact: { name: 'Kontak & Alamat Kantor', icon: '📞', desc: 'Nomor WhatsApp, email, peta kantor' },
+  const standardHomeSections: Record<string, { name: string; icon: React.ReactNode; desc: string }> = {
+    hero: { name: 'Hero Banner Utama', icon: <LayoutTemplate className="w-4 h-4" />, desc: 'Headline, video latar, tombol CTA' },
+    'trust-stats': { name: 'Statistik Kepercayaan', icon: <BarChart3 className="w-4 h-4" />, desc: 'Angka legalitas, izin OSS, standar kepatuhan' },
+    about: { name: 'Tentang SELECO', icon: <Building2 className="w-4 h-4" />, desc: 'Profil firma, nilai korporasi' },
+    services: { name: '5 Pilar Layanan', icon: <Briefcase className="w-4 h-4" />, desc: 'Perizinan, imigrasi, pajak, tanah, SDM' },
+    retainer: { name: 'Program Retainer', icon: <ShieldCheck className="w-4 h-4" />, desc: 'Pendampingan konsultasi korporasi bulanan' },
+    insights: { name: 'Legal Insights', icon: <Newspaper className="w-4 h-4" />, desc: 'Artikel publikasi & analisa regulasi' },
+    faq: { name: 'Tanya Jawab (FAQ)', icon: <HelpCircle className="w-4 h-4" />, desc: 'Pertanyaan seputar konsultasi' },
+    contact: { name: 'Kontak & Alamat Kantor', icon: <Phone className="w-4 h-4" />, desc: 'Nomor WhatsApp, email, peta kantor' },
   };
 
   // Available Draggable Component Templates (Canva Element Library)
@@ -127,7 +133,7 @@ export default function ElementorEditorClient() {
       type: 'banner',
       title: 'Hero Banner / Promo',
       desc: 'Banner headline besar, latar warna elegan, badge, & tombol aksi',
-      icon: '🚀',
+      icon: <LayoutTemplate className="w-4 h-4" />,
       badge: 'BANNER',
       color: 'from-amber-500/20 to-amber-900/30 border-amber-500/30'
     },
@@ -135,7 +141,7 @@ export default function ElementorEditorClient() {
       type: 'text',
       title: 'Teks & Paragraf Konten',
       desc: 'Judul seksi, subjudul, dan teks paragraf penjelasan bebas',
-      icon: '📝',
+      icon: <Type className="w-4 h-4" />,
       badge: 'TEKS',
       color: 'from-blue-500/20 to-blue-900/30 border-blue-500/30'
     },
@@ -143,7 +149,7 @@ export default function ElementorEditorClient() {
       type: 'cta',
       title: 'Tombol WhatsApp & CTA',
       desc: 'Banner konversi dengan tombol kontak langsung ke WhatsApp konsultan',
-      icon: '💬',
+      icon: <MessageCircle className="w-4 h-4" />,
       badge: 'WHATSAPP',
       color: 'from-emerald-500/20 to-emerald-900/30 border-emerald-500/30'
     },
@@ -151,7 +157,7 @@ export default function ElementorEditorClient() {
       type: 'columns',
       title: '3 Kolom Fitur / Kartu',
       desc: '3 kartu berdampingan untuk pilar keunggulan layanan',
-      icon: '📊',
+      icon: <BarChart3 className="w-4 h-4" />,
       badge: '3 KOLOM',
       color: 'from-purple-500/20 to-purple-900/30 border-purple-500/30'
     },
@@ -159,7 +165,7 @@ export default function ElementorEditorClient() {
       type: 'faq',
       title: 'Tanya Jawab (FAQ) Tambahan',
       desc: 'Daftar pertanyaan & jawaban konsultasi bisnis baru',
-      icon: '❓',
+      icon: <HelpCircle className="w-4 h-4" />,
       badge: 'FAQ',
       color: 'from-cyan-500/20 to-cyan-900/30 border-cyan-500/30'
     },
@@ -167,7 +173,7 @@ export default function ElementorEditorClient() {
       type: 'image',
       title: 'Galeri Foto & Visual',
       desc: 'Banner gambar dokumentasi legalitas dengan keterangan foto',
-      icon: '🖼️',
+      icon: <ImageIcon className="w-4 h-4" />,
       badge: 'GAMBAR',
       color: 'from-rose-500/20 to-rose-900/30 border-rose-500/30'
     },
@@ -175,7 +181,7 @@ export default function ElementorEditorClient() {
       type: 'html',
       title: 'HTML & Widget Kustom (Peta / Video)',
       desc: 'Embed Google Maps, Video YouTube, atau widget bebas tanpa koding',
-      icon: '💻',
+      icon: <Code className="w-4 h-4" />,
       badge: 'WIDGET / MAPS',
       color: 'from-orange-500/20 to-orange-900/30 border-orange-500/30'
     },
@@ -183,7 +189,7 @@ export default function ElementorEditorClient() {
       type: 'blank',
       title: 'Kontainer / Div Kosong',
       desc: 'Div serbaguna untuk tata letak custom bebas',
-      icon: '📦',
+      icon: <Box className="w-4 h-4" />,
       badge: 'DIV KOSONG',
       color: 'from-slate-500/20 to-slate-900/30 border-slate-500/30'
     },
@@ -671,7 +677,7 @@ export default function ElementorEditorClient() {
         title: 'Dokumentasi & Portofolio Legalitas',
         subtitle: 'Standar kerja profesional dan terverifikasi di berbagai kementerian terkait.',
         badge: 'DOKUMENTASI RESMI',
-        image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80',
+        image: 'https://images.unsplash.com/photo-1453945619913-79ec89a82c51?auto=format&fit=crop&w=1200&q=80',
       };
     } else if (type === 'html') {
       newSection = {
@@ -679,7 +685,7 @@ export default function ElementorEditorClient() {
         title: 'Lokasi Kantor & Peta Wilayah',
         subtitle: 'Kunjungi kantor kami atau lihat rute perjalanan Anda.',
         badge: 'PETA & WIDGET',
-        rawHtml: '<div class="w-full h-80 rounded-2xl overflow-hidden border border-slate-300 shadow-md"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.6234038743117!2d106.82226217499008!3d-6.181129993806307!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f4305dfd58b7%3A0xe54d9c490a6ea259!2sJl.%20M.H.%20Thamrin%2C%20Jakarta!5e0!3m2!1sid!2sid!4v1710000000000!5m2!1sid!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div>',
+        rawHtml: '<div class="w-full h-80 rounded-2xl overflow-hidden border border-slate-300"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.6234038743117!2d106.82226217499008!3d-6.181129993806307!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f4305dfd58b7%3A0xe54d9c490a6ea259!2sJl.%20M.H.%20Thamrin%2C%20Jakarta!5e0!3m2!1sid!2sid!4v1710000000000!5m2!1sid!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div>',
       };
     }
 
@@ -918,7 +924,7 @@ export default function ElementorEditorClient() {
     <div className="h-screen w-screen flex flex-col bg-[#0b0e17] text-slate-100 select-none overflow-hidden font-sans">
       
       {/* ── 1. CANVA STUDIO TOP HEADER ────────────────────────────────────────── */}
-      <header className="h-14 bg-[#111624] border-b border-[#232c42] px-3 sm:px-4 flex items-center justify-between z-30 shrink-0 shadow-md">
+      <header className="h-14 bg-[#111624] border-b border-[#232c42] px-3 sm:px-4 flex items-center justify-between z-30 shrink-0">
         {/* Left: Home & Doc Title & Page Selector */}
         <div className="flex items-center gap-2 sm:gap-3">
           <Link
@@ -947,11 +953,11 @@ export default function ElementorEditorClient() {
               onChange={(e) => handleSelectPage(e.target.value as PreviewPageOption)}
               className="bg-[#1a2236] border border-[#2d3a58] rounded-lg px-2.5 py-1 text-xs text-white focus:outline-none focus:border-purple-500 cursor-pointer font-medium"
             >
-              <option value="home">📄 Halaman Beranda (Home)</option>
-              <option value="about">📄 Halaman Profil (Tentang Kami)</option>
-              <option value="services">📄 Halaman Layanan (5 Pilar)</option>
-              <option value="insight">📄 Halaman Legal Insight</option>
-              <option value="contact">📄 Halaman Kontak Kantor</option>
+              <option value="home"> Halaman Beranda (Home)</option>
+              <option value="about"> Halaman Profil (Tentang Kami)</option>
+              <option value="services"> Halaman Layanan (5 Pilar)</option>
+              <option value="insight"> Halaman Legal Insight</option>
+              <option value="contact"> Halaman Kontak Kantor</option>
             </select>
           </div>
         </div>
@@ -970,7 +976,7 @@ export default function ElementorEditorClient() {
             title="Kembalikan Perubahan (Undo) - Ctrl+Z"
           >
             <Undo2 className="w-3.5 h-3.5" />
-            <span className="hidden lg:inline text-[11px]">Undo</span>
+            <span className="hidden lg:inline text-xs">Undo</span>
           </button>
 
           {/* Redo */}
@@ -985,7 +991,7 @@ export default function ElementorEditorClient() {
             title="Ulangi Perubahan (Redo) - Ctrl+Y"
           >
             <Redo2 className="w-3.5 h-3.5" />
-            <span className="hidden lg:inline text-[11px]">Redo</span>
+            <span className="hidden lg:inline text-xs">Redo</span>
           </button>
 
           {/* Riwayat / Save State Button */}
@@ -995,8 +1001,8 @@ export default function ElementorEditorClient() {
             title="Buka Riwayat Perubahan & Titik Pemulihan"
           >
             <History className="w-3.5 h-3.5 text-amber-400" />
-            <span className="text-[11px] font-semibold hidden sm:inline">Riwayat</span>
-            <span className="bg-amber-400/20 text-amber-300 text-[10px] px-1.5 py-0.2 rounded-full font-bold">
+            <span className="text-xs font-semibold hidden sm:inline">Riwayat</span>
+            <span className="bg-amber-400/20 text-amber-300 text-xs px-1.5 py-0.2 rounded font-bold">
               {historySnapshots.length}
             </span>
           </button>
@@ -1012,14 +1018,14 @@ export default function ElementorEditorClient() {
             title="Buka / Tutup Panel Properti"
           >
             <Sliders className="w-3.5 h-3.5 text-purple-400" />
-            <span className="text-[11px] font-semibold hidden md:inline">Properti</span>
+            <span className="text-xs font-semibold hidden md:inline">Properti</span>
           </button>
 
           {/* Autosave Status Indicator */}
-          <div className="hidden xl:flex items-center gap-1.5 text-[11px] text-slate-400 pl-2">
+          <div className="hidden xl:flex items-center gap-1.5 text-xs text-slate-400 pl-2">
             {hasUnsavedChanges ? (
               <span className="text-amber-400 flex items-center gap-1 font-medium">
-                <span className="size-2 rounded-full bg-amber-400 animate-pulse" />
+                <span className="size-2 rounded-full bg-amber-400" />
                 Ada perubahan
               </span>
             ) : (
@@ -1073,7 +1079,7 @@ export default function ElementorEditorClient() {
             >
               <ZoomOut className="w-3 h-3" />
             </button>
-            <span className="text-[10px] font-semibold text-slate-300 px-1 min-w-[38px] text-center">
+            <span className="text-xs font-semibold text-slate-300 px-1 min-w-[38px] text-center">
               {zoomLevel}%
             </span>
             <button
@@ -1093,14 +1099,14 @@ export default function ElementorEditorClient() {
             title="Lihat Website Asli di Tab Baru"
           >
             <ExternalLink className="w-3.5 h-3.5 text-purple-400" />
-            <span className="hidden lg:inline text-[11px]">Lihat Web</span>
+            <span className="hidden lg:inline text-xs">Lihat Web</span>
           </Link>
 
           {/* Save / Publish Button */}
           <button
             onClick={handleSave}
             disabled={isSaving}
-            className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 via-indigo-600 to-amber-500 hover:brightness-110 text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-md shadow-purple-500/20 cursor-pointer"
+            className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 via-indigo-600 to-amber-500 hover:brightness-110 text-white font-bold text-xs uppercase tracking-wide transition-all flex items-center gap-1.5 shadow-purple-500/20 cursor-pointer"
           >
             {isSaving ? (
               <RefreshCw className="w-3.5 h-3.5 animate-spin" />
@@ -1127,9 +1133,9 @@ export default function ElementorEditorClient() {
         <aside className="w-16 bg-[#0e121e] border-r border-[#20273a] flex flex-col items-center py-3 gap-2 shrink-0 z-20">
           <button
             onClick={() => setCanvaTab('elements')}
-            className={`w-12 py-2.5 rounded-xl flex flex-col items-center gap-1 text-[10px] font-semibold transition-all cursor-pointer ${
+            className={`w-12 py-2.5 rounded-xl flex flex-col items-center gap-1 text-xs font-semibold transition-all cursor-pointer ${
               canvaTab === 'elements'
-                ? 'bg-purple-600/20 text-purple-300 border border-purple-500/40 shadow-sm'
+                ? 'bg-purple-600/20 text-purple-300 border border-purple-500/40'
                 : 'text-slate-400 hover:text-white hover:bg-slate-800/40'
             }`}
             title="Pustaka Elemen & Komponen"
@@ -1140,9 +1146,9 @@ export default function ElementorEditorClient() {
 
           <button
             onClick={() => setCanvaTab('pages')}
-            className={`w-12 py-2.5 rounded-xl flex flex-col items-center gap-1 text-[10px] font-semibold transition-all cursor-pointer ${
+            className={`w-12 py-2.5 rounded-xl flex flex-col items-center gap-1 text-xs font-semibold transition-all cursor-pointer ${
               canvaTab === 'pages'
-                ? 'bg-purple-600/20 text-purple-300 border border-purple-500/40 shadow-sm'
+                ? 'bg-purple-600/20 text-purple-300 border border-purple-500/40'
                 : 'text-slate-400 hover:text-white hover:bg-slate-800/40'
             }`}
             title="Susunan Halaman & Seksi"
@@ -1153,9 +1159,9 @@ export default function ElementorEditorClient() {
 
           <button
             onClick={() => setCanvaTab('history')}
-            className={`w-12 py-2.5 rounded-xl flex flex-col items-center gap-1 text-[10px] font-semibold transition-all cursor-pointer ${
+            className={`w-12 py-2.5 rounded-xl flex flex-col items-center gap-1 text-xs font-semibold transition-all cursor-pointer ${
               canvaTab === 'history'
-                ? 'bg-purple-600/20 text-purple-300 border border-purple-500/40 shadow-sm'
+                ? 'bg-purple-600/20 text-purple-300 border border-purple-500/40'
                 : 'text-slate-400 hover:text-white hover:bg-slate-800/40'
             }`}
             title="Riwayat Perubahan & Save States"
@@ -1166,9 +1172,9 @@ export default function ElementorEditorClient() {
 
           <button
             onClick={() => setCanvaTab('styles')}
-            className={`w-12 py-2.5 rounded-xl flex flex-col items-center gap-1 text-[10px] font-semibold transition-all cursor-pointer ${
+            className={`w-12 py-2.5 rounded-xl flex flex-col items-center gap-1 text-xs font-semibold transition-all cursor-pointer ${
               canvaTab === 'styles'
-                ? 'bg-purple-600/20 text-purple-300 border border-purple-500/40 shadow-sm'
+                ? 'bg-purple-600/20 text-purple-300 border border-purple-500/40'
                 : 'text-slate-400 hover:text-white hover:bg-slate-800/40'
             }`}
             title="Gaya & Tema Warna"
@@ -1179,7 +1185,7 @@ export default function ElementorEditorClient() {
         </aside>
 
         {/* ── B. CANVA EXPANDED DRAWER PANEL (300px) ───────────────────────────── */}
-        <aside className="w-72 sm:w-80 bg-[#131929] border-r border-[#232c42] flex flex-col shrink-0 z-10 overflow-hidden shadow-xl">
+        <aside className="w-72 sm:w-80 bg-[#131929] border-r border-[#232c42] flex flex-col shrink-0 z-10 overflow-hidden">
           
           {/* TAB 1: ELEMEN & KOMPONEN (DRAG & DROP LIBRARY) */}
           {canvaTab === 'elements' && (
@@ -1189,7 +1195,7 @@ export default function ElementorEditorClient() {
                   <Sparkles className="w-4 h-4 text-purple-400" />
                   Pustaka Komponen Visual
                 </h3>
-                <p className="text-[11px] text-slate-400 mt-0.5">
+                <p className="text-xs text-slate-400 mt-0.5">
                   Tarik komponen ke kanvas, atau klik &quot;+ Sisipkan&quot; untuk meletakkannya sebelum halaman tertentu.
                 </p>
               </div>
@@ -1207,7 +1213,7 @@ export default function ElementorEditorClient() {
               </div>
 
               {/* Interactive Tip Box */}
-              <div className="bg-purple-950/30 border border-purple-500/30 rounded-xl p-2.5 mb-3 text-[11px] text-purple-200 flex items-start gap-2">
+              <div className="bg-purple-950/30 border border-purple-500/30 rounded-xl p-2.5 mb-3 text-xs text-purple-200 flex items-start gap-2">
                 <HelpCircle className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
                 <span>
                   <strong>Mudah Tanpa Kode:</strong> Klik komponen mana saja di kanvas untuk membuka menu kustomisasi isi, teks, gambar, dan tombolnya!
@@ -1226,7 +1232,7 @@ export default function ElementorEditorClient() {
                       key={tpl.type}
                       draggable={true}
                       onDragStart={(e) => handleDragStartComponent(e, tpl.type)}
-                      className={`p-3 rounded-xl border bg-gradient-to-br ${tpl.color} hover:brightness-110 hover:border-purple-400 transition-all cursor-grab active:cursor-grabbing flex flex-col gap-2 group shadow-sm`}
+                      className={`p-3 rounded-xl border bg-gradient-to-br ${tpl.color} hover:brightness-110 hover:border-purple-400 transition-all cursor-grab active:cursor-grabbing flex flex-col gap-2 group`}
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
@@ -1235,7 +1241,7 @@ export default function ElementorEditorClient() {
                             <h4 className="text-xs font-bold text-white group-hover:text-purple-200">
                               {tpl.title}
                             </h4>
-                            <span className="text-[10px] text-purple-300/80 font-bold tracking-wider">
+                            <span className="text-xs text-purple-300/80 font-bold tracking-wide">
                               {tpl.badge}
                             </span>
                           </div>
@@ -1243,11 +1249,11 @@ export default function ElementorEditorClient() {
                         <GripVertical className="w-4 h-4 text-slate-400 group-hover:text-purple-300" />
                       </div>
 
-                      <p className="text-[11px] text-slate-300 leading-relaxed font-normal">
+                      <p className="text-xs text-slate-300 leading-relaxed font-normal">
                         {tpl.desc}
                       </p>
 
-                      <div className="flex items-center justify-between pt-1 border-t border-white/10 text-[10px]">
+                      <div className="flex items-center justify-between pt-1 border-t border-white/10 text-xs">
                         <span className="text-slate-400">Tarik ke kanvas</span>
                         <button
                           onClick={() => setInsertModalTarget(currentSections[0] || '__end__')}
@@ -1271,13 +1277,13 @@ export default function ElementorEditorClient() {
                     <Layers className="w-4 h-4 text-indigo-400" />
                     Susunan Halaman
                   </h3>
-                  <p className="text-[11px] text-slate-400 mt-0.5">
+                  <p className="text-xs text-slate-400 mt-0.5">
                     Klik kartu untuk memilih &amp; edit properti.
                   </p>
                 </div>
                 <button
                   onClick={() => setInsertModalTarget('__end__')}
-                  className="px-2.5 py-1 rounded-lg bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 border border-purple-500/40 text-[11px] font-bold flex items-center gap-1 transition-colors cursor-pointer"
+                  className="px-2.5 py-1 rounded-lg bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 border border-purple-500/40 text-xs font-bold flex items-center gap-1 transition-colors cursor-pointer"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>Tambah Div</span>
@@ -1291,7 +1297,7 @@ export default function ElementorEditorClient() {
                   const isCustom = secId.startsWith('custom-div-');
                   const customObj = isCustom ? (content.customSections || []).find((c: any) => c.id === secId) : null;
                   const secTitle = standardHomeSections[secId]?.name || customObj?.title || 'Komponen Kustom';
-                  const secIcon = standardHomeSections[secId]?.icon || '⭐';
+                  const secIcon = standardHomeSections[secId]?.icon || <FileText className="w-4 h-4" />;
                   const isSelected = selectedSectionId === secId;
 
                   return (
@@ -1304,7 +1310,7 @@ export default function ElementorEditorClient() {
                       onClick={() => handleSelectSection(secId)}
                       className={`p-2.5 rounded-xl border text-xs transition-all flex flex-col gap-2 cursor-pointer ${
                         isSelected
-                          ? 'bg-purple-900/30 border-purple-500 shadow-md ring-2 ring-purple-500/50'
+                          ? 'bg-purple-900/30 border-purple-500 ring-2 ring-purple-500/50'
                           : isHidden
                           ? 'bg-rose-950/20 border-rose-500/30 text-rose-300'
                           : isCustom
@@ -1317,17 +1323,17 @@ export default function ElementorEditorClient() {
                           <GripVertical className="w-3.5 h-3.5 text-slate-400" />
                           <span className="text-sm">{secIcon}</span>
                           <div>
-                            <span className="font-bold text-white block text-[11px]">
+                            <span className="font-bold text-white block text-xs">
                               {idx + 1}. {secTitle}
                             </span>
                             {isSelected ? (
-                              <span className="text-[10px] text-purple-300 font-bold flex items-center gap-1">
+                              <span className="text-xs text-purple-300 font-bold flex items-center gap-1">
                                 <Settings className="w-2.5 h-2.5" /> Sedang Diedit
                               </span>
                             ) : isHidden ? (
-                              <span className="text-[10px] text-rose-400 font-semibold">Tersembunyi</span>
+                              <span className="text-xs text-rose-400 font-semibold">Tersembunyi</span>
                             ) : (
-                              <span className="text-[10px] text-emerald-400 font-semibold">Aktif</span>
+                              <span className="text-xs text-emerald-400 font-semibold">Aktif</span>
                             )}
                           </div>
                         </div>
@@ -1353,7 +1359,7 @@ export default function ElementorEditorClient() {
                           {isHidden ? (
                             <button
                               onClick={() => handleRestoreDefaultSection(secId)}
-                              className="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-bold"
+                              className="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-xs font-bold"
                             >
                               Pulihkan
                             </button>
@@ -1375,7 +1381,7 @@ export default function ElementorEditorClient() {
                           e.stopPropagation();
                           setInsertModalTarget(secId);
                         }}
-                        className="w-full py-1 rounded bg-white/5 hover:bg-purple-600/20 border border-white/10 hover:border-purple-500/30 text-[10px] text-slate-300 hover:text-purple-200 font-semibold flex items-center justify-center gap-1 transition-colors"
+                        className="w-full py-1 rounded bg-white/5 hover:bg-purple-600/20 border border-white/10 hover:border-purple-500/30 text-xs text-slate-300 hover:text-purple-200 font-semibold flex items-center justify-center gap-1 transition-colors"
                       >
                         <Plus className="w-3 h-3" />
                         <span>Sisipkan Div Sebelum Halaman Ini</span>
@@ -1395,7 +1401,7 @@ export default function ElementorEditorClient() {
                   <History className="w-4 h-4 text-amber-400" />
                   Titik Pemulihan
                 </h3>
-                <p className="text-[11px] text-slate-400 mt-0.5">
+                <p className="text-xs text-slate-400 mt-0.5">
                   Kembalikan desain ke titik waktu sebelum perubahan dilakukan.
                 </p>
               </div>
@@ -1407,17 +1413,17 @@ export default function ElementorEditorClient() {
                     className="p-2.5 rounded-xl bg-[#182136] border border-[#293654] hover:border-amber-400/50 flex flex-col gap-1.5 transition-all text-xs"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="font-bold text-white text-[11px]">{snap.action}</span>
+                      <span className="font-bold text-white text-xs">{snap.action}</span>
                       {i === 0 && (
-                        <span className="text-[9px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.2 rounded-full font-bold">
+                        <span className="text-xs bg-emerald-500/20 text-emerald-300 px-1.5 py-0.2 rounded font-bold">
                           Terkini
                         </span>
                       )}
                     </div>
-                    <span className="text-[10px] text-slate-400">Pukul {snap.time}</span>
+                    <span className="text-xs text-slate-400">Pukul {snap.time}</span>
                     <button
                       onClick={() => handleRestoreSnapshot(snap)}
-                      className="w-full mt-1 py-1 rounded bg-amber-400/10 hover:bg-amber-400 text-amber-300 hover:text-slate-950 text-[10px] font-bold border border-amber-400/30 transition-all cursor-pointer"
+                      className="w-full mt-1 py-1 rounded bg-amber-400/10 hover:bg-amber-400 text-amber-300 hover:text-slate-950 text-xs font-bold border border-amber-400/30 transition-all cursor-pointer"
                     >
                       Pulihkan Versi Ini
                     </button>
@@ -1435,7 +1441,7 @@ export default function ElementorEditorClient() {
                   <Palette className="w-4 h-4 text-cyan-400" />
                   Palet &amp; Tema SELECO
                 </h3>
-                <p className="text-[11px] text-slate-400 mt-0.5">
+                <p className="text-xs text-slate-400 mt-0.5">
                   Identitas visual resmi firma hukum SELECO.
                 </p>
               </div>
@@ -1443,7 +1449,7 @@ export default function ElementorEditorClient() {
               <div className="space-y-3">
                 <div className="p-3 rounded-xl bg-[#182136] border border-[#293654] space-y-2">
                   <h4 className="text-xs font-bold text-white">Warna Primer Firma</h4>
-                  <div className="grid grid-cols-3 gap-2 text-center text-[10px]">
+                  <div className="grid grid-cols-3 gap-2 text-center text-xs">
                     <div className="p-2 rounded-lg bg-[#0a1420] text-white border border-white/20">
                       <span>#0a1420</span>
                       <span className="block opacity-70">Navy Gelap</span>
@@ -1461,7 +1467,7 @@ export default function ElementorEditorClient() {
 
                 <div className="p-3 rounded-xl bg-[#182136] border border-[#293654] space-y-2 text-xs">
                   <h4 className="font-bold text-white">Panduan Tipografi</h4>
-                  <p className="text-[11px] text-slate-300">
+                  <p className="text-xs text-slate-300">
                     - Judul Utama: <strong className="text-[#dfa82e]">Cinzel Decorative Serif</strong> (Klasik &amp; Elegan)<br/>
                     - Konten &amp; Paragraf: <strong className="text-white">Plus Jakarta Sans</strong> (Modern &amp; Terbaca Jelas)
                   </p>
@@ -1491,17 +1497,17 @@ export default function ElementorEditorClient() {
             className="bg-white rounded-2xl shadow-[0_30px_70px_-15px_rgba(0,0,0,0.8)] border border-slate-700/80 overflow-hidden transition-all duration-300 flex flex-col min-h-[900px] my-2"
           >
             {/* Document Header Margin Tab ala Canva */}
-            <div className="bg-[#111624] border-b border-[#232c42] px-4 py-2 flex items-center justify-between text-[11px] text-slate-400 select-none">
+            <div className="bg-[#111624] border-b border-[#232c42] px-4 py-2 flex items-center justify-between text-xs text-slate-400 select-none">
               <span className="font-semibold text-white flex items-center gap-2">
-                <span className="text-purple-400">📄</span>
+                <FileText className="w-3.5 h-3.5 text-[#dfa82e]" />
                 <span>Lembar Kerja Canva: <strong className="text-[#dfa82e]">{activePage.toUpperCase()}</strong></span>
               </span>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] bg-purple-900/40 text-purple-300 px-2 py-0.5 rounded border border-purple-500/30">
+                <span className="text-xs bg-purple-900/40 text-purple-300 px-2 py-0.5 rounded border border-purple-500/30">
                   Klik bagian apa saja untuk edit isinya
                 </span>
                 {selectedSectionId && (
-                  <span className="text-[10px] bg-amber-400/20 text-amber-300 px-2 py-0.5 rounded border border-amber-400/30 font-semibold">
+                  <span className="text-xs bg-amber-400/20 text-amber-300 px-2 py-0.5 rounded border border-amber-400/30 font-semibold">
                     Dipilih: {selectedTitle}
                   </span>
                 )}
@@ -1533,7 +1539,7 @@ export default function ElementorEditorClient() {
                   <h3 className="text-xs font-bold text-white flex items-center gap-1.5">
                     Kustomisasi Komponen
                   </h3>
-                  <p className="text-[10px] text-purple-300 truncate max-w-[200px]">
+                  <p className="text-xs text-purple-300 truncate max-w-[200px]">
                     {selectedTitle}
                   </p>
                 </div>
@@ -1548,7 +1554,7 @@ export default function ElementorEditorClient() {
             </div>
 
             {/* Properties Tabs */}
-            <div className="flex items-center border-b border-[#232c42] bg-[#0e121e] px-2 text-[11px] overflow-x-auto">
+            <div className="flex items-center border-b border-[#232c42] bg-[#0e121e] px-2 text-xs overflow-x-auto">
               <button
                 onClick={() => setPropertyTab('content')}
                 className={`py-2 px-3 font-semibold transition-colors border-b-2 whitespace-nowrap cursor-pointer ${
@@ -1557,7 +1563,7 @@ export default function ElementorEditorClient() {
                     : 'border-transparent text-slate-400 hover:text-white'
                 }`}
               >
-                📝 Isi &amp; Teks
+                Isi &amp; Teks
               </button>
               <button
                 onClick={() => setPropertyTab('background')}
@@ -1567,7 +1573,7 @@ export default function ElementorEditorClient() {
                     : 'border-transparent text-slate-400 hover:text-white'
                 }`}
               >
-                🎨 Latar &amp; Warna
+                Latar &amp; Warna
               </button>
               <button
                 onClick={() => setPropertyTab('spacing')}
@@ -1577,7 +1583,7 @@ export default function ElementorEditorClient() {
                     : 'border-transparent text-slate-400 hover:text-white'
                 }`}
               >
-                📐 Ukuran &amp; Jarak
+                Ukuran &amp; Jarak
               </button>
               <button
                 onClick={() => setPropertyTab('typography')}
@@ -1587,7 +1593,7 @@ export default function ElementorEditorClient() {
                     : 'border-transparent text-slate-400 hover:text-white'
                 }`}
               >
-                🔤 Rata Teks
+                Rata Teks
               </button>
               <button
                 onClick={() => setPropertyTab('effects')}
@@ -1597,7 +1603,7 @@ export default function ElementorEditorClient() {
                     : 'border-transparent text-slate-400 hover:text-white'
                 }`}
               >
-                ⚡ Tindakan
+                Tindakan
               </button>
             </div>
 
@@ -1607,7 +1613,7 @@ export default function ElementorEditorClient() {
                 <div className="text-center py-12 text-slate-500 space-y-2">
                   <Sliders className="w-8 h-8 text-slate-600 mx-auto" />
                   <p className="font-semibold text-slate-400">Belum Ada Komponen Dipilih</p>
-                  <p className="text-[11px]">Klik salah satu komponen pada kanvas untuk mengedit teks dan isinya.</p>
+                  <p className="text-xs">Klik salah satu komponen pada kanvas untuk mengedit teks dan isinya.</p>
                 </div>
               ) : (
                 <>
@@ -1618,12 +1624,12 @@ export default function ElementorEditorClient() {
                       {/* 1. KHUSUS HERO BANNER UTAMA */}
                       {selectedSectionId === 'hero' && (
                         <div className="space-y-3.5">
-                          <div className="bg-purple-950/20 border border-purple-500/30 p-2.5 rounded-xl text-[11px] text-purple-300">
+                          <div className="bg-purple-950/20 border border-purple-500/30 p-2.5 rounded-xl text-xs text-purple-300">
                             <strong>Isi Komponen Hero:</strong> Ubah headline, video, tombol, dan statistik di bawah ini secara instan.
                           </div>
 
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">
+                            <label className="block text-xs font-bold text-slate-300 mb-1">
                               Badge Kecil di Atas Judul
                             </label>
                             <input
@@ -1635,7 +1641,7 @@ export default function ElementorEditorClient() {
                           </div>
 
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">
+                            <label className="block text-xs font-bold text-slate-300 mb-1">
                               Headline Utama (Baris 1)
                             </label>
                             <input
@@ -1647,7 +1653,7 @@ export default function ElementorEditorClient() {
                           </div>
 
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">
+                            <label className="block text-xs font-bold text-slate-300 mb-1">
                               Teks Aksen Miring / Emas
                             </label>
                             <input
@@ -1659,7 +1665,7 @@ export default function ElementorEditorClient() {
                           </div>
 
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">
+                            <label className="block text-xs font-bold text-slate-300 mb-1">
                               Deskripsi / Paragraf Hero
                             </label>
                             <textarea
@@ -1672,7 +1678,7 @@ export default function ElementorEditorClient() {
 
                           {/* Tombol CTA Hero */}
                           <div className="p-3 rounded-xl bg-[#0e1320] border border-[#252f47] space-y-2">
-                            <span className="font-bold text-white block text-[11px]">Tombol Utama (CTA 1)</span>
+                            <span className="font-bold text-white block text-xs">Tombol Utama (CTA 1)</span>
                             <div className="grid grid-cols-2 gap-2">
                               <input
                                 type="text"
@@ -1692,7 +1698,7 @@ export default function ElementorEditorClient() {
                           </div>
 
                           <div className="p-3 rounded-xl bg-[#0e1320] border border-[#252f47] space-y-2">
-                            <span className="font-bold text-white block text-[11px]">Tombol Kedua (CTA 2)</span>
+                            <span className="font-bold text-white block text-xs">Tombol Kedua (CTA 2)</span>
                             <div className="grid grid-cols-2 gap-2">
                               <input
                                 type="text"
@@ -1713,7 +1719,7 @@ export default function ElementorEditorClient() {
 
                           {/* Video & Poster Background */}
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">
+                            <label className="block text-xs font-bold text-slate-300 mb-1">
                               File Video Latar Belakang (URL)
                             </label>
                             <input
@@ -1727,17 +1733,17 @@ export default function ElementorEditorClient() {
 
                           {/* Kartu Statistik di Hero */}
                           <div className="p-3 rounded-xl bg-[#0e1320] border border-[#252f47] space-y-2">
-                            <span className="font-bold text-white block text-[11px]">Angka Statistik Kepercayaan</span>
+                            <span className="font-bold text-white block text-xs">Angka Statistik Kepercayaan</span>
                             <div className="grid grid-cols-2 gap-2">
                               <div>
-                                <span className="text-[10px] text-slate-400">Angka 1</span>
+                                <span className="text-xs text-slate-400">Angka 1</span>
                                 <input
                                   type="text"
                                   value={content.hero?.stat1Number || ''}
                                   onChange={(e) => updateSectionProperty('stat1Number', e.target.value)}
                                   className="w-full bg-[#131929] border border-[#252f47] rounded px-2 py-1 text-xs text-white"
                                 />
-                                <span className="text-[10px] text-slate-400 mt-1 block">Label 1</span>
+                                <span className="text-xs text-slate-400 mt-1 block">Label 1</span>
                                 <input
                                   type="text"
                                   value={content.hero?.stat1Label || ''}
@@ -1746,14 +1752,14 @@ export default function ElementorEditorClient() {
                                 />
                               </div>
                               <div>
-                                <span className="text-[10px] text-slate-400">Angka 2</span>
+                                <span className="text-xs text-slate-400">Angka 2</span>
                                 <input
                                   type="text"
                                   value={content.hero?.stat2Number || ''}
                                   onChange={(e) => updateSectionProperty('stat2Number', e.target.value)}
                                   className="w-full bg-[#131929] border border-[#252f47] rounded px-2 py-1 text-xs text-white"
                                 />
-                                <span className="text-[10px] text-slate-400 mt-1 block">Label 2</span>
+                                <span className="text-xs text-slate-400 mt-1 block">Label 2</span>
                                 <input
                                   type="text"
                                   value={content.hero?.stat2Label || ''}
@@ -1767,13 +1773,13 @@ export default function ElementorEditorClient() {
                           {/* Feature Pills */}
                           <div>
                             <div className="flex items-center justify-between mb-1.5">
-                              <label className="text-[11px] font-bold text-slate-300">
+                              <label className="text-xs font-bold text-slate-300">
                                 Tag Keunggulan Layanan ({content.hero?.featurePills?.length || 0})
                               </label>
                               <button
                                 type="button"
                                 onClick={handleAddHeroPill}
-                                className="text-[10px] text-purple-300 hover:text-white font-bold bg-purple-600/30 px-2 py-0.5 rounded cursor-pointer"
+                                className="text-xs text-purple-300 hover:text-white font-bold bg-purple-600/30 px-2 py-0.5 rounded cursor-pointer"
                               >
                                 + Tambah Tag
                               </button>
@@ -1806,7 +1812,7 @@ export default function ElementorEditorClient() {
                       {selectedSectionId === 'about' && (
                         <div className="space-y-3.5">
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">Badge Kategori</label>
+                            <label className="block text-xs font-bold text-slate-300 mb-1">Badge Kategori</label>
                             <input
                               type="text"
                               value={content.about?.badge || ''}
@@ -1816,7 +1822,7 @@ export default function ElementorEditorClient() {
                           </div>
 
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">Judul Utama</label>
+                            <label className="block text-xs font-bold text-slate-300 mb-1">Judul Utama</label>
                             <input
                               type="text"
                               value={content.about?.title || ''}
@@ -1826,7 +1832,7 @@ export default function ElementorEditorClient() {
                           </div>
 
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">Judul Aksen Emas</label>
+                            <label className="block text-xs font-bold text-slate-300 mb-1">Judul Aksen Emas</label>
                             <input
                               type="text"
                               value={content.about?.titleAccent || ''}
@@ -1836,7 +1842,7 @@ export default function ElementorEditorClient() {
                           </div>
 
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">Paragraf 1</label>
+                            <label className="block text-xs font-bold text-slate-300 mb-1">Paragraf 1</label>
                             <textarea
                               rows={3}
                               value={content.about?.paragraph1 || ''}
@@ -1846,7 +1852,7 @@ export default function ElementorEditorClient() {
                           </div>
 
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">Paragraf 2</label>
+                            <label className="block text-xs font-bold text-slate-300 mb-1">Paragraf 2</label>
                             <textarea
                               rows={3}
                               value={content.about?.paragraph2 || ''}
@@ -1856,7 +1862,7 @@ export default function ElementorEditorClient() {
                           </div>
 
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">Tahun Pengalaman</label>
+                            <label className="block text-xs font-bold text-slate-300 mb-1">Tahun Pengalaman</label>
                             <input
                               type="text"
                               value={content.about?.experienceYears || ''}
@@ -1867,7 +1873,7 @@ export default function ElementorEditorClient() {
                           </div>
 
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">URL Foto 1</label>
+                            <label className="block text-xs font-bold text-slate-300 mb-1">URL Foto 1</label>
                             <input
                               type="text"
                               value={content.about?.image1 || ''}
@@ -1877,7 +1883,7 @@ export default function ElementorEditorClient() {
                           </div>
 
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">URL Foto 2</label>
+                            <label className="block text-xs font-bold text-slate-300 mb-1">URL Foto 2</label>
                             <input
                               type="text"
                               value={content.about?.image2 || ''}
@@ -1892,7 +1898,7 @@ export default function ElementorEditorClient() {
                       {selectedSectionId === 'services' && (
                         <div className="space-y-3.5">
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">Badge Kategori</label>
+                            <label className="block text-xs font-bold text-slate-300 mb-1">Badge Kategori</label>
                             <input
                               type="text"
                               value={content.services?.badge || ''}
@@ -1902,7 +1908,7 @@ export default function ElementorEditorClient() {
                           </div>
 
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">Judul Layanan</label>
+                            <label className="block text-xs font-bold text-slate-300 mb-1">Judul Layanan</label>
                             <input
                               type="text"
                               value={content.services?.title || ''}
@@ -1912,7 +1918,7 @@ export default function ElementorEditorClient() {
                           </div>
 
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">Subjudul Deskripsi</label>
+                            <label className="block text-xs font-bold text-slate-300 mb-1">Subjudul Deskripsi</label>
                             <textarea
                               rows={3}
                               value={content.services?.subtitle || ''}
@@ -1922,7 +1928,7 @@ export default function ElementorEditorClient() {
                           </div>
 
                           <div className="p-3 rounded-xl bg-[#0e1320] border border-[#252f47] space-y-2">
-                            <span className="font-bold text-white block text-[11px]">Banner Promo CTA di Layanan</span>
+                            <span className="font-bold text-white block text-xs">Banner Promo CTA di Layanan</span>
                             <input
                               type="text"
                               placeholder="Judul Banner"
@@ -1952,7 +1958,7 @@ export default function ElementorEditorClient() {
                       {selectedSectionId === 'faq' && (
                         <div className="space-y-3.5">
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">Badge</label>
+                            <label className="block text-xs font-bold text-slate-300 mb-1">Badge</label>
                             <input
                               type="text"
                               value={content.faq?.badge || ''}
@@ -1962,7 +1968,7 @@ export default function ElementorEditorClient() {
                           </div>
 
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">Judul Seksi</label>
+                            <label className="block text-xs font-bold text-slate-300 mb-1">Judul Seksi</label>
                             <input
                               type="text"
                               value={content.faq?.title || ''}
@@ -1972,7 +1978,7 @@ export default function ElementorEditorClient() {
                           </div>
 
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">Subjudul</label>
+                            <label className="block text-xs font-bold text-slate-300 mb-1">Subjudul</label>
                             <textarea
                               rows={2}
                               value={content.faq?.subtitle || ''}
@@ -1984,13 +1990,13 @@ export default function ElementorEditorClient() {
                           {/* List of FAQ items */}
                           <div className="pt-2 border-t border-slate-700/60">
                             <div className="flex items-center justify-between mb-2">
-                              <span className="font-bold text-white text-[11px]">
+                              <span className="font-bold text-white text-xs">
                                 Daftar Pertanyaan &amp; Jawaban ({content.faq?.items?.length || 0})
                               </span>
                               <button
                                 type="button"
                                 onClick={handleAddFaqItem}
-                                className="px-2 py-0.5 rounded bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 text-[10px] font-bold"
+                                className="px-2 py-0.5 rounded bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 text-xs font-bold"
                               >
                                 + Tambah FAQ
                               </button>
@@ -2000,7 +2006,7 @@ export default function ElementorEditorClient() {
                               {(content.faq?.items || []).map((faq, i) => (
                                 <div key={i} className="p-2.5 rounded-lg bg-[#0e1320] border border-[#252f47] space-y-1.5">
                                   <div className="flex items-center justify-between">
-                                    <span className="text-[10px] font-bold text-amber-300">FAQ #{i + 1}</span>
+                                    <span className="text-xs font-bold text-amber-300">FAQ #{i + 1}</span>
                                     <button
                                       type="button"
                                       onClick={() => handleRemoveFaqItem(i)}
@@ -2035,7 +2041,7 @@ export default function ElementorEditorClient() {
                       {selectedSectionId === 'contact' && (
                         <div className="space-y-3.5">
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">Badge</label>
+                            <label className="block text-xs font-bold text-slate-300 mb-1">Badge</label>
                             <input
                               type="text"
                               value={content.contact?.badge || ''}
@@ -2045,7 +2051,7 @@ export default function ElementorEditorClient() {
                           </div>
 
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">Judul Seksi</label>
+                            <label className="block text-xs font-bold text-slate-300 mb-1">Judul Seksi</label>
                             <input
                               type="text"
                               value={content.contact?.title || ''}
@@ -2055,7 +2061,7 @@ export default function ElementorEditorClient() {
                           </div>
 
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">Nomor WhatsApp Konsultan</label>
+                            <label className="block text-xs font-bold text-slate-300 mb-1">Nomor WhatsApp Konsultan</label>
                             <input
                               type="text"
                               value={content.global?.whatsappNumber || ''}
@@ -2066,7 +2072,7 @@ export default function ElementorEditorClient() {
                           </div>
 
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">Telepon Kantor</label>
+                            <label className="block text-xs font-bold text-slate-300 mb-1">Telepon Kantor</label>
                             <input
                               type="text"
                               value={content.global?.phone || ''}
@@ -2076,7 +2082,7 @@ export default function ElementorEditorClient() {
                           </div>
 
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">Email Resmi</label>
+                            <label className="block text-xs font-bold text-slate-300 mb-1">Email Resmi</label>
                             <input
                               type="text"
                               value={content.global?.email || ''}
@@ -2086,7 +2092,7 @@ export default function ElementorEditorClient() {
                           </div>
 
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">Alamat Fisik Kantor</label>
+                            <label className="block text-xs font-bold text-slate-300 mb-1">Alamat Fisik Kantor</label>
                             <textarea
                               rows={3}
                               value={content.global?.address || ''}
@@ -2101,7 +2107,7 @@ export default function ElementorEditorClient() {
                       {selectedSectionId?.startsWith('custom-div-') && (
                         <div className="space-y-3.5">
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">
+                            <label className="block text-xs font-bold text-slate-300 mb-1">
                               Badge / Label Kategori
                             </label>
                             <input
@@ -2114,7 +2120,7 @@ export default function ElementorEditorClient() {
                           </div>
 
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">
+                            <label className="block text-xs font-bold text-slate-300 mb-1">
                               Judul Komponen
                             </label>
                             <textarea
@@ -2127,7 +2133,7 @@ export default function ElementorEditorClient() {
                           </div>
 
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">
+                            <label className="block text-xs font-bold text-slate-300 mb-1">
                               Subjudul / Penjelasan Pendek
                             </label>
                             <textarea
@@ -2140,7 +2146,7 @@ export default function ElementorEditorClient() {
                           </div>
 
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">
+                            <label className="block text-xs font-bold text-slate-300 mb-1">
                               Isi Paragraf Teks
                             </label>
                             <textarea
@@ -2154,7 +2160,7 @@ export default function ElementorEditorClient() {
 
                           {/* Foto / Gambar */}
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">
+                            <label className="block text-xs font-bold text-slate-300 mb-1">
                               URL Gambar / Foto
                             </label>
                             <input
@@ -2169,7 +2175,7 @@ export default function ElementorEditorClient() {
                           {/* Tombol CTA */}
                           <div className="grid grid-cols-2 gap-2 pt-1 border-t border-slate-700/60">
                             <div>
-                              <span className="text-[10px] text-slate-400 block mb-0.5">Teks Tombol</span>
+                              <span className="text-xs text-slate-400 block mb-0.5">Teks Tombol</span>
                               <input
                                 type="text"
                                 value={getSelectedSectionProperty('buttonText', '')}
@@ -2179,7 +2185,7 @@ export default function ElementorEditorClient() {
                               />
                             </div>
                             <div>
-                              <span className="text-[10px] text-slate-400 block mb-0.5">Link / WhatsApp</span>
+                              <span className="text-xs text-slate-400 block mb-0.5">Link / WhatsApp</span>
                               <input
                                 type="text"
                                 value={getSelectedSectionProperty('buttonUrl', '')}
@@ -2193,11 +2199,11 @@ export default function ElementorEditorClient() {
                           {/* KODE HTML KUSTOM / EMBED BEBAS */}
                           <div className="p-3 rounded-xl bg-[#0e1320] border border-orange-500/30 space-y-2">
                             <div className="flex items-center justify-between">
-                              <span className="font-bold text-orange-300 flex items-center gap-1.5 text-[11px]">
+                              <span className="font-bold text-orange-300 flex items-center gap-1.5 text-xs">
                                 <Code className="w-3.5 h-3.5" /> HTML / Embed Bebas (Maps, Video, Widget)
                               </span>
                             </div>
-                            <p className="text-[10px] text-slate-400">
+                            <p className="text-xs text-slate-400">
                               Untuk embed Google Maps, video YouTube, atau widget lain, tempelkan kode HTML di sini:
                             </p>
                             <textarea
@@ -2205,21 +2211,21 @@ export default function ElementorEditorClient() {
                               value={getSelectedSectionProperty('rawHtml', '')}
                               onChange={(e) => updateSectionProperty('rawHtml', e.target.value)}
                               placeholder='<iframe src="https://www.google.com/maps/embed?..." width="100%" height="400"></iframe>'
-                              className="w-full bg-[#131929] border border-[#252f47] rounded p-2 text-[11px] font-mono text-orange-200 focus:outline-none focus:border-orange-400"
+                              className="w-full bg-[#131929] border border-[#252f47] rounded p-2 text-xs font-mono text-orange-200 focus:outline-none focus:border-orange-400"
                             />
                             {/* Tombol Contoh 1-Klik */}
                             <div className="flex gap-1.5">
                               <button
                                 type="button"
-                                onClick={() => updateSectionProperty('rawHtml', '<div class="w-full h-80 rounded-2xl overflow-hidden shadow-lg border border-slate-300"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.6234038743117!2d106.82226217499008!3d-6.181129993806307!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f4305dfd58b7%3A0xe54d9c490a6ea259!2sJl.%20M.H.%20Thamrin%2C%20Jakarta!5e0!3m2!1sid!2sid!4v1710000000000!5m2!1sid!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div>')}
-                                className="text-[10px] px-2 py-1 bg-orange-600/20 hover:bg-orange-600/30 text-orange-300 rounded font-bold"
+                                onClick={() => updateSectionProperty('rawHtml', '<div class="w-full h-80 rounded-2xl overflow-hidden border border-slate-300"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.6234038743117!2d106.82226217499008!3d-6.181129993806307!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f4305dfd58b7%3A0xe54d9c490a6ea259!2sJl.%20M.H.%20Thamrin%2C%20Jakarta!5e0!3m2!1sid!2sid!4v1710000000000!5m2!1sid!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div>')}
+                                className="text-xs px-2 py-1 bg-orange-600/20 hover:bg-orange-600/30 text-orange-300 rounded font-bold"
                               >
                                 + Contoh Maps
                               </button>
                               <button
                                 type="button"
                                 onClick={() => updateSectionProperty('rawHtml', '<div class="aspect-video w-full max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl"><iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe></div>')}
-                                className="text-[10px] px-2 py-1 bg-red-600/20 hover:bg-red-600/30 text-red-300 rounded font-bold"
+                                className="text-xs px-2 py-1 bg-red-600/20 hover:bg-red-600/30 text-red-300 rounded font-bold"
                               >
                                 + Contoh YouTube
                               </button>
@@ -2232,7 +2238,7 @@ export default function ElementorEditorClient() {
                       {selectedSectionId === 'retainer' && (
                         <div className="space-y-3">
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">Badge</label>
+                            <label className="block text-xs font-bold text-slate-300 mb-1">Badge</label>
                             <input
                               type="text"
                               value={content.retainer?.badge || ''}
@@ -2241,7 +2247,7 @@ export default function ElementorEditorClient() {
                             />
                           </div>
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">Judul Retainer</label>
+                            <label className="block text-xs font-bold text-slate-300 mb-1">Judul Retainer</label>
                             <input
                               type="text"
                               value={content.retainer?.title || ''}
@@ -2250,7 +2256,7 @@ export default function ElementorEditorClient() {
                             />
                           </div>
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">Subjudul</label>
+                            <label className="block text-xs font-bold text-slate-300 mb-1">Subjudul</label>
                             <textarea
                               rows={3}
                               value={content.retainer?.subtitle || ''}
@@ -2263,9 +2269,9 @@ export default function ElementorEditorClient() {
 
                       {selectedSectionId === 'trust-stats' && (
                         <div className="space-y-3">
-                          <p className="text-[11px] text-slate-400">Statistik kepercayaan utama perusahaan:</p>
+                          <p className="text-xs text-slate-400">Statistik kepercayaan utama perusahaan:</p>
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">Total Sektoral Layanan</label>
+                            <label className="block text-xs font-bold text-slate-300 mb-1">Total Sektoral Layanan</label>
                             <input
                               type="text"
                               value={content.global?.totalServices || ''}
@@ -2274,7 +2280,7 @@ export default function ElementorEditorClient() {
                             />
                           </div>
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-300 mb-1">Izin OSS Terbit</label>
+                            <label className="block text-xs font-bold text-slate-300 mb-1">Izin OSS Terbit</label>
                             <input
                               type="text"
                               value={content.global?.ossLicenseCount || ''}
@@ -2292,7 +2298,7 @@ export default function ElementorEditorClient() {
                     <div className="space-y-4">
                       {/* Warna Latar (Background Color) */}
                       <div>
-                        <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                        <label className="block text-xs font-bold text-slate-300 uppercase tracking-wide mb-1.5">
                           Warna Background
                         </label>
                         <div className="flex items-center gap-2 mb-2">
@@ -2326,7 +2332,7 @@ export default function ElementorEditorClient() {
                               type="button"
                               onClick={() => updateSectionProperty('bg', c.hex)}
                               style={{ backgroundColor: c.hex }}
-                              className="h-7 rounded-lg border border-white/20 hover:scale-110 transition-transform shadow-sm"
+                              className="h-7 rounded-lg border border-white/20 hover:scale-110 transition-transform"
                               title={c.label}
                             />
                           ))}
@@ -2335,7 +2341,7 @@ export default function ElementorEditorClient() {
 
                       {/* Warna Teks (Text Color) */}
                       <div>
-                        <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                        <label className="block text-xs font-bold text-slate-300 uppercase tracking-wide mb-1.5">
                           Warna Teks
                         </label>
                         <div className="flex items-center gap-2 mb-2">
@@ -2359,21 +2365,21 @@ export default function ElementorEditorClient() {
                           <button
                             type="button"
                             onClick={() => updateSectionProperty('textColor', '#ffffff')}
-                            className="flex-1 py-1 rounded bg-[#0e1320] border border-white/20 text-white font-bold text-[10px]"
+                            className="flex-1 py-1 rounded bg-[#0e1320] border border-white/20 text-white font-bold text-xs"
                           >
                             Teks Putih
                           </button>
                           <button
                             type="button"
                             onClick={() => updateSectionProperty('textColor', '#0f172a')}
-                            className="flex-1 py-1 rounded bg-white text-slate-900 font-bold text-[10px]"
+                            className="flex-1 py-1 rounded bg-white text-slate-900 font-bold text-xs"
                           >
                             Teks Gelap
                           </button>
                           <button
                             type="button"
                             onClick={() => updateSectionProperty('textColor', '#dfa82e')}
-                            className="flex-1 py-1 rounded bg-[#dfa82e] text-slate-950 font-bold text-[10px]"
+                            className="flex-1 py-1 rounded bg-[#dfa82e] text-slate-950 font-bold text-xs"
                           >
                             Teks Gold
                           </button>
@@ -2382,7 +2388,7 @@ export default function ElementorEditorClient() {
 
                       {/* Gambar Latar (Background Image) */}
                       <div className="pt-2 border-t border-slate-700/60">
-                        <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">
+                        <label className="block text-xs font-bold text-slate-300 uppercase tracking-wide mb-1">
                           URL Gambar Latar Belakang
                         </label>
                         <input
@@ -2395,22 +2401,22 @@ export default function ElementorEditorClient() {
                         <div className="flex gap-1.5 mt-2">
                           <button
                             type="button"
-                            onClick={() => updateSectionProperty('bgImage', 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80')}
-                            className="text-[10px] px-2 py-1 bg-slate-800 hover:bg-slate-700 rounded text-slate-300"
+                            onClick={() => updateSectionProperty('bgImage', 'https://images.unsplash.com/photo-1453945619913-79ec89a82c51?auto=format&fit=crop&w=1200&q=80')}
+                            className="text-xs px-2 py-1 bg-slate-800 hover:bg-slate-700 rounded text-slate-300"
                           >
                             Gedung Bisnis
                           </button>
                           <button
                             type="button"
-                            onClick={() => updateSectionProperty('bgImage', 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80')}
-                            className="text-[10px] px-2 py-1 bg-slate-800 hover:bg-slate-700 rounded text-slate-300"
+                            onClick={() => updateSectionProperty('bgImage', 'https://images.unsplash.com/photo-1453945619913-79ec89a82c51?auto=format&fit=crop&w=1200&q=80')}
+                            className="text-xs px-2 py-1 bg-slate-800 hover:bg-slate-700 rounded text-slate-300"
                           >
                             Ruang Meeting
                           </button>
                           <button
                             type="button"
                             onClick={() => updateSectionProperty('bgImage', '')}
-                            className="text-[10px] px-2 py-1 bg-rose-900/40 hover:bg-rose-900/60 rounded text-rose-300"
+                            className="text-xs px-2 py-1 bg-rose-900/40 hover:bg-rose-900/60 rounded text-rose-300"
                           >
                             Hapus Gambar
                           </button>
@@ -2425,10 +2431,10 @@ export default function ElementorEditorClient() {
                       {/* Padding Atas & Bawah (Padding Y) */}
                       <div>
                         <div className="flex justify-between items-center mb-1">
-                          <label className="text-[11px] font-bold text-slate-300 uppercase tracking-wider">
+                          <label className="text-xs font-bold text-slate-300 uppercase tracking-wide">
                             Jarak Atas &amp; Bawah (Padding Y)
                           </label>
-                          <span className="text-[11px] font-mono text-purple-300">
+                          <span className="text-xs font-mono text-purple-300">
                             {getSelectedSectionProperty('paddingY', '64px')}
                           </span>
                         </div>
@@ -2450,10 +2456,10 @@ export default function ElementorEditorClient() {
                       {/* Padding Samping (Padding X) */}
                       <div>
                         <div className="flex justify-between items-center mb-1">
-                          <label className="text-[11px] font-bold text-slate-300 uppercase tracking-wider">
+                          <label className="text-xs font-bold text-slate-300 uppercase tracking-wide">
                             Jarak Samping (Padding X)
                           </label>
-                          <span className="text-[11px] font-mono text-purple-300">
+                          <span className="text-xs font-mono text-purple-300">
                             {getSelectedSectionProperty('paddingX', '24px')}
                           </span>
                         </div>
@@ -2472,10 +2478,10 @@ export default function ElementorEditorClient() {
                       {/* Margin Atas-Bawah (Margin Y) */}
                       <div>
                         <div className="flex justify-between items-center mb-1">
-                          <label className="text-[11px] font-bold text-slate-300 uppercase tracking-wider">
+                          <label className="text-xs font-bold text-slate-300 uppercase tracking-wide">
                             Jarak Luar Antar Seksi (Margin Y)
                           </label>
-                          <span className="text-[11px] font-mono text-purple-300">
+                          <span className="text-xs font-mono text-purple-300">
                             {getSelectedSectionProperty('marginY', '0px')}
                           </span>
                         </div>
@@ -2494,7 +2500,7 @@ export default function ElementorEditorClient() {
 
                       {/* Lebar Maksimal Konten (Max Width) */}
                       <div>
-                        <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">
+                        <label className="block text-xs font-bold text-slate-300 uppercase tracking-wide mb-1">
                           Lebar Maksimal Konten
                         </label>
                         <select
@@ -2517,7 +2523,7 @@ export default function ElementorEditorClient() {
                     <div className="space-y-4">
                       {/* Posisi Rata Teks */}
                       <div>
-                        <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                        <label className="block text-xs font-bold text-slate-300 uppercase tracking-wide mb-1.5">
                           Posisi Rata Teks
                         </label>
                         <div className="grid grid-cols-4 gap-1.5 bg-[#0e1320] p-1 rounded-lg border border-[#252f47]">
@@ -2574,7 +2580,7 @@ export default function ElementorEditorClient() {
 
                       {/* Ukuran Font Judul */}
                       <div>
-                        <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">
+                        <label className="block text-xs font-bold text-slate-300 uppercase tracking-wide mb-1">
                           Ukuran Font Judul
                         </label>
                         <select
@@ -2592,7 +2598,7 @@ export default function ElementorEditorClient() {
 
                       {/* Gaya Font (Font Family) */}
                       <div>
-                        <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">
+                        <label className="block text-xs font-bold text-slate-300 uppercase tracking-wide mb-1">
                           Gaya Font
                         </label>
                         <select
@@ -2612,7 +2618,7 @@ export default function ElementorEditorClient() {
                     <div className="space-y-4">
                       {/* Tindakan Cepat Seksi */}
                       <div className="space-y-2.5">
-                        <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider">
+                        <label className="block text-xs font-bold text-slate-300 uppercase tracking-wide">
                           Tindakan Seksi &amp; Posisi
                         </label>
                         
@@ -2658,7 +2664,7 @@ export default function ElementorEditorClient() {
                       {/* Border & Shadow */}
                       <div className="pt-3 border-t border-slate-700/60 space-y-3">
                         <div>
-                          <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">
+                          <label className="block text-xs font-bold text-slate-300 uppercase tracking-wide mb-1">
                             Sudut Melengkung (Border Radius)
                           </label>
                           <select
@@ -2674,7 +2680,7 @@ export default function ElementorEditorClient() {
                         </div>
 
                         <div>
-                          <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">
+                          <label className="block text-xs font-bold text-slate-300 uppercase tracking-wide mb-1">
                             Efek Bayangan (Shadow)
                           </label>
                           <select
@@ -2696,12 +2702,12 @@ export default function ElementorEditorClient() {
             </div>
 
             {/* Properties Panel Footer */}
-            <div className="p-3 bg-[#111624] border-t border-[#232c42] flex items-center justify-between text-[11px]">
+            <div className="p-3 bg-[#111624] border-t border-[#232c42] flex items-center justify-between text-xs">
               <span className="text-slate-400">Sinkron otomatis ke kanvas</span>
               <button
                 onClick={handleSave}
                 disabled={isSaving}
-                className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-xs uppercase tracking-wider hover:brightness-110 flex items-center gap-1 shadow-sm cursor-pointer"
+                className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-xs uppercase tracking-wide hover:brightness-110 flex items-center gap-1 cursor-pointer"
               >
                 <Save className="w-3.5 h-3.5" />
                 <span>Simpan</span>
@@ -2715,7 +2721,7 @@ export default function ElementorEditorClient() {
 
       {/* ── 3. MODAL SISIPKAN KOMPONEN SEBELUM HALAMAN TERTENTU ──────────────── */}
       {insertModalTarget && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
           <div className="bg-[#131929] border border-purple-500/30 rounded-2xl w-full max-w-xl max-h-[85vh] flex flex-col shadow-2xl">
             {/* Modal Header */}
             <div className="p-5 border-b border-[#232c42] flex items-center justify-between">
@@ -2753,12 +2759,12 @@ export default function ElementorEditorClient() {
                       <h4 className="text-xs font-bold text-white group-hover:text-purple-200">
                         {tpl.title}
                       </h4>
-                      <span className="text-[10px] text-purple-300 font-bold">
+                      <span className="text-xs text-purple-300 font-bold">
                         {tpl.badge}
                       </span>
                     </div>
                   </div>
-                  <p className="text-[11px] text-slate-300 leading-relaxed">
+                  <p className="text-xs text-slate-300 leading-relaxed">
                     {tpl.desc}
                   </p>
                 </button>
@@ -2780,7 +2786,7 @@ export default function ElementorEditorClient() {
 
       {/* ── 4. MODAL RIWAYAT PERUBAHAN (SAVE STATES RESTORE) ───────────────────── */}
       {showHistoryModal && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
           <div className="bg-[#131929] border border-amber-500/30 rounded-2xl w-full max-w-xl max-h-[80vh] flex flex-col shadow-2xl">
             {/* Modal Header */}
             <div className="p-5 border-b border-[#232c42] flex items-center justify-between">
@@ -2817,12 +2823,12 @@ export default function ElementorEditorClient() {
                       <div className="flex items-center gap-2">
                         <span className="text-xs font-bold text-white">{snap.action}</span>
                         {i === 0 && (
-                          <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-bold">
+                          <span className="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded font-bold">
                             Terkini
                           </span>
                         )}
                       </div>
-                      <span className="text-[11px] text-slate-400 mt-0.5 block">
+                      <span className="text-xs text-slate-400 mt-0.5 block">
                         Terekam pukul {snap.time}
                       </span>
                     </div>

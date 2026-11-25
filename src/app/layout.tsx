@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, Cormorant_Garamond, Playfair_Display } from 'next/font/google';
+import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import React from 'react';
 import { ContentProvider } from '@/context/ContentContext';
@@ -12,13 +12,6 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
-const cormorantGaramond = Cormorant_Garamond({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  style: ['normal', 'italic'],
-  display: 'swap',
-  variable: '--font-cormorant',
-});
 
 const playfairDisplay = Playfair_Display({
   subsets: ['latin'],
@@ -44,7 +37,7 @@ export const metadata: Metadata = {
     siteName: 'SELECO',
     images: [
       {
-        url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80',
+        url: 'https://images.unsplash.com/photo-1453945619913-79ec89a82c51?auto=format&fit=crop&w=1200&q=80',
         width: 1200,
         height: 630,
         alt: 'SELECO Corporate Office',
@@ -73,7 +66,7 @@ export default function RootLayout({
   const initialContent = getSiteContent();
 
   return (
-    <html lang="id" className={`${inter.variable} ${cormorantGaramond.variable} ${playfairDisplay.variable} scroll-smooth`}>
+    <html lang="id" className={`${inter.variable} ${playfairDisplay.variable} scroll-smooth`}>
       <body className={`${inter.className} bg-white text-slate-900 antialiased min-h-screen flex flex-col justify-between selection:bg-[#dfa82e]/20 selection:text-[#0a1420]`}>
         <ContentProvider initialContent={initialContent}>
           <SiteWrapper>{children}</SiteWrapper>

@@ -66,7 +66,7 @@ export default function DevPortalPage() {
             <img
               src="/logo-seleco.png"
               alt="Seleco"
-              className="h-10 sm:h-12 w-auto object-contain drop-shadow-md"
+              className="h-10 sm:h-12 w-auto object-contain"
             />
             <div>
               <h1 className="font-serif-title text-xl sm:text-2xl font-bold text-white tracking-wide">
@@ -80,7 +80,7 @@ export default function DevPortalPage() {
 
           <Link
             href="/admin"
-            className="px-4 py-2 bg-gradient-to-r from-amber-400 to-amber-500 hover:brightness-110 text-slate-950 font-bold rounded-xl text-xs flex items-center gap-2 transition-all shadow-md shadow-amber-400/20"
+            className="px-4 py-2 bg-gradient-to-r from-amber-400 to-amber-500 hover:brightness-110 text-slate-950 font-bold rounded-xl text-xs flex items-center gap-2 transition-all shadow-amber-400/20"
           >
             <Sliders className="w-4 h-4 text-slate-950" />
             <span>Edit Isi Web</span>
@@ -88,27 +88,27 @@ export default function DevPortalPage() {
         </div>
 
         {/* Status Card */}
-        <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 mb-8 shadow-2xl backdrop-blur-md space-y-5">
+        <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 mb-8 shadow-2xl space-y-5">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
             <div>
-              <span className="text-[11px] uppercase tracking-widest text-slate-400 font-bold block mb-1">
+              <span className="text-xs uppercase tracking-wide text-slate-400 font-bold block mb-1">
                 Status Pengunjung Publik
               </span>
               <div className="flex items-center gap-2">
-                <span className={`w-2.5 h-2.5 rounded-full ${siteStatus === 'maintenance' ? 'bg-amber-400 animate-pulse' : 'bg-emerald-400'}`} />
+                <span className={`w-2.5 h-2.5 rounded-full ${siteStatus === 'maintenance' ? 'bg-amber-400' : 'bg-emerald-400'}`} />
                 <span className="text-sm font-bold text-white">
                   {siteStatus === 'maintenance' 
-                    ? '🟡 Mode Pengembangan (Publik hanya melihat Maintenance)' 
-                    : '🟢 Mode Tayang (Website Live untuk Umum)'}
+                    ? 'Mode Pengembangan (Publik hanya melihat Maintenance)' 
+                    : 'Mode Tayang (Website Live untuk Umum)'}
                 </span>
               </div>
             </div>
 
             <div className="sm:text-right">
-              <span className="text-[11px] uppercase tracking-widest text-slate-400 font-bold block mb-1">
+              <span className="text-xs uppercase tracking-wide text-slate-400 font-bold block mb-1">
                 Akses Browser Anda
               </span>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
                 <CheckCircle2 className="w-3.5 h-3.5" />
                 <span>Developer Mode: {isDevActive ? 'AKTIF (Bypass On)' : 'NONAKTIF'}</span>
               </div>
@@ -117,7 +117,7 @@ export default function DevPortalPage() {
 
           <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-4 text-xs text-amber-200/90 leading-relaxed">
             <p>
-              💡 <strong>Developer Mode otomatis aktif</strong> untuk browser Anda saat membuka halaman ini (<code className="bg-slate-950 px-1.5 py-0.5 rounded text-amber-300">/dev</code>). 
+              <strong>Developer Mode otomatis aktif</strong> untuk browser Anda saat membuka halaman ini (<code className="bg-slate-950 px-1.5 py-0.5 rounded text-amber-300">/dev</code>). 
               Anda kini dapat membuka seluruh halaman web secara normal tanpa terhalang landing page pengembangan.
             </p>
           </div>
@@ -126,7 +126,7 @@ export default function DevPortalPage() {
           <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
             <Link
               href="/"
-              className="w-full sm:flex-1 py-4 bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 hover:brightness-110 text-slate-950 font-bold text-sm uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-amber-400/20 flex items-center justify-center gap-2"
+              className="btn btn-primary w-full sm:flex-1"
             >
               <span>Buka Website Penuh (Home)</span>
               <ArrowRight className="w-4 h-4" />
@@ -144,7 +144,7 @@ export default function DevPortalPage() {
             ) : (
               <button
                 onClick={handleEnableDevMode}
-                className="w-full sm:w-auto px-5 py-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-all shadow-md"
+                className="w-full sm:w-auto px-5 py-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-all"
               >
                 <RefreshCw className="w-4 h-4" />
                 <span>Aktifkan Kembali Dev Mode</span>
@@ -155,7 +155,7 @@ export default function DevPortalPage() {
 
         {/* Editor Shortcuts */}
         <div className="space-y-3 mb-8">
-          <h2 className="text-xs uppercase tracking-widest text-amber-400 font-bold flex items-center gap-2">
+          <h2 className="text-xs uppercase tracking-wide text-amber-400 font-bold flex items-center gap-2">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Akses Editor Web SELECO</span>
           </h2>
@@ -172,7 +172,7 @@ export default function DevPortalPage() {
                   <span className="text-xs font-bold text-amber-300 block">
                     Mode Visual (/edit-view)
                   </span>
-                  <span className="text-[10px] text-slate-400">Klik langsung teks, link & tombol untuk edit ala Elementor</span>
+                  <span className="text-xs text-slate-400">Klik langsung teks, link & tombol untuk edit ala Elementor</span>
                 </div>
               </div>
               <ArrowRight className="w-4 h-4 text-amber-400 group-hover:translate-x-1 transition-all" />
@@ -190,7 +190,7 @@ export default function DevPortalPage() {
                   <span className="text-xs font-bold text-white block group-hover:text-amber-300 transition-colors">
                     Mode Formulir (/admin)
                   </span>
-                  <span className="text-[10px] text-slate-400">Dashboard isi web lengkap, artikel, & manajemen pengguna</span>
+                  <span className="text-xs text-slate-400">Dashboard isi web lengkap, artikel, & manajemen pengguna</span>
                 </div>
               </div>
               <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-amber-400 group-hover:translate-x-1 transition-all" />
@@ -200,7 +200,7 @@ export default function DevPortalPage() {
 
         {/* Quick Navigation Links */}
         <div className="space-y-3 mb-10">
-          <h2 className="text-xs uppercase tracking-widest text-slate-400 font-bold">
+          <h2 className="text-xs uppercase tracking-wide text-slate-400 font-bold">
             Pintasan Langsung Halaman Web
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -216,7 +216,7 @@ export default function DevPortalPage() {
                   <span className="text-xs font-bold text-white block group-hover:text-amber-300 transition-colors">
                     Direktori Layanan
                   </span>
-                  <span className="text-[10px] text-slate-400">445+ Layanan &amp; 5 Pilar Konsultan</span>
+                  <span className="text-xs text-slate-400">445+ Layanan &amp; 5 Pilar Konsultan</span>
                 </div>
               </div>
               <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-amber-400 group-hover:translate-x-1 transition-all" />
@@ -234,7 +234,7 @@ export default function DevPortalPage() {
                   <span className="text-xs font-bold text-white block group-hover:text-amber-300 transition-colors">
                     Tentang Kami
                   </span>
-                  <span className="text-[10px] text-slate-400">Profil, Nilai &amp; Tim Konsultan</span>
+                  <span className="text-xs text-slate-400">Profil, Nilai &amp; Tim Konsultan</span>
                 </div>
               </div>
               <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-amber-400 group-hover:translate-x-1 transition-all" />
@@ -252,7 +252,7 @@ export default function DevPortalPage() {
                   <span className="text-xs font-bold text-white block group-hover:text-amber-300 transition-colors">
                     Artikel &amp; Insight
                   </span>
-                  <span className="text-[10px] text-slate-400">Publikasi Editorial &amp; Regulasi</span>
+                  <span className="text-xs text-slate-400">Publikasi Editorial &amp; Regulasi</span>
                 </div>
               </div>
               <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-amber-400 group-hover:translate-x-1 transition-all" />
@@ -270,7 +270,7 @@ export default function DevPortalPage() {
                   <span className="text-xs font-bold text-white block group-hover:text-amber-300 transition-colors">
                     Halaman Kontak
                   </span>
-                  <span className="text-[10px] text-slate-400">Formulir, WhatsApp &amp; Alamat</span>
+                  <span className="text-xs text-slate-400">Formulir, WhatsApp &amp; Alamat</span>
                 </div>
               </div>
               <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-amber-400 group-hover:translate-x-1 transition-all" />

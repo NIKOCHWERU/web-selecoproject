@@ -87,7 +87,7 @@ export default function ServicesSection() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-12 gap-6">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dfa82e]/15 border border-[#dfa82e]/35 text-[10px] font-bold uppercase tracking-widest text-[#b88917] mb-3">
+            <div className="inline-flex items-center text-xs font-semibold tracking-wide text-[#0a1420] mb-3">
               <EditableText
                 fieldPath="services.badge"
                 fallback="5 Pilar Layanan Konsultan Terpadu"
@@ -115,10 +115,9 @@ export default function ServicesSection() {
           <div className="shrink-0">
             <Link
               href="/layanan"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#0a1420] text-white hover:bg-[#b88917] text-[11px] font-bold uppercase tracking-widest transition-colors shadow-sm cursor-pointer"
+              className="btn btn-dark"
             >
               <span>Jelajahi Seluruh Layanan</span>
-              <ArrowRight className="w-3.5 h-3.5 text-[#dfa82e]" />
             </Link>
           </div>
         </div>
@@ -130,10 +129,10 @@ export default function ServicesSection() {
             const currentLink = services?.pillars?.[idx]?.linkUrl || fallbackLink;
             const defaultPillarImages = [
               "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80",
-              "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=800&q=80",
-              "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80",
-              "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
-              "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"
+              "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1479142506502-19b3a3b7ff33?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1453945619913-79ec89a82c51?auto=format&fit=crop&w=800&q=80",
+              "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80"
             ];
             const cardImg = cat.image || defaultPillarImages[idx % defaultPillarImages.length];
 
@@ -144,7 +143,7 @@ export default function ServicesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: idx * 0.04 }}
-                className="relative group overflow-hidden rounded-xl shadow-sm border border-slate-200 hover:border-[#dfa82e]/60 min-h-[300px] flex flex-col justify-end text-left transition-colors"
+                className="relative group overflow-hidden rounded-xl border border-slate-200 hover:border-[#dfa82e]/60 min-h-[300px] flex flex-col justify-end text-left transition-colors"
               >
                 {/* Background image with dark gradient overlay */}
                 <div className="absolute inset-0 z-0">
@@ -158,7 +157,7 @@ export default function ServicesSection() {
 
                 {/* Top Badge */}
                 <div className="absolute top-3.5 right-3.5 z-10">
-                  <span className="px-3 py-1 rounded-full bg-[#0a1420]/90 border border-[#dfa82e]/40 text-[#dfa82e] text-[10px] font-bold tracking-widest uppercase shadow-md">
+                  <span className="px-3 py-1 rounded bg-[#0a1420]/90 border border-[#dfa82e]/40 text-[#dfa82e] text-xs font-bold tracking-wide">
                     <EditableText
                       fieldPath={`services.pillars.${idx}.count`}
                       fallback={cat.count || '242 Items'}
@@ -207,7 +206,7 @@ export default function ServicesSection() {
                         e.stopPropagation();
                       }
                     }}
-                    className="inline-flex items-center justify-between w-full pt-2.5 border-t border-white/10 text-[11px] font-bold uppercase tracking-wider text-[#dfa82e] group-hover:text-white transition-colors"
+                    className="inline-flex items-center justify-between w-full pt-2.5 border-t border-white/10 text-xs font-bold tracking-wide text-[#dfa82e] group-hover:text-white transition-colors"
                   >
                     <EditableText
                       fieldPath={`services.pillars.${idx}.linkText`}
@@ -227,10 +226,10 @@ export default function ServicesSection() {
         </div>
 
         {/* Directory Banner */}
-        <div className="rounded-2xl bg-[#0a1420] text-white p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-[#dfa82e]/35 shadow-xl relative overflow-hidden">
+        <div className="rounded-2xl bg-[#0a1420] text-white p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-[#dfa82e]/35 relative overflow-hidden">
           <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#dfa82e]" />
           <div className="space-y-2.5 z-10 max-w-2xl pl-1 sm:pl-3">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dfa82e]/15 border border-[#dfa82e]/35 text-[10px] font-bold uppercase tracking-widest text-[#dfa82e]">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded bg-[#dfa82e]/15 border border-[#dfa82e]/35 text-xs font-bold tracking-wide text-[#dfa82e]">
               Direktori Lengkap &amp; Pencarian Terpadu
             </span>
             <h3 className="font-serif-title text-xl sm:text-2xl font-bold text-white">
@@ -257,7 +256,7 @@ export default function ServicesSection() {
                 e.stopPropagation();
               }
             }}
-            className="px-5 py-2.5 bg-[#dfa82e] hover:bg-white text-[#0a1420] font-bold text-[11px] uppercase tracking-wider rounded-lg shadow-sm transition-colors whitespace-nowrap flex items-center gap-2 shrink-0 z-10 cursor-pointer"
+            className="px-5 py-2.5 bg-[#dfa82e] hover:bg-white text-[#0a1420] font-bold text-xs tracking-wide rounded-lg transition-colors whitespace-nowrap flex items-center gap-2 shrink-0 z-10 cursor-pointer"
           >
             <EditableIcon
               iconKey="services.ctaBannerIcon"

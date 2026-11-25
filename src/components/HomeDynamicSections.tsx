@@ -71,7 +71,7 @@ export default function HomeDynamicSections() {
         >
           <div style={{ maxWidth: maxContainerWidth }} className="mx-auto text-center space-y-4 relative z-10">
             {custom.badge && (
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-[#dfa82e]/20 text-[#dfa82e] border border-[#dfa82e]/40">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded text-xs font-bold tracking-wide bg-[#dfa82e]/20 text-[#dfa82e] border border-[#dfa82e]/40">
                 <MessageCircle className="w-3.5 h-3.5" />
                 {custom.badge}
               </span>
@@ -88,7 +88,7 @@ export default function HomeDynamicSections() {
               <div className="pt-2">
                 <a
                   href={custom.buttonUrl || '#'}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#dfa82e] hover:bg-white text-[#0a1420] rounded-lg font-bold text-xs uppercase tracking-wider shadow-sm transition-colors"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#dfa82e] hover:bg-white text-[#0a1420] rounded-lg font-bold text-xs tracking-wide transition-colors"
                 >
                   <MessageCircle className="w-3.5 h-3.5" />
                   <span>{custom.buttonText}</span>
@@ -111,7 +111,7 @@ export default function HomeDynamicSections() {
           <div style={{ maxWidth: maxContainerWidth }} className="mx-auto">
             <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
               {custom.badge && (
-                <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-[#dfa82e]/15 text-[#b88917] uppercase tracking-wider">
+                <span className="inline-block px-3 py-1 rounded text-xs font-bold bg-[#dfa82e]/15 text-[#0a1420] tracking-wide">
                   {custom.badge}
                 </span>
               )}
@@ -127,7 +127,7 @@ export default function HomeDynamicSections() {
                 { title: 'Kepastian Regulasi', desc: 'Mitigasi risiko hukum dan kepatuhan perizinan secara menyeluruh.' },
                 { title: 'Pendampingan Berkelanjutan', desc: 'Dukungan tim profesional harian untuk kelancaran korporasi.' },
               ].map((item, idx) => (
-                <div key={idx} className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow">
+                <div key={idx} className="bg-white p-6 rounded-2xl border border-slate-200/80  transition-shadow">
                   <div className="w-10 h-10 rounded-xl bg-[#dfa82e]/10 text-[#dfa82e] flex items-center justify-center font-bold mb-4">
                     0{idx + 1}
                   </div>
@@ -151,7 +151,7 @@ export default function HomeDynamicSections() {
         >
           <div style={{ maxWidth: maxContainerWidth }} className="mx-auto space-y-4">
             {custom.badge && (
-              <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-[#dfa82e]/15 text-[#b88917] uppercase tracking-wider">
+              <span className="inline-block px-3 py-1 rounded text-xs font-bold bg-[#dfa82e]/15 text-[#0a1420] tracking-wide">
                 {custom.badge}
               </span>
             )}
@@ -181,7 +181,7 @@ export default function HomeDynamicSections() {
             {custom.title && (
               <div className="text-center mb-8 space-y-2">
                 {custom.badge && (
-                  <span className="inline-block px-3.5 py-1 rounded-full text-xs font-semibold bg-[#b88917]/15 text-[#b88917]">
+                  <span className="inline-block px-3.5 py-1 rounded text-xs font-semibold bg-[#b88917]/15 text-[#0a1420]">
                     {custom.badge}
                   </span>
                 )}
@@ -209,7 +209,7 @@ export default function HomeDynamicSections() {
       >
         <div style={{ maxWidth: maxContainerWidth }} className="mx-auto text-center space-y-4">
           {custom.badge && (
-            <span className="inline-block px-3.5 py-1 rounded-full text-xs font-semibold bg-[#b88917]/15 text-[#b88917]">
+            <span className="inline-block px-3.5 py-1 rounded text-xs font-semibold bg-[#b88917]/15 text-[#0a1420]">
               {custom.badge}
             </span>
           )}
@@ -221,7 +221,7 @@ export default function HomeDynamicSections() {
             <div className="text-sm text-slate-700 max-w-3xl mx-auto leading-relaxed">{custom.content}</div>
           )}
           {custom.image && (
-            <div className="max-w-3xl mx-auto mt-6 rounded-xl overflow-hidden shadow-lg">
+            <div className="max-w-3xl mx-auto mt-6 rounded-xl overflow-hidden">
               <img src={custom.image} alt={custom.title} className="w-full h-auto object-cover" />
             </div>
           )}
@@ -229,7 +229,7 @@ export default function HomeDynamicSections() {
             <div className="pt-4">
               <a
                 href={custom.buttonUrl || '#'}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-[#b88917] text-[#0a1420] rounded-xl font-bold text-xs uppercase tracking-wider shadow-md hover:brightness-110"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-[#b88917] text-[#0a1420] rounded-xl font-bold text-xs tracking-wide hover:brightness-110"
               >
                 <span>{custom.buttonText}</span>
               </a>

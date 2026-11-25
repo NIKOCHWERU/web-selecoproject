@@ -21,7 +21,7 @@ export default function TentangPage() {
             <span className="text-[#dfa82e] font-semibold">Tentang Kami</span>
           </div>
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#dfa82e]/20 border border-[#dfa82e]/40 rounded-full text-[#dfa82e] text-[10px] font-bold uppercase tracking-widest mb-2.5">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#dfa82e]/20 border border-[#dfa82e]/40 rounded text-[#dfa82e] text-xs font-bold tracking-wide mb-2.5">
               <Building2 className="w-3.5 h-3.5" /> PROFIL KONSULTAN SELECO
             </div>
             <h1 className="font-serif-title text-2xl sm:text-3xl lg:text-3xl font-bold text-white leading-tight">
@@ -50,7 +50,7 @@ export default function TentangPage() {
           </p>
           <Link
             href="/kontak"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#dfa82e] hover:bg-white text-[#0a1420] font-bold text-xs uppercase tracking-wider rounded-lg transition-colors shadow-sm cursor-pointer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#dfa82e] hover:bg-white text-[#0a1420] font-bold text-xs tracking-wide rounded-lg transition-colors cursor-pointer"
           >
             <span>Hubungi Tim Kami Sekarang</span>
             <ArrowRight className="w-3.5 h-3.5" />

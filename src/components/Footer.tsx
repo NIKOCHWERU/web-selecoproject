@@ -53,7 +53,7 @@ export default function Footer() {
                 <img
                   src={global?.logo || '/logo-seleco.png'}
                   alt={global?.brandName || 'Seleco Project'}
-                  className="h-full w-auto max-w-[200px] object-contain drop-shadow-sm group-hover:scale-[1.02] transition-transform duration-300"
+                  className="h-full w-auto max-w-[200px] object-contain group-hover:scale-[1.02] transition-transform duration-300"
                 />
               </div>
             </Link>
@@ -74,7 +74,7 @@ export default function Footer() {
                     e.stopPropagation();
                   }
                 }}
-                className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/15 rounded-lg text-[#dfa82e] text-[11px] font-bold uppercase tracking-wider hover:bg-[#dfa82e] hover:text-[#0a1420] transition-colors shadow-xs"
+                className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/15 rounded-lg text-[#dfa82e] text-xs font-bold tracking-wide hover:bg-[#dfa82e] hover:text-[#0a1420] transition-colors"
               >
                 <EditableIcon
                   iconKey="footer.dirIcon"
@@ -273,7 +273,7 @@ export default function Footer() {
       {showTopBtn && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-20 right-6 w-9 h-9 rounded-lg bg-[#0f2034] border border-[#dfa82e]/50 text-[#dfa82e] flex items-center justify-center shadow-md hover:bg-[#dfa82e] hover:text-[#0a1420] transition-colors z-40 cursor-pointer"
+          className="fixed bottom-20 right-4 sm:bottom-24 sm:right-6 w-11 h-11 rounded-lg bg-[#0f2034] border border-[#dfa82e]/50 text-[#dfa82e] flex items-center justify-center hover:bg-[#dfa82e] hover:text-[#0a1420] transition-colors z-40 cursor-pointer"
           aria-label="Scroll back to top"
         >
           <ArrowUp className="w-4 h-4" />

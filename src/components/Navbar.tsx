@@ -26,6 +26,15 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
+    if (!mobileOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMobileOpen(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [mobileOpen]);
+
+  useEffect(() => {
     const checkMode = () => {
       const mode = sessionStorage.getItem('seleco_editor_mode');
       setIsEditMode(mode === 'click_to_edit');
@@ -59,7 +68,7 @@ export default function Navbar() {
         tag="header"
         className={`sticky top-0 left-0 right-0 h-16 z-50 transition-all duration-300 ${
           scrolled
-            ? 'bg-[#0a1420] border-b border-[#dfa82e]/30 shadow-lg'
+            ? 'header-glass border-b border-[#dfa82e]/30'
             : 'bg-[#142740] border-b border-white/10'
         }`}
       >
@@ -79,13 +88,13 @@ export default function Navbar() {
               <img
                 src={global?.logo || '/logo-seleco.png'}
                 alt={global?.brandName || 'Seleco Project'}
-                className="h-full w-auto max-w-[170px] sm:max-w-[210px] md:max-w-[240px] object-contain drop-shadow-sm group-hover:scale-[1.02] transition-transform duration-300"
+                className="h-full w-auto max-w-[170px] sm:max-w-[210px] md:max-w-[240px] object-contain group-hover:scale-[1.02] transition-transform duration-300"
               />
             </div>
           </Link>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex items-center space-x-6" aria-label="Main navigation">
+          <nav className="hidden lg:flex items-center space-x-7" aria-label="Main navigation">
             {navLinks.map((link: any, idx: number) => {
               const linkUrl = link.href || '/';
               const isActive = pathname === linkUrl;
@@ -99,9 +108,9 @@ export default function Navbar() {
                         e.stopPropagation();
                       }
                     }}
-                    className={`text-[11px] uppercase tracking-widest font-semibold transition-colors py-1 ${
+                    className={`text-sm font-medium transition-colors py-1 ${
                       isActive
-                        ? 'text-[#dfa82e]'
+                        ? 'text-[#dfa82e] font-semibold'
                         : 'text-slate-200 hover:text-[#dfa82e]'
                     }`}
                   >
@@ -134,7 +143,7 @@ export default function Navbar() {
                   e.stopPropagation();
                 }
               }}
-              className="px-4 py-2 text-[11px] font-bold uppercase tracking-widest text-[#0a1420] bg-[#dfa82e] hover:bg-white rounded-lg shadow-sm transition-colors flex items-center gap-2 cursor-pointer"
+              className="btn btn-primary min-h-10"
             >
               <EditableIcon
                 iconKey="navbar.ctaIcon"
@@ -185,16 +194,16 @@ export default function Navbar() {
               <div>
                 <div className="flex items-center justify-between pb-5 border-b border-white/10">
                   <div className="flex flex-col">
-                    <span className="font-serif-title text-lg font-bold text-white tracking-widest">
+                    <span className="font-serif-title text-lg font-bold text-white tracking-wide">
                       Seleco <span className="text-[#dfa82e]">.</span>
                     </span>
-                    <span className="text-[8px] font-semibold tracking-widest text-slate-300 uppercase mt-0.5">
+                    <span className="text-xs font-semibold tracking-wide text-slate-300 mt-0.5">
                       Sedana Legal Consultant
                     </span>
                   </div>
                   <button
                     onClick={() => setMobileOpen(false)}
-                    className="p-1.5 text-slate-300 hover:text-white focus:outline-none focus:ring-1 focus:ring-[#dfa82e] rounded"
+                    className="p-3 -m-2 text-slate-300 hover:text-white rounded"
                     aria-label="Close menu"
                   >
                     <X className="w-5 h-5" />
@@ -245,7 +254,7 @@ export default function Navbar() {
                       setMobileOpen(false);
                     }
                   }}
-                  className="w-full py-2.5 text-xs font-bold uppercase tracking-wider text-center text-[#0a1420] bg-[#dfa82e] hover:bg-white rounded-lg flex items-center justify-center gap-2 transition-colors shadow-sm"
+                  className="btn btn-primary w-full"
                 >
                   <EditableIcon
                     iconKey="navbar.ctaIcon"

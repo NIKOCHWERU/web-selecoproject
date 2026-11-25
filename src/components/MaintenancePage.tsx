@@ -60,7 +60,7 @@ export default function MaintenancePage({ content }: MaintenancePageProps) {
           <img
             src="/logo-seleco.png"
             alt={brandName}
-            className="h-10 sm:h-12 w-auto object-contain drop-shadow-md"
+            className="h-10 sm:h-12 w-auto object-contain"
           />
         </div>
       </header>
@@ -69,8 +69,8 @@ export default function MaintenancePage({ content }: MaintenancePageProps) {
       <main className="relative z-10 max-w-4xl mx-auto px-6 py-12 text-center flex flex-col items-center justify-center flex-grow">
         
         {/* Status Badge */}
-        <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-300 text-xs font-bold uppercase tracking-widest mb-6 shadow-inner backdrop-blur-md">
-          <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
+        <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded bg-amber-400/10 border border-amber-400/30 text-amber-300 text-xs font-bold tracking-wide mb-6">
+          <span className="w-2 h-2 rounded-full bg-amber-400" />
           <Sparkles className="w-3.5 h-3.5" />
           <span>{badgeText}</span>
         </div>
@@ -93,7 +93,7 @@ export default function MaintenancePage({ content }: MaintenancePageProps) {
             href={waUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-[#d4a024] to-[#b88917] hover:brightness-110 text-slate-950 font-bold text-sm uppercase tracking-wider rounded-2xl transition-all shadow-xl shadow-amber-500/20 hover:scale-[1.02] flex items-center justify-center gap-2.5"
+            className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-[#d4a024] to-[#b88917] hover:brightness-110 text-slate-950 font-bold text-sm tracking-wide rounded-2xl transition-all shadow-amber-500/20 hover:scale-[1.02] flex items-center justify-center gap-2.5"
           >
             <MessageCircle className="w-5 h-5 fill-current" />
             <span>Konsultasi WhatsApp</span>
@@ -101,7 +101,7 @@ export default function MaintenancePage({ content }: MaintenancePageProps) {
 
           <a
             href={`mailto:${email}`}
-            className="w-full sm:w-auto px-7 py-4 bg-slate-900/90 hover:bg-slate-800 border border-slate-700 hover:border-amber-400/50 text-white font-semibold text-sm rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2.5"
+            className="w-full sm:w-auto px-7 py-4 bg-slate-900/90 hover:bg-slate-800 border border-slate-700 hover:border-amber-400/50 text-white font-semibold text-sm rounded-2xl transition-all flex items-center justify-center gap-2.5"
           >
             <Mail className="w-5 h-5 text-amber-300" />
             <span>Kirim Email Resmi</span>
@@ -110,7 +110,7 @@ export default function MaintenancePage({ content }: MaintenancePageProps) {
 
         {/* Value Highlights Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-3xl text-left">
-          <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800/80 backdrop-blur-sm">
+          <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800/80">
             <div className="flex items-center gap-2 text-amber-300 font-bold text-sm mb-1">
               <ShieldCheck className="w-4 h-4" />
               <span>34 Legalitas Bisnis</span>
@@ -120,7 +120,7 @@ export default function MaintenancePage({ content }: MaintenancePageProps) {
             </p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800/80 backdrop-blur-sm">
+          <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800/80">
             <div className="flex items-center gap-2 text-amber-300 font-bold text-sm mb-1">
               <CheckCircle2 className="w-4 h-4" />
               <span>411+ Izin OSS RBA</span>
@@ -130,7 +130,7 @@ export default function MaintenancePage({ content }: MaintenancePageProps) {
             </p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800/80 backdrop-blur-sm">
+          <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800/80">
             <div className="flex items-center gap-2 text-amber-300 font-bold text-sm mb-1">
               <Clock className="w-4 h-4" />
               <span>{estimatedDate}</span>
@@ -144,7 +144,7 @@ export default function MaintenancePage({ content }: MaintenancePageProps) {
       </main>
 
       {/* Footer Info */}
-      <footer className="relative z-10 border-t border-slate-800/60 bg-slate-950/50 backdrop-blur-md py-6 px-6">
+      <footer className="relative z-10 border-t border-slate-800/60 bg-slate-950/50 py-6 px-6">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <div className="flex items-center gap-2 text-center md:text-left">
             <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0" />
@@ -161,7 +161,7 @@ export default function MaintenancePage({ content }: MaintenancePageProps) {
             </a>
           </div>
 
-          <div className="text-slate-500 text-[11px]">
+          <div className="text-slate-500 text-xs">
             © {new Date().getFullYear()} {brandName}. Hak Cipta Dilindungi.
           </div>
         </div>

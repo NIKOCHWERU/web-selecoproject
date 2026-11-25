@@ -81,7 +81,7 @@ export default function AdminSidebar({
       {/* Brand Header */}
       <SidebarHeader>
         <Link href="/admin" className="flex items-center gap-3 px-1 py-1 overflow-hidden">
-          <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-navy-950 p-1 border border-border shadow-xs">
+          <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-navy-950 p-1 border border-border">
             <img
               src="/logo-icon.png"
               alt="SELECO"
@@ -93,7 +93,7 @@ export default function AdminSidebar({
               <span className="text-sm font-bold tracking-tight text-foreground truncate">
                 SELECO
               </span>
-              <span className="text-[10px] text-muted-foreground truncate">
+              <span className="text-xs text-muted-foreground truncate">
                 Command Center
               </span>
             </div>
@@ -164,7 +164,7 @@ export default function AdminSidebar({
                 <span className="text-xs font-semibold text-foreground truncate">
                   {currentUser?.name || 'Administrator'}
                 </span>
-                <span className="text-[10px] text-muted-foreground truncate">
+                <span className="text-xs text-muted-foreground truncate">
                   {currentUser?.role || 'Super Admin'}
                 </span>
               </div>

@@ -282,10 +282,10 @@ export default function EditViewClient() {
           <div className="h-4 w-px bg-slate-800 hidden sm:block" />
 
           <div className="flex items-center gap-2">
-            <span className="font-serif-title font-bold text-sm tracking-wider text-amber-300">
+            <span className="font-serif-title font-bold text-sm tracking-wide text-amber-300">
               SELECO
             </span>
-            <span className="text-[10px] uppercase font-bold tracking-widest bg-amber-400/10 text-amber-400 border border-amber-400/30 px-2 py-0.5 rounded-full hidden md:inline">
+            <span className="text-xs uppercase font-bold tracking-wide bg-amber-400/10 text-amber-400 border border-amber-400/30 px-2 py-0.5 rounded hidden md:inline">
               Visual Editor
             </span>
           </div>
@@ -294,7 +294,7 @@ export default function EditViewClient() {
           <div className="relative" ref={pageDropdownRef}>
             <button
               onClick={() => setPageDropdownOpen(!pageDropdownOpen)}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800/90 hover:bg-slate-700 border border-amber-400/30 text-amber-300 text-xs font-bold transition-all shadow-sm"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800/90 hover:bg-slate-700 border border-amber-400/30 text-amber-300 text-xs font-bold transition-all"
               title="Pilih Halaman Website yang Ingin Diedit"
             >
               <Layers className="w-3.5 h-3.5 text-amber-400 shrink-0" />
@@ -304,7 +304,7 @@ export default function EditViewClient() {
 
             {pageDropdownOpen && (
               <div className="absolute top-full left-0 mt-1.5 w-64 bg-slate-900 border border-amber-400/40 rounded-xl shadow-2xl py-1.5 z-50 animate-in fade-in zoom-in-95 duration-150">
-                <div className="px-3 py-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-800">
+                <div className="px-3 py-1.5 text-xs font-bold text-slate-400 uppercase tracking-wide border-b border-slate-800">
                   Pilih Halaman Diedit:
                 </div>
                 {(['home', 'about', 'services', 'insight', 'contact'] as PreviewPageOption[]).map((p) => (
@@ -329,7 +329,7 @@ export default function EditViewClient() {
           <div className="relative" ref={sectionDropdownRef}>
             <button
               onClick={() => setSectionDropdownOpen(!sectionDropdownOpen)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800/90 hover:bg-slate-700 border border-slate-700 hover:border-amber-400/40 text-slate-200 hover:text-amber-300 text-xs font-bold transition-all shadow-sm"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800/90 hover:bg-slate-700 border border-slate-700 hover:border-amber-400/40 text-slate-200 hover:text-amber-300 text-xs font-bold transition-all"
               title="Lompat Langsung ke Section yang Ingin Diedit (Navbar, Hero, Layanan, Kontak, dll)"
             >
               <Target className="w-3.5 h-3.5 text-amber-400 shrink-0" />
@@ -339,9 +339,9 @@ export default function EditViewClient() {
 
             {sectionDropdownOpen && (
               <div className="absolute top-full left-0 mt-1.5 w-72 bg-slate-900 border border-amber-400/50 rounded-xl shadow-2xl py-1.5 z-50 animate-in fade-in zoom-in-95 duration-150 max-h-[75vh] overflow-y-auto custom-scrollbar">
-                <div className="px-3 py-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-800 flex items-center justify-between">
+                <div className="px-3 py-1.5 text-xs font-bold text-slate-400 uppercase tracking-wide border-b border-slate-800 flex items-center justify-between">
                   <span>Lompat ke Section:</span>
-                  <span className="text-amber-300 text-[9px] font-normal">Auto Scroll &amp; Focus</span>
+                  <span className="text-amber-300 text-xs font-normal">Auto Scroll &amp; Focus</span>
                 </div>
                 {sectionsList.map((sec) => (
                   <button
@@ -353,7 +353,7 @@ export default function EditViewClient() {
                       <span className="text-sm group-hover:scale-125 transition-transform">{sec.icon}</span>
                       <span className="font-medium">{sec.label}</span>
                     </div>
-                    <span className="text-[10px] font-mono text-slate-500 group-hover:text-amber-400">
+                    <span className="text-xs font-mono text-slate-500 group-hover:text-amber-400">
                       #{sec.id}
                     </span>
                   </button>
@@ -443,11 +443,11 @@ export default function EditViewClient() {
           <button
             onClick={handleSave}
             disabled={isSaving}
-            className={`px-3.5 py-1.5 rounded-lg font-bold text-xs flex items-center gap-1.5 transition-all shadow-md ${
+            className={`px-3.5 py-1.5 rounded-lg font-bold text-xs flex items-center gap-1.5 transition-all ${
               isSaving
                 ? 'bg-amber-500/50 text-slate-900 cursor-not-allowed'
                 : hasUnsavedChanges
-                ? 'bg-gradient-to-r from-amber-400 to-amber-500 hover:brightness-110 text-slate-950 ring-2 ring-amber-400/40 animate-pulse'
+                ? 'bg-[#dfa82e] hover:bg-[#eab946] text-slate-950 ring-2 ring-white/60'
                 : 'bg-amber-400 hover:bg-amber-300 text-slate-950'
             }`}
             title="Simpan Perubahan Permanen ke Server VPS"
@@ -480,7 +480,7 @@ export default function EditViewClient() {
 
       {/* Unsaved Changes Banner */}
       {hasUnsavedChanges && !saveSuccessMessage && (
-        <div className="bg-amber-500/20 border-b border-amber-400/30 text-amber-300 text-[11px] px-4 py-1 flex items-center justify-center gap-2 z-20">
+        <div className="bg-amber-500/20 border-b border-amber-400/30 text-amber-300 text-xs px-4 py-1 flex items-center justify-center gap-2 z-20">
           <AlertCircle className="w-3.5 h-3.5 text-amber-400 shrink-0" />
           <span>Anda memiliki perubahan teks/gaya yang belum disimpan permanen ke server. Klik <strong>"Simpan Web"</strong> untuk menerapkan ke VPS.</span>
         </div>
@@ -503,7 +503,7 @@ export default function EditViewClient() {
         >
           {/* Visual Indicator Topbar on Tablet/Mobile */}
           {deviceMode !== 'desktop' && (
-            <div className="h-6 bg-slate-900 flex items-center justify-center border-b border-slate-800 text-[10px] text-slate-400">
+            <div className="h-6 bg-slate-900 flex items-center justify-center border-b border-slate-800 text-xs text-slate-400">
               <span>Preview Mode: {deviceMode.toUpperCase()} ({deviceMode === 'tablet' ? '768px' : '375px'})</span>
             </div>
           )}

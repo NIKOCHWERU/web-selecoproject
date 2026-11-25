@@ -249,7 +249,7 @@ function PreviewContent() {
         >
           <div style={{ maxWidth: maxContainerWidth }} className="mx-auto text-center space-y-6 relative z-10">
             {custom.badge && (
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest bg-[#dfa82e]/20 text-[#dfa82e] border border-[#dfa82e]/40">
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded text-xs font-bold uppercase tracking-wide bg-[#dfa82e]/20 text-[#dfa82e] border border-[#dfa82e]/40">
                 <MessageCircle className="w-3.5 h-3.5" />
                 {custom.badge}
               </span>
@@ -266,7 +266,7 @@ function PreviewContent() {
               <div className="pt-4">
                 <a
                   href={custom.buttonUrl || '#'}
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#dfa82e] to-[#b88917] text-[#0a1420] rounded-full font-bold text-xs uppercase tracking-wider shadow-lg hover:brightness-110 transition-all"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#dfa82e] to-[#b88917] text-[#0a1420] rounded font-bold text-xs uppercase tracking-wide hover:brightness-110 transition-all"
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span>{custom.buttonText}</span>
@@ -288,7 +288,7 @@ function PreviewContent() {
           <div style={{ maxWidth: maxContainerWidth }} className="mx-auto">
             <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
               {custom.badge && (
-                <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-[#dfa82e]/15 text-[#b88917] uppercase tracking-wider">
+                <span className="inline-block px-3 py-1 rounded text-xs font-bold bg-[#dfa82e]/15 text-[#b88917] uppercase tracking-wide">
                   {custom.badge}
                 </span>
               )}
@@ -304,7 +304,7 @@ function PreviewContent() {
                 { title: 'Kepastian Regulasi', desc: 'Mitigasi risiko hukum dan kepatuhan perizinan secara menyeluruh.' },
                 { title: 'Pendampingan Berkelanjutan', desc: 'Dukungan tim profesional harian untuk kelancaran korporasi.' },
               ].map((item, idx) => (
-                <div key={idx} className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow">
+                <div key={idx} className="bg-white p-6 rounded-2xl border border-slate-200/80  transition-shadow">
                   <div className="w-10 h-10 rounded-xl bg-[#dfa82e]/10 text-[#dfa82e] flex items-center justify-center font-bold mb-4">
                     0{idx + 1}
                   </div>
@@ -327,7 +327,7 @@ function PreviewContent() {
         >
           <div style={{ maxWidth: maxContainerWidth }} className="mx-auto space-y-4">
             {custom.badge && (
-              <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-[#dfa82e]/15 text-[#b88917] uppercase tracking-wider">
+              <span className="inline-block px-3 py-1 rounded text-xs font-bold bg-[#dfa82e]/15 text-[#b88917] uppercase tracking-wide">
                 {custom.badge}
               </span>
             )}
@@ -356,7 +356,7 @@ function PreviewContent() {
             {custom.title && (
               <div className="text-center mb-8 space-y-2">
                 {custom.badge && (
-                  <span className="inline-block px-3.5 py-1 rounded-full text-xs font-semibold bg-[#b88917]/15 text-[#b88917]">
+                  <span className="inline-block px-3.5 py-1 rounded text-xs font-semibold bg-[#b88917]/15 text-[#b88917]">
                     {custom.badge}
                   </span>
                 )}
@@ -384,7 +384,7 @@ function PreviewContent() {
       >
         <div style={{ maxWidth: maxContainerWidth }} className="mx-auto text-center space-y-4">
           {custom.badge && (
-            <span className="inline-block px-3.5 py-1 rounded-full text-xs font-semibold bg-[#b88917]/15 text-[#b88917]">
+            <span className="inline-block px-3.5 py-1 rounded text-xs font-semibold bg-[#b88917]/15 text-[#b88917]">
               {custom.badge}
             </span>
           )}
@@ -396,7 +396,7 @@ function PreviewContent() {
             <div className="text-sm text-slate-700 max-w-3xl mx-auto leading-relaxed">{custom.content}</div>
           )}
           {custom.image && (
-            <div className="max-w-3xl mx-auto mt-6 rounded-xl overflow-hidden shadow-lg">
+            <div className="max-w-3xl mx-auto mt-6 rounded-xl overflow-hidden">
               <img src={custom.image} alt={custom.title} className="w-full h-auto object-cover" />
             </div>
           )}
@@ -404,7 +404,7 @@ function PreviewContent() {
             <div className="pt-4">
               <a
                 href={custom.buttonUrl || '#'}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-[#b88917] text-[#0a1420] rounded-xl font-bold text-xs uppercase tracking-wider shadow-md hover:brightness-110"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-[#b88917] text-[#0a1420] rounded-xl font-bold text-xs uppercase tracking-wide hover:brightness-110"
               >
                 <span>{custom.buttonText}</span>
               </a>
@@ -559,7 +559,7 @@ function PreviewContent() {
                       {/* Canva Page Header Bar */}
                       <div className="flex items-center justify-between text-xs text-slate-200 pt-0.5">
                         <div className="flex items-center gap-2">
-                          <span className={`px-2 py-0.5 rounded font-bold text-[11px] border ${
+                          <span className={`px-2 py-0.5 rounded font-bold text-xs border ${
                             isSelected 
                               ? 'bg-purple-500 text-white border-purple-400' 
                               : 'bg-purple-500/20 text-purple-300 border-purple-500/30'
@@ -571,12 +571,12 @@ function PreviewContent() {
                             <span>{secName}</span>
                           </span>
                           {isSelected && (
-                            <span className="text-[10px] bg-purple-400 text-slate-950 font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+                            <span className="text-xs bg-purple-400 text-slate-950 font-bold px-2 py-0.5 rounded flex items-center gap-1">
                               <Settings className="w-3 h-3" /> Dipilih
                             </span>
                           )}
                           {isHidden && (
-                            <span className="text-[10px] bg-rose-500/20 text-rose-300 border border-rose-500/30 px-1.5 py-0.2 rounded font-bold">
+                            <span className="text-xs bg-rose-500/20 text-rose-300 border border-rose-500/30 px-1.5 py-0.2 rounded font-bold">
                               Tersembunyi
                             </span>
                           )}
@@ -602,7 +602,7 @@ function PreviewContent() {
                           </button>
                           <button
                             onClick={() => handleSelectSection(secId)}
-                            className="px-2 py-1 rounded bg-purple-600 hover:bg-purple-500 text-white text-[11px] font-bold flex items-center gap-1 border border-purple-400 transition-colors shadow-sm"
+                            className="px-2 py-1 rounded bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold flex items-center gap-1 border border-purple-400 transition-colors"
                             title="Buka Properti Komponen Ini"
                           >
                             <Settings className="w-3 h-3" />
@@ -610,7 +610,7 @@ function PreviewContent() {
                           </button>
                           <button
                             onClick={() => window.parent.postMessage({ type: 'OPEN_INSERT_MODAL_BEFORE', targetSectionId: secId }, '*')}
-                            className="px-2 py-1 rounded bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 text-[11px] font-bold flex items-center gap-1 border border-purple-500/30 transition-colors"
+                            className="px-2 py-1 rounded bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 text-xs font-bold flex items-center gap-1 border border-purple-500/30 transition-colors"
                             title="Sisipkan Komponen Sebelum Ini"
                           >
                             <Plus className="w-3 h-3" />
@@ -677,7 +677,7 @@ function PreviewContent() {
                   className="border-2 border-dashed border-purple-500/40 hover:border-purple-400 bg-purple-950/20 hover:bg-purple-900/30 rounded-xl py-4 px-4 text-center transition-all cursor-pointer flex items-center justify-center gap-2 group"
                 >
                   <Plus className="w-4 h-4 text-purple-400 group-hover:scale-125 transition-transform" />
-                  <span className="text-purple-300 font-bold text-xs uppercase tracking-wider">
+                  <span className="text-purple-300 font-bold text-xs uppercase tracking-wide">
                     + Letakkan Komponen di Sini (Paling Bawah Halaman)
                   </span>
                 </div>
@@ -697,7 +697,7 @@ function PreviewContent() {
                   <span className="text-gold-accent font-semibold">Tentang Kami</span>
                 </div>
                 <div>
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-50 border border-amber-200/80 rounded-full text-amber-800 text-xs font-bold uppercase tracking-widest mb-3">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-50 border border-amber-200/80 rounded text-amber-800 text-xs font-bold uppercase tracking-wide mb-3">
                     <Building2 className="w-3.5 h-3.5" />
                     <EditableText
                       fieldPath="about.badge"
@@ -740,7 +740,7 @@ function PreviewContent() {
                 <p className="text-base text-slate-600 mb-8 font-normal">
                   Jadwalkan konsultasi awal dengan tim konsultan kami secara tatap muka ataupun virtual.
                 </p>
-                <div className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-gold-accent to-gold-bright text-slate-950 font-bold text-xs uppercase tracking-wider rounded-lg shadow-md cursor-pointer">
+                <div className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-gold-accent to-gold-bright text-slate-950 font-bold text-xs uppercase tracking-wide rounded-lg cursor-pointer">
                   <span>Hubungi Tim Kami Sekarang</span>
                   <ArrowRight className="w-4 h-4" />
                 </div>
@@ -761,7 +761,7 @@ function PreviewContent() {
                 </div>
                 <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
                   <div>
-                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-50 border border-amber-200/80 rounded-full text-amber-800 text-xs font-bold uppercase tracking-widest mb-3">
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-50 border border-amber-200/80 rounded text-amber-800 text-xs font-bold uppercase tracking-wide mb-3">
                       <Building2 className="w-3.5 h-3.5" />
                       <EditableText
                         fieldPath="services.badge"
@@ -787,7 +787,7 @@ function PreviewContent() {
                     </p>
                   </div>
                   <div className="flex flex-col gap-2 text-center shrink-0">
-                    <div className="bg-slate-50 border border-gray-200 rounded-2xl px-8 py-4 shadow-sm">
+                    <div className="bg-slate-50 border border-gray-200 rounded-2xl px-8 py-4">
                       <p className="font-serif-title text-4xl font-bold text-gold-accent">
                         <EditableText
                           fieldPath="global.totalServices"
@@ -795,7 +795,7 @@ function PreviewContent() {
                           label="Jumlah Total Layanan"
                         />
                       </p>
-                      <p className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold mt-1">Total Layanan</p>
+                      <p className="text-xs text-slate-500 uppercase tracking-wide font-semibold mt-1">Total Layanan</p>
                     </div>
                   </div>
                 </div>
@@ -822,7 +822,7 @@ function PreviewContent() {
                   <span className="text-gold-accent font-semibold">Insight</span>
                 </div>
                 <div>
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-50 border border-amber-200/80 rounded-full text-amber-800 text-xs font-bold uppercase tracking-widest mb-3">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-50 border border-amber-200/80 rounded text-amber-800 text-xs font-bold uppercase tracking-wide mb-3">
                     <BookOpen className="w-3.5 h-3.5" />
                     <EditableText
                       fieldPath="insights.badge"
@@ -868,7 +868,7 @@ function PreviewContent() {
                   <span className="text-gold-accent font-semibold">Kontak</span>
                 </div>
                 <div>
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-50 border border-amber-200/80 rounded-full text-amber-800 text-xs font-bold uppercase tracking-widest mb-3">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-50 border border-amber-200/80 rounded text-amber-800 text-xs font-bold uppercase tracking-wide mb-3">
                     <PhoneCall className="w-3.5 h-3.5" />
                     <EditableText
                       fieldPath="contact.badge"
