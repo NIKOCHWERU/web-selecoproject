@@ -38,25 +38,24 @@ export const ContentProvider = ({
     }
   }, [initialContent]);
 
-  // 2. On client mount: Hydrate from localStorage first, then fetch latest from server
+  // 2. On client mount: Only hydrate localStorage / refetch in admin/editor mode or if initialContent was empty
   useEffect(() => {
-    try {
-      const cached = localStorage.getItem('seleco_site_content');
-      if (cached) {
-        const parsed = JSON.parse(cached);
-        setContent(parsed);
-      }
-    } catch (e) {
-      console.warn('Could not read from localStorage:', e);
-    }
-
-    // Only fetch fresh content from server API if in admin/editor mode or if initialContent was empty
     const isAdmin = typeof window !== 'undefined' && (
       sessionStorage.getItem('seleco_admin_auth') === 'true' ||
       sessionStorage.getItem('seleco_editor_mode') === 'click_to_edit' ||
       sessionStorage.getItem('seleco_admin_auth_editor') === 'true'
     );
+
     if (isAdmin || !initialContent) {
+      try {
+        const cached = localStorage.getItem('seleco_site_content');
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          setContent(parsed);
+        }
+      } catch (e) {
+        console.warn('Could not read from localStorage:', e);
+      }
       reloadContent();
     }
 

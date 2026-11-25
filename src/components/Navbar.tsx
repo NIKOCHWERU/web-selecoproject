@@ -67,12 +67,12 @@ export default function Navbar() {
       tag="header"
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         scrolled || !isHomePage
-          ? 'bg-[#0a1420] shadow-2xl py-3 border-b border-white/10'
-          : 'bg-transparent py-5'
+          ? 'bg-[#0a1420] shadow-xl py-2.5 border-b border-white/10'
+          : 'bg-transparent py-3.5'
       }`}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
-        {/* Logo matching Web NH proportions */}
+        {/* Compact, balanced logo */}
         <Link
           href="/"
           onClick={(e) => {
@@ -83,19 +83,19 @@ export default function Navbar() {
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }
           }}
-          className="flex items-center gap-2 lg:gap-4 group"
+          className="flex items-center gap-2 group"
         >
-          <div className="relative h-9 md:h-11 lg:h-12 flex items-center">
+          <div className="relative h-7 sm:h-8 md:h-9 flex items-center">
             <img
               src={global?.logo || '/logo-seleco.png'}
               alt={global?.brandName || 'SELECO'}
-              className="h-full w-auto max-w-[180px] sm:max-w-[210px] md:max-w-[240px] object-contain transition-transform duration-500 group-hover:scale-105"
+              className="h-full w-auto max-w-[140px] sm:max-w-[165px] md:max-w-[185px] object-contain transition-transform duration-300 group-hover:scale-105"
             />
           </div>
         </Link>
 
-        {/* Desktop Menu matching Web NH */}
-        <div className="hidden md:flex md:space-x-6 lg:space-x-8 items-center text-xs lg:text-sm font-medium uppercase tracking-wide">
+        {/* Desktop Menu */}
+        <div className="hidden md:flex md:space-x-5 lg:space-x-7 items-center text-xs font-medium uppercase tracking-wider">
           {navLinks.map((link: any, idx: number) => {
             const linkUrl = link.href || '/';
             const isActive = pathname === linkUrl;
@@ -132,7 +132,7 @@ export default function Navbar() {
                 e.stopPropagation();
               }
             }}
-            className="bg-[#dfa82e] text-[#0a1420] px-4 lg:px-5 py-2.5 rounded font-bold hover:bg-white transition duration-300 uppercase text-[10px] lg:text-xs tracking-widest cursor-pointer"
+            className="bg-[#dfa82e] text-[#0a1420] px-4 py-2 rounded font-bold hover:bg-white transition duration-300 uppercase text-[11px] tracking-widest cursor-pointer"
           >
             <EditableText
               fieldPath="global.consultationText"
