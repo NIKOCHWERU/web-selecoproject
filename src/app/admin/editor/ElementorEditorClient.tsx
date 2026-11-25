@@ -61,7 +61,20 @@ import {
   ShieldCheck,
   Newspaper,
   BarChart3,
-  LayoutTemplate
+  LayoutTemplate,
+  EyeOff,
+  PanelLeft,
+  PanelRight,
+  Globe,
+  Columns,
+  Minus,
+  MousePointerClick,
+  Star,
+  CreditCard,
+  Gauge,
+  ListChecks,
+  Menu,
+  Send
 } from 'lucide-react';
 import { defaultSiteContent, SiteContent, defaultSectionOrder } from '@/data/defaultSiteContent';
 
@@ -92,15 +105,34 @@ export default function ElementorEditorClient() {
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState<boolean>(false);
   const [saveSuccessMessage, setSaveSuccessMessage] = useState<string | null>(null);
 
-  // Canva Left Dock Tab: 'elements' | 'pages' | 'history' | 'styles'
-  const [canvaTab, setCanvaTab] = useState<'elements' | 'pages' | 'history' | 'styles'>('elements');
+  // Left Sidebar: 'elements' | 'structure' | 'pages' | 'templates' | 'styles'
+  const [canvaTab, setCanvaTab] = useState<'elements' | 'structure' | 'pages' | 'templates' | 'styles'>('elements');
+  const [showLeftSidebar, setShowLeftSidebar] = useState<boolean>(true);
   const [showHistoryModal, setShowHistoryModal] = useState<boolean>(false);
   const [searchElementQuery, setSearchElementQuery] = useState<string>('');
+  const [openElementGroups, setOpenElementGroups] = useState<Record<string, boolean>>({
+    Layout: true,
+    Basic: true,
+    General: false,
+    Marketing: false,
+    Form: false,
+    Navigation: false,
+    Advanced: false,
+  });
 
-  // Selected Section & Properties Inspector State
+  // Selected Section & Right Inspector Panel ('content' | 'design' | 'layout')
   const [selectedSectionId, setSelectedSectionId] = useState<string | null>('hero');
   const [showPropertiesPanel, setShowPropertiesPanel] = useState<boolean>(true);
-  const [propertyTab, setPropertyTab] = useState<'content' | 'background' | 'spacing' | 'typography' | 'effects'>('content');
+  const [propertyTab, setPropertyTab] = useState<'content' | 'design' | 'layout'>('content');
+  const [openDesignSections, setOpenDesignSections] = useState<{ background: boolean; typography: boolean }>({
+    background: true,
+    typography: true,
+  });
+  const [openLayoutSections, setOpenLayoutSections] = useState<{ spacing: boolean; actions: boolean }>({
+    spacing: true,
+    actions: true,
+  });
+  const [expandedNodes, setExpandedNodes] = useState<Record<string, boolean>>({ hero: true });
 
   // Modal Insert Component Before Target Section
   const [insertModalTarget, setInsertModalTarget] = useState<string | null>(null);
@@ -114,6 +146,90 @@ export default function ElementorEditorClient() {
   const [historySnapshots, setHistorySnapshots] = useState<HistorySnapshot[]>([]);
 
   const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  // Elementor-style 7-Category Element Catalog (maps directly to live custom section renderer)
+  const elementGroups: {
+    group: string;
+    items: { id: string; label: string; mapType: ComponentTemplate['type']; icon: React.ReactNode; presetTitle?: string }[];
+  }[] = [
+    {
+      group: 'Layout',
+      items: [
+        { id: 'container', label: 'Container', mapType: 'blank', icon: <Box className="w-4 h-4" />, presetTitle: 'Container Baru' },
+        { id: 'section', label: 'Section', mapType: 'banner', icon: <LayoutTemplate className="w-4 h-4" />, presetTitle: 'Section Baru' },
+        { id: 'grid', label: 'Grid', mapType: 'columns', icon: <LayoutGrid className="w-4 h-4" />, presetTitle: 'Grid Konten' },
+        { id: 'columns', label: 'Columns', mapType: 'columns', icon: <Columns className="w-4 h-4" />, presetTitle: '3 Kolom Konten' },
+      ],
+    },
+    {
+      group: 'Basic',
+      items: [
+        { id: 'heading', label: 'Heading', mapType: 'text', icon: <HeadingIcon className="w-4 h-4" />, presetTitle: 'Judul Bagian Baru' },
+        { id: 'text', label: 'Text', mapType: 'text', icon: <Type className="w-4 h-4" />, presetTitle: 'Paragraf Teks' },
+        { id: 'image', label: 'Image', mapType: 'image', icon: <ImageIcon className="w-4 h-4" />, presetTitle: 'Gambar & Keterangan' },
+        { id: 'video', label: 'Video', mapType: 'html', icon: <Video className="w-4 h-4" />, presetTitle: 'Video Embed' },
+        { id: 'button', label: 'Button', mapType: 'cta', icon: <MousePointerClick className="w-4 h-4" />, presetTitle: 'Tombol Aksi' },
+        { id: 'divider', label: 'Divider', mapType: 'blank', icon: <Minus className="w-4 h-4" />, presetTitle: 'Garis Pemisah' },
+        { id: 'spacer', label: 'Spacer', mapType: 'blank', icon: <Move className="w-4 h-4" />, presetTitle: 'Ruang Kosong' },
+      ],
+    },
+    {
+      group: 'General',
+      items: [
+        { id: 'icon', label: 'Icon', mapType: 'columns', icon: <Star className="w-4 h-4" />, presetTitle: 'Sorotan Ikon' },
+        { id: 'icon-box', label: 'Icon Box', mapType: 'columns', icon: <Sparkles className="w-4 h-4" />, presetTitle: 'Kotak Ikon Fitur' },
+        { id: 'image-box', label: 'Image Box', mapType: 'image', icon: <ImageIcon className="w-4 h-4" />, presetTitle: 'Kotak Gambar' },
+        { id: 'gallery', label: 'Gallery', mapType: 'image', icon: <LayoutGrid className="w-4 h-4" />, presetTitle: 'Galeri Foto' },
+        { id: 'accordion', label: 'Accordion', mapType: 'faq', icon: <ListChecks className="w-4 h-4" />, presetTitle: 'Accordion / Tanya Jawab' },
+        { id: 'tabs', label: 'Tabs', mapType: 'faq', icon: <Layers className="w-4 h-4" />, presetTitle: 'Tab Informasi' },
+      ],
+    },
+    {
+      group: 'Marketing',
+      items: [
+        { id: 'testimonial', label: 'Testimonial', mapType: 'text', icon: <MessageCircle className="w-4 h-4" />, presetTitle: 'Kutipan Klien' },
+        { id: 'pricing', label: 'Pricing', mapType: 'columns', icon: <CreditCard className="w-4 h-4" />, presetTitle: 'Paket Layanan' },
+        { id: 'counter', label: 'Counter', mapType: 'columns', icon: <BarChart3 className="w-4 h-4" />, presetTitle: 'Angka Pencapaian' },
+        { id: 'progress', label: 'Progress Bar', mapType: 'text', icon: <Gauge className="w-4 h-4" />, presetTitle: 'Indikator Tahapan' },
+      ],
+    },
+    {
+      group: 'Form',
+      items: [
+        { id: 'contact-form', label: 'Contact Form', mapType: 'cta', icon: <Mail className="w-4 h-4" />, presetTitle: 'Formulir Kontak Cepat' },
+        { id: 'input', label: 'Input', mapType: 'cta', icon: <Type className="w-4 h-4" />, presetTitle: 'Kolom Isian' },
+        { id: 'textarea', label: 'Textarea', mapType: 'text', icon: <FileText className="w-4 h-4" />, presetTitle: 'Kotak Pesan' },
+        { id: 'submit-btn', label: 'Submit Button', mapType: 'cta', icon: <Send className="w-4 h-4" />, presetTitle: 'Tombol Kirim WhatsApp' },
+      ],
+    },
+    {
+      group: 'Navigation',
+      items: [
+        { id: 'navbar', label: 'Navbar', mapType: 'banner', icon: <Menu className="w-4 h-4" />, presetTitle: 'Bar Navigasi' },
+        { id: 'menu', label: 'Menu', mapType: 'text', icon: <ListChecks className="w-4 h-4" />, presetTitle: 'Daftar Menu Tautan' },
+        { id: 'footer', label: 'Footer', mapType: 'banner', icon: <LayoutTemplate className="w-4 h-4" />, presetTitle: 'Bagian Bawah (Footer)' },
+      ],
+    },
+    {
+      group: 'Advanced',
+      items: [
+        { id: 'html-embed', label: 'HTML Embed', mapType: 'html', icon: <Code className="w-4 h-4" />, presetTitle: 'Embed Peta / HTML' },
+        { id: 'custom-code', label: 'Custom Code', mapType: 'html', icon: <Code className="w-4 h-4" />, presetTitle: 'Kode Kustom' },
+      ],
+    },
+  ];
+
+  // Hierarchy child preview labels for the Struktur (Layers) Navigator
+  const sectionHierarchyChildren: Record<string, string[]> = {
+    hero: ['Badge Atas', 'Heading Utama', 'Deskripsi', 'Tombol Aksi', '5 Pilar'],
+    'trust-stats': ['4 Kartu Statistik'],
+    about: ['Gambar Utama', 'Heading & Deskripsi', '4 Nilai Kerja'],
+    services: ['Judul Seksi', '5 Kartu Layanan', 'Kolom Pencarian'],
+    retainer: ['Judul & Deskripsi', '6 Ruang Lingkup', 'Tombol Proposal'],
+    insights: ['Judul Seksi', '3 Kartu Artikel'],
+    faq: ['Judul Seksi', 'Daftar Accordion'],
+    contact: ['3 Kartu Kontak', 'Formulir WhatsApp'],
+  };
 
   // Standard Sections Information for Home
   const standardHomeSections: Record<string, { name: string; icon: React.ReactNode; desc: string }> = {
@@ -390,8 +506,8 @@ export default function ElementorEditorClient() {
 
       if (res.ok) {
         setHasUnsavedChanges(false);
-        addSnapshot('Simpan Permanen ke Server', content);
-        setSaveSuccessMessage('Semua perubahan berhasil disimpan & online!');
+        addSnapshot('Simpan Perubahan', content);
+        setSaveSuccessMessage('Perubahan berhasil disimpan.');
         setTimeout(() => setSaveSuccessMessage(null), 4000);
       } else {
         alert('Gagal menyimpan ke server. Silakan coba kembali.');
@@ -399,6 +515,48 @@ export default function ElementorEditorClient() {
     } catch (err) {
       console.error('Error saving:', err);
       alert('Terjadi kesalahan koneksi.');
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  // Publish live to website
+  const handlePublish = async () => {
+    setIsSaving(true);
+    setSaveSuccessMessage(null);
+    const liveContent: SiteContent = {
+      ...content,
+      siteMode: {
+        badgeText: content.siteMode?.badgeText ?? defaultSiteContent.siteMode?.badgeText ?? '',
+        title: content.siteMode?.title ?? defaultSiteContent.siteMode?.title ?? '',
+        subtitle: content.siteMode?.subtitle ?? defaultSiteContent.siteMode?.subtitle ?? '',
+        estimatedDate: content.siteMode?.estimatedDate ?? defaultSiteContent.siteMode?.estimatedDate ?? '',
+        whatsappText: content.siteMode?.whatsappText ?? defaultSiteContent.siteMode?.whatsappText ?? '',
+        status: 'live',
+      },
+    };
+    try {
+      setContent(liveContent);
+      localStorage.setItem('seleco_site_content', JSON.stringify(liveContent));
+      sessionStorage.setItem('seleco_live_preview_content', JSON.stringify(liveContent));
+
+      const res = await fetch('/api/admin/content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: liveContent }),
+      });
+
+      if (res.ok) {
+        setHasUnsavedChanges(false);
+        addSnapshot('Publikasikan Website', liveContent);
+        setSaveSuccessMessage('Website berhasil dipublikasikan dan tayang secara langsung.');
+        setTimeout(() => setSaveSuccessMessage(null), 4500);
+      } else {
+        alert('Gagal mempublikasikan ke server. Silakan coba kembali.');
+      }
+    } catch (err) {
+      console.error('Error publishing:', err);
+      alert('Terjadi kesalahan koneksi saat mempublikasikan.');
     } finally {
       setIsSaving(false);
     }
@@ -717,11 +875,13 @@ export default function ElementorEditorClient() {
       },
     };
 
-    const targetName = targetSectionId === '__end__' ? 'Paling Bawah' : (standardHomeSections[targetSectionId]?.name || 'Halaman Tujuan');
-    pushStateChange(`Sisipkan ${newSection.title} (Sebelum ${targetName})`, newContent);
+    const targetName = targetSectionId === '__end__' ? 'Paling Bawah' : (standardHomeSections[targetSectionId]?.name || 'Bagian Tujuan');
+    pushStateChange(`Tambahkan ${newSection.title} (Sebelum ${targetName})`, newContent);
     setInsertModalTarget(null);
     setSelectedSectionId(newId);
     setShowPropertiesPanel(true);
+    setSaveSuccessMessage(`Bagian "${newSection.title}" berhasil ditambahkan.`);
+    setTimeout(() => setSaveSuccessMessage(null), 2500);
   };
 
   // ── MOVE SECTION UP / DOWN ──────────────────────────────────────────────────
@@ -923,48 +1083,50 @@ export default function ElementorEditorClient() {
   return (
     <div className="h-screen w-screen flex flex-col bg-[#0b0e17] text-slate-100 select-none overflow-hidden font-sans">
       
-      {/* ── 1. CANVA STUDIO TOP HEADER ────────────────────────────────────────── */}
-      <header className="h-14 bg-[#111624] border-b border-[#232c42] px-3 sm:px-4 flex items-center justify-between z-30 shrink-0">
-        {/* Left: Home & Doc Title & Page Selector */}
-        <div className="flex items-center gap-2 sm:gap-3">
+      {/* ── 1. ELEMENTOR-STYLE TOP TOOLBAR ───────────────────────────────────── */}
+      <header className="h-14 bg-[#111624] border-b border-[#232c42] px-3 sm:px-4 flex items-center justify-between gap-2 z-30 shrink-0">
+        {/* Left: Kembali ke Dashboard + Nama Halaman + Toggle Panel Kiri */}
+        <div className="flex items-center gap-2 min-w-0">
           <Link
             href="/admin"
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#1a2236] hover:bg-[#25304a] text-xs text-slate-200 border border-[#2d3a58] transition-colors"
-            title="Kembali ke Dashboard Utama"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#1a2236] hover:bg-[#25304a] text-xs text-slate-200 border border-[#2d3a58] transition-colors shrink-0"
+            title="Kembali ke Dashboard"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            <span className="hidden md:inline font-semibold">Dashboard</span>
+            <span className="hidden lg:inline font-semibold">Dashboard</span>
           </Link>
 
-          <div className="h-5 w-px bg-slate-700/60 hidden sm:block mx-1" />
+          <button
+            onClick={() => setShowLeftSidebar(!showLeftSidebar)}
+            className={`p-1.5 rounded-lg border transition-colors cursor-pointer shrink-0 ${
+              showLeftSidebar
+                ? 'bg-[#dfa82e]/15 border-[#dfa82e]/40 text-[#dfa82e]'
+                : 'bg-[#1a2236] border-[#2d3a58] text-slate-300 hover:text-white'
+            }`}
+            title={showLeftSidebar ? 'Sembunyikan Sidebar Kiri' : 'Tampilkan Sidebar Kiri'}
+          >
+            <PanelLeft className="w-4 h-4" />
+          </button>
 
-          {/* Canva Studio Logo Badge */}
-          <div className="flex items-center gap-1.5 bg-gradient-to-r from-purple-900/40 to-indigo-900/40 border border-purple-500/30 px-2.5 py-1 rounded-lg">
-            <Sparkles className="w-3.5 h-3.5 text-purple-400" />
-            <span className="text-xs font-bold text-white tracking-wide">
-              Canva Studio
-            </span>
-          </div>
+          <div className="h-5 w-px bg-slate-700/60 hidden sm:block" />
 
-          {/* Page Selector Dropdown */}
-          <div className="flex items-center gap-1.5">
-            <select
-              value={activePage}
-              onChange={(e) => handleSelectPage(e.target.value as PreviewPageOption)}
-              className="bg-[#1a2236] border border-[#2d3a58] rounded-lg px-2.5 py-1 text-xs text-white focus:outline-none focus:border-purple-500 cursor-pointer font-medium"
-            >
-              <option value="home"> Halaman Beranda (Home)</option>
-              <option value="about"> Halaman Profil (Tentang Kami)</option>
-              <option value="services"> Halaman Layanan (5 Pilar)</option>
-              <option value="insight"> Halaman Legal Insight</option>
-              <option value="contact"> Halaman Kontak Kantor</option>
-            </select>
-          </div>
+          {/* Nama Halaman Aktif */}
+          <select
+            value={activePage}
+            onChange={(e) => handleSelectPage(e.target.value as PreviewPageOption)}
+            className="bg-[#1a2236] border border-[#2d3a58] rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-[#dfa82e] cursor-pointer font-semibold max-w-[160px] sm:max-w-none"
+            title="Pilih halaman yang ingin diedit"
+          >
+            <option value="home">Halaman: Beranda</option>
+            <option value="about">Halaman: Tentang Kami</option>
+            <option value="services">Halaman: Layanan</option>
+            <option value="insight">Halaman: Insight</option>
+            <option value="contact">Halaman: Kontak</option>
+          </select>
         </div>
 
-        {/* Center: Undo / Redo & Save State Indicator */}
+        {/* Center: Undo / Redo + Responsive Mode (Desktop, Tablet, Mobile) + Status */}
         <div className="flex items-center gap-1.5">
-          {/* Undo */}
           <button
             onClick={handleUndo}
             disabled={undoStack.length === 0}
@@ -973,13 +1135,12 @@ export default function ElementorEditorClient() {
                 ? 'bg-[#1a2236] border-[#2d3a58] text-white hover:bg-[#25304a] cursor-pointer'
                 : 'bg-[#121827] border-[#1e2638] text-slate-600 cursor-not-allowed'
             }`}
-            title="Kembalikan Perubahan (Undo) - Ctrl+Z"
+            title="Batalkan Perubahan (Undo - Ctrl+Z)"
           >
             <Undo2 className="w-3.5 h-3.5" />
-            <span className="hidden lg:inline text-xs">Undo</span>
+            <span className="hidden xl:inline">Undo</span>
           </button>
 
-          {/* Redo */}
           <button
             onClick={handleRedo}
             disabled={redoStack.length === 0}
@@ -988,132 +1149,112 @@ export default function ElementorEditorClient() {
                 ? 'bg-[#1a2236] border-[#2d3a58] text-white hover:bg-[#25304a] cursor-pointer'
                 : 'bg-[#121827] border-[#1e2638] text-slate-600 cursor-not-allowed'
             }`}
-            title="Ulangi Perubahan (Redo) - Ctrl+Y"
+            title="Ulangi Perubahan (Redo - Ctrl+Y)"
           >
             <Redo2 className="w-3.5 h-3.5" />
-            <span className="hidden lg:inline text-xs">Redo</span>
+            <span className="hidden xl:inline">Redo</span>
           </button>
 
-          {/* Riwayat / Save State Button */}
-          <button
-            onClick={() => setShowHistoryModal(true)}
-            className="p-1.5 px-2.5 rounded-lg bg-[#1a2236] hover:bg-[#25304a] border border-[#2d3a58] text-xs text-slate-200 flex items-center gap-1.5 transition-colors cursor-pointer"
-            title="Buka Riwayat Perubahan & Titik Pemulihan"
-          >
-            <History className="w-3.5 h-3.5 text-amber-400" />
-            <span className="text-xs font-semibold hidden sm:inline">Riwayat</span>
-            <span className="bg-amber-400/20 text-amber-300 text-xs px-1.5 py-0.2 rounded font-bold">
-              {historySnapshots.length}
-            </span>
-          </button>
+          <div className="h-5 w-px bg-slate-700/60 hidden sm:block mx-0.5" />
 
-          {/* Toggle Properties Panel */}
-          <button
-            onClick={() => setShowPropertiesPanel(!showPropertiesPanel)}
-            className={`p-1.5 px-2.5 rounded-lg border text-xs flex items-center gap-1.5 transition-all cursor-pointer ${
-              showPropertiesPanel
-                ? 'bg-purple-600/30 border-purple-500 text-purple-200'
-                : 'bg-[#1a2236] border-[#2d3a58] text-slate-300 hover:bg-[#25304a]'
-            }`}
-            title="Buka / Tutup Panel Properti"
-          >
-            <Sliders className="w-3.5 h-3.5 text-purple-400" />
-            <span className="text-xs font-semibold hidden md:inline">Properti</span>
-          </button>
-
-          {/* Autosave Status Indicator */}
-          <div className="hidden xl:flex items-center gap-1.5 text-xs text-slate-400 pl-2">
-            {hasUnsavedChanges ? (
-              <span className="text-amber-400 flex items-center gap-1 font-medium">
-                <span className="size-2 rounded-full bg-amber-400" />
-                Ada perubahan
-              </span>
-            ) : (
-              <span className="text-emerald-400 flex items-center gap-1 font-medium">
-                <Check className="w-3.5 h-3.5 text-emerald-400" />
-                Tersimpan di cloud
-              </span>
-            )}
-          </div>
-        </div>
-
-        {/* Right: Device Viewport, Zoom & Save Publish Button */}
-        <div className="flex items-center gap-2">
-          {/* Device Viewport Toggle */}
+          {/* Responsive Mode Toggle */}
           <div className="hidden sm:flex items-center bg-[#1a2236] rounded-lg p-0.5 border border-[#2d3a58]">
             <button
               onClick={() => setDeviceMode('desktop')}
-              className={`p-1.5 rounded-md text-xs transition-colors ${
-                deviceMode === 'desktop' ? 'bg-purple-600 text-white font-bold' : 'text-slate-400 hover:text-white'
+              className={`p-1.5 px-2 rounded-md text-xs flex items-center gap-1 transition-colors cursor-pointer ${
+                deviceMode === 'desktop' ? 'bg-[#dfa82e] text-[#0a1420] font-bold' : 'text-slate-400 hover:text-white'
               }`}
-              title="Tampilan Desktop / Komputer"
+              title="Mode Tampilan Desktop"
             >
               <Monitor className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={() => setDeviceMode('tablet')}
-              className={`p-1.5 rounded-md text-xs transition-colors ${
-                deviceMode === 'tablet' ? 'bg-purple-600 text-white font-bold' : 'text-slate-400 hover:text-white'
+              className={`p-1.5 px-2 rounded-md text-xs flex items-center gap-1 transition-colors cursor-pointer ${
+                deviceMode === 'tablet' ? 'bg-[#dfa82e] text-[#0a1420] font-bold' : 'text-slate-400 hover:text-white'
               }`}
-              title="Tampilan Tablet"
+              title="Mode Tampilan Tablet (768px)"
             >
               <Tablet className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={() => setDeviceMode('mobile')}
-              className={`p-1.5 rounded-md text-xs transition-colors ${
-                deviceMode === 'mobile' ? 'bg-purple-600 text-white font-bold' : 'text-slate-400 hover:text-white'
+              className={`p-1.5 px-2 rounded-md text-xs flex items-center gap-1 transition-colors cursor-pointer ${
+                deviceMode === 'mobile' ? 'bg-[#dfa82e] text-[#0a1420] font-bold' : 'text-slate-400 hover:text-white'
               }`}
-              title="Tampilan Ponsel"
+              title="Mode Tampilan Mobile (390px)"
             >
               <Smartphone className="w-3.5 h-3.5" />
             </button>
           </div>
 
-          {/* Zoom Controls */}
-          <div className="hidden md:flex items-center bg-[#1a2236] rounded-lg p-0.5 border border-[#2d3a58] text-xs">
-            <button
-              onClick={() => setZoomLevel((prev) => Math.max(50, prev - 15))}
-              className="p-1 px-1.5 text-slate-400 hover:text-white"
-              title="Zoom Out"
-            >
-              <ZoomOut className="w-3 h-3" />
-            </button>
-            <span className="text-xs font-semibold text-slate-300 px-1 min-w-[38px] text-center">
-              {zoomLevel}%
-            </span>
-            <button
-              onClick={() => setZoomLevel((prev) => Math.min(150, prev + 15))}
-              className="p-1 px-1.5 text-slate-400 hover:text-white"
-              title="Zoom In"
-            >
-              <ZoomIn className="w-3 h-3" />
-            </button>
+          {/* Status Penyimpanan */}
+          <div className="hidden xl:flex items-center gap-1.5 text-xs pl-2">
+            {hasUnsavedChanges ? (
+              <span className="text-amber-300 flex items-center gap-1.5 font-medium">
+                <span className="size-2 rounded-full bg-amber-400" />
+                Belum disimpan
+              </span>
+            ) : (
+              <span className="text-emerald-400 flex items-center gap-1 font-medium">
+                <Check className="w-3.5 h-3.5" />
+                Tersimpan
+              </span>
+            )}
           </div>
+        </div>
 
-          {/* Preview Public Web */}
-          <Link
-            href="/"
-            target="_blank"
-            className="p-1.5 px-2.5 rounded-lg bg-[#1a2236] hover:bg-[#25304a] border border-[#2d3a58] text-xs text-slate-300 transition-colors flex items-center gap-1.5"
-            title="Lihat Website Asli di Tab Baru"
+        {/* Right: Riwayat + Preview + Toggle Pengaturan + Simpan + Publikasikan */}
+        <div className="flex items-center gap-1.5 shrink-0">
+          <button
+            onClick={() => setShowHistoryModal(true)}
+            className="p-1.5 px-2 rounded-lg bg-[#1a2236] hover:bg-[#25304a] border border-[#2d3a58] text-xs text-slate-200 flex items-center gap-1 transition-colors cursor-pointer"
+            title="Riwayat Perubahan"
           >
-            <ExternalLink className="w-3.5 h-3.5 text-purple-400" />
-            <span className="hidden lg:inline text-xs">Lihat Web</span>
+            <History className="w-3.5 h-3.5 text-[#dfa82e]" />
+            <span className="text-xs font-semibold hidden xl:inline">Riwayat</span>
+          </button>
+
+          <Link
+            href={activePage === 'home' ? '/' : activePage === 'about' ? '/tentang' : activePage === 'services' ? '/layanan' : activePage === 'insight' ? '/insight' : '/kontak'}
+            target="_blank"
+            className="p-1.5 px-2.5 rounded-lg bg-[#1a2236] hover:bg-[#25304a] border border-[#2d3a58] text-xs text-slate-200 transition-colors flex items-center gap-1.5"
+            title="Pratinjau Website di Tab Baru"
+          >
+            <Eye className="w-3.5 h-3.5 text-[#dfa82e]" />
+            <span className="hidden lg:inline font-semibold">Preview</span>
           </Link>
 
-          {/* Save / Publish Button */}
+          <button
+            onClick={() => setShowPropertiesPanel(!showPropertiesPanel)}
+            className={`p-1.5 rounded-lg border transition-colors cursor-pointer ${
+              showPropertiesPanel
+                ? 'bg-[#dfa82e]/15 border-[#dfa82e]/40 text-[#dfa82e]'
+                : 'bg-[#1a2236] border-[#2d3a58] text-slate-300 hover:text-white'
+            }`}
+            title={showPropertiesPanel ? 'Sembunyikan Panel Pengaturan' : 'Tampilkan Panel Pengaturan'}
+          >
+            <PanelRight className="w-4 h-4" />
+          </button>
+
           <button
             onClick={handleSave}
             disabled={isSaving}
-            className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 via-indigo-600 to-amber-500 hover:brightness-110 text-white font-bold text-xs uppercase tracking-wide transition-all flex items-center gap-1.5 shadow-purple-500/20 cursor-pointer"
+            className="px-3 py-1.5 rounded-lg bg-[#1a2236] hover:bg-[#25304a] border border-[#dfa82e]/50 text-[#dfa82e] font-bold text-xs transition-colors flex items-center gap-1.5 cursor-pointer"
+            title="Simpan Perubahan (Ctrl+S)"
           >
-            {isSaving ? (
-              <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-            ) : (
-              <Save className="w-3.5 h-3.5" />
-            )}
+            {isSaving ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
             <span>Simpan</span>
+          </button>
+
+          <button
+            onClick={handlePublish}
+            disabled={isSaving}
+            className="px-3.5 py-1.5 rounded-lg bg-[#dfa82e] hover:bg-[#eab946] text-[#0a1420] font-bold text-xs transition-colors flex items-center gap-1.5 cursor-pointer"
+            title="Simpan dan Publikasikan Website"
+          >
+            <Globe className="w-3.5 h-3.5" />
+            <span>Publikasikan</span>
           </button>
         </div>
       </header>
@@ -1126,362 +1267,464 @@ export default function ElementorEditorClient() {
         </div>
       )}
 
-      {/* ── 2. CANVA WORKSPACE BODY (LEFT DOCK + DRAWER + CANVAS + RIGHT PROPERTIES) */}
-      <div className="flex-1 flex overflow-hidden relative">
+      {/* ── 2. ELEMENTOR 3-PANEL WORKSPACE (SIDEBAR KIRI + TAMPILAN WEBSITE + PENGATURAN) */}
+      <div className="flex-1 flex overflow-hidden relative min-w-0">
 
-        {/* ── A. CANVA SLIM ICON DOCK (FAR LEFT) ───────────────────────────────── */}
-        <aside className="w-16 bg-[#0e121e] border-r border-[#20273a] flex flex-col items-center py-3 gap-2 shrink-0 z-20">
-          <button
-            onClick={() => setCanvaTab('elements')}
-            className={`w-12 py-2.5 rounded-xl flex flex-col items-center gap-1 text-xs font-semibold transition-all cursor-pointer ${
-              canvaTab === 'elements'
-                ? 'bg-purple-600/20 text-purple-300 border border-purple-500/40'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/40'
-            }`}
-            title="Pustaka Elemen & Komponen"
-          >
-            <Sparkles className="w-5 h-5 text-purple-400" />
-            <span>Elemen</span>
-          </button>
-
-          <button
-            onClick={() => setCanvaTab('pages')}
-            className={`w-12 py-2.5 rounded-xl flex flex-col items-center gap-1 text-xs font-semibold transition-all cursor-pointer ${
-              canvaTab === 'pages'
-                ? 'bg-purple-600/20 text-purple-300 border border-purple-500/40'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/40'
-            }`}
-            title="Susunan Halaman & Seksi"
-          >
-            <Layers className="w-5 h-5 text-indigo-400" />
-            <span>Halaman</span>
-          </button>
-
-          <button
-            onClick={() => setCanvaTab('history')}
-            className={`w-12 py-2.5 rounded-xl flex flex-col items-center gap-1 text-xs font-semibold transition-all cursor-pointer ${
-              canvaTab === 'history'
-                ? 'bg-purple-600/20 text-purple-300 border border-purple-500/40'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/40'
-            }`}
-            title="Riwayat Perubahan & Save States"
-          >
-            <History className="w-5 h-5 text-amber-400" />
-            <span>Riwayat</span>
-          </button>
-
-          <button
-            onClick={() => setCanvaTab('styles')}
-            className={`w-12 py-2.5 rounded-xl flex flex-col items-center gap-1 text-xs font-semibold transition-all cursor-pointer ${
-              canvaTab === 'styles'
-                ? 'bg-purple-600/20 text-purple-300 border border-purple-500/40'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/40'
-            }`}
-            title="Gaya & Tema Warna"
-          >
-            <Palette className="w-5 h-5 text-cyan-400" />
-            <span>Gaya</span>
-          </button>
+        {/* ── A. SIDEBAR KIRI: NAVIGASI 5 TAB ──────────────────────────────────── */}
+        <aside className="w-16 bg-[#0e121e] border-r border-[#20273a] flex flex-col items-center py-3 gap-1.5 shrink-0 z-20">
+          {[
+            { id: 'elements' as const, label: 'Elemen', icon: <LayoutGrid className="w-4 h-4" />, title: 'Tambah Elemen ke Halaman' },
+            { id: 'structure' as const, label: 'Struktur', icon: <Layers className="w-4 h-4" />, title: 'Struktur & Urutan Bagian' },
+            { id: 'pages' as const, label: 'Halaman', icon: <FileText className="w-4 h-4" />, title: 'Pilih Halaman Website' },
+            { id: 'templates' as const, label: 'Template', icon: <LayoutTemplate className="w-4 h-4" />, title: 'Template Bagian Siap Pakai' },
+            { id: 'styles' as const, label: 'Gaya', icon: <Palette className="w-4 h-4" />, title: 'Gaya Global Website' },
+          ].map((tab) => {
+            const isActive = showLeftSidebar && canvaTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => {
+                  if (showLeftSidebar && canvaTab === tab.id) {
+                    setShowLeftSidebar(false);
+                  } else {
+                    setCanvaTab(tab.id);
+                    setShowLeftSidebar(true);
+                  }
+                }}
+                className={`w-13 py-2 px-1 rounded-xl flex flex-col items-center gap-1 text-[10px] font-semibold transition-all cursor-pointer ${
+                  isActive
+                    ? 'bg-[#dfa82e]/15 text-[#dfa82e] border border-[#dfa82e]/40'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-800/40 border border-transparent'
+                }`}
+                title={tab.title}
+              >
+                {tab.icon}
+                <span className="truncate max-w-full">{tab.label}</span>
+              </button>
+            );
+          })}
         </aside>
 
-        {/* ── B. CANVA EXPANDED DRAWER PANEL (300px) ───────────────────────────── */}
-        <aside className="w-72 sm:w-80 bg-[#131929] border-r border-[#232c42] flex flex-col shrink-0 z-10 overflow-hidden">
-          
-          {/* TAB 1: ELEMEN & KOMPONEN (DRAG & DROP LIBRARY) */}
-          {canvaTab === 'elements' && (
-            <div className="flex-1 flex flex-col overflow-hidden p-4">
-              <div className="mb-3">
-                <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-purple-400" />
-                  Pustaka Komponen Visual
-                </h3>
-                <p className="text-xs text-slate-400 mt-0.5">
-                  Tarik komponen ke kanvas, atau klik &quot;+ Sisipkan&quot; untuk meletakkannya sebelum halaman tertentu.
-                </p>
-              </div>
+        {/* ── B. PANEL SIDEBAR KIRI (COLLAPSIBLE) ──────────────────────────────── */}
+        {showLeftSidebar && (
+          <aside className="w-64 lg:w-72 bg-[#131929] border-r border-[#232c42] flex flex-col shrink-0 z-10 overflow-hidden">
 
-              {/* Search Element Bar */}
-              <div className="relative mb-3">
-                <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
-                <input
-                  type="text"
-                  placeholder="Cari elemen, div, maps, banner..."
-                  value={searchElementQuery}
-                  onChange={(e) => setSearchElementQuery(e.target.value)}
-                  className="w-full bg-[#0e1320] border border-[#252f47] rounded-lg pl-9 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-500"
-                />
-              </div>
+            {/* TAB 1: ELEMEN (7 KATEGORI ELEMENTOR) */}
+            {canvaTab === 'elements' && (
+              <div className="flex-1 flex flex-col overflow-hidden p-3.5">
+                <div className="mb-2.5 flex items-center justify-between">
+                  <div>
+                    <h3 className="text-xs font-bold text-white uppercase tracking-wider">Elemen</h3>
+                    <p className="text-[11px] text-slate-400 mt-0.5">
+                      Tarik ke tampilan atau klik + untuk menambah.
+                    </p>
+                  </div>
+                </div>
 
-              {/* Interactive Tip Box */}
-              <div className="bg-purple-950/30 border border-purple-500/30 rounded-xl p-2.5 mb-3 text-xs text-purple-200 flex items-start gap-2">
-                <HelpCircle className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
-                <span>
-                  <strong>Mudah Tanpa Kode:</strong> Klik komponen mana saja di kanvas untuk membuka menu kustomisasi isi, teks, gambar, dan tombolnya!
-                </span>
-              </div>
+                {/* Pencarian Elemen */}
+                <div className="relative mb-3">
+                  <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
+                  <input
+                    type="text"
+                    placeholder="Cari elemen..."
+                    value={searchElementQuery}
+                    onChange={(e) => setSearchElementQuery(e.target.value)}
+                    className="w-full bg-[#0e1320] border border-[#252f47] rounded-lg pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#dfa82e]"
+                  />
+                </div>
 
-              {/* Component Cards List (Draggable!) */}
-              <div className="flex-1 overflow-y-auto space-y-2.5 pr-1">
-                {componentTemplates
-                  .filter((tpl) => 
-                    tpl.title.toLowerCase().includes(searchElementQuery.toLowerCase()) ||
-                    tpl.desc.toLowerCase().includes(searchElementQuery.toLowerCase())
-                  )
-                  .map((tpl) => (
-                    <div
-                      key={tpl.type}
-                      draggable={true}
-                      onDragStart={(e) => handleDragStartComponent(e, tpl.type)}
-                      className={`p-3 rounded-xl border bg-gradient-to-br ${tpl.color} hover:brightness-110 hover:border-purple-400 transition-all cursor-grab active:cursor-grabbing flex flex-col gap-2 group`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <span className="text-xl">{tpl.icon}</span>
-                          <div>
-                            <h4 className="text-xs font-bold text-white group-hover:text-purple-200">
-                              {tpl.title}
-                            </h4>
-                            <span className="text-xs text-purple-300/80 font-bold tracking-wide">
-                              {tpl.badge}
+                {/* Daftar 7 Kategori Elemen */}
+                <div className="flex-1 overflow-y-auto space-y-2 pr-1">
+                  {elementGroups.map((cat) => {
+                    const q = searchElementQuery.trim().toLowerCase();
+                    const filteredItems = q
+                      ? cat.items.filter(
+                          (item) =>
+                            item.label.toLowerCase().includes(q) ||
+                            cat.group.toLowerCase().includes(q)
+                        )
+                      : cat.items;
+
+                    if (filteredItems.length === 0) return null;
+                    const isOpen = q ? true : !!openElementGroups[cat.group];
+
+                    return (
+                      <div key={cat.group} className="rounded-xl border border-[#232c42] bg-[#0f1524] overflow-hidden">
+                        <button
+                          onClick={() =>
+                            setOpenElementGroups((prev) => ({
+                              ...prev,
+                              [cat.group]: !prev[cat.group],
+                            }))
+                          }
+                          className="w-full px-3 py-2 flex items-center justify-between text-xs font-bold text-slate-200 hover:bg-slate-800/40 transition-colors cursor-pointer"
+                        >
+                          <span>{cat.group}</span>
+                          {isOpen ? (
+                            <ChevronUp className="w-3.5 h-3.5 text-slate-400" />
+                          ) : (
+                            <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+                          )}
+                        </button>
+
+                        {isOpen && (
+                          <div className="p-2 pt-0 grid grid-cols-2 gap-1.5">
+                            {filteredItems.map((item) => (
+                              <div
+                                key={item.id}
+                                draggable={true}
+                                onDragStart={(e) => handleDragStartComponent(e, item.mapType)}
+                                className="relative group p-2.5 rounded-lg bg-[#161e31] border border-[#25304a] hover:border-[#dfa82e]/60 hover:bg-[#1b253d] transition-all cursor-grab active:cursor-grabbing flex flex-col items-center justify-center gap-1.5 text-center"
+                                title={`Tarik "${item.label}" ke tampilan website`}
+                              >
+                                <button
+                                  type="button"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    insertComponentBefore('__end__', item.mapType);
+                                  }}
+                                  className="absolute top-1 right-1 w-5 h-5 rounded bg-[#0e1320]/90 hover:bg-[#dfa82e] text-slate-300 hover:text-[#0a1420] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                                  title={`Tambahkan ${item.label} ke halaman`}
+                                >
+                                  <Plus className="w-3 h-3" />
+                                </button>
+                                <span className="text-slate-300 group-hover:text-[#dfa82e] transition-colors">
+                                  {item.icon}
+                                </span>
+                                <span className="text-[11px] font-medium text-slate-200 leading-tight">
+                                  {item.label}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* TAB 2: STRUKTUR (HIERARKI & LAYERS) */}
+            {canvaTab === 'structure' && (
+              <div className="flex-1 flex flex-col overflow-hidden p-3.5">
+                <div className="flex items-center justify-between mb-2.5">
+                  <div>
+                    <h3 className="text-xs font-bold text-white uppercase tracking-wider">Struktur</h3>
+                    <p className="text-[11px] text-slate-400 mt-0.5">
+                      Urutan bagian pada halaman ini.
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => setInsertModalTarget('__end__')}
+                    className="px-2 py-1 rounded-lg bg-[#dfa82e]/15 hover:bg-[#dfa82e]/25 text-[#dfa82e] border border-[#dfa82e]/40 text-[11px] font-bold flex items-center gap-1 transition-colors cursor-pointer"
+                    title="Tambah bagian baru di bawah halaman"
+                  >
+                    <Plus className="w-3 h-3" />
+                    <span>Bagian</span>
+                  </button>
+                </div>
+
+                {/* Root Halaman Label */}
+                <div className="px-2.5 py-1.5 mb-2 rounded-lg bg-[#0e1320] border border-[#232c42] flex items-center gap-2 text-xs font-semibold text-slate-300">
+                  <Globe className="w-3.5 h-3.5 text-[#dfa82e]" />
+                  <span>Halaman: {activePage === 'home' ? 'Beranda' : activePage.charAt(0).toUpperCase() + activePage.slice(1)}</span>
+                </div>
+
+                {/* Hierarchical Section Tree */}
+                <div className="flex-1 overflow-y-auto space-y-1.5 pr-1">
+                  {currentSections.map((secId, idx) => {
+                    const isHidden = content.hiddenSections?.includes(secId);
+                    const isCustom = secId.startsWith('custom-div-');
+                    const customObj = isCustom ? (content.customSections || []).find((c: any) => c.id === secId) : null;
+                    const secTitle = standardHomeSections[secId]?.name || customObj?.title || 'Bagian Kustom';
+                    const isSelected = selectedSectionId === secId;
+                    const isExpanded = !!expandedNodes[secId];
+                    const childLabels = sectionHierarchyChildren[secId] || ['Judul', 'Konten', 'Tombol'];
+
+                    return (
+                      <div
+                        key={secId}
+                        draggable={true}
+                        onDragStart={(e) => handleDragStartSidebarItem(e, idx)}
+                        onDragOver={handleDragOverSidebarItem}
+                        onDrop={(e) => handleDropSidebarItem(e, idx)}
+                        className={`rounded-xl border text-xs transition-all overflow-hidden ${
+                          isSelected
+                            ? 'bg-[#dfa82e]/10 border-[#dfa82e]/60'
+                            : isHidden
+                            ? 'bg-rose-950/20 border-rose-500/30 opacity-75'
+                            : 'bg-[#161e31] border-[#25304a] hover:border-slate-500'
+                        }`}
+                      >
+                        <div
+                          onClick={() => handleSelectSection(secId)}
+                          className="p-2 flex items-center justify-between gap-1 cursor-pointer"
+                        >
+                          <div className="flex items-center gap-1.5 min-w-0">
+                            <GripVertical className="w-3 h-3 text-slate-500 shrink-0 cursor-grab" />
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setExpandedNodes((prev) => ({ ...prev, [secId]: !prev[secId] }));
+                              }}
+                              className="p-0.5 text-slate-400 hover:text-white cursor-pointer"
+                              title={isExpanded ? 'Tutup rincian' : 'Lihat isi bagian'}
+                            >
+                              {isExpanded ? <ChevronDown className="w-3 h-3" /> : <ChevronUp className="w-3 h-3 rotate-90" />}
+                            </button>
+                            <span className={`font-semibold truncate ${isSelected ? 'text-[#dfa82e]' : 'text-slate-100'}`}>
+                              {secTitle}
                             </span>
                           </div>
-                        </div>
-                        <GripVertical className="w-4 h-4 text-slate-400 group-hover:text-purple-300" />
-                      </div>
 
-                      <p className="text-xs text-slate-300 leading-relaxed font-normal">
-                        {tpl.desc}
-                      </p>
-
-                      <div className="flex items-center justify-between pt-1 border-t border-white/10 text-xs">
-                        <span className="text-slate-400">Tarik ke kanvas</span>
-                        <button
-                          onClick={() => setInsertModalTarget(currentSections[0] || '__end__')}
-                          className="px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 text-white font-bold transition-colors cursor-pointer"
-                        >
-                          + Sisipkan Cepat
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-              </div>
-            </div>
-          )}
-
-          {/* TAB 2: SUSUNAN HALAMAN & SEKSI (REORDER DRAG & DROP) */}
-          {canvaTab === 'pages' && (
-            <div className="flex-1 flex flex-col overflow-hidden p-4">
-              <div className="flex items-center justify-between mb-2">
-                <div>
-                  <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                    <Layers className="w-4 h-4 text-indigo-400" />
-                    Susunan Halaman
-                  </h3>
-                  <p className="text-xs text-slate-400 mt-0.5">
-                    Klik kartu untuk memilih &amp; edit properti.
-                  </p>
-                </div>
-                <button
-                  onClick={() => setInsertModalTarget('__end__')}
-                  className="px-2.5 py-1 rounded-lg bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 border border-purple-500/40 text-xs font-bold flex items-center gap-1 transition-colors cursor-pointer"
-                >
-                  <Plus className="w-3.5 h-3.5" />
-                  <span>Tambah Div</span>
-                </button>
-              </div>
-
-              {/* Sections List in Order with Drag & Drop Reordering */}
-              <div className="flex-1 overflow-y-auto space-y-2 pr-1">
-                {currentSections.map((secId, idx) => {
-                  const isHidden = content.hiddenSections?.includes(secId);
-                  const isCustom = secId.startsWith('custom-div-');
-                  const customObj = isCustom ? (content.customSections || []).find((c: any) => c.id === secId) : null;
-                  const secTitle = standardHomeSections[secId]?.name || customObj?.title || 'Komponen Kustom';
-                  const secIcon = standardHomeSections[secId]?.icon || <FileText className="w-4 h-4" />;
-                  const isSelected = selectedSectionId === secId;
-
-                  return (
-                    <div
-                      key={secId}
-                      draggable={true}
-                      onDragStart={(e) => handleDragStartSidebarItem(e, idx)}
-                      onDragOver={handleDragOverSidebarItem}
-                      onDrop={(e) => handleDropSidebarItem(e, idx)}
-                      onClick={() => handleSelectSection(secId)}
-                      className={`p-2.5 rounded-xl border text-xs transition-all flex flex-col gap-2 cursor-pointer ${
-                        isSelected
-                          ? 'bg-purple-900/30 border-purple-500 ring-2 ring-purple-500/50'
-                          : isHidden
-                          ? 'bg-rose-950/20 border-rose-500/30 text-rose-300'
-                          : isCustom
-                          ? 'bg-purple-950/20 border-purple-500/40 text-purple-200 hover:border-purple-400'
-                          : 'bg-[#182136] border-[#293654] text-slate-200 hover:border-slate-500'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <GripVertical className="w-3.5 h-3.5 text-slate-400" />
-                          <span className="text-sm">{secIcon}</span>
-                          <div>
-                            <span className="font-bold text-white block text-xs">
-                              {idx + 1}. {secTitle}
-                            </span>
-                            {isSelected ? (
-                              <span className="text-xs text-purple-300 font-bold flex items-center gap-1">
-                                <Settings className="w-2.5 h-2.5" /> Sedang Diedit
-                              </span>
-                            ) : isHidden ? (
-                              <span className="text-xs text-rose-400 font-semibold">Tersembunyi</span>
+                          <div className="flex items-center gap-0.5 shrink-0" onClick={(e) => e.stopPropagation()}>
+                            <button
+                              onClick={() => moveSectionUp(secId)}
+                              disabled={idx === 0}
+                              className="p-1 rounded hover:bg-slate-700/60 disabled:opacity-20 text-slate-300 cursor-pointer"
+                              title="Pindah ke atas"
+                            >
+                              <ChevronUp className="w-3 h-3" />
+                            </button>
+                            <button
+                              onClick={() => moveSectionDown(secId)}
+                              disabled={idx === currentSections.length - 1}
+                              className="p-1 rounded hover:bg-slate-700/60 disabled:opacity-20 text-slate-300 cursor-pointer"
+                              title="Pindah ke bawah"
+                            >
+                              <ChevronDown className="w-3 h-3" />
+                            </button>
+                            {isCustom && (
+                              <button
+                                onClick={() => handleDuplicateSection(secId)}
+                                className="p-1 rounded hover:bg-slate-700/60 text-slate-300 cursor-pointer"
+                                title="Duplikat bagian"
+                              >
+                                <Copy className="w-3 h-3" />
+                              </button>
+                            )}
+                            {isHidden ? (
+                              <button
+                                onClick={() => handleRestoreDefaultSection(secId)}
+                                className="p-1 rounded bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 cursor-pointer"
+                                title="Tampilkan kembali"
+                              >
+                                <Eye className="w-3 h-3" />
+                              </button>
                             ) : (
-                              <span className="text-xs text-emerald-400 font-semibold">Aktif</span>
+                              <button
+                                onClick={() => handleDeleteSection(secId)}
+                                className="p-1 rounded hover:bg-rose-900/50 text-slate-400 hover:text-rose-300 cursor-pointer"
+                                title={isCustom ? 'Hapus bagian' : 'Sembunyikan bagian'}
+                              >
+                                {isCustom ? <Trash2 className="w-3 h-3" /> : <EyeOff className="w-3 h-3" />}
+                              </button>
                             )}
                           </div>
                         </div>
 
-                        {/* Action buttons */}
-                        <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
-                          <button
-                            onClick={() => moveSectionUp(secId)}
-                            disabled={idx === 0}
-                            className="p-1 rounded bg-[#0f1422] hover:bg-[#25304a] disabled:opacity-20 text-slate-300"
-                            title="Naikkan Posisi"
-                          >
-                            <ChevronUp className="w-3 h-3" />
-                          </button>
-                          <button
-                            onClick={() => moveSectionDown(secId)}
-                            disabled={idx === currentSections.length - 1}
-                            className="p-1 rounded bg-[#0f1422] hover:bg-[#25304a] disabled:opacity-20 text-slate-300"
-                            title="Turunkan Posisi"
-                          >
-                            <ChevronDown className="w-3 h-3" />
-                          </button>
-                          {isHidden ? (
+                        {isExpanded && (
+                          <div className="px-3 pb-2 pt-1 border-t border-white/5 bg-[#0f1524]/70 space-y-1">
+                            {childLabels.map((child, cIdx) => (
+                              <button
+                                key={cIdx}
+                                type="button"
+                                onClick={() => {
+                                  handleSelectSection(secId);
+                                  setPropertyTab('content');
+                                }}
+                                className="w-full text-left pl-4 py-1 rounded text-[11px] text-slate-400 hover:text-white hover:bg-white/5 flex items-center gap-1.5 cursor-pointer"
+                              >
+                                <span className="w-1.5 h-1.5 rounded-full bg-slate-600" />
+                                <span>{child}</span>
+                              </button>
+                            ))}
                             <button
-                              onClick={() => handleRestoreDefaultSection(secId)}
-                              className="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-xs font-bold"
+                              type="button"
+                              onClick={() => setInsertModalTarget(secId)}
+                              className="w-full mt-1 py-1 rounded bg-white/5 hover:bg-[#dfa82e]/15 border border-white/10 hover:border-[#dfa82e]/40 text-[11px] text-slate-300 hover:text-[#dfa82e] font-medium flex items-center justify-center gap-1 transition-colors cursor-pointer"
                             >
-                              Pulihkan
+                              <Plus className="w-3 h-3" />
+                              <span>Tambahkan Sebelum</span>
                             </button>
-                          ) : (
-                            <button
-                              onClick={() => handleDeleteSection(secId)}
-                              className="p-1 rounded bg-rose-950/40 hover:bg-rose-900/60 text-rose-300"
-                              title="Hapus / Sembunyikan"
-                            >
-                              <Trash2 className="w-3 h-3" />
-                            </button>
-                          )}
-                        </div>
+                          </div>
+                        )}
                       </div>
-
-                      {/* Quick insert button before this section */}
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setInsertModalTarget(secId);
-                        }}
-                        className="w-full py-1 rounded bg-white/5 hover:bg-purple-600/20 border border-white/10 hover:border-purple-500/30 text-xs text-slate-300 hover:text-purple-200 font-semibold flex items-center justify-center gap-1 transition-colors"
-                      >
-                        <Plus className="w-3 h-3" />
-                        <span>Sisipkan Div Sebelum Halaman Ini</span>
-                      </button>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          {/* TAB 3: RIWAYAT SNAPSHOTS (SAVE STATES) */}
-          {canvaTab === 'history' && (
-            <div className="flex-1 flex flex-col overflow-hidden p-4">
-              <div className="mb-3">
-                <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                  <History className="w-4 h-4 text-amber-400" />
-                  Titik Pemulihan
-                </h3>
-                <p className="text-xs text-slate-400 mt-0.5">
-                  Kembalikan desain ke titik waktu sebelum perubahan dilakukan.
-                </p>
-              </div>
-
-              <div className="flex-1 overflow-y-auto space-y-2 pr-1">
-                {historySnapshots.map((snap, i) => (
-                  <div
-                    key={snap.id}
-                    className="p-2.5 rounded-xl bg-[#182136] border border-[#293654] hover:border-amber-400/50 flex flex-col gap-1.5 transition-all text-xs"
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="font-bold text-white text-xs">{snap.action}</span>
-                      {i === 0 && (
-                        <span className="text-xs bg-emerald-500/20 text-emerald-300 px-1.5 py-0.2 rounded font-bold">
-                          Terkini
-                        </span>
-                      )}
-                    </div>
-                    <span className="text-xs text-slate-400">Pukul {snap.time}</span>
-                    <button
-                      onClick={() => handleRestoreSnapshot(snap)}
-                      className="w-full mt-1 py-1 rounded bg-amber-400/10 hover:bg-amber-400 text-amber-300 hover:text-slate-950 text-xs font-bold border border-amber-400/30 transition-all cursor-pointer"
-                    >
-                      Pulihkan Versi Ini
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* TAB 4: GAYA & WARNA */}
-          {canvaTab === 'styles' && (
-            <div className="flex-1 flex flex-col overflow-hidden p-4">
-              <div className="mb-3">
-                <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                  <Palette className="w-4 h-4 text-cyan-400" />
-                  Palet &amp; Tema SELECO
-                </h3>
-                <p className="text-xs text-slate-400 mt-0.5">
-                  Identitas visual resmi firma hukum SELECO.
-                </p>
-              </div>
-
-              <div className="space-y-3">
-                <div className="p-3 rounded-xl bg-[#182136] border border-[#293654] space-y-2">
-                  <h4 className="text-xs font-bold text-white">Warna Primer Firma</h4>
-                  <div className="grid grid-cols-3 gap-2 text-center text-xs">
-                    <div className="p-2 rounded-lg bg-[#0a1420] text-white border border-white/20">
-                      <span>#0a1420</span>
-                      <span className="block opacity-70">Navy Gelap</span>
-                    </div>
-                    <div className="p-2 rounded-lg bg-[#dfa82e] text-slate-950 font-bold">
-                      <span>#dfa82e</span>
-                      <span className="block opacity-80">Gold Utama</span>
-                    </div>
-                    <div className="p-2 rounded-lg bg-[#ffffff] text-slate-950 font-bold">
-                      <span>#ffffff</span>
-                      <span className="block opacity-70">Putih Bersih</span>
-                    </div>
-                  </div>
+                    );
+                  })}
                 </div>
+              </div>
+            )}
 
-                <div className="p-3 rounded-xl bg-[#182136] border border-[#293654] space-y-2 text-xs">
-                  <h4 className="font-bold text-white">Panduan Tipografi</h4>
-                  <p className="text-xs text-slate-300">
-                    - Judul Utama: <strong className="text-[#dfa82e]">Cinzel Decorative Serif</strong> (Klasik &amp; Elegan)<br/>
-                    - Konten &amp; Paragraf: <strong className="text-white">Plus Jakarta Sans</strong> (Modern &amp; Terbaca Jelas)
+            {/* TAB 3: HALAMAN */}
+            {canvaTab === 'pages' && (
+              <div className="flex-1 flex flex-col overflow-hidden p-3.5">
+                <div className="mb-3">
+                  <h3 className="text-xs font-bold text-white uppercase tracking-wider">Halaman</h3>
+                  <p className="text-[11px] text-slate-400 mt-0.5">
+                    Pilih halaman website yang ingin Anda edit.
                   </p>
                 </div>
+
+                <div className="space-y-1.5 flex-1 overflow-y-auto pr-1">
+                  {([
+                    { id: 'home', label: 'Beranda', path: '/' },
+                    { id: 'about', label: 'Tentang Kami', path: '/about' },
+                    { id: 'services', label: 'Layanan', path: '/services' },
+                    { id: 'insights', label: 'Insight & Artikel', path: '/insights' },
+                    { id: 'contact', label: 'Kontak', path: '/contact' },
+                  ] as { id: PreviewPageOption; label: string; path: string }[]).map((pg) => {
+                    const isCurrent = activePage === pg.id;
+                    return (
+                      <button
+                        key={pg.id}
+                        onClick={() => handleSelectPage(pg.id)}
+                        className={`w-full p-2.5 rounded-xl border text-left flex items-center justify-between transition-all cursor-pointer ${
+                          isCurrent
+                            ? 'bg-[#dfa82e]/15 border-[#dfa82e]/50 text-white'
+                            : 'bg-[#161e31] border-[#25304a] text-slate-300 hover:border-slate-500 hover:text-white'
+                        }`}
+                      >
+                        <div>
+                          <div className="text-xs font-bold">{pg.label}</div>
+                          <div className="text-[11px] text-slate-400">{pg.path}</div>
+                        </div>
+                        {isCurrent && (
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#dfa82e] text-[#0a1420]">
+                            Aktif
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
+
+                  <div className="pt-3 mt-3 border-t border-[#232c42] space-y-1.5">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 px-1">
+                      Pintasan Dashboard
+                    </span>
+                    <Link
+                      href="/admin/articles"
+                      className="w-full p-2.5 rounded-xl bg-[#0f1524] border border-[#232c42] hover:border-slate-500 text-xs text-slate-300 hover:text-white flex items-center justify-between transition-colors"
+                    >
+                      <span>Kelola Artikel Insight</span>
+                      <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
+                    </Link>
+                  </div>
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
-        </aside>
+            {/* TAB 4: TEMPLATE */}
+            {canvaTab === 'templates' && (
+              <div className="flex-1 flex flex-col overflow-hidden p-3.5">
+                <div className="mb-3">
+                  <h3 className="text-xs font-bold text-white uppercase tracking-wider">Template</h3>
+                  <p className="text-[11px] text-slate-400 mt-0.5">
+                    Bagian siap pakai. Tarik ke tampilan atau klik Tambah.
+                  </p>
+                </div>
 
-        {/* ── C. CANVA WORKSPACE KANVAS (CENTER WORKSPACE) ─────────────────────── */}
-        <main className="flex-1 bg-[#090d16] p-2 sm:p-6 overflow-auto flex flex-col items-center justify-start relative">
-          
-          {/* Document Canvas Sheet Wrapper */}
+                <div className="flex-1 overflow-y-auto space-y-2 pr-1">
+                  {componentTemplates.map((tpl) => (
+                    <div
+                      key={tpl.type}
+                      draggable={true}
+                      onDragStart={(e) => handleDragStartComponent(e, tpl.type)}
+                      className="p-3 rounded-xl border border-[#25304a] bg-[#161e31] hover:border-[#dfa82e]/60 transition-all cursor-grab active:cursor-grabbing flex flex-col gap-2"
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2 min-w-0">
+                          <span className="text-[#dfa82e] shrink-0">{tpl.icon}</span>
+                          <div className="min-w-0">
+                            <h4 className="text-xs font-bold text-white truncate">{tpl.title}</h4>
+                            <span className="text-[10px] text-slate-400 font-semibold">{tpl.badge}</span>
+                          </div>
+                        </div>
+                        <GripVertical className="w-3.5 h-3.5 text-slate-500 shrink-0" />
+                      </div>
+                      <p className="text-[11px] text-slate-400 leading-relaxed">{tpl.desc}</p>
+                      <button
+                        type="button"
+                        onClick={() => insertComponentBefore('__end__', tpl.type)}
+                        className="w-full py-1.5 rounded-lg bg-[#dfa82e]/15 hover:bg-[#dfa82e] text-[#dfa82e] hover:text-[#0a1420] border border-[#dfa82e]/30 text-xs font-bold transition-colors cursor-pointer"
+                      >
+                        + Tambahkan ke Halaman
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* TAB 5: GAYA GLOBAL */}
+            {canvaTab === 'styles' && (
+              <div className="flex-1 flex flex-col overflow-hidden p-3.5">
+                <div className="mb-3">
+                  <h3 className="text-xs font-bold text-white uppercase tracking-wider">Gaya Global</h3>
+                  <p className="text-[11px] text-slate-400 mt-0.5">
+                    Palet warna dan tipografi resmi SELECO.
+                  </p>
+                </div>
+
+                <div className="space-y-3 overflow-y-auto pr-1">
+                  <div className="p-3 rounded-xl bg-[#161e31] border border-[#25304a] space-y-2">
+                    <h4 className="text-xs font-bold text-white">Palet Warna Utama</h4>
+                    <div className="grid grid-cols-2 gap-2 text-center text-[11px]">
+                      <div className="p-2 rounded-lg bg-[#0a1420] text-white border border-white/15">
+                        <span className="font-mono block">#0a1420</span>
+                        <span className="opacity-70">Navy Utama</span>
+                      </div>
+                      <div className="p-2 rounded-lg bg-[#0f2034] text-white border border-white/15">
+                        <span className="font-mono block">#0f2034</span>
+                        <span className="opacity-70">Navy Sekunder</span>
+                      </div>
+                      <div className="p-2 rounded-lg bg-[#dfa82e] text-[#0a1420] font-bold">
+                        <span className="font-mono block">#dfa82e</span>
+                        <span className="opacity-80">Gold Aksen</span>
+                      </div>
+                      <div className="p-2 rounded-lg bg-[#ffffff] text-[#0a1420] font-bold">
+                        <span className="font-mono block">#ffffff</span>
+                        <span className="opacity-70">Latar Terang</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-[#161e31] border border-[#25304a] space-y-2 text-xs">
+                    <h4 className="font-bold text-white">Tipografi</h4>
+                    <div className="space-y-1.5 text-[11px] text-slate-300">
+                      <div className="flex items-center justify-between">
+                        <span className="text-slate-400">Judul Utama</span>
+                        <strong className="text-[#dfa82e]">Playfair Display</strong>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-slate-400">Teks &amp; Paragraf</span>
+                        <strong className="text-white">Inter</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-[#161e31] border border-[#25304a] space-y-1.5 text-xs">
+                    <h4 className="font-bold text-white">Status Publikasi</h4>
+                    <p className="text-[11px] text-slate-400">
+                      Mode website saat ini:{' '}
+                      <strong className="text-emerald-400 uppercase">
+                        {content.siteMode?.status || 'live'}
+                      </strong>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+          </aside>
+        )}
+
+        {/* ── C. TAMPILAN WEBSITE (CENTER CANVAS) ──────────────────────────────── */}
+        <main className="flex-1 min-w-0 bg-[#090d16] p-2 sm:p-4 overflow-auto flex flex-col items-center justify-start relative">
+
+          {/* Live Website Preview Sheet */}
           <div
             style={{
               width:
@@ -1494,126 +1737,124 @@ export default function ElementorEditorClient() {
               transform: zoomLevel !== 100 ? `scale(${zoomLevel / 100})` : undefined,
               transformOrigin: 'top center',
             }}
-            className="bg-white rounded-2xl shadow-[0_30px_70px_-15px_rgba(0,0,0,0.8)] border border-slate-700/80 overflow-hidden transition-all duration-300 flex flex-col min-h-[900px] my-2"
+            className="bg-white rounded-xl shadow-[0_24px_60px_-15px_rgba(0,0,0,0.75)] border border-slate-700/70 overflow-hidden transition-all duration-300 flex flex-col min-h-[860px] my-1"
           >
-            {/* Document Header Margin Tab ala Canva */}
-            <div className="bg-[#111624] border-b border-[#232c42] px-4 py-2 flex items-center justify-between text-xs text-slate-400 select-none">
-              <span className="font-semibold text-white flex items-center gap-2">
-                <FileText className="w-3.5 h-3.5 text-[#dfa82e]" />
-                <span>Lembar Kerja Canva: <strong className="text-[#dfa82e]">{activePage.toUpperCase()}</strong></span>
-              </span>
-              <div className="flex items-center gap-2">
-                <span className="text-xs bg-purple-900/40 text-purple-300 px-2 py-0.5 rounded border border-purple-500/30">
-                  Klik bagian apa saja untuk edit isinya
+            {/* Minimal Status Strip */}
+            <div className="bg-[#111624] border-b border-[#232c42] px-3.5 py-2 flex items-center justify-between gap-2 text-xs text-slate-400 select-none">
+              <div className="flex items-center gap-2 min-w-0">
+                <span className="font-semibold text-white truncate">
+                  Tampilan Website
                 </span>
                 {selectedSectionId && (
-                  <span className="text-xs bg-amber-400/20 text-amber-300 px-2 py-0.5 rounded border border-amber-400/30 font-semibold">
-                    Dipilih: {selectedTitle}
+                  <span className="text-[11px] bg-[#dfa82e]/15 text-[#dfa82e] px-2 py-0.5 rounded border border-[#dfa82e]/30 font-semibold truncate max-w-[200px]">
+                    {selectedTitle}
                   </span>
                 )}
               </div>
+              <div className="flex items-center gap-1.5 shrink-0">
+                <span className="hidden md:inline text-[11px] text-slate-400 mr-1">
+                  Klik elemen untuk mengedit
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setZoomLevel((z) => Math.max(60, z - 10))}
+                  className="p-1 rounded hover:bg-slate-800 text-slate-400 hover:text-white cursor-pointer"
+                  title="Perkecil tampilan"
+                >
+                  <ZoomOut className="w-3.5 h-3.5" />
+                </button>
+                <span className="text-[11px] font-mono text-slate-300 w-9 text-center">{zoomLevel}%</span>
+                <button
+                  type="button"
+                  onClick={() => setZoomLevel((z) => Math.min(120, z + 10))}
+                  className="p-1 rounded hover:bg-slate-800 text-slate-400 hover:text-white cursor-pointer"
+                  title="Perbesar tampilan"
+                >
+                  <ZoomIn className="w-3.5 h-3.5" />
+                </button>
+              </div>
             </div>
 
-            {/* Iframe View of Live Website Page with Dropzones */}
+            {/* Iframe View of Live Website Page */}
             <iframe
               ref={iframeRef}
               src={`/admin/preview?page=${activePage}&mode=click_to_edit`}
-              className="w-full flex-1 min-h-[850px] border-0 bg-white"
-              title="Canva Studio Editor"
+              className="w-full flex-1 min-h-[820px] border-0 bg-white"
+              title="Tampilan Website SELECO"
             />
+          </div>
+
+          {/* Empty-Area Quick Add Section Button */}
+          <div className="w-full max-w-[1280px] py-4 flex justify-center">
+            <button
+              type="button"
+              onClick={() => setInsertModalTarget('__end__')}
+              className="px-5 py-2.5 rounded-xl border border-dashed border-slate-600 hover:border-[#dfa82e] bg-[#111624]/80 hover:bg-[#dfa82e]/10 text-slate-300 hover:text-[#dfa82e] text-xs font-semibold flex items-center gap-2 transition-all cursor-pointer"
+              title="Tambahkan bagian baru di bawah halaman"
+            >
+              <Plus className="w-4 h-4" />
+              <span>Tambah Bagian Baru</span>
+            </button>
           </div>
 
         </main>
 
-        {/* ── D. RIGHT PROPERTIES INSPECTOR PANEL (PANEL PROPERTI LENGKAP) ──────── */}
+        {/* ── D. SIDEBAR KANAN: PENGATURAN (3 TAB: KONTEN, DESAIN, LAYOUT) ─────── */}
         {showPropertiesPanel && (
-          <aside className="w-80 sm:w-96 bg-[#131929] border-l border-[#232c42] flex flex-col shrink-0 z-20 overflow-hidden shadow-2xl animate-in slide-in-from-right duration-200">
-            
-            {/* Properties Panel Header */}
-            <div className="p-3.5 bg-[#111624] border-b border-[#232c42] flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-lg bg-purple-600/20 text-purple-400 flex items-center justify-center border border-purple-500/30">
-                  <Sliders className="w-4 h-4" />
+          <aside className="w-72 lg:w-80 bg-[#131929] border-l border-[#232c42] flex flex-col shrink-0 z-20 overflow-hidden shadow-2xl">
+
+            {/* Pengaturan Header */}
+            <div className="p-3 bg-[#111624] border-b border-[#232c42] flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2 min-w-0">
+                <div className="w-7 h-7 rounded-lg bg-[#dfa82e]/15 text-[#dfa82e] flex items-center justify-center border border-[#dfa82e]/30 shrink-0">
+                  <Sliders className="w-3.5 h-3.5" />
                 </div>
-                <div>
-                  <h3 className="text-xs font-bold text-white flex items-center gap-1.5">
-                    Kustomisasi Komponen
-                  </h3>
-                  <p className="text-xs text-purple-300 truncate max-w-[200px]">
+                <div className="min-w-0">
+                  <h3 className="text-xs font-bold text-white">Pengaturan</h3>
+                  <p className="text-[11px] text-[#dfa82e] truncate">
                     {selectedTitle}
                   </p>
                 </div>
               </div>
               <button
                 onClick={() => setShowPropertiesPanel(false)}
-                className="p-1 rounded-md text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
-                title="Tutup Panel Properti"
+                className="p-1 rounded-md text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer shrink-0"
+                title="Sembunyikan panel pengaturan"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            {/* Properties Tabs */}
-            <div className="flex items-center border-b border-[#232c42] bg-[#0e121e] px-2 text-xs overflow-x-auto">
-              <button
-                onClick={() => setPropertyTab('content')}
-                className={`py-2 px-3 font-semibold transition-colors border-b-2 whitespace-nowrap cursor-pointer ${
-                  propertyTab === 'content'
-                    ? 'border-purple-500 text-purple-300'
-                    : 'border-transparent text-slate-400 hover:text-white'
-                }`}
-              >
-                Isi &amp; Teks
-              </button>
-              <button
-                onClick={() => setPropertyTab('background')}
-                className={`py-2 px-3 font-semibold transition-colors border-b-2 whitespace-nowrap cursor-pointer ${
-                  propertyTab === 'background'
-                    ? 'border-purple-500 text-purple-300'
-                    : 'border-transparent text-slate-400 hover:text-white'
-                }`}
-              >
-                Latar &amp; Warna
-              </button>
-              <button
-                onClick={() => setPropertyTab('spacing')}
-                className={`py-2 px-3 font-semibold transition-colors border-b-2 whitespace-nowrap cursor-pointer ${
-                  propertyTab === 'spacing'
-                    ? 'border-purple-500 text-purple-300'
-                    : 'border-transparent text-slate-400 hover:text-white'
-                }`}
-              >
-                Ukuran &amp; Jarak
-              </button>
-              <button
-                onClick={() => setPropertyTab('typography')}
-                className={`py-2 px-3 font-semibold transition-colors border-b-2 whitespace-nowrap cursor-pointer ${
-                  propertyTab === 'typography'
-                    ? 'border-purple-500 text-purple-300'
-                    : 'border-transparent text-slate-400 hover:text-white'
-                }`}
-              >
-                Rata Teks
-              </button>
-              <button
-                onClick={() => setPropertyTab('effects')}
-                className={`py-2 px-3 font-semibold transition-colors border-b-2 whitespace-nowrap cursor-pointer ${
-                  propertyTab === 'effects'
-                    ? 'border-purple-500 text-purple-300'
-                    : 'border-transparent text-slate-400 hover:text-white'
-                }`}
-              >
-                Tindakan
-              </button>
+            {/* 3 Elementor Tabs: Konten | Desain | Layout */}
+            <div className="grid grid-cols-3 border-b border-[#232c42] bg-[#0e121e] text-xs">
+              {[
+                { id: 'content' as const, label: 'Konten' },
+                { id: 'design' as const, label: 'Desain' },
+                { id: 'layout' as const, label: 'Layout' },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setPropertyTab(tab.id)}
+                  className={`py-2.5 font-semibold transition-colors border-b-2 text-center cursor-pointer ${
+                    propertyTab === tab.id
+                      ? 'border-[#dfa82e] text-[#dfa82e] bg-[#131929]/60'
+                      : 'border-transparent text-slate-400 hover:text-white'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
             </div>
 
             {/* Properties Form Content */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 text-xs">
+            <div className="flex-1 overflow-y-auto p-3.5 space-y-4 text-xs">
               {!selectedSectionId ? (
                 <div className="text-center py-12 text-slate-500 space-y-2">
-                  <Sliders className="w-8 h-8 text-slate-600 mx-auto" />
-                  <p className="font-semibold text-slate-400">Belum Ada Komponen Dipilih</p>
-                  <p className="text-xs">Klik salah satu komponen pada kanvas untuk mengedit teks dan isinya.</p>
+                  <Sliders className="w-7 h-7 text-slate-600 mx-auto" />
+                  <p className="font-semibold text-slate-300">Belum Ada Bagian Dipilih</p>
+                  <p className="text-[11px] text-slate-400">
+                    Klik salah satu elemen pada Tampilan Website untuk mengubah isi, warna, atau tata letaknya.
+                  </p>
                 </div>
               ) : (
                 <>
@@ -2293,9 +2534,19 @@ export default function ElementorEditorClient() {
                     </div>
                   )}
 
-                  {/* TAB 2: LATAR BELAKANG & WARNA (BACKGROUND) */}
-                  {propertyTab === 'background' && (
-                    <div className="space-y-4">
+                  {/* DESAIN ACCORDION 1: LATAR & WARNA */}
+                  {propertyTab === 'design' && (
+                    <div className="rounded-xl border border-[#232c42] bg-[#0e1320] overflow-hidden">
+                      <button
+                        type="button"
+                        onClick={() => setOpenDesignSections((s) => ({ ...s, background: !s.background }))}
+                        className="w-full px-3.5 py-2.5 flex items-center justify-between text-xs font-bold text-white hover:bg-[#1a2236] transition-colors cursor-pointer"
+                      >
+                        <span>Latar, Warna &amp; Bingkai</span>
+                        {openDesignSections.background ? <ChevronUp className="w-3.5 h-3.5 text-[#dfa82e]" /> : <ChevronDown className="w-3.5 h-3.5 text-slate-400" />}
+                      </button>
+                      {openDesignSections.background && (
+                      <div className="p-3.5 pt-2 border-t border-[#232c42] space-y-4">
                       {/* Warna Latar (Background Color) */}
                       <div>
                         <label className="block text-xs font-bold text-slate-300 uppercase tracking-wide mb-1.5">
@@ -2422,12 +2673,24 @@ export default function ElementorEditorClient() {
                           </button>
                         </div>
                       </div>
+                      </div>
+                      )}
                     </div>
                   )}
 
-                  {/* TAB 3: UKURAN & SPASI (SPACING, PADDING & MARGIN) */}
-                  {propertyTab === 'spacing' && (
-                    <div className="space-y-4">
+                  {/* LAYOUT ACCORDION 1: UKURAN, MARGIN & PADDING */}
+                  {propertyTab === 'layout' && (
+                    <div className="rounded-xl border border-[#232c42] bg-[#0e1320] overflow-hidden">
+                      <button
+                        type="button"
+                        onClick={() => setOpenLayoutSections((s) => ({ ...s, spacing: !s.spacing }))}
+                        className="w-full px-3.5 py-2.5 flex items-center justify-between text-xs font-bold text-white hover:bg-[#1a2236] transition-colors cursor-pointer"
+                      >
+                        <span>Ukuran, Margin &amp; Padding</span>
+                        {openLayoutSections.spacing ? <ChevronUp className="w-3.5 h-3.5 text-[#dfa82e]" /> : <ChevronDown className="w-3.5 h-3.5 text-slate-400" />}
+                      </button>
+                      {openLayoutSections.spacing && (
+                      <div className="p-3.5 pt-2 border-t border-[#232c42] space-y-4">
                       {/* Padding Atas & Bawah (Padding Y) */}
                       <div>
                         <div className="flex justify-between items-center mb-1">
@@ -2515,12 +2778,24 @@ export default function ElementorEditorClient() {
                           <option value="672px">Ramping Tengah (672px - Max 2xl)</option>
                         </select>
                       </div>
+                      </div>
+                      )}
                     </div>
                   )}
 
-                  {/* TAB 4: RATA TEKS & TIPOGRAFI */}
-                  {propertyTab === 'typography' && (
-                    <div className="space-y-4">
+                  {/* DESAIN ACCORDION 2: TIPOGRAFI & PERATAAN */}
+                  {propertyTab === 'design' && (
+                    <div className="rounded-xl border border-[#232c42] bg-[#0e1320] overflow-hidden">
+                      <button
+                        type="button"
+                        onClick={() => setOpenDesignSections((s) => ({ ...s, typography: !s.typography }))}
+                        className="w-full px-3.5 py-2.5 flex items-center justify-between text-xs font-bold text-white hover:bg-[#1a2236] transition-colors cursor-pointer"
+                      >
+                        <span>Tipografi &amp; Perataan Teks</span>
+                        {openDesignSections.typography ? <ChevronUp className="w-3.5 h-3.5 text-[#dfa82e]" /> : <ChevronDown className="w-3.5 h-3.5 text-slate-400" />}
+                      </button>
+                      {openDesignSections.typography && (
+                      <div className="p-3.5 pt-2 border-t border-[#232c42] space-y-4">
                       {/* Posisi Rata Teks */}
                       <div>
                         <label className="block text-xs font-bold text-slate-300 uppercase tracking-wide mb-1.5">
@@ -2610,12 +2885,24 @@ export default function ElementorEditorClient() {
                           <option value="sans">Plus Jakarta Sans (Modern / Bersih)</option>
                         </select>
                       </div>
+                      </div>
+                      )}
                     </div>
                   )}
 
-                  {/* TAB 5: TINDAKAN CEPAT & DUPLIKASI */}
-                  {propertyTab === 'effects' && (
-                    <div className="space-y-4">
+                  {/* LAYOUT ACCORDION 2: POSISI & TINDAKAN */}
+                  {propertyTab === 'layout' && (
+                    <div className="rounded-xl border border-[#232c42] bg-[#0e1320] overflow-hidden">
+                      <button
+                        type="button"
+                        onClick={() => setOpenLayoutSections((s) => ({ ...s, actions: !s.actions }))}
+                        className="w-full px-3.5 py-2.5 flex items-center justify-between text-xs font-bold text-white hover:bg-[#1a2236] transition-colors cursor-pointer"
+                      >
+                        <span>Posisi, Visibilitas &amp; Tindakan</span>
+                        {openLayoutSections.actions ? <ChevronUp className="w-3.5 h-3.5 text-[#dfa82e]" /> : <ChevronDown className="w-3.5 h-3.5 text-slate-400" />}
+                      </button>
+                      {openLayoutSections.actions && (
+                      <div className="p-3.5 pt-2 border-t border-[#232c42] space-y-4">
                       {/* Tindakan Cepat Seksi */}
                       <div className="space-y-2.5">
                         <label className="block text-xs font-bold text-slate-300 uppercase tracking-wide">
@@ -2695,19 +2982,21 @@ export default function ElementorEditorClient() {
                           </select>
                         </div>
                       </div>
+                      </div>
+                      )}
                     </div>
                   )}
                 </>
               )}
             </div>
 
-            {/* Properties Panel Footer */}
+            {/* Panel Pengaturan Footer */}
             <div className="p-3 bg-[#111624] border-t border-[#232c42] flex items-center justify-between text-xs">
-              <span className="text-slate-400">Sinkron otomatis ke kanvas</span>
+              <span className="text-slate-400">Sinkron langsung ke tampilan</span>
               <button
                 onClick={handleSave}
                 disabled={isSaving}
-                className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-xs uppercase tracking-wide hover:brightness-110 flex items-center gap-1 cursor-pointer"
+                className="px-3.5 py-1.5 rounded-lg bg-[#dfa82e] hover:bg-[#eab946] text-[#0a1420] font-bold text-xs flex items-center gap-1.5 cursor-pointer transition-colors"
               >
                 <Save className="w-3.5 h-3.5" />
                 <span>Simpan</span>
@@ -2719,27 +3008,29 @@ export default function ElementorEditorClient() {
 
       </div>
 
-      {/* ── 3. MODAL SISIPKAN KOMPONEN SEBELUM HALAMAN TERTENTU ──────────────── */}
+      {/* ── 3. MODAL TAMBAHKAN BAGIAN ────────────────────────────────────────── */}
       {insertModalTarget && (
         <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
-          <div className="bg-[#131929] border border-purple-500/30 rounded-2xl w-full max-w-xl max-h-[85vh] flex flex-col shadow-2xl">
+          <div className="bg-[#131929] border border-[#dfa82e]/30 rounded-2xl w-full max-w-xl max-h-[85vh] flex flex-col shadow-2xl">
             {/* Modal Header */}
             <div className="p-5 border-b border-[#232c42] flex items-center justify-between">
               <div>
                 <h3 className="text-base font-bold text-white flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-purple-400" />
-                  Sisipkan Komponen / Div
+                  <Plus className="w-5 h-5 text-[#dfa82e]" />
+                  Tambahkan Bagian Baru
                 </h3>
-                <p className="text-xs text-purple-200 mt-0.5">
-                  Pilih komponen visual yang ingin diletakkan sebelum:{' '}
-                  <strong className="text-white">
-                    {insertModalTarget === '__end__' ? 'Paling Bawah Halaman' : (standardHomeSections[insertModalTarget]?.name || 'Halaman Tujuan')}
-                  </strong>
+                <p className="text-xs text-slate-300 mt-0.5">
+                  {insertModalTarget === '__end__' ? (
+                    <>Pilih bagian yang ingin ditambahkan di <strong className="text-white">Paling Bawah Halaman</strong>.</>
+                  ) : (
+                    <>Pilih bagian yang ingin ditambahkan sebelum <strong className="text-white">{standardHomeSections[insertModalTarget]?.name || 'Bagian Tujuan'}</strong>.</>
+                  )}
                 </p>
               </div>
               <button
                 onClick={() => setInsertModalTarget(null)}
                 className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
+                title="Tutup"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -2751,15 +3042,15 @@ export default function ElementorEditorClient() {
                 <button
                   key={tpl.type}
                   onClick={() => insertComponentBefore(insertModalTarget, tpl.type)}
-                  className={`p-3.5 rounded-xl border bg-gradient-to-br ${tpl.color} hover:brightness-125 hover:border-purple-400 text-left transition-all flex flex-col gap-1.5 group cursor-pointer`}
+                  className="p-3.5 rounded-xl border border-[#25304a] bg-[#161e31] hover:border-[#dfa82e]/70 hover:bg-[#1b253d] text-left transition-all flex flex-col gap-1.5 group cursor-pointer"
                 >
-                  <div className="flex items-center gap-2">
-                    <span className="text-2xl">{tpl.icon}</span>
+                  <div className="flex items-center gap-2.5">
+                    <span className="text-[#dfa82e]">{tpl.icon}</span>
                     <div>
-                      <h4 className="text-xs font-bold text-white group-hover:text-purple-200">
+                      <h4 className="text-xs font-bold text-white group-hover:text-[#dfa82e]">
                         {tpl.title}
                       </h4>
-                      <span className="text-xs text-purple-300 font-bold">
+                      <span className="text-[10px] text-slate-400 font-semibold">
                         {tpl.badge}
                       </span>
                     </div>
