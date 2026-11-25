@@ -94,8 +94,8 @@ module.exports = {
         '3xl': '0.5rem',
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
-        serif: ['var(--font-playfair)', 'Playfair Display', 'Georgia', 'serif'],
+        sans: ['var(--font-jakarta)', 'Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+        serif: ['var(--font-cormorant)', 'Cormorant Garamond', 'Georgia', 'serif'],
       },
       boxShadow: {
         subtle: '0 4px 20px -2px rgba(15, 32, 52, 0.05)',

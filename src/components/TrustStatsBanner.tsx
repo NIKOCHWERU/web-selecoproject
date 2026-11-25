@@ -17,7 +17,7 @@ export default function TrustStatsBanner() {
       numberFallback: litigationCount,
       numberSuffix: '+',
       labelPath: 'global.litigationLabel',
-      labelFallback: 'Legalitas Bisnis & Kontrak',
+      labelFallback: 'Layanan Legalitas & Kontrak Usaha',
       numberLabel: 'Jumlah Legalitas Bisnis',
       iconLabel: 'Ikon Legalitas Bisnis',
       labelEdit: 'Label Legalitas Bisnis',
@@ -29,7 +29,7 @@ export default function TrustStatsBanner() {
       numberFallback: ossLicenseCount,
       numberSuffix: '',
       labelPath: 'global.ossLicenseLabel',
-      labelFallback: 'Perizinan Usaha OSS',
+      labelFallback: 'Cakupan Perizinan OSS RBA',
       numberLabel: 'Jumlah Perizinan OSS',
       iconLabel: 'Ikon Perizinan OSS',
       labelEdit: 'Label Perizinan OSS',
@@ -41,7 +41,7 @@ export default function TrustStatsBanner() {
       numberFallback: '100%',
       numberSuffix: '',
       labelPath: 'global.trustStat3Label',
-      labelFallback: 'Standar Kerahasiaan',
+      labelFallback: 'Kerahasiaan Dokumen Klien',
       numberLabel: 'Angka Kerahasiaan',
       iconLabel: 'Ikon Kerahasiaan',
       labelEdit: 'Label Kerahasiaan',
@@ -53,7 +53,7 @@ export default function TrustStatsBanner() {
       numberFallback: 'Nasional',
       numberSuffix: '',
       labelPath: 'global.trustStat4Label',
-      labelFallback: 'Jangkauan Wilayah RI',
+      labelFallback: 'Cakupan Instansi Seluruh RI',
       numberLabel: 'Angka Jangkauan',
       iconLabel: 'Ikon Jangkauan Wilayah',
       labelEdit: 'Label Jangkauan',
@@ -61,26 +61,27 @@ export default function TrustStatsBanner() {
   ];
 
   return (
-    <EditableSection id="trust-stats" name="Statistik Kepercayaan Banner" className="bg-slate-50 py-10 sm:py-12 border-b border-slate-200 text-slate-900">
+    <EditableSection id="trust-stats" name="Statistik Kepercayaan Banner" className="bg-slate-50 py-10 sm:py-14 border-b border-slate-200 text-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 border border-[#0f2034]/12 border-t-2 border-t-[#b88917] bg-white rounded-md divide-slate-200 max-lg:[&>*:nth-child(n+3)]:border-t max-lg:[&>*:nth-child(even)]:border-l lg:divide-x">
+        <div className="grid grid-cols-2 lg:grid-cols-4 border-y border-[#0f2034]/15 divide-slate-200 max-lg:[&>*:nth-child(n+3)]:border-t max-lg:[&>*:nth-child(even)]:border-l lg:divide-x">
           {stats.map((stat, i) => (
-            <div key={i} className="p-5 sm:p-7 flex flex-col items-start gap-2">
-              <div className="w-9 h-9 rounded bg-[#0f2034]/5 border border-[#0f2034]/10 text-[#0f2034] flex items-center justify-center mb-1">
+            <div key={i} className="px-5 py-6 sm:px-8 sm:py-7 flex flex-col items-start gap-2.5">
+              <div className="flex items-center gap-2 text-[#0f2034]">
                 <EditableIcon
                   iconKey={stat.iconKey}
                   fallbackIcon={stat.fallbackIcon}
-                  className="w-4 h-4"
+                  className="w-4 h-4 text-[#b88917]"
                   label={stat.iconLabel}
                 />
+                <span className="h-px w-6 bg-[#b88917]/50" />
               </div>
-              <p className="font-serif-title text-3xl sm:text-4xl font-bold text-[#0a1420] tracking-tight tabular-nums leading-none">
+              <p className="font-serif-title text-4xl sm:text-5xl font-semibold text-[#0a1420] tracking-[-0.02em] tabular-nums leading-none">
                 <EditableText
                   fieldPath={stat.numberPath}
                   fallback={stat.numberFallback}
                   label={stat.numberLabel}
                 />
-                <span className="text-[#b88917]">{stat.numberSuffix}</span>
+                <span className="text-[#b88917] font-normal">{stat.numberSuffix}</span>
               </p>
               <p className="text-xs sm:text-sm font-medium text-slate-600 leading-snug">
                 <EditableText

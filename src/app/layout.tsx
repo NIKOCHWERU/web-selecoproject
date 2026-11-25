@@ -1,24 +1,23 @@
 import type { Metadata } from 'next';
-import { Inter, Playfair_Display } from 'next/font/google';
+import { Plus_Jakarta_Sans, Cormorant_Garamond } from 'next/font/google';
 import './globals.css';
 import React from 'react';
 import { ContentProvider } from '@/context/ContentContext';
 import { getSiteContent } from '@/lib/contentService';
 import SiteWrapper from '@/components/SiteWrapper';
 
-const inter = Inter({
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-inter',
+  variable: '--font-jakarta',
 });
 
-
-const playfairDisplay = Playfair_Display({
+const cormorantGaramond = Cormorant_Garamond({
   subsets: ['latin'],
-  weight: ['400', '600', '700', '900'],
+  weight: ['400', '500', '600', '700'],
   style: ['normal', 'italic'],
   display: 'swap',
-  variable: '--font-playfair',
+  variable: '--font-cormorant',
 });
 
 export const metadata: Metadata = {
@@ -66,8 +65,8 @@ export default function RootLayout({
   const initialContent = getSiteContent();
 
   return (
-    <html lang="id" className={`${inter.variable} ${playfairDisplay.variable} scroll-smooth`}>
-      <body className={`${inter.className} bg-white text-slate-900 antialiased min-h-screen flex flex-col justify-between selection:bg-[#dfa82e]/20 selection:text-[#0a1420]`}>
+    <html lang="id" className={`${plusJakartaSans.variable} ${cormorantGaramond.variable} scroll-smooth`}>
+      <body className={`${plusJakartaSans.className} bg-white text-slate-900 antialiased min-h-screen flex flex-col justify-between selection:bg-[#dfa82e]/20 selection:text-[#0a1420]`}>
         <ContentProvider initialContent={initialContent}>
           <SiteWrapper>{children}</SiteWrapper>
         </ContentProvider>

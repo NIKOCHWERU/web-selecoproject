@@ -29,139 +29,155 @@ export default function RetainerSection() {
   }, []);
 
   const retainerServices = [
-    "Konsultasi Korporasi & Bisnis Rutin",
-    "Review & Draf Perjanjian Kerjasama Bisnis",
-    "Penyusunan Peraturan Perusahaan & SOP HR",
-    "Pemantauan Izin Usaha & Kepatuhan OSS RBA",
-    "Pendampingan Pajak, Pertanahan & Imigrasi",
-    "Mitigasi & Evaluasi Risiko Operasional Perusahaan",
+    "Konsultasi hukum dan perizinan rutin via telepon, WhatsApp, atau tatap muka",
+    "Pemeriksaan dan penyusunan draf perjanjian kerja sama komersial",
+    "Penyusunan serta pembaruan Peraturan Perusahaan dan kontrak kerja karyawan",
+    "Pemantauan masa berlaku NIB, izin operasional, dan pelaporan LKPM OSS RBA",
+    "Pendampingan kepatuhan pajak bulanan, dokumen TKA, dan perizinan pertanahan",
+    "Audit kepatuhan berkala untuk mencegah sanksi administratif instansi",
   ];
 
   return (
-    <EditableSection id="retainer" name="Corporate Retainer Section" className="section-y bg-slate-50 border-b border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div className="bg-[#0a1420] text-white rounded-md p-6 sm:p-10 lg:p-12 border border-[#dfa82e]/25 border-t-2 border-t-[#dfa82e] relative overflow-hidden">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
-            
-            {/* Left Content */}
-            <div className="lg:col-span-7 space-y-6">
-              <div className="eyebrow-legal-dark">
-                <EditableText
-                  fieldPath="retainer.badge"
-                  fallback="Retainer Korporasi"
-                  label="Badge Retainer"
-                />
-              </div>
+    <EditableSection id="retainer" name="Corporate Retainer Section" className="section-y bg-[#0a1420] text-white border-y border-[#dfa82e]/30">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
 
-              <h2 className="font-serif-title heading-section text-white">
-                <EditableText
-                  fieldPath="retainer.title"
-                  fallback="Divisi Konsultan Korporasi Eksternal Bisnis Anda."
-                  label="Judul Retainer"
-                />
-              </h2>
-
-              <div className="w-16 h-[1.5px] bg-[#dfa82e]" />
-
-              <p className="text-sm text-slate-200 leading-[1.75] font-normal">
-                <EditableText
-                  fieldPath="retainer.subtitle"
-                  fallback="Akses pendampingan konsultan korporasi terpadu sesuai kebutuhan operasional perusahaan, mulai dari perizinan usaha, keimigrasian/TKA, kepatuhan pajak, pertanahan BPN, hingga manajemen SDM tanpa biaya penggajian staf internal."
-                  label="Subjudul Retainer"
-                  multiline={true}
-                />
-              </p>
-
-              {/* Grid 6 Services */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 pt-1">
-                {retainerServices.map((service, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-start gap-2.5 border-b border-white/10 py-2.5"
-                  >
-                    <span className="font-serif-title text-xs font-semibold text-[#dfa82e] mt-0.5 shrink-0">
-                      0{idx + 1}
-                    </span>
-                    <span className="text-xs sm:text-[0.8125rem] text-slate-200 leading-snug">
-                      <EditableText
-                        fieldPath={`retainer.serviceItems.${idx}`}
-                        fallback={service}
-                        label={`Item Retainer #${idx + 1}`}
-                      />
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Retainer CTA */}
-              <div className="pt-5 border-t border-white/15 flex flex-wrap items-center justify-between gap-4">
-                <div>
-                  <h4 className="font-serif-title text-lg font-bold text-white">
-                    <EditableText
-                      fieldPath="retainer.ctaTitle"
-                      fallback="Perkuat Tata Kelola & Operasional Perusahaan"
-                      label="Judul CTA Retainer"
-                    />
-                  </h4>
-                  <p className="text-xs text-slate-300 mt-1">
-                    <EditableText
-                      fieldPath="retainer.ctaSubtitle"
-                      fallback="Konsultan profesional siap mendampingi operasional dan perizinan bisnis Anda."
-                      label="Subjudul CTA Retainer"
-                    />
-                  </p>
-                </div>
-                <Link
-                  href="/kontak"
-                  onClick={(e) => {
-                    if (isEditMode) {
-                      e.preventDefault();
-                      e.stopPropagation();
-                    }
-                  }}
-                  className="btn btn-primary shrink-0"
-                >
-                  <EditableIcon
-                    iconKey="retainer.ctaIcon"
-                    fallbackIcon="Handshake"
-                    className="w-4 h-4"
-                    label="Ikon Tombol Retainer"
-                  />
-                  <span>
-                    <EditableText
-                      fieldPath="retainer.ctaButtonText"
-                      fallback="Diskusikan Layanan Retainer"
-                      label="Tombol Retainer"
-                    />
-                  </span>
-                </Link>
-              </div>
+        {/* Top Editorial Split (Full-Bleed Band, No Card Box) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          <div className="lg:col-span-7 space-y-5">
+            <div className="eyebrow-legal-dark">
+              <EditableText
+                fieldPath="retainer.badge"
+                fallback="Program Retainer Bulanan"
+                label="Badge Retainer"
+              />
             </div>
 
-            {/* Right Photo Frame */}
-            <div className="lg:col-span-5">
-              <div className="relative rounded-md overflow-hidden border border-[#dfa82e]/30 h-72 lg:h-[400px]">
+            <h2 className="font-serif-title text-3xl sm:text-4xl lg:text-[2.75rem] font-semibold text-white leading-[1.16] tracking-[-0.015em]">
+              <EditableText
+                fieldPath="retainer.title"
+                fallback="Pendampingan Hukum Berkelanjutan Tanpa Membentuk Divisi Internal."
+                label="Judul Retainer"
+              />
+            </h2>
+
+            <div className="w-20 h-[1.5px] bg-[#dfa82e]" />
+
+            <p className="text-sm sm:text-base text-slate-200 leading-[1.75] font-normal max-w-2xl">
+              <EditableText
+                fieldPath="retainer.subtitle"
+                fallback="Perusahaan Anda mendapatkan akses langsung ke konsultan perizinan, pajak, imigrasi, pertanahan, dan ketenagakerjaan dalam satu perjanjian bulanan yang pasti."
+                label="Subjudul Retainer"
+                multiline={true}
+              />
+            </p>
+          </div>
+
+          <div className="lg:col-span-5">
+            <figure className="space-y-3">
+              <div className="relative overflow-hidden border border-[#dfa82e]/25 h-64 sm:h-72 lg:h-80">
                 <EditableImage
                   fieldPath="retainer.image"
                   fallback="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=800&q=80"
                   alt="Perpustakaan hukum dengan rak buku dan patung"
                   label="Foto Ruang Retainer"
-                  className="w-full h-full object-cover filter brightness-[0.8]"
+                  className="w-full h-full object-cover filter brightness-[0.82]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a1420]/95 via-[#0a1420]/20 to-transparent pointer-events-none" />
-                <div className="absolute bottom-5 left-5 right-5 border-t border-[#dfa82e]/40 pt-3.5 text-center pointer-events-none">
-                  <span className="font-serif-title text-base font-bold text-white block">
-                    SELECO External Corporate Team
+              </div>
+              <figcaption className="flex items-center justify-between text-xs text-slate-300 border-t border-white/10 pt-2.5">
+                <span className="font-serif-title text-sm font-semibold text-white">
+                  SELECO Corporate Retainer
+                </span>
+                <span className="text-[#dfa82e]">
+                  Pendampingan Hukum &amp; Kepatuhan Bulanan
+                </span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        {/* Middle Ruled Engagement Ledger (No Cards) */}
+        <div className="border-y border-[#dfa82e]/25">
+          <div className="grid grid-cols-1 md:grid-cols-2 md:divide-x divide-white/10">
+            <div className="divide-y divide-white/10">
+              {retainerServices.slice(0, 3).map((service, idx) => (
+                <div key={idx} className="flex items-baseline gap-4 py-4 md:pr-8">
+                  <span className="font-serif-title text-lg font-semibold text-[#dfa82e] shrink-0 tabular-nums">
+                    0{idx + 1}
                   </span>
-                  <span className="text-xs text-[#dfa82e] font-medium tracking-wide mt-1 block">
-                    Efisiensi Operasional &amp; Total Compliance
+                  <span className="text-sm text-slate-100 leading-relaxed">
+                    <EditableText
+                      fieldPath={`retainer.serviceItems.${idx}`}
+                      fallback={service}
+                      label={`Item Retainer #${idx + 1}`}
+                    />
                   </span>
                 </div>
-              </div>
+              ))}
             </div>
-
+            <div className="divide-y divide-white/10 border-t border-white/10 md:border-t-0">
+              {retainerServices.slice(3, 6).map((service, idx) => {
+                const realIdx = idx + 3;
+                return (
+                  <div key={realIdx} className="flex items-baseline gap-4 py-4 md:pl-8">
+                    <span className="font-serif-title text-lg font-semibold text-[#dfa82e] shrink-0 tabular-nums">
+                      0{realIdx + 1}
+                    </span>
+                    <span className="text-sm text-slate-100 leading-relaxed">
+                      <EditableText
+                        fieldPath={`retainer.serviceItems.${realIdx}`}
+                        fallback={service}
+                        label={`Item Retainer #${realIdx + 1}`}
+                      />
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
           </div>
+        </div>
+
+        {/* Bottom Action Strip */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+          <div className="space-y-1">
+            <h3 className="font-serif-title text-2xl font-semibold text-white">
+              <EditableText
+                fieldPath="retainer.ctaTitle"
+                fallback="Butuh Skema Retainer Sesuai Skala Perusahaan?"
+                label="Judul CTA Retainer"
+              />
+            </h3>
+            <p className="text-sm text-slate-300">
+              <EditableText
+                fieldPath="retainer.ctaSubtitle"
+                fallback="Sampaikan kebutuhan bulanan tim Anda untuk mendapatkan proposal ruang lingkup kerja tertulis."
+                label="Subjudul CTA Retainer"
+              />
+            </p>
+          </div>
+          <Link
+            href="/kontak"
+            onClick={(e) => {
+              if (isEditMode) {
+                e.preventDefault();
+                e.stopPropagation();
+              }
+            }}
+            className="btn btn-primary shrink-0"
+          >
+            <EditableIcon
+              iconKey="retainer.ctaIcon"
+              fallbackIcon="Handshake"
+              className="w-4 h-4"
+              label="Ikon Tombol Retainer"
+            />
+            <span>
+              <EditableText
+                fieldPath="retainer.ctaButtonText"
+                fallback="Minta Proposal Retainer"
+                label="Tombol Retainer"
+              />
+            </span>
+          </Link>
         </div>
 
       </div>

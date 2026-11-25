@@ -61,9 +61,9 @@
 }
 
 @layer components {
-  /* Playfair Display for all editorial headings matching Web NH style */
+  /* Cormorant Garamond for high-contrast editorial legal headings and display numerals */
   .font-serif-title {
-    font-family: var(--font-playfair), 'Playfair Display', Georgia, serif;
+    font-family: var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
   }
 
   /* Corporate crisp 1px border utility */
