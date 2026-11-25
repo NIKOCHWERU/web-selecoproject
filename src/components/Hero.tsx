@@ -44,7 +44,6 @@ export default function Hero() {
           muted
           playsInline
           preload="auto"
-          poster="https://images.unsplash.com/photo-1453945619913-79ec89a82c51?auto=format&fit=crop&w=1920&q=80"
           className="absolute top-0 left-0 w-full h-full object-cover"
         >
           <source src={hero?.bgVideo || '/bg_hero.mp4'} type="video/mp4" />
