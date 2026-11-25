@@ -13,26 +13,26 @@ export default function FAQSection() {
   const items = faq?.items || [];
 
   return (
-    <EditableSection id="faq" name="FAQ Pertanyaan Umum Section" className="py-12 sm:py-16 bg-slate-50/70 border-b border-slate-200 text-slate-900">
+    <EditableSection id="faq" name="FAQ Pertanyaan Umum Section" className="section-y bg-slate-50 border-b border-slate-200 text-slate-900">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div className="text-center mb-8 sm:mb-10">
-          <div className="inline-flex items-center text-xs font-semibold tracking-wide text-[#0a1420] mb-2.5">
+        <div className="text-center mb-10 sm:mb-12">
+          <div className="eyebrow-legal mb-3">
             <EditableText
               fieldPath="faq.badge"
               fallback="Pertanyaan Umum"
               label="Badge FAQ"
             />
           </div>
-          <h2 className="font-serif-title text-2xl sm:text-3xl font-bold text-[#0a1420] leading-tight">
+          <h2 className="font-serif-title heading-section text-[#0a1420]">
             <EditableText
               fieldPath="faq.title"
               fallback="Frequently Asked Questions"
               label="Judul FAQ"
             />
           </h2>
-          <div className="w-12 h-0.5 bg-[#dfa82e] rounded-full mx-auto my-3" />
-          <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed">
+          <div className="w-16 h-[1.5px] bg-[#dfa82e] mx-auto my-4" />
+          <p className="text-sm text-slate-600 font-normal leading-relaxed">
             <EditableText
               fieldPath="faq.subtitle"
               fallback={faq?.subtitle || 'Pertanyaan yang sering diajukan seputar layanan kami'}
@@ -46,16 +46,16 @@ export default function FAQSection() {
           {items.map((item: any, idx: number) => (
             <div
               key={idx}
-              className="rounded-lg border px-4 sm:px-5 py-3.5 bg-white border-slate-200 hover:border-[#dfa82e]/50 transition-colors"
+              className="rounded-md border px-5 sm:px-6 py-4 bg-white border-[#0f2034]/12 hover:border-[#b88917]/60 transition-colors"
             >
               <button
                 onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
-                className="w-full min-h-[44px] flex items-center justify-between text-left font-bold text-xs sm:text-sm gap-4 text-[#0a1420] cursor-pointer"
+                className="w-full min-h-[44px] flex items-center justify-between text-left font-bold text-sm gap-4 text-[#0a1420] cursor-pointer"
                 aria-expanded={openIdx === idx}
               >
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-bold text-[#0a1420] shrink-0 font-sans px-1.5 py-0.5 rounded bg-[#dfa82e]/15 border border-[#dfa82e]/35">
-                    Q{idx + 1}
+                <div className="flex items-center gap-3.5">
+                  <span className="font-serif-title text-sm font-bold text-[#0f2034] shrink-0">
+                    0{idx + 1}
                   </span>
                   <span className="font-semibold text-[#0a1420] leading-snug">
                     <EditableText

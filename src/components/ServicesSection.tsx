@@ -81,28 +81,28 @@ export default function ServicesSection() {
   const pillars: any[] = (services?.pillars && services.pillars.length > 0) ? services.pillars : defaultPillars;
 
   return (
-    <EditableSection id="services" name="Layanan & Spesialisasi Section" className="py-12 sm:py-16 bg-slate-50/70 border-b border-slate-200 text-slate-900">
+    <EditableSection id="services" name="Layanan & Spesialisasi Section" className="section-y bg-slate-50 border-b border-slate-200 text-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-12 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-14 gap-6">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center text-xs font-semibold tracking-wide text-[#0a1420] mb-3">
+            <div className="eyebrow-legal mb-3">
               <EditableText
                 fieldPath="services.badge"
                 fallback="5 Pilar Layanan Konsultan Terpadu"
                 label="Badge Layanan"
               />
             </div>
-            <h2 className="font-serif-title text-2xl sm:text-3xl lg:text-4xl font-bold text-[#0a1420] leading-tight">
+            <h2 className="font-serif-title heading-section text-[#0a1420]">
               <EditableText
                 fieldPath="services.title"
                 fallback={`${totalServices} Layanan Konsultan Terpadu`}
                 label="Judul Layanan"
               />
             </h2>
-            <div className="w-12 h-0.5 bg-[#dfa82e] rounded-full my-3" />
-            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+            <div className="w-16 h-[1.5px] bg-[#dfa82e] my-4" />
+            <p className="text-sm text-slate-600 leading-[1.7] font-normal">
               <EditableText
                 fieldPath="services.subtitle"
                 fallback="Solusi konsultan komprehensif mencakup Konsultan Perizinan, Konsultan Imigrasi, Konsultan Pajak, Konsultan Pertanahan, dan Konsultan SDM untuk akselerasi dan kepatuhan operasional bisnis Anda."
@@ -122,8 +122,8 @@ export default function ServicesSection() {
           </div>
         </div>
 
-        {/* 5 Modern Pillar Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10 sm:mb-12">
+        {/* 5 Executive Pillar Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10 sm:mb-12">
           {pillars.map((cat, idx) => {
             const fallbackLink = cat.linkUrl || `/layanan?cat=${cat.id}`;
             const currentLink = services?.pillars?.[idx]?.linkUrl || fallbackLink;
@@ -143,21 +143,24 @@ export default function ServicesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: idx * 0.04 }}
-                className="relative group overflow-hidden rounded-xl border border-slate-200 hover:border-[#dfa82e]/60 min-h-[300px] flex flex-col justify-end text-left transition-colors"
+                className="relative group overflow-hidden rounded-md border border-[#0f2034]/20 hover:border-[#dfa82e]/80 min-h-[330px] flex flex-col justify-end text-left transition-colors bg-[#0a1420]"
               >
-                {/* Background image with dark gradient overlay */}
+                {/* Background image with deep navy editorial scrim */}
                 <div className="absolute inset-0 z-0">
                   <img
                     src={cardImg}
                     alt={cat.name}
-                    className="w-full h-full object-cover transition-opacity duration-500 opacity-70 group-hover:opacity-85"
+                    className="w-full h-full object-cover transition-opacity duration-500 opacity-55 group-hover:opacity-70"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a1420] via-[#0a1420]/90 to-[#0a1420]/40"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a1420] via-[#0a1420]/85 to-[#0a1420]/30"></div>
                 </div>
 
-                {/* Top Badge */}
-                <div className="absolute top-3.5 right-3.5 z-10">
-                  <span className="px-3 py-1 rounded bg-[#0a1420]/90 border border-[#dfa82e]/40 text-[#dfa82e] text-xs font-bold tracking-wide">
+                {/* Top Practice Index & Count */}
+                <div className="absolute top-4 left-5 right-5 z-10 flex items-center justify-between">
+                  <span className="font-serif-title text-sm font-semibold text-[#dfa82e]">
+                    0{idx + 1}
+                  </span>
+                  <span className="px-2.5 py-1 rounded bg-[#0a1420]/85 border border-[#dfa82e]/35 text-[#dfa82e] text-xs font-semibold">
                     <EditableText
                       fieldPath={`services.pillars.${idx}.count`}
                       fallback={cat.count || '242 Items'}
@@ -167,8 +170,8 @@ export default function ServicesSection() {
                 </div>
 
                 {/* Content Overlay */}
-                <div className="relative z-10 p-5 sm:p-6 flex flex-col justify-end text-white">
-                  <div className="w-9 h-9 rounded-lg bg-[#dfa82e]/20 text-[#dfa82e] flex items-center justify-center mb-2.5 border border-[#dfa82e]/30 group-hover:bg-[#dfa82e] group-hover:text-[#0a1420] transition-colors">
+                <div className="relative z-10 p-6 flex flex-col justify-end text-white">
+                  <div className="w-9 h-9 rounded bg-[#dfa82e]/15 text-[#dfa82e] flex items-center justify-center mb-3.5 border border-[#dfa82e]/35">
                     <EditableIcon
                       iconKey={`services.pillars.${idx}.icon`}
                       fallbackIcon={cat.iconName || 'FileCheck'}
@@ -177,7 +180,7 @@ export default function ServicesSection() {
                     />
                   </div>
 
-                  <h3 className="text-base sm:text-lg font-bold mb-1.5 text-white font-sans group-hover:text-[#dfa82e] transition-colors">
+                  <h3 className="font-serif-title text-xl sm:text-[1.35rem] font-bold mb-2 text-white leading-snug group-hover:text-[#dfa82e] transition-colors">
                     <EditableText
                       fieldPath={`services.pillars.${idx}.name`}
                       fallback={cat.name}
@@ -186,7 +189,7 @@ export default function ServicesSection() {
                     />
                   </h3>
 
-                  <div className="text-xs text-slate-300 leading-relaxed line-clamp-2 font-normal mb-2.5">
+                  <div className="text-xs sm:text-[0.8125rem] text-slate-200 leading-relaxed line-clamp-2 font-normal mb-3.5">
                     <EditableText
                       fieldPath={`services.pillars.${idx}.description`}
                       fallback={cat.description}
@@ -196,7 +199,7 @@ export default function ServicesSection() {
                     />
                   </div>
 
-                  <div className="w-6 h-0.5 bg-[#dfa82e] mb-3"></div>
+                  <div className="w-10 h-px bg-[#dfa82e]/70 mb-3.5"></div>
 
                   <Link
                     href={currentLink}

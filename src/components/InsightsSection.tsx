@@ -11,26 +11,26 @@ export default function InsightsSection() {
   const articles = insights?.articles || [];
 
   return (
-    <EditableSection id="insights" name="Publikasi Insight Section" className="py-12 sm:py-16 bg-white border-b border-slate-200 text-slate-900">
+    <EditableSection id="insights" name="Publikasi Insight Section" className="section-y bg-white border-b border-slate-200 text-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="max-w-2xl mb-10">
-          <div className="inline-flex items-center text-xs font-semibold tracking-wide text-[#0a1420] mb-2.5">
+        <div className="max-w-2xl mb-12">
+          <div className="eyebrow-legal mb-3">
             <EditableText
               fieldPath="insights.badge"
               fallback="Publikasi Editorial"
               label="Badge Insight"
             />
           </div>
-          <h2 className="font-serif-title text-2xl sm:text-3xl lg:text-3xl font-bold text-[#0a1420] leading-tight">
+          <h2 className="font-serif-title heading-section text-[#0a1420]">
             <EditableText
               fieldPath="insights.title"
               fallback="Legal Insights"
               label="Judul Insight"
             />
           </h2>
-          <div className="w-12 h-0.5 bg-[#dfa82e] rounded-full my-3" />
-          <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed">
+          <div className="w-16 h-[1.5px] bg-[#dfa82e] my-4" />
+          <p className="text-sm text-slate-600 font-normal leading-[1.7]">
             <EditableText
               fieldPath="insights.subtitle"
               fallback="Perspektif strategis dan regulasi dari tim konsultan SELECO untuk pengambilan keputusan bisnis yang lebih terukur."
@@ -48,15 +48,15 @@ export default function InsightsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.35, delay: idx * 0.04 }}
-              className="bg-slate-50/70 border border-slate-200 rounded-xl overflow-hidden flex flex-col hover:border-[#dfa82e]/60 hover:bg-white transition-colors group"
+              className="bg-white border border-[#0f2034]/12 rounded-md overflow-hidden flex flex-col hover:border-[#b88917]/60 transition-colors group"
             >
-              <div className="h-40 sm:h-44 overflow-hidden border-b border-slate-200 bg-slate-100">
+              <div className="h-44 sm:h-48 overflow-hidden border-b border-[#0f2034]/10 bg-slate-100">
                 <EditableImage
                   fieldPath={`insights.articles.${idx}.image`}
                   fallback={article.image || article.img}
                   alt={article.title}
                   label={`Foto Artikel #${idx + 1}`}
-                  className="w-full h-full object-cover transition-opacity duration-300 opacity-90 group-hover:opacity-100"
+                  className="w-full h-full object-cover transition-opacity duration-300 opacity-95 group-hover:opacity-100"
                 />
               </div>
               <div className="p-5 flex flex-col flex-grow">

@@ -48,26 +48,26 @@ export default function ContactSection() {
   ];
 
   return (
-    <EditableSection id="contact" name="Kontak & Kantor Section" className="py-12 sm:py-16 bg-white border-b border-slate-200 text-slate-900">
+    <EditableSection id="contact" name="Kontak & Kantor Section" className="section-y bg-white border-b border-slate-200 text-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div className="max-w-2xl mb-10 sm:mb-12">
-          <div className="inline-flex items-center text-xs font-semibold tracking-wide text-[#0a1420] mb-2.5">
+        <div className="max-w-2xl mb-12">
+          <div className="eyebrow-legal mb-3">
             <EditableText
               fieldPath="contact.badge"
               fallback="Hubungi Kami"
               label="Badge Kontak"
             />
           </div>
-          <h2 className="font-serif-title text-2xl sm:text-3xl lg:text-3xl font-bold text-[#0a1420] leading-tight">
+          <h2 className="font-serif-title heading-section text-[#0a1420]">
             <EditableText
               fieldPath="contact.title"
               fallback="Mari Diskusikan Kebutuhan Konsultan Bisnis Anda."
               label="Judul Kontak"
             />
           </h2>
-          <div className="w-12 h-0.5 bg-[#dfa82e] rounded-full my-3" />
-          <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed">
+          <div className="w-16 h-[1.5px] bg-[#dfa82e] my-4" />
+          <p className="text-sm text-slate-600 font-normal leading-[1.7]">
             <EditableText
               fieldPath="contact.subtitle"
               fallback="Sampaikan secara singkat kebutuhan bisnis dan korporasi Anda. Tim kami akan merespons dalam 1x24 jam kerja."
@@ -85,7 +85,7 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="lg:col-span-2 bg-[#0a1420] text-white rounded-2xl p-6 sm:p-7 border border-[#dfa82e]/30 flex flex-col justify-between relative overflow-hidden"
+            className="lg:col-span-2 bg-[#0a1420] text-white rounded-md p-7 sm:p-8 border border-[#dfa82e]/25 border-t-2 border-t-[#dfa82e] flex flex-col justify-between relative overflow-hidden"
           >
             <div>
               <h3 className="font-serif-title text-lg lg:text-xl font-bold text-white mb-0.5">

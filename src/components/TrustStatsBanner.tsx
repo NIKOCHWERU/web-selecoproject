@@ -61,28 +61,28 @@ export default function TrustStatsBanner() {
   ];
 
   return (
-    <EditableSection id="trust-stats" name="Statistik Kepercayaan Banner" className="bg-slate-50 py-8 sm:py-10 border-b border-slate-200 text-slate-900">
+    <EditableSection id="trust-stats" name="Statistik Kepercayaan Banner" className="bg-slate-50 py-10 sm:py-12 border-b border-slate-200 text-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 border border-slate-200 bg-white rounded-lg divide-slate-200 max-lg:[&>*:nth-child(n+3)]:border-t max-lg:[&>*:nth-child(even)]:border-l lg:divide-x">
+        <div className="grid grid-cols-2 lg:grid-cols-4 border border-[#0f2034]/12 border-t-2 border-t-[#b88917] bg-white rounded-md divide-slate-200 max-lg:[&>*:nth-child(n+3)]:border-t max-lg:[&>*:nth-child(even)]:border-l lg:divide-x">
           {stats.map((stat, i) => (
-            <div key={i} className="p-4 sm:p-5 flex flex-col items-start gap-1">
-              <div className="text-[#0f2034] mb-1">
+            <div key={i} className="p-5 sm:p-7 flex flex-col items-start gap-2">
+              <div className="w-9 h-9 rounded bg-[#0f2034]/5 border border-[#0f2034]/10 text-[#0f2034] flex items-center justify-center mb-1">
                 <EditableIcon
                   iconKey={stat.iconKey}
                   fallbackIcon={stat.fallbackIcon}
-                  className="w-5 h-5"
+                  className="w-4 h-4"
                   label={stat.iconLabel}
                 />
               </div>
-              <p className="order-1 text-2xl sm:text-3xl font-bold text-[#0a1420] tracking-tight">
+              <p className="font-serif-title text-3xl sm:text-4xl font-bold text-[#0a1420] tracking-tight tabular-nums leading-none">
                 <EditableText
                   fieldPath={stat.numberPath}
                   fallback={stat.numberFallback}
                   label={stat.numberLabel}
                 />
-                <span>{stat.numberSuffix}</span>
+                <span className="text-[#b88917]">{stat.numberSuffix}</span>
               </p>
-              <p className="order-2 text-sm font-medium text-slate-600">
+              <p className="text-xs sm:text-sm font-medium text-slate-600 leading-snug">
                 <EditableText
                   fieldPath={stat.labelPath}
                   fallback={stat.labelFallback}
