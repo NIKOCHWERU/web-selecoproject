@@ -46,7 +46,8 @@ export default function TentangPage() {
             Siap Membahas Kebutuhan Bisnis Anda?
           </h2>
           <p className="text-sm md:text-base text-slate-300 mb-7 font-light">
-            Jadwalkan konsultasi awal, tatap muka maupun virtual. #YouBetterWithUs
+            Jadwalkan konsultasi awal, tatap muka maupun virtual.{' '}
+            <span className="text-[#dfa82e] font-bold">#YouBetterWithUs</span>
           </p>
           <Link
             href="/kontak"

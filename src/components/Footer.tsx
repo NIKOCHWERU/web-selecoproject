@@ -62,12 +62,29 @@ export default function Footer() {
               />
             </Link>
             <p className="text-slate-300 text-sm mb-6 leading-relaxed max-w-sm">
-              <EditableText
-                fieldPath="footer.description"
-                fallback="SELECO (Sedana Legal Consultant) dikelola oleh PT SELECO SWAKARYA NUSANTARA, konsultan hukum korporasi di Jakarta Pusat yang menyatukan perizinan usaha, keimigrasian, perpajakan, pertanahan, dan ketenagakerjaan dalam satu layanan terintegrasi untuk klien di seluruh Indonesia. #YouBetterWithUs"
-                label="Deskripsi Footer"
-                multiline={true}
-              />
+              {isEditMode ? (
+                <EditableText
+                  fieldPath="footer.description"
+                  fallback="SELECO (Sedana Legal Consultant) dikelola oleh PT SELECO SWAKARYA NUSANTARA, konsultan hukum korporasi di Jakarta Pusat yang menyatukan perizinan usaha, keimigrasian, perpajakan, pertanahan, dan ketenagakerjaan dalam satu layanan terintegrasi untuk klien di seluruh Indonesia. #YouBetterWithUs"
+                  label="Deskripsi Footer"
+                  multiline={true}
+                />
+              ) : (
+                (
+                  content?.footer?.description ||
+                  'SELECO (Sedana Legal Consultant) dikelola oleh PT SELECO SWAKARYA NUSANTARA, konsultan hukum korporasi di Jakarta Pusat yang menyatukan perizinan usaha, keimigrasian, perpajakan, pertanahan, dan ketenagakerjaan dalam satu layanan terintegrasi untuk klien di seluruh Indonesia. #YouBetterWithUs'
+                )
+                  .split(/(#YouBetterWithUs)/g)
+                  .map((part: string, i: number) =>
+                    part === '#YouBetterWithUs' ? (
+                      <span key={i} className="text-[#dfa82e] font-bold">
+                        {part}
+                      </span>
+                    ) : (
+                      <span key={i}>{part}</span>
+                    )
+                  )
+              )}
             </p>
           </div>
 
